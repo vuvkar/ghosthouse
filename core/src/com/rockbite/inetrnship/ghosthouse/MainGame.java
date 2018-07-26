@@ -17,6 +17,8 @@ public class MainGame {
     public MainGame(GhostHouse gh) {
         this.gh = gh;
 
+        //dummyComment
+
         preProcessRoomData(gh.assetLoader.getRooms());
 
         engine = new Engine();
