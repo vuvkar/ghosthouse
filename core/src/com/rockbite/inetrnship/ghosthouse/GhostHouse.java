@@ -2,32 +2,36 @@ package com.rockbite.inetrnship.ghosthouse;
 
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 public class GhostHouse extends ApplicationAdapter {
-	SpriteBatch batch;
-	Texture img;
-	
+
+	SaveDataLoader saveData;
+	AssetLoader assetLoader;
+
+	MainUI ui;
+	MainGame game;
+
 	@Override
 	public void create () {
-		batch = new SpriteBatch();
-		img = new Texture("badlogic.jpg");
+
+		assetLoader = new AssetLoader();
+
+		ui = new MainUI(this);
+		game = new MainGame(this);
 	}
 
 	@Override
 	public void render () {
-		Gdx.gl.glClearColor(1, 0, 0, 1);
-		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-		batch.begin();
-		batch.draw(img, 0, 0);
-		batch.end();
+		float delta = Math.min(Gdx.graphics.getDeltaTime(), 1 / 30f);
+		game.act(delta);
+		ui.act(delta);
+
+		game.render();
+		ui.draw();
 	}
 	
 	@Override
 	public void dispose () {
-		batch.dispose();
-		img.dispose();
+
 	}
 }
