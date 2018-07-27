@@ -3,6 +3,7 @@ package com.rockbite.inetrnship.ghosthouse;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.utils.Array;
 import com.rockbite.inetrnship.ghosthouse.data.Room;
+import com.rockbite.inetrnship.ghosthouse.util.RoomParser;
 
 public class AssetLoader extends AssetManager {
 
@@ -27,6 +28,7 @@ public class AssetLoader extends AssetManager {
 
     public Array<Room> processRoomData(int[] rawPixelData) {
         //TODO: hi Liana
+        RoomParser roomParser = new RoomParser();
 
         return null;
     }
