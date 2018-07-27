@@ -24,80 +24,83 @@ public class RoomParser {
 
     // fills the room with particular index
     private void fill(int row, int column, int fillNumber, int[][] array) {
-        if (row < 0 || column < 0 || row > array.length || column > array[0].length) return;
-
-        if (array[row][column] != 1) {
-
-            array[row][column] = fillNumber;
-
-            fill(row - 1, column, fillNumber, array);
-            fill(row - 1, column - 1, fillNumber, array);
-            fill(row, column - 1, fillNumber, array);
-            fill(row + 1, column - 1, fillNumber, array);
-            fill(row + 1, column, fillNumber, array);
-            fill(row + 1, column + 1, fillNumber, array);
-            fill(row, column + 1, fillNumber, array);
-            fill(row - 1, column + 1, fillNumber, array);
+        if (row < 0 || column < 0 || row >= array.length || column >= array[0].length) {
+            System.out.println("prcel em aziz3");
+            return;
         }
+
+        if (array[row][column] != 0) return;
+        array[row][column] = fillNumber;
+
+
+        fill(row - 1, column, fillNumber, array);
+        fill(row - 1, column - 1, fillNumber, array);
+        fill(row, column - 1, fillNumber, array);
+        fill(row + 1, column - 1, fillNumber, array);
+        fill(row + 1, column, fillNumber, array);
+        fill(row + 1, column + 1, fillNumber, array);
+        fill(row, column + 1, fillNumber, array);
+        fill(row - 1, column + 1, fillNumber, array);
+
         return;
     }
 
-    // finds origin point, end point, height & width of the room
-    private void points(int[][] filledArr, int index) {
-        int height = 0;
-        int width = 0;
-        int[] params = new int[2];
+    // returns bottom left corner of room (pushed, i. e. origin point of wall)
+    private int[] bottomLeftCorner(int[][] filledArr, int index) {
+        int[] pointCoords = new int[2];
 
-
-        // get width and origin point and push it
+        // loop through filled matrix and find origin point
         for (int i = 0; i < filledArr.length; ++i) {
             for (int j = 0; j < filledArr[0].length; ++j) {
                 if (filledArr[i][j] == index) {
-                    width++;
-                    if (filledArr[i][j + 1] == 1) {
-                        int originPoint = filledArr[i - 1][j + 1];
-                    }
-                }
-            }
-        }
+                    //width++;
+                    //System.out.println("width = " + width);
 
-        // get height and end point and push it
-        for (int j = 0; j < filledArr.length; ++j) {
-            for (int i = 0; i < filledArr[0].length; ++i) {
-                if (filledArr[i][j] == index) {
-                    height++;
-                    if (filledArr[i + 1][j] == 1) {
-                        int endPoint = filledArr[i + 1][j - 1];
+                    if (filledArr[i][j - 1] == 1 && filledArr[i + 1][j] == 1) {
+                        pointCoords[0] = i + 1;
+                        pointCoords[1] = j - 1;
+                        for (int k = 0; k < pointCoords.length; k++) {
+                            System.out.print(pointCoords[k] + " ");
+                        }
                     }
                 }
             }
         }
+        return pointCoords;
     }
 
-    // returns height & width of a room
-    private Vector2 roomParameters(int[][] arr) {
-        int height = 0;
-        int width = 0;
-        Vector2 params = new Vector2(height, width);
+    // returns top right corner of the room(pushed, i. e. origin point of wall)
+    private int[] topRightCorner(int[][] filledArr, int index){
+        int[] topRightCorn = new int[2];
 
-        // run on rows, find height
-        int originPoint = 0;
-        for (int j = 0; j < originPoint; ++j) {
-            for (int i = 0; i < arr.length; ++i) {
-                if (arr[i][j] == 0) {
-                    height++;
+        for (int i = 0; i < filledArr.length; ++i) {
+            for (int j = 0; j < filledArr[0].length; ++j) {
+                if (filledArr[i][j] == index) {
+                    if(filledArr[i - 1][j] == 1 && filledArr[i][j+1]==1) {
+                        topRightCorn[0] = i - 1;
+                        topRightCorn[1] = j + 1;
+                        for(int k=0;k<topRightCorn.length;++k){
+                            System.out.print(topRightCorn[k] + " ");
+                        }
+                    }
                 }
             }
         }
+        return topRightCorn;
+    }
 
-        // run on columns, find width
-        for (int i = 0; i < arr.length; ++i) {
-            for (int j = 0; j < arr.length; ++j) {
-                if (arr[i][j + 1] != 1) {
-                    width++;
-                }
-            }
-        }
-        return params;
+    // returns width and height of the room
+    private int[] getRoomParameters(int[][] filledArr, int index, int[] bottomLeft, int[] topRight) {
+        int width;
+        int height;
+        int[] arr = new int[0];
+
+        width = Math.abs(topRightCorner(filledArr, index)[0] - bottomLeftCorner(filledArr, index)[0]) + 1;
+        height = Math.abs(topRightCorner(filledArr, index)[0] - bottomLeftCorner(filledArr, index)[0]) + 1;
+
+        System.out.println("width = " + width);
+        System.out.println("height = " + height);
+
+        return arr;
     }
 }
