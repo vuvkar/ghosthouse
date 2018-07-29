@@ -32,6 +32,7 @@ public class GhostHouse extends ApplicationAdapter {
 	
 	@Override
 	public void dispose () {
-
+		game.dispose();
+		ui.dispose();
 	}
 }

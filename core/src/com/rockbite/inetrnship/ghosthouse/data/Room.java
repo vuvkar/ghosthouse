@@ -2,7 +2,7 @@ package com.rockbite.inetrnship.ghosthouse.data;
 
 import com.badlogic.gdx.math.Vector2;
 
-public class Room {
+public class Room implements Comparable<Room> {
     private int index;
     private Vector2 origin;
     private float width;
@@ -29,5 +29,10 @@ public class Room {
 
     public float getHeight() {
         return height;
+    }
+
+    @Override
+    public int compareTo(Room o) {
+        return (int)(this.origin.x - o.origin.x);
     }
 }
