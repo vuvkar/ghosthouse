@@ -12,7 +12,7 @@ public enum RectangleType {
             case WALL:
                 return  Color.GRAY;
             case BUILDING:
-                return  Color.WHITE;
+                return  Color.BLUE;
         }
         return null;
     }

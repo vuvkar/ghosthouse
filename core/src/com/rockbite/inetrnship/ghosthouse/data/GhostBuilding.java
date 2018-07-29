@@ -15,8 +15,8 @@ public class GhostBuilding {
     private Array<GhostRectangle> roomConnectingWalls;
     private Array<GhostRectangle> buildingConnectingWalls;
 
-    private final float WALL_HEIGHT = 1f;
-    private final float BUILDING_DEPTH = 5f;
+    private final float WALL_HEIGHT = 2f;
+    private final float BUILDING_DEPTH = 10f;
 
     private float buildingWidth;
     private float buildingHeight;
@@ -71,7 +71,8 @@ public class GhostBuilding {
         buildingWidth = topRight.x - bottomLeft.x;
         buildingHeight = topRight.y - bottomLeft.y;
 
-        Room fakeRoom = new Room(-1, new Vector2(bottomLeft.x, bottomLeft.y), buildingWidth, buildingHeight);
+        Room fakeRoom = new Room(-1, new Vector2(bottomLeft.x - WALL_HEIGHT, bottomLeft.y - WALL_HEIGHT),
+                buildingWidth + 2 * WALL_HEIGHT, buildingHeight + 2 * WALL_HEIGHT);
         Array<Room> rooms = new Array<Room>();
         rooms.add(fakeRoom);
 
@@ -79,6 +80,29 @@ public class GhostBuilding {
         for(GhostRectangle wall: walls) {
             wall.setType(RectangleType.BUILDING);
             wall.getNormal().scl(-1);
+        }
+        for(int i = 0; i < 2; i++) {
+            GhostRectangle rect = new GhostRectangle();
+            rect.setType(RectangleType.BUILDING);
+            rect.setNormal(new Vector3(0, 0, 1));
+            rect.setX(-WALL_HEIGHT);
+            rect.setY(-WALL_HEIGHT + i * (buildingHeight - WALL_HEIGHT));
+            rect.setZ(BUILDING_DEPTH);
+            rect.setHeight(WALL_HEIGHT);
+            rect.setWidth(buildingWidth);
+            walls.add(rect);
+        }
+
+        for(int i = 0; i < 2; i++) {
+            GhostRectangle rect = new GhostRectangle();
+            rect.setType(RectangleType.BUILDING);
+            rect.setNormal(new Vector3(0, 0, 1));
+            rect.setX(-WALL_HEIGHT + i * (buildingWidth - WALL_HEIGHT));
+            rect.setY(0);
+            rect.setZ(BUILDING_DEPTH);
+            rect.setHeight(buildingHeight - 2 * WALL_HEIGHT);
+            rect.setWidth(WALL_HEIGHT);
+            walls.add(rect);
         }
         return walls;
 

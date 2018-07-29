@@ -47,8 +47,8 @@ public class MainGame {
         Gdx.gl.glEnable(GL20.GL_DEPTH_TEST);
         Gdx.gl.glEnable(GL20.GL_BLEND);
 
-        float height = 5;
-        float width = 5;
+        float height = 15;
+        float width = 15;
         Array<Room> rooms = new Array<Room>();
        for(int i = 0; i < 5; i++)
            for(int j = 0; j < 4; j++){
