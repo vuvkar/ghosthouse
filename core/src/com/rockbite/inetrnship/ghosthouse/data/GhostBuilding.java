@@ -1,5 +1,7 @@
 package com.rockbite.inetrnship.ghosthouse.data;
 
+import com.badlogic.gdx.math.MathUtils;
+import com.badlogic.gdx.math.Matrix4;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.utils.Array;
@@ -15,18 +17,29 @@ public class GhostBuilding {
     private Array<GhostRectangle> roomConnectingWalls;
     private Array<GhostRectangle> buildingConnectingWalls;
 
-    private final float WALL_HEIGHT = 1f;
-    private final float BUILDING_DEPTH = 10f;
+    private final float WALL_HEIGHT = 0.1f;
+    private final float BUILDING_DEPTH = 1f;
 
     private float buildingWidth;
     private float buildingHeight;
+    private  Vector2 buildingOrigin;
 
     public GhostBuilding(Array<Room> rooms) {
         this.rooms = rooms;
         this.buildingConnectingWalls = createBuildingConnectingWalls(rooms);
+        popInsideRooms();
         this.roomWalls = createRooms(rooms);
         this.faceWalls = createFaceWalls(rooms);
         this.roomConnectingWalls = createConnectingWalls(rooms);
+    }
+
+    public void popInsideRooms() {
+        for(Room room: rooms) {
+            Vector2 newOrigin = new Vector2(room.getOrigin().x + WALL_HEIGHT / 2 * MathUtils.cosDeg(45), room.getOrigin().y + WALL_HEIGHT/ 2 * MathUtils.sinDeg(45) );
+            room.setOrigin(newOrigin);
+            room.setHeight(room.getHeight() + WALL_HEIGHT  * MathUtils.sinDeg(225) );
+            room.setWidth(room.getWidth() + WALL_HEIGHT  * MathUtils.cosDeg(225));
+        }
     }
 
     public Array<GhostRectangle> getAllRects() {
@@ -42,11 +55,11 @@ public class GhostBuilding {
         Array<GhostRectangle> result = new Array<GhostRectangle>();
         for(Room current: arr) {
             GhostRectangle rectangle = new GhostRectangle();
-            rectangle.setX(current.getOrigin().x + WALL_HEIGHT);
-            rectangle.setY(current.getOrigin().y + WALL_HEIGHT);
+            rectangle.setX(current.getOrigin().x );
+            rectangle.setY(current.getOrigin().y );
             rectangle.setZ(0);
-            rectangle.setHeight(current.getHeight() - 2 * WALL_HEIGHT);
-            rectangle.setWidth(current.getWidth() - 2 * WALL_HEIGHT);
+            rectangle.setHeight(current.getHeight() );
+            rectangle.setWidth(current.getWidth() );
             rectangle.setType(RectangleType.ROOM);
             rectangle.setNormal(new Vector3(0, 0, 1));
 
@@ -61,18 +74,25 @@ public class GhostBuilding {
         Vector2 bottomLeft = new Vector2();
 
         for(Room current: arr) {
-            bottomLeft.x = Math.min(bottomLeft.x, current.getOrigin().x - WALL_HEIGHT);
-            bottomLeft.y = Math.min(bottomLeft.y, current.getOrigin().y - WALL_HEIGHT);
+            bottomLeft.x = Math.min(bottomLeft.x, current.getOrigin().x );
+            bottomLeft.y = Math.min(bottomLeft.y, current.getOrigin().y );
 
-            topRight.x = Math.max(topRight.x, current.getOrigin().x + current.getWidth() + WALL_HEIGHT);
-            topRight.y = Math.max(topRight.y, current.getOrigin().y + current.getHeight() + WALL_HEIGHT);
+            topRight.x = Math.max(topRight.x, current.getOrigin().x + current.getWidth() );
+            topRight.y = Math.max(topRight.y, current.getOrigin().y + current.getHeight());
         }
+
+        topRight.x += WALL_HEIGHT / 2 * MathUtils.cosDeg(45) ;
+        topRight.y += WALL_HEIGHT / 2 * MathUtils.sinDeg(45);
+
+        bottomLeft.x += WALL_HEIGHT / 2 * MathUtils.cosDeg(225) ;
+        bottomLeft.y += WALL_HEIGHT / 2 * MathUtils.sinDeg(225) ;
 
         buildingWidth = topRight.x - bottomLeft.x;
         buildingHeight = topRight.y - bottomLeft.y;
 
-        Room fakeRoom = new Room(-1, new Vector2(bottomLeft.x - WALL_HEIGHT, bottomLeft.y - WALL_HEIGHT),
-                buildingWidth + 2 * WALL_HEIGHT, buildingHeight + 2 * WALL_HEIGHT);
+        buildingOrigin = bottomLeft;
+
+        Room fakeRoom = new Room(-1, bottomLeft, buildingWidth, buildingHeight);
         Array<Room> rooms = new Array<Room>();
         rooms.add(fakeRoom);
 
@@ -81,34 +101,11 @@ public class GhostBuilding {
             wall.setType(RectangleType.BUILDING);
             wall.getNormal().scl(-1);
         }
-        for(int i = 0; i < 2; i++) {
-            GhostRectangle rect = new GhostRectangle();
-            rect.setType(RectangleType.BUILDING);
-            rect.setNormal(new Vector3(0, 0, 1));
-            rect.setX(-WALL_HEIGHT);
-            rect.setY(-WALL_HEIGHT + i * (buildingHeight - WALL_HEIGHT));
-            rect.setZ(BUILDING_DEPTH);
-            rect.setHeight(WALL_HEIGHT);
-            rect.setWidth(buildingWidth);
-            walls.add(rect);
-        }
-
-        for(int i = 0; i < 2; i++) {
-            GhostRectangle rect = new GhostRectangle();
-            rect.setType(RectangleType.BUILDING);
-            rect.setNormal(new Vector3(0, 0, 1));
-            rect.setX(-WALL_HEIGHT + i * (buildingWidth - WALL_HEIGHT));
-            rect.setY(0);
-            rect.setZ(BUILDING_DEPTH);
-            rect.setHeight(buildingHeight - 2 * WALL_HEIGHT);
-            rect.setWidth(WALL_HEIGHT);
-            walls.add(rect);
-        }
         return walls;
 
     }
 
-    Array<GhostRectangle>  createFaceWalls(Array<Room> rooms) {
+    Array<GhostRectangle> createFaceWalls(Array<Room> rooms) {
         Array<GhostLine> lines = createLines(rooms);
         lines = breakLines(lines, rooms);
         Array<GhostRectangle> result = findInitialRects(lines);
@@ -119,11 +116,11 @@ public class GhostBuilding {
     Array<GhostLine> createLines(Array<Room> rooms){
         Set<GhostLine> lines = new HashSet<GhostLine>() ;
         for(Room room: rooms) {
-            lines.add(new GhostLine(room.getOrigin().y + room.getHeight() - WALL_HEIGHT, 0, buildingWidth - 2 * WALL_HEIGHT));
-            lines.add(new GhostLine(room.getOrigin().y + WALL_HEIGHT, 0, buildingWidth - 2 * WALL_HEIGHT));
+            lines.add(new GhostLine(room.getOrigin().y + room.getHeight(), buildingOrigin.x, buildingWidth));
+            lines.add(new GhostLine(room.getOrigin().y, buildingOrigin.x, buildingWidth));
         }
-        lines.add(new GhostLine(0, 0, buildingWidth - 2 * WALL_HEIGHT));
-        lines.add (new GhostLine(buildingHeight - 2 * WALL_HEIGHT, 0, buildingWidth - 2 * WALL_HEIGHT));
+        lines.add(new GhostLine(buildingOrigin.y, buildingOrigin.x, buildingWidth));
+        lines.add (new GhostLine(buildingOrigin.y + buildingHeight, buildingOrigin.x, buildingWidth));
         Array<GhostLine> uniquesLines = new Array<GhostLine>();
         for(GhostLine line: lines) {
             uniquesLines.add(line);
@@ -136,46 +133,46 @@ public class GhostBuilding {
         for(Room room: rooms) {
             //top
             GhostRectangle top = new GhostRectangle();
-            top.setWidth(room.getWidth() - 2 * WALL_HEIGHT);
+            top.setWidth(room.getWidth());
             top.setHeight(BUILDING_DEPTH);
             Vector3 topNormal = new Vector3(0, -1, 0);
             top.setNormal(topNormal);
             top.setType(RectangleType.ROOM);
-            top.setX(room.getOrigin().x + WALL_HEIGHT);
-            top.setY(room.getOrigin().y + room.getHeight() - WALL_HEIGHT);
+            top.setX(room.getOrigin().x);
+            top.setY(room.getOrigin().y + room.getHeight());
             result.add(top);
 
             //bottom
             GhostRectangle bottom = new GhostRectangle();
-            bottom.setWidth(room.getWidth() - 2 * WALL_HEIGHT);
+            bottom.setWidth(room.getWidth());
             bottom.setHeight(BUILDING_DEPTH);
             Vector3 bottomNormal = new Vector3(0, 1, 0);
             bottom.setNormal(bottomNormal);
             bottom.setType(RectangleType.ROOM);
-            bottom.setX(room.getOrigin().x + WALL_HEIGHT);
-            bottom.setY(room.getOrigin().y + WALL_HEIGHT);
+            bottom.setX(room.getOrigin().x);
+            bottom.setY(room.getOrigin().y);
             result.add(bottom);
 
             //left
             GhostRectangle left = new GhostRectangle();
             left.setWidth(BUILDING_DEPTH);
-            left.setHeight(room.getHeight() - 2 * WALL_HEIGHT);
+            left.setHeight(room.getHeight());
             Vector3 leftNormal = new Vector3(1, 0, 0);
             left.setNormal(leftNormal);
             left.setType(RectangleType.ROOM);
-            left.setX(room.getOrigin().x + WALL_HEIGHT);
-            left.setY(room.getOrigin().y + WALL_HEIGHT);
+            left.setX(room.getOrigin().x);
+            left.setY(room.getOrigin().y);
             result.add(left);
 
             //right
             GhostRectangle right = new GhostRectangle();
             right.setWidth(BUILDING_DEPTH);
-            right.setHeight(room.getHeight() - 2 * WALL_HEIGHT);
+            right.setHeight(room.getHeight());
             Vector3 rightNormal = new Vector3(-1, 0, 0);
             right.setNormal(rightNormal);
             right.setType(RectangleType.ROOM);
-            right.setX(room.getOrigin().x + room.getWidth() - WALL_HEIGHT);
-            right.setY(room.getOrigin().y + WALL_HEIGHT);
+            right.setX(room.getOrigin().x + room.getWidth());
+            right.setY(room.getOrigin().y);
             result.add(right);
 
 
@@ -191,12 +188,13 @@ public class GhostBuilding {
         for(int i = 0; i < size; i++) {
             GhostLine current = lines.get(i);
             for(Room room: rooms) {
-                float temp = current.getY()  - room.getOrigin().y - WALL_HEIGHT;
-                if(temp >= 0 && temp < room.getHeight()-2*WALL_HEIGHT) {
-                    GhostLine fragment = new GhostLine(current.getY(), current.getX(), room.getOrigin().x + WALL_HEIGHT - current.getX());
+                float temp = current.getY() - room.getOrigin().y;
+                if(temp >= 0 && temp < room.getHeight()) {
+                    GhostLine fragment = new GhostLine(current.getY(), current.getX(), room.getOrigin().x - current.getX());
                     lines.add(fragment);
-                    current.setX(room.getOrigin().x + room.getWidth() - WALL_HEIGHT);
-                    current.setLength(current.getLength() - fragment.getLength() - room.getWidth() + 2 * WALL_HEIGHT);
+                    current.setX(room.getOrigin().x + room.getWidth());
+                    current.setLength(current.getLength() - fragment.getLength());
+                    current.setLength(current.getLength() - room.getWidth());
                 }
 
             }
@@ -208,7 +206,7 @@ public class GhostBuilding {
     Array<GhostRectangle> findInitialRects(Array<GhostLine> lines){
         lines.sort();
         Array<GhostRectangle> result = new Array<GhostRectangle>();
-        float currentLevel = buildingHeight -  2 * WALL_HEIGHT;
+        float currentLevel = buildingHeight + buildingOrigin.y;
         for(int i = 1; i < lines.size ; i++) {
             GhostLine current = lines.get(i);
 

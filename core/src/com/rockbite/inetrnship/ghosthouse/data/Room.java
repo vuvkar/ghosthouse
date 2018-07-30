@@ -8,11 +8,24 @@ public class Room implements Comparable<Room> {
     private float width;
     private float height;
 
+    public void setOrigin(Vector2 origin) {
+        this.origin = origin;
+    }
+
+    public void setWidth(float width) {
+        this.width = width;
+    }
+
+    public void setHeight(float height) {
+        this.height = height;
+    }
+
     public Room(int index, Vector2 origin, float width, float height) {
         this.index = index;
         this.origin = origin;
         this.width = width;
         this.height = height;
+
     }
 
     public int getIndex() {
@@ -33,6 +46,11 @@ public class Room implements Comparable<Room> {
 
     @Override
     public int compareTo(Room o) {
-        return (int)(this.origin.x - o.origin.x);
+        float value = this.origin.x - o.origin.x;
+        if (value == 0) {
+            return 0;
+        }
+        return value > 0 ? 1 : -1;
+
     }
 }

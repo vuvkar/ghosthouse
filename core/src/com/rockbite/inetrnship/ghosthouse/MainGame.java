@@ -54,14 +54,14 @@ public class MainGame {
         Gdx.gl.glEnable(GL20.GL_DEPTH_TEST);
         Gdx.gl.glEnable(GL20.GL_BLEND);
 
-        float height = 15;
-        float width = 15;
+        float height = 5;
+        float width = 5;
+
         Array<Room> rooms = new Array<Room>();
-       for(int i = 0; i < 5; i++)
-           for(int j = 0; j < 4; j++){
-                Room room = new Room(i+j, new Vector2(  j*width, i* height), width, height);
+
+                Room room = new Room(0, new Vector2(  0, 0), width, height);
                 rooms.add(room);
-           }
+         // }
 
 
         building = new GhostBuilding(rooms);

@@ -86,9 +86,10 @@ public class GhostRectangle implements Comparable<GhostRectangle> {
 
     @Override
     public int compareTo(GhostRectangle o){
-        int value = (int)(o.x - this.x);
-        if(value == 0)
-            return (int)(this.y - o.y);
-        return value;
+        float value = o.x - this.x;
+        if (value == 0) {
+            value = this.y - o.y;
+        }
+        return value > 0 ? 1 : -1;
     }
 }

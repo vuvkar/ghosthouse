@@ -25,6 +25,7 @@ public class GhostBuildingMesh  {
 
     public GhostBuildingMesh(Array<GhostRectangle> rects) {
 
+
         vertices = new float[rects.size * 4 * ATTRIBUTE_COUNT];
         indices = new short[rects.size * 3 * 2];
 
@@ -52,6 +53,8 @@ public class GhostBuildingMesh  {
         building.render(shaderProgram, GL20.GL_TRIANGLES);
         shaderProgram.end();
     }
+
+
 
 
     public void drawRectangle(GhostRectangle rectangle) {

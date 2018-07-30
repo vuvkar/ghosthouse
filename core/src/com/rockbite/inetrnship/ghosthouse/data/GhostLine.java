@@ -56,10 +56,11 @@ public class GhostLine implements Comparable<GhostLine> {
 
     @Override
     public int compareTo(GhostLine o) {
-        int value = (int)(o.y - this.y);
-        if(value == 0)
-            return (int)(this.x - o.x);
-        return value;
+        float value = o.y - this.y;
+        if (value == 0) {
+            value = this.x - o.x;
+        }
+        return value > 0 ? 1 : -1;
     }
 
 }
