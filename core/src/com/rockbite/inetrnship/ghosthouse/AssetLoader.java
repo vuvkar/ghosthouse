@@ -9,7 +9,7 @@ import com.rockbite.inetrnship.ghosthouse.util.RoomParser;
 public class AssetLoader extends AssetManager {
 
     private Array<Room> rooms;
-
+    //45
     public AssetLoader() {
         loadGameData();
     }
