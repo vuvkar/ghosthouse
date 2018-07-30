@@ -18,6 +18,7 @@ public class MainGame {
     private GhostHouse gh;
     private Engine engine;
     private CameraSystem cameraSystem;
+    private AssetLoader assetLoader;
 
     Entity Cam;
     public CameraInputController camController;
@@ -48,27 +49,25 @@ public class MainGame {
         Gdx.gl.glEnable(GL20.GL_DEPTH_TEST);
         Gdx.gl.glEnable(GL20.GL_BLEND);
 
-        float height = 15;
-        float width = 15;
 
-        Array<Room> rooms = new Array<Room>();
-        for (int i = 0; i < 5; i++)
-            for (int j = 0; j < 4; j++) {
-                Room room = new Room(i + j, new Vector2(j * width, i * height), width, height);
-                rooms.add(room);
-            }
+        assetLoader = new AssetLoader();
+
+//        for (int i = 0; i < 5; i++)
+//            for (int j = 0; j < 4; j++) {
+//                Room room = new Room(i + j, new Vector2(j * width, i * height), width, height);
+//                rooms.add(room);
+//            }
 
 
-        building = new GhostBuilding(rooms);
+        building = new GhostBuilding(assetLoader.getRooms());
         buildingMesh = new GhostBuildingMesh(building.getAllRects());
-
     }
 
     public void render() {
         cameraSystem.Cam.update();
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT | GL20.GL_DEPTH_BUFFER_BIT);
         Gdx.gl.glBlendFunc(GL20.GL_SRC_ALPHA, GL20.GL_ONE_MINUS_SRC_ALPHA);
-        // this all shuld eventually be rendered to FBO actually
+        // this all should eventually be rendered to FBO actually
 
         // first render sky
         // TODO: render sky

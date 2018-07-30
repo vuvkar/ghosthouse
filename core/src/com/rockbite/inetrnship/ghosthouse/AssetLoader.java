@@ -14,7 +14,6 @@ public class AssetLoader extends AssetManager {
 
     private Array<Room> rooms;
 
-    //45
     public AssetLoader() {
         loadGameData();
     }
@@ -27,6 +26,7 @@ public class AssetLoader extends AssetManager {
 
     public int[][] readPixelData() {
         // TODO: courtesy of Dave
+
         int[][] matrix = new int[0][0];
         String fileName = "unt.pbm";
         String line = null;
@@ -71,9 +71,9 @@ public class AssetLoader extends AssetManager {
         return (matrix);
     }
 
-
     public Array<Room> processRoomData(int[][] rawPixelData) {
         //TODO: hi Liana
+
         RoomParser roomParser = new RoomParser();
 
         Array<Room> roomArray = new Array<Room>();
@@ -81,14 +81,21 @@ public class AssetLoader extends AssetManager {
         roomParser.search(rawPixelData);
 
         int roomID = roomParser.getRoomCount();
+
         for (int i = 0; i < roomID; ++i) {
 
-            Vector2 bottomLeft = roomParser.bottomLeftCorner(rawPixelData, roomID);
-            Vector2 topRight = roomParser.topRightCorner(rawPixelData, roomID);
+            Vector2 bottomLeft = roomParser.bottomLeftCorner(rawPixelData, i);
+            Vector2 topRight = roomParser.topRightCorner(rawPixelData, i);
 
-            float height = roomParser.getRoomHeight(rawPixelData, roomID, bottomLeft, topRight);
-            float width = roomParser.getRoomWidth(rawPixelData, roomID, bottomLeft, topRight);
-            Room room = new Room(roomID, bottomLeft, width, height);
+            System.out.println(bottomLeft + " " + topRight);
+
+            float height = roomParser.getRoomHeight(rawPixelData, i, bottomLeft, topRight);
+            float width = roomParser.getRoomWidth(rawPixelData,i, bottomLeft, topRight);
+
+            System.out.println(width + " " + height);
+            System.out.println();
+
+            Room room = new Room(i, bottomLeft, height, width);
             roomArray.add(room);
         }
 

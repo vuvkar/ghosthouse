@@ -22,6 +22,14 @@ public class RoomParser {
         int index = 2;
         int k = 0;
 
+
+        for (int j = 0; j < arr[0].length; ++j) {
+            arr[arr.length - 1][j] = 1;
+        }
+
+
+        System.out.println();
+
         for (int i = 0; i < arr.length; ++i) {
             for (int j = 0; j < arr[0].length; ++j) {
                 if (arr[i][j] == 0) {
@@ -37,7 +45,6 @@ public class RoomParser {
     // fills the room with particular index
     private void fill(int row, int column, int fillNumber, int[][] array) {
         if (row < 0 || column < 0 || row >= array.length || column >= array[0].length) {
-            System.out.println("prcel em aziz3");
             return;
         }
 
@@ -59,6 +66,7 @@ public class RoomParser {
 
     // returns bottom left corner of room (pushed, i. e. origin point of wall)
     public Vector2 bottomLeftCorner(int[][] filledArr, int index) {
+        index += 2;
         Vector2 bottomCoords = new Vector2();
 
         // loop through filled matrix and find origin point
@@ -69,10 +77,10 @@ public class RoomParser {
                     //System.out.println("width = " + width);
 
                     if (filledArr[i][j - 1] == 1 && filledArr[i + 1][j] == 1) {
-                        bottomCoords.set(i, j);
-                        for (int k = 0; k < bottomCoords.len(); k++) {
-                            System.out.print(bottomCoords + " ");
-                        }
+                       // System.out.println(j + " " + i);
+                        bottomCoords.set(j - 1, filledArr.length - i - 2);
+                        break;
+
                     }
                 }
             }
@@ -82,16 +90,19 @@ public class RoomParser {
 
     // returns top right corner of the room(pushed, i. e. origin point of wall)
     public Vector2 topRightCorner(int[][] filledArr, int index) {
+        index += 2;
         Vector2 topCoords = new Vector2();
 
         for (int i = 0; i < filledArr.length; ++i) {
             for (int j = 0; j < filledArr[0].length; ++j) {
                 if (filledArr[i][j] == index) {
+                    if (i == 0) {
+                       // System.out.println("zib");
+                    }
                     if (filledArr[i - 1][j] == 1 && filledArr[i][j + 1] == 1) {
-                        topCoords.set(i, j);
-                        for (int k = 0; k < topCoords.len(); ++k) {
-                            System.out.print(topCoords + " ");
-                        }
+                        topCoords.set(j + 1, filledArr.length - i );
+                        break;
+
                     }
                 }
             }
@@ -103,7 +114,7 @@ public class RoomParser {
     public float getRoomWidth(int[][] filledArr, int index, Vector2 bottomLeft, Vector2 topRight) {
         float width;
 
-        width = Math.abs(topRightCorner(filledArr, index).x - bottomLeftCorner(filledArr, index).x) + 1;
+        width = Math.abs(topRightCorner(filledArr, index).y - bottomLeftCorner(filledArr, index).y);
 
         return width;
     }
@@ -111,7 +122,7 @@ public class RoomParser {
     public float getRoomHeight(int[][] filledArr, int index, Vector2 bottomLeft, Vector2 topRight) {
         float height;
 
-        height = Math.abs(topRightCorner(filledArr, index).y - bottomLeftCorner(filledArr, index).y) + 1;
+        height = Math.abs(topRightCorner(filledArr, index).x - bottomLeftCorner(filledArr, index).x);
 
         return height;
     }
