@@ -29,18 +29,22 @@ public class AssetLoader extends AssetManager {
 
     public Array<Room> processRoomData(int[][] rawPixelData) {
         //TODO: hi Liana
-        int index = 0;///////////////////////////////////////////////////////////////////////////////
         RoomParser roomParser = new RoomParser();
+
         Array<Room> roomArray = new Array<Room>();
 
         roomParser.search(rawPixelData);
 
-        for (int i = 0; i < index - 2; ++i) {
-            Vector2 bottomLeft = roomParser.bottomLeftCorner(rawPixelData, index);
-            Vector2 topRight = roomParser.topRightCorner(rawPixelData, index);
+        int roomID = roomParser.getRoomCount();
+        for (int i = 0; i < roomID; ++i) {
 
-            float height = roomParser.getRoomHeight(rawPixelData, index, bottomLeft, topRight);
-            float width = roomParser.getRoomWidth(rawPixelData, index, bottomLeft, topRight);
+            Vector2 bottomLeft = roomParser.bottomLeftCorner(rawPixelData, roomID);
+            Vector2 topRight = roomParser.topRightCorner(rawPixelData, roomID);
+
+            float height = roomParser.getRoomHeight(rawPixelData, roomID, bottomLeft, topRight);
+            float width = roomParser.getRoomWidth(rawPixelData, roomID, bottomLeft, topRight);
+            Room room = new Room(roomID, bottomLeft, width, height);
+            roomArray.add(room);
         }
 
         return roomArray;

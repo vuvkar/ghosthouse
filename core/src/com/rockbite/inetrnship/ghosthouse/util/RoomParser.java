@@ -7,6 +7,11 @@ import java.util.Arrays;
 
 public class RoomParser {
     Room roomData;
+    int roomID;
+
+    public int getRoomCount() {
+        return roomID;
+    }
 
     public RoomParser() {
 
@@ -25,6 +30,8 @@ public class RoomParser {
                 }
             }
         }
+
+        roomID = index - 2;
     }
 
     // fills the room with particular index
