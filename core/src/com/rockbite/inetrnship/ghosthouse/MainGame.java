@@ -25,10 +25,7 @@ public class MainGame {
     private GhostBuilding building;
     private GhostBuildingMesh buildingMesh;
 
-
-
-
-    public void act(float delta){
+    public void act(float delta) {
         engine.update(delta);
     }
 
@@ -37,15 +34,12 @@ public class MainGame {
 
         engine = new Engine();
 
-        engine = new Engine();
         cameraSystem = new CameraSystem();
 
         Cam = new Entity();
         Cam.add(new CameraComponent());
         engine.addSystem(cameraSystem);
         engine.addEntity(Cam);
-
-
 
         camController = new CameraInputController(cameraSystem.Cam);
 
@@ -56,12 +50,13 @@ public class MainGame {
 
         float height = 15;
         float width = 15;
+
         Array<Room> rooms = new Array<Room>();
-       for(int i = 0; i < 5; i++)
-           for(int j = 0; j < 4; j++){
-                Room room = new Room(i+j, new Vector2(  j*width, i* height), width, height);
+        for (int i = 0; i < 5; i++)
+            for (int j = 0; j < 4; j++) {
+                Room room = new Room(i + j, new Vector2(j * width, i * height), width, height);
                 rooms.add(room);
-           }
+            }
 
 
         building = new GhostBuilding(rooms);
@@ -69,7 +64,7 @@ public class MainGame {
 
     }
 
-    public void render () {
+    public void render() {
         cameraSystem.Cam.update();
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT | GL20.GL_DEPTH_BUFFER_BIT);
         Gdx.gl.glBlendFunc(GL20.GL_SRC_ALPHA, GL20.GL_ONE_MINUS_SRC_ALPHA);
@@ -90,7 +85,7 @@ public class MainGame {
 
     }
 
-    public void dispose () {
+    public void dispose() {
 
     }
 }

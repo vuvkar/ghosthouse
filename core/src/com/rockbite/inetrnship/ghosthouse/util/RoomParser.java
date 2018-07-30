@@ -6,9 +6,14 @@ import com.rockbite.inetrnship.ghosthouse.data.Room;
 import java.util.Arrays;
 
 public class RoomParser {
+    Room roomData;
+
+    public RoomParser() {
+
+    }
 
     // search for 0 element in array (i. e. room)
-    private void search(int[][] arr) {
+    public void search(int[][] arr) {
         int index = 2;
         int k = 0;
 
@@ -46,8 +51,8 @@ public class RoomParser {
     }
 
     // returns bottom left corner of room (pushed, i. e. origin point of wall)
-    private int[] bottomLeftCorner(int[][] filledArr, int index) {
-        int[] pointCoords = new int[2];
+    public Vector2 bottomLeftCorner(int[][] filledArr, int index) {
+        Vector2 bottomCoords = new Vector2();
 
         // loop through filled matrix and find origin point
         for (int i = 0; i < filledArr.length; ++i) {
@@ -57,50 +62,50 @@ public class RoomParser {
                     //System.out.println("width = " + width);
 
                     if (filledArr[i][j - 1] == 1 && filledArr[i + 1][j] == 1) {
-                        pointCoords[0] = i + 1;
-                        pointCoords[1] = j - 1;
-                        for (int k = 0; k < pointCoords.length; k++) {
-                            System.out.print(pointCoords[k] + " ");
+                        bottomCoords.set(i, j);
+                        for (int k = 0; k < bottomCoords.len(); k++) {
+                            System.out.print(bottomCoords + " ");
                         }
                     }
                 }
             }
         }
-        return pointCoords;
+        return bottomCoords;
     }
 
     // returns top right corner of the room(pushed, i. e. origin point of wall)
-    private int[] topRightCorner(int[][] filledArr, int index){
-        int[] topRightCorn = new int[2];
+    public Vector2 topRightCorner(int[][] filledArr, int index) {
+        Vector2 topCoords = new Vector2();
 
         for (int i = 0; i < filledArr.length; ++i) {
             for (int j = 0; j < filledArr[0].length; ++j) {
                 if (filledArr[i][j] == index) {
-                    if(filledArr[i - 1][j] == 1 && filledArr[i][j+1]==1) {
-                        topRightCorn[0] = i - 1;
-                        topRightCorn[1] = j + 1;
-                        for(int k=0;k<topRightCorn.length;++k){
-                            System.out.print(topRightCorn[k] + " ");
+                    if (filledArr[i - 1][j] == 1 && filledArr[i][j + 1] == 1) {
+                        topCoords.set(i, j);
+                        for (int k = 0; k < topCoords.len(); ++k) {
+                            System.out.print(topCoords + " ");
                         }
                     }
                 }
             }
         }
-        return topRightCorn;
+        return topCoords;
     }
 
     // returns width and height of the room
-    private int[] getRoomParameters(int[][] filledArr, int index, int[] bottomLeft, int[] topRight) {
-        int width;
-        int height;
-        int[] arr = new int[0];
+    public float getRoomWidth(int[][] filledArr, int index, Vector2 bottomLeft, Vector2 topRight) {
+        float width;
 
-        width = Math.abs(topRightCorner(filledArr, index)[0] - bottomLeftCorner(filledArr, index)[0]) + 1;
-        height = Math.abs(topRightCorner(filledArr, index)[0] - bottomLeftCorner(filledArr, index)[0]) + 1;
+        width = Math.abs(topRightCorner(filledArr, index).x - bottomLeftCorner(filledArr, index).x) + 1;
 
-        System.out.println("width = " + width);
-        System.out.println("height = " + height);
+        return width;
+    }
 
-        return arr;
+    public float getRoomHeight(int[][] filledArr, int index, Vector2 bottomLeft, Vector2 topRight) {
+        float height;
+
+        height = Math.abs(topRightCorner(filledArr, index).y - bottomLeftCorner(filledArr, index).y) + 1;
+
+        return height;
     }
 }
