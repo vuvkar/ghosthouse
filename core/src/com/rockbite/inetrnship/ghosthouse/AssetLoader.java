@@ -28,7 +28,7 @@ public class AssetLoader extends AssetManager {
         // TODO: courtesy of Dave
 
         int[][] matrix = new int[0][0];
-        String fileName = "unt.pbm";
+        String fileName = "shit.pbm";
         String line = null;
         try {
             FileReader filereader = new FileReader(fileName);

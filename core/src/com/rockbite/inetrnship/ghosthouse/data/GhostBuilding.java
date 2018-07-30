@@ -37,8 +37,8 @@ public class GhostBuilding {
         for(Room room: rooms) {
             Vector2 newOrigin = new Vector2(room.getOrigin().x + WALL_HEIGHT / 2 * MathUtils.cosDeg(45), room.getOrigin().y + WALL_HEIGHT/ 2 * MathUtils.sinDeg(45) );
             room.setOrigin(newOrigin);
-            room.setHeight(room.getHeight() + WALL_HEIGHT  * MathUtils.sinDeg(225) );
-            room.setWidth(room.getWidth() + WALL_HEIGHT  * MathUtils.cosDeg(225));
+            room.setHeight(room.getHeight() + MathUtils.sinDeg(225) );
+            room.setWidth(room.getWidth() + MathUtils.cosDeg(225));
         }
     }
 
