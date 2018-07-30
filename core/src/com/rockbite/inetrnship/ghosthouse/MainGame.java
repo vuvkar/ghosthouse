@@ -1,6 +1,7 @@
 package com.rockbite.inetrnship.ghosthouse;
 
 import com.badlogic.ashley.core.Engine;
+import com.badlogic.ashley.core.Entity;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.*;
 import com.badlogic.gdx.graphics.g3d.utils.CameraInputController;
@@ -9,6 +10,7 @@ import com.badlogic.gdx.utils.Array;
 import com.rockbite.inetrnship.ghosthouse.data.GhostBuilding;
 import com.rockbite.inetrnship.ghosthouse.data.GhostBuildingMesh;
 import com.rockbite.inetrnship.ghosthouse.data.Room;
+import com.rockbite.inetrnship.ghosthouse.ecs.components.CameraComponent;
 import com.rockbite.inetrnship.ghosthouse.ecs.systems.CameraSystem;
 
 public class MainGame {
@@ -17,12 +19,14 @@ public class MainGame {
     private Engine engine;
     private CameraSystem cameraSystem;
 
+    Entity Cam;
     public CameraInputController camController;
 
     private GhostBuilding building;
     private GhostBuildingMesh buildingMesh;
 
-    PerspectiveCamera camera;
+
+
 
     public void act(float delta){
         engine.update(delta);
@@ -33,14 +37,17 @@ public class MainGame {
 
         engine = new Engine();
 
-        camera = new PerspectiveCamera(67, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
-        camera.position.set(0f, 0f, 3f);
-        camera.lookAt(0,0,0);
-        camera.near = 1f;
-        camera.far = 300f;
-        camera.update();
+        engine = new Engine();
+        cameraSystem = new CameraSystem();
 
-        camController = new CameraInputController(camera);
+        Cam = new Entity();
+        Cam.add(new CameraComponent());
+        engine.addSystem(cameraSystem);
+        engine.addEntity(Cam);
+
+
+
+        camController = new CameraInputController(cameraSystem.Cam);
 
         Gdx.input.setInputProcessor(camController);
 
@@ -63,6 +70,7 @@ public class MainGame {
     }
 
     public void render () {
+        cameraSystem.Cam.update();
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT | GL20.GL_DEPTH_BUFFER_BIT);
         Gdx.gl.glBlendFunc(GL20.GL_SRC_ALPHA, GL20.GL_ONE_MINUS_SRC_ALPHA);
         // this all shuld eventually be rendered to FBO actually
@@ -72,7 +80,7 @@ public class MainGame {
 
         // then render building walls
         // TODO: render building
-        buildingMesh.render(camera);
+        buildingMesh.render(cameraSystem.Cam);
 
         // then render decorations/characters and items
         // TODO: render the rest
