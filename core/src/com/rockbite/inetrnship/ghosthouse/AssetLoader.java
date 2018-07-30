@@ -46,7 +46,7 @@ public class AssetLoader extends AssetManager {
             matrix = new int[width][height];
             int i = 0;
             int j = 0;
-            while (i < height - 1 && j < width - 1) {
+            while (i < height && j < width) {
                 line = bufferedreader.readLine();
                 while (line.charAt(0) == '#') {
                     line = bufferedreader.readLine();

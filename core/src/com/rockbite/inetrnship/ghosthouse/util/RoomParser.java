@@ -22,12 +22,6 @@ public class RoomParser {
         int index = 2;
         int k = 0;
 
-
-        for (int j = 0; j < arr[0].length; ++j) {
-            arr[arr.length - 1][j] = 1;
-        }
-
-
         System.out.println();
 
         for (int i = 0; i < arr.length; ++i) {
