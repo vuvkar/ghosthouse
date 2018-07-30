@@ -5,34 +5,32 @@ import com.badlogic.gdx.Gdx;
 
 public class GhostHouse extends ApplicationAdapter {
 
-	SaveDataLoader saveData;
-	AssetLoader assetLoader;
+    SaveDataLoader saveData;
+    AssetLoader assetLoader;
 
-	MainUI ui;
-	MainGame game;
+    MainUI ui;
+    MainGame game;
 
-	@Override
-	public void create () {
+    @Override
+    public void create() {
+        assetLoader = new AssetLoader();
+        ui = new MainUI(this);
+        game = new MainGame(this);
+    }
 
-		assetLoader = new AssetLoader();
+    @Override
+    public void render() {
+        float delta = Math.min(Gdx.graphics.getDeltaTime(), 1 / 30f);
+        game.act(delta);
+        ui.act(delta);
 
-		ui = new MainUI(this);
-		game = new MainGame(this);
-	}
+        game.render();
+        ui.draw();
+    }
 
-	@Override
-	public void render () {
-		float delta = Math.min(Gdx.graphics.getDeltaTime(), 1 / 30f);
-		game.act(delta);
-		ui.act(delta);
-
-		game.render();
-		ui.draw();
-	}
-	
-	@Override
-	public void dispose () {
-		game.dispose();
-		ui.dispose();
-	}
+    @Override
+    public void dispose() {
+        game.dispose();
+        ui.dispose();
+    }
 }
