@@ -90,7 +90,7 @@ public class AssetLoader extends AssetManager {
             System.out.println(bottomLeft + " " + topRight);
 
             float height = roomParser.getRoomHeight(rawPixelData, i, bottomLeft, topRight);
-            float width = roomParser.getRoomWidth(rawPixelData,i, bottomLeft, topRight);
+            float width = roomParser.getRoomWidth(rawPixelData, i, bottomLeft, topRight);
 
             System.out.println(width + " " + height);
             System.out.println();

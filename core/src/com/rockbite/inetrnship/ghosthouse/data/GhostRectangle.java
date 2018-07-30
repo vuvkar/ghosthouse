@@ -9,7 +9,7 @@ public class GhostRectangle implements Comparable<GhostRectangle> {
     private float width;
     private float height;
     private float x;
-    private  float y;
+    private float y;
     private float z;
 
     public GhostRectangle(Vector3 origin, float width, float height, Vector3 normal, RectangleType type) {
@@ -52,9 +52,9 @@ public class GhostRectangle implements Comparable<GhostRectangle> {
     }
 
 
-  public GhostRectangle() {
+    public GhostRectangle() {
 
-  }
+    }
 
     public Vector3 getNormal() {
         return normal;
@@ -85,7 +85,7 @@ public class GhostRectangle implements Comparable<GhostRectangle> {
     }
 
     @Override
-    public int compareTo(GhostRectangle o){
+    public int compareTo(GhostRectangle o) {
         float value = o.x - this.x;
         if (value == 0) {
             value = this.y - o.y;

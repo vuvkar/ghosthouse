@@ -22,7 +22,7 @@ public class GhostBuilding {
 
     private float buildingWidth;
     private float buildingHeight;
-    private  Vector2 buildingOrigin;
+    private Vector2 buildingOrigin;
 
     public GhostBuilding(Array<Room> rooms) {
         this.rooms = rooms;
@@ -34,10 +34,10 @@ public class GhostBuilding {
     }
 
     public void popInsideRooms() {
-        for(Room room: rooms) {
-            Vector2 newOrigin = new Vector2(room.getOrigin().x + WALL_HEIGHT / 2 * MathUtils.cosDeg(45), room.getOrigin().y + WALL_HEIGHT/ 2 * MathUtils.sinDeg(45) );
+        for (Room room : rooms) {
+            Vector2 newOrigin = new Vector2(room.getOrigin().x + WALL_HEIGHT / 2 * MathUtils.cosDeg(45), room.getOrigin().y + WALL_HEIGHT / 2 * MathUtils.sinDeg(45));
             room.setOrigin(newOrigin);
-            room.setHeight(room.getHeight() + MathUtils.sinDeg(225) );
+            room.setHeight(room.getHeight() + MathUtils.sinDeg(225));
             room.setWidth(room.getWidth() + MathUtils.cosDeg(225));
         }
     }
@@ -53,13 +53,13 @@ public class GhostBuilding {
 
     Array<GhostRectangle> createRooms(Array<Room> arr) {
         Array<GhostRectangle> result = new Array<GhostRectangle>();
-        for(Room current: arr) {
+        for (Room current : arr) {
             GhostRectangle rectangle = new GhostRectangle();
-            rectangle.setX(current.getOrigin().x );
-            rectangle.setY(current.getOrigin().y );
+            rectangle.setX(current.getOrigin().x);
+            rectangle.setY(current.getOrigin().y);
             rectangle.setZ(0);
-            rectangle.setHeight(current.getHeight() );
-            rectangle.setWidth(current.getWidth() );
+            rectangle.setHeight(current.getHeight());
+            rectangle.setWidth(current.getWidth());
             rectangle.setType(RectangleType.ROOM);
             rectangle.setNormal(new Vector3(0, 0, 1));
 
@@ -73,19 +73,19 @@ public class GhostBuilding {
         Vector2 topRight = new Vector2();
         Vector2 bottomLeft = new Vector2();
 
-        for(Room current: arr) {
-            bottomLeft.x = Math.min(bottomLeft.x, current.getOrigin().x );
-            bottomLeft.y = Math.min(bottomLeft.y, current.getOrigin().y );
+        for (Room current : arr) {
+            bottomLeft.x = Math.min(bottomLeft.x, current.getOrigin().x);
+            bottomLeft.y = Math.min(bottomLeft.y, current.getOrigin().y);
 
-            topRight.x = Math.max(topRight.x, current.getOrigin().x + current.getWidth() );
+            topRight.x = Math.max(topRight.x, current.getOrigin().x + current.getWidth());
             topRight.y = Math.max(topRight.y, current.getOrigin().y + current.getHeight());
         }
 
-        topRight.x += WALL_HEIGHT / 2 * MathUtils.cosDeg(45) ;
+        topRight.x += WALL_HEIGHT / 2 * MathUtils.cosDeg(45);
         topRight.y += WALL_HEIGHT / 2 * MathUtils.sinDeg(45);
 
-        bottomLeft.x += WALL_HEIGHT / 2 * MathUtils.cosDeg(225) ;
-        bottomLeft.y += WALL_HEIGHT / 2 * MathUtils.sinDeg(225) ;
+        bottomLeft.x += WALL_HEIGHT / 2 * MathUtils.cosDeg(225);
+        bottomLeft.y += WALL_HEIGHT / 2 * MathUtils.sinDeg(225);
 
         buildingWidth = topRight.x - bottomLeft.x;
         buildingHeight = topRight.y - bottomLeft.y;
@@ -97,7 +97,7 @@ public class GhostBuilding {
         rooms.add(fakeRoom);
 
         Array<GhostRectangle> walls = createConnectingWalls(rooms);
-        for(GhostRectangle wall: walls) {
+        for (GhostRectangle wall : walls) {
             wall.setType(RectangleType.BUILDING);
             wall.getNormal().scl(-1);
         }
@@ -113,16 +113,16 @@ public class GhostBuilding {
         return result;
     }
 
-    Array<GhostLine> createLines(Array<Room> rooms){
-        Set<GhostLine> lines = new HashSet<GhostLine>() ;
-        for(Room room: rooms) {
+    Array<GhostLine> createLines(Array<Room> rooms) {
+        Set<GhostLine> lines = new HashSet<GhostLine>();
+        for (Room room : rooms) {
             lines.add(new GhostLine(room.getOrigin().y + room.getHeight(), buildingOrigin.x, buildingWidth));
             lines.add(new GhostLine(room.getOrigin().y, buildingOrigin.x, buildingWidth));
         }
         lines.add(new GhostLine(buildingOrigin.y, buildingOrigin.x, buildingWidth));
-        lines.add (new GhostLine(buildingOrigin.y + buildingHeight, buildingOrigin.x, buildingWidth));
+        lines.add(new GhostLine(buildingOrigin.y + buildingHeight, buildingOrigin.x, buildingWidth));
         Array<GhostLine> uniquesLines = new Array<GhostLine>();
-        for(GhostLine line: lines) {
+        for (GhostLine line : lines) {
             uniquesLines.add(line);
         }
         return uniquesLines;
@@ -130,7 +130,7 @@ public class GhostBuilding {
 
     Array<GhostRectangle> createConnectingWalls(Array<Room> rooms) {
         Array<GhostRectangle> result = new Array<GhostRectangle>();
-        for(Room room: rooms) {
+        for (Room room : rooms) {
             //top
             GhostRectangle top = new GhostRectangle();
             top.setWidth(room.getWidth());
@@ -177,19 +177,19 @@ public class GhostBuilding {
 
 
         }
-        return  result;
+        return result;
 
     }
 
-    Array<GhostLine> breakLines(Array<GhostLine> lines, Array<Room> rooms){
+    Array<GhostLine> breakLines(Array<GhostLine> lines, Array<Room> rooms) {
         rooms.sort();
         int size = lines.size;
 
-        for(int i = 0; i < size; i++) {
+        for (int i = 0; i < size; i++) {
             GhostLine current = lines.get(i);
-            for(Room room: rooms) {
+            for (Room room : rooms) {
                 float temp = current.getY() - room.getOrigin().y;
-                if(temp >= 0 && temp < room.getHeight()) {
+                if (temp >= 0 && temp < room.getHeight()) {
                     GhostLine fragment = new GhostLine(current.getY(), current.getX(), room.getOrigin().x - current.getX());
                     lines.add(fragment);
                     current.setX(room.getOrigin().x + room.getWidth());
@@ -200,14 +200,14 @@ public class GhostBuilding {
             }
         }
 
-        return  lines;
+        return lines;
     }
 
-    Array<GhostRectangle> findInitialRects(Array<GhostLine> lines){
+    Array<GhostRectangle> findInitialRects(Array<GhostLine> lines) {
         lines.sort();
         Array<GhostRectangle> result = new Array<GhostRectangle>();
         float currentLevel = buildingHeight + buildingOrigin.y;
-        for(int i = 1; i < lines.size ; i++) {
+        for (int i = 1; i < lines.size; i++) {
             GhostLine current = lines.get(i);
 
             GhostRectangle rect = new GhostRectangle();
@@ -219,7 +219,7 @@ public class GhostBuilding {
             rect.setY(current.getY());
             rect.setZ(BUILDING_DEPTH);
             result.add(rect);
-            if(i + 1 != lines.size) {
+            if (i + 1 != lines.size) {
                 if (current.getX() >= lines.get(i + 1).getX()) {
                     currentLevel = current.getY();
                 }
@@ -229,14 +229,14 @@ public class GhostBuilding {
         return result;
     }
 
-    void joinRects(Array<GhostRectangle> rects){
+    void joinRects(Array<GhostRectangle> rects) {
         rects.sort();
-        for(int i = 0; i < rects.size - 1; i++) {
+        for (int i = 0; i < rects.size - 1; i++) {
             GhostRectangle current = rects.get(i);
-            GhostRectangle next = rects.get(i+1);
-            if(current.getX() == next.getX() && current.getWidth() == next.getWidth() && current.getHeight() + current.getY() == next.getY()) {
+            GhostRectangle next = rects.get(i + 1);
+            if (current.getX() == next.getX() && current.getWidth() == next.getWidth() && current.getHeight() + current.getY() == next.getY()) {
                 current.setHeight(current.getHeight() + next.getHeight());
-                rects.removeIndex(i+1);
+                rects.removeIndex(i + 1);
                 i--;
             }
         }

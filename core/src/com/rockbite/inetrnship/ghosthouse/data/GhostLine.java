@@ -38,7 +38,7 @@ public class GhostLine implements Comparable<GhostLine> {
     @Override
     public boolean equals(Object me) {
         GhostLine binMe = (GhostLine) me;
-        if(this.x==binMe.x && this.y==binMe.y && binMe.length==binMe.length)
+        if (this.x == binMe.x && this.y == binMe.y && binMe.length == binMe.length)
             return true;
         else
             return false;
@@ -46,12 +46,12 @@ public class GhostLine implements Comparable<GhostLine> {
 
     @Override
     public int hashCode() {
-        return (int)(this.x + this.y +  this.length);
+        return (int) (this.x + this.y + this.length);
     }
 
     @Override
     public String toString() {
-        return this.x+" "+this.y+" "+this.length;
+        return this.x + " " + this.y + " " + this.length;
     }
 
     @Override

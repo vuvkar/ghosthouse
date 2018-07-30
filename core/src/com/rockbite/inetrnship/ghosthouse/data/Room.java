@@ -16,6 +16,7 @@ public class Room implements Comparable<Room> {
         this.width = width;
     }
 
+
     public void setHeight(float height) {
         this.height = height;
     }

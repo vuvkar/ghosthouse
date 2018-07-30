@@ -71,7 +71,7 @@ public class RoomParser {
                     //System.out.println("width = " + width);
 
                     if (filledArr[i][j - 1] == 1 && filledArr[i + 1][j] == 1) {
-                       // System.out.println(j + " " + i);
+                        // System.out.println(j + " " + i);
                         bottomCoords.set(j - 1, filledArr.length - i - 2);
                         break;
 
@@ -91,10 +91,10 @@ public class RoomParser {
             for (int j = 0; j < filledArr[0].length; ++j) {
                 if (filledArr[i][j] == index) {
                     if (i == 0) {
-                       // System.out.println("zib");
+                        // System.out.println("zib");
                     }
                     if (filledArr[i - 1][j] == 1 && filledArr[i][j + 1] == 1) {
-                        topCoords.set(j + 1, filledArr.length - i );
+                        topCoords.set(j + 1, filledArr.length - i);
                         break;
 
                     }
