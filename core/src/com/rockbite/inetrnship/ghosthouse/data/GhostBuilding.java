@@ -82,11 +82,11 @@ public class GhostBuilding {
         }
 
 
-        topRight.x += WALL_HEIGHT / 2 * MathUtils.cosDeg(45) ;
-        topRight.y += WALL_HEIGHT / 2 * MathUtils.sinDeg(45);
+        topRight.x += WALL_HEIGHT / 2f * MathUtils.cosDeg(45) ;
+        topRight.y += WALL_HEIGHT / 2f * MathUtils.sinDeg(45);
 
-        bottomLeft.x += WALL_HEIGHT / 2 * MathUtils.cosDeg(225) ;
-        bottomLeft.y += WALL_HEIGHT / 2 * MathUtils.sinDeg(225) ;
+        bottomLeft.x += WALL_HEIGHT / 2f * MathUtils.cosDeg(225) ;
+        bottomLeft.y += WALL_HEIGHT / 2f * MathUtils.sinDeg(225) ;
 
         buildingWidth = topRight.x - bottomLeft.x;
         buildingHeight = topRight.y - bottomLeft.y;
@@ -189,8 +189,7 @@ public class GhostBuilding {
         for(int i = 0; i < size; i++) {
             GhostLine current = lines.get(i);
             for(Room room: rooms) {
-                // FIXME: casting origin to int as actually wrong, but there are miscalculations ;
-                float temp = current.getY() - (int)room.getOrigin().y;
+                float temp = current.getY() - room.getOrigin().y;
                 if(temp >= 0 && temp < room.getHeight()) {
                     GhostLine fragment = new GhostLine(current.getY(), current.getX(), room.getOrigin().x - current.getX());
                     lines.add(fragment);
