@@ -1,0 +1,41 @@
+
+game.png
+size: 4096,2048
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+badlogic
+  rotate: false
+  xy: 2686, 1748
+  size: 256, 256
+  orig: 256, 256
+  offset: 0, 0
+  index: -1
+floor
+  rotate: false
+  xy: 2, 1004
+  size: 1472, 1000
+  orig: 1472, 1000
+  offset: 0, 0
+  index: -1
+roomTexture
+  rotate: false
+  xy: 1476, 927
+  size: 761, 441
+  orig: 761, 441
+  offset: 0, 0
+  index: -1
+roomTextureClouds
+  rotate: false
+  xy: 1476, 1370
+  size: 1208, 634
+  orig: 1208, 634
+  offset: 0, 0
+  index: -1
+wall
+  rotate: false
+  xy: 2, 2
+  size: 1472, 1000
+  orig: 1472, 1000
+  offset: 0, 0
+  index: -1
