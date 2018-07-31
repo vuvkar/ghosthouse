@@ -21,12 +21,12 @@ public class AssetLoader extends AssetManager {
 
     public AssetLoader() {
         loadGameData();
-//        TexturePacker.Settings settings = new TexturePacker.Settings();
-//        settings.maxWidth = 4096;
-//        settings.maxHeight = 4096;
-//        //settings.p
-//        TexturePacker.process(settings, "textures", "packed", "game");
-      atlas = new TextureAtlas(Gdx.files.internal("packed/game.atlas"));
+    //TexturePacker.Settings settings = new TexturePacker.Settings();
+       // settings.maxWidth = 4096;
+      //  settings.maxHeight = 4096;
+       // settings.p
+     //  TexturePacker.process(settings, "textures", "packed", "game");
+     atlas = new TextureAtlas(Gdx.files.internal("packed/game.atlas"));
         System.out.println("qaq");
     }
 

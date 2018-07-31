@@ -11,6 +11,8 @@ import com.badlogic.gdx.graphics.g3d.utils.CameraInputController;
 import com.badlogic.gdx.math.Interpolation;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
+import com.rockbite.inetrnship.ghosthouse.AssetLoader;
+import com.rockbite.inetrnship.ghosthouse.data.GhostBuilding;
 import com.rockbite.inetrnship.ghosthouse.ecs.components.CameraComponent;
 
 
@@ -24,7 +26,6 @@ public class CameraSystem extends EntitySystem {
     CameraComponent Cameracom;
 
     public PerspectiveCamera Cam;
-
 
     private Vector3 dist = new Vector3(0, 0, 0); //Distance to cover when moving from room to room in all 3 directions
     public boolean ispressed = false;
@@ -49,8 +50,8 @@ public class CameraSystem extends EntitySystem {
         Cam = new PerspectiveCamera();
         Cam = new PerspectiveCamera(67, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 
-        Cam.position.set(rooms[0].Pos.x + rooms[0].dim.x / 2f, rooms[0].Pos.y + rooms[0].dim.y / 2f, (float) dist(angle(Gdx.graphics.getWidth(), Gdx.graphics.getHeight(), 67), rooms[0].dim.x + rooms[0].dim.x / 3f) + 3); //Set camera position in the first room
-
+        Cam.position.set(rooms[0].Pos.x + rooms[0].dim.x / 2f, rooms[0].Pos.y + rooms[0].dim.y / 2f+rooms[0].dim.y/5, (float) dist(angle(Gdx.graphics.getWidth(), Gdx.graphics.getHeight(), 67), rooms[0].dim.x + rooms[0].dim.x / 3f) + 3); //Set camera position in the first room
+Cam.rotate(10, -1,0, 0);
 
         CameraComponent Cameracom = new CameraComponent();
 
@@ -136,7 +137,7 @@ public class CameraSystem extends EntitySystem {
 
     public static Vector3 move(int ind, room[] rooms) {
 
-        Vector3 VEC = new Vector3(rooms[ind].Pos.x + rooms[ind].dim.x / 2f, rooms[ind].Pos.y + rooms[ind].dim.y / 2f, (float) dist(angle(Gdx.graphics.getWidth(), Gdx.graphics.getHeight(), 67), rooms[ind].dim.x + rooms[ind].dim.x / 3f) + 3);
+        Vector3 VEC = new Vector3(rooms[ind].Pos.x + rooms[ind].dim.x / 2f, rooms[ind].Pos.y + rooms[ind].dim.y / 2f+rooms[ind].dim.y/5, (float) dist(angle(Gdx.graphics.getWidth(), Gdx.graphics.getHeight(), 67), rooms[ind].dim.x + rooms[ind].dim.x / 3f) + 3);
         System.out.println(VEC);
         return VEC;
     }
