@@ -43,7 +43,7 @@ public class AssetLoader extends AssetManager {
             int width = Integer.parseInt(tmp[0]);
             int height = Integer.parseInt(tmp[1]);
 
-            matrix = new int[height][width];
+            matrix = new int[height][height];
             int i = 0;
             int j = 0;
             while (i < height && j < width) {

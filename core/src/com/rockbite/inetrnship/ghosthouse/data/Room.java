@@ -45,6 +45,7 @@ public class Room implements Comparable<Room> {
         return height;
     }
 
+
     @Override
     public int compareTo(Room o) {
         float value = this.origin.x - o.origin.x;

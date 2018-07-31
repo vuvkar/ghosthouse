@@ -23,11 +23,10 @@ public class GhostBuildingMesh {
     int indIndex = 0;
 
     private Mesh building;
+
     private ShaderProgram shaderProgram;
 
     public GhostBuildingMesh(Array<GhostRectangle> rects) {
-
-
         aboy = new Texture(Gdx.files.internal("textures/roomTexture.png"));
 
         vertices = new float[rects.size * 4 * ATTRIBUTE_COUNT];
