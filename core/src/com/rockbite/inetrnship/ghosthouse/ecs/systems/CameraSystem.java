@@ -13,7 +13,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.rockbite.inetrnship.ghosthouse.ecs.components.CameraComponent;
 
-import static jdk.nashorn.internal.objects.NativeBoolean.valueOf;
+
 
 public class CameraSystem extends EntitySystem {
 
