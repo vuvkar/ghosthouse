@@ -10,7 +10,7 @@ public enum RectangleType {
             case ROOM:
                 return Color.RED;
             case WALL:
-                return Color.GRAY;
+                return Color.FOREST;
             case BUILDING:
                 return Color.BLUE;
         }

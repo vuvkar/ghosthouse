@@ -14,6 +14,8 @@ public class GhostBuildingMesh {
     private final int NORMAL_ATTRIBUTE_COUNT = 3;
     private final int ATTRIBUTE_COUNT = POSITION_ATTRIBUTE_COUNT + COLOR_ATTRIBUTE_COUNT + TEXTURE_ATTRIBUTE_COUNT + NORMAL_ATTRIBUTE_COUNT;
 
+    Texture aboy;
+
     float[] vertices;
     short[] indices;
 
@@ -25,6 +27,8 @@ public class GhostBuildingMesh {
 
     public GhostBuildingMesh(Array<GhostRectangle> rects) {
 
+
+        aboy = new Texture(Gdx.files.internal("textures/roomTexture.png"));
 
         vertices = new float[rects.size * 4 * ATTRIBUTE_COUNT];
         indices = new short[rects.size * 3 * 2];
@@ -50,6 +54,7 @@ public class GhostBuildingMesh {
         shaderProgram.begin();
         shaderProgram.setUniformMatrix("u_projTrans", camera.combined);
         shaderProgram.setUniformf("u_light", camera.position);
+        aboy.bind();
         building.render(shaderProgram, GL20.GL_TRIANGLES);
         shaderProgram.end();
     }
