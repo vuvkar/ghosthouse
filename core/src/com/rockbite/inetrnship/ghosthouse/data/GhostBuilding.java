@@ -35,10 +35,11 @@ public class GhostBuilding {
 
     public void popInsideRooms() {
         for(Room room: rooms) {
-            Vector2 newOrigin = new Vector2(room.getOrigin().x + WALL_HEIGHT / 2 * MathUtils.cosDeg(45), room.getOrigin().y + WALL_HEIGHT/ 2 * MathUtils.sinDeg(45) );
+            Vector2 newOrigin = new Vector2(room.getOrigin().x + WALL_HEIGHT / 2.0f * MathUtils.cosDeg(45f),
+                    room.getOrigin().y + WALL_HEIGHT/ 2.0f * MathUtils.sinDeg(45f) );
             room.setOrigin(newOrigin);
-            room.setHeight(room.getHeight() + WALL_HEIGHT  * MathUtils.sinDeg(225) );
-            room.setWidth(room.getWidth() + WALL_HEIGHT  * MathUtils.cosDeg(225));
+            room.setHeight(room.getHeight() + WALL_HEIGHT  * MathUtils.sinDeg(225f) );
+            room.setWidth(room.getWidth() + WALL_HEIGHT  * MathUtils.cosDeg(225f));
         }
     }
 
@@ -57,11 +58,11 @@ public class GhostBuilding {
             GhostRectangle rectangle = new GhostRectangle();
             rectangle.setX(current.getOrigin().x );
             rectangle.setY(current.getOrigin().y );
-            rectangle.setZ(0);
+            rectangle.setZ(0f);
             rectangle.setHeight(current.getHeight() );
             rectangle.setWidth(current.getWidth() );
             rectangle.setType(RectangleType.ROOM);
-            rectangle.setNormal(new Vector3(0, 0, 1));
+            rectangle.setNormal(new Vector3(0f, 0f, 1f));
 
             result.add(rectangle);
         }
@@ -82,11 +83,11 @@ public class GhostBuilding {
         }
 
 
-        topRight.x += WALL_HEIGHT / 2f * MathUtils.cosDeg(45) ;
-        topRight.y += WALL_HEIGHT / 2f * MathUtils.sinDeg(45);
+        topRight.x += WALL_HEIGHT / 2.0f * MathUtils.cosDeg(45f) ;
+        topRight.y += WALL_HEIGHT / 2.0f * MathUtils.sinDeg(45f);
 
-        bottomLeft.x += WALL_HEIGHT / 2f * MathUtils.cosDeg(225) ;
-        bottomLeft.y += WALL_HEIGHT / 2f * MathUtils.sinDeg(225) ;
+        bottomLeft.x += WALL_HEIGHT / 2.0f * MathUtils.cosDeg(225f) ;
+        bottomLeft.y += WALL_HEIGHT / 2.0f * MathUtils.sinDeg(225f) ;
 
         buildingWidth = topRight.x - bottomLeft.x;
         buildingHeight = topRight.y - bottomLeft.y;
@@ -100,7 +101,7 @@ public class GhostBuilding {
         Array<GhostRectangle> walls = createConnectingWalls(rooms);
         for(GhostRectangle wall: walls) {
             wall.setType(RectangleType.BUILDING);
-            wall.getNormal().scl(-1);
+            wall.getNormal().scl(-1f);
         }
         return walls;
 
@@ -189,9 +190,10 @@ public class GhostBuilding {
         for(int i = 0; i < size; i++) {
             GhostLine current = lines.get(i);
             for(Room room: rooms) {
-                float temp = current.getY() - room.getOrigin().y;
+                float temp = current.getY() - (int)room.getOrigin().y;
                 if(temp >= 0 && temp < room.getHeight()) {
-                    GhostLine fragment = new GhostLine(current.getY(), current.getX(), room.getOrigin().x - current.getX());
+                    GhostLine fragment = new GhostLine(current.getY(), current.getX(),
+                                                room.getOrigin().x - current.getX());
                     lines.add(fragment);
                     current.setX(room.getOrigin().x + room.getWidth());
                     current.setLength(current.getLength() - fragment.getLength());
@@ -213,7 +215,7 @@ public class GhostBuilding {
 
             GhostRectangle rect = new GhostRectangle();
             rect.setType(RectangleType.WALL);
-            rect.setNormal(new Vector3(0, 0, 1));
+            rect.setNormal(new Vector3(0f, 0f, 1f));
             rect.setWidth(current.getLength());
             rect.setHeight(currentLevel - current.getY());
             rect.setX(current.getX());
@@ -235,7 +237,8 @@ public class GhostBuilding {
         for(int i = 0; i < rects.size - 1; i++) {
             GhostRectangle current = rects.get(i);
             GhostRectangle next = rects.get(i+1);
-            if(current.getX() == next.getX() && current.getWidth() == next.getWidth() && current.getHeight() + current.getY() == next.getY()) {
+            if(current.getX() == next.getX() && current.getWidth() == next.getWidth()
+                    && current.getHeight() + current.getY() == next.getY()) {
                 current.setHeight(current.getHeight() + next.getHeight());
                 rects.removeIndex(i+1);
                 i--;
