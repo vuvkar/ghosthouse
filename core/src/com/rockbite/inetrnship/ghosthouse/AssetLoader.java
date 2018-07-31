@@ -28,7 +28,7 @@ public class AssetLoader extends AssetManager {
         // TODO: courtesy of Dave
 
         int[][] matrix = new int[0][0];
-        String fileName = "shit.pbm";
+        String fileName = "Monika_Map.pbm";
         String line = null;
         try {
             FileReader filereader = new FileReader(fileName);
@@ -43,7 +43,7 @@ public class AssetLoader extends AssetManager {
             int width = Integer.parseInt(tmp[0]);
             int height = Integer.parseInt(tmp[1]);
 
-            matrix = new int[width][height];
+            matrix = new int[height][width];
             int i = 0;
             int j = 0;
             while (i < height && j < width) {
@@ -54,6 +54,9 @@ public class AssetLoader extends AssetManager {
                 tmp = line.split(" ");
                 int k = 0;
                 while (k < tmp.length) {
+                    System.out.print(i);
+                    System.out.print(j);
+                    System.out.println();
                     matrix[i][j] = Integer.parseInt(tmp[k]);
                     k++;
                     if (j + 1 < width) {
