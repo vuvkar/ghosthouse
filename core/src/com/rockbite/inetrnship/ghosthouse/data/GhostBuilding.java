@@ -17,7 +17,7 @@ public class GhostBuilding {
     private Array<GhostRectangle> roomConnectingWalls;
     private Array<GhostRectangle> buildingConnectingWalls;
 
-    private final float WALL_HEIGHT = (float)Math.sqrt(2);
+    private final float WALL_HEIGHT =  2.5f;
     private final float BUILDING_DEPTH = 3f;
 
     private float buildingWidth;
