@@ -22,13 +22,12 @@ public class AssetLoader extends AssetManager {
 
     public AssetLoader() {
         loadGameData();
-    TexturePacker.Settings settings = new TexturePacker.Settings();
+        TexturePacker.Settings settings = new TexturePacker.Settings();
         settings.maxWidth = 4096;
         settings.maxHeight = 4096;
-       TexturePacker.process(settings, "textures", "packed", "game");
+        TexturePacker.process(settings, "textures", "packed", "game");
         loadJSON();
-     atlas = new TextureAtlas(Gdx.files.internal("packed/game.atlas"));
-
+        atlas = new TextureAtlas(Gdx.files.internal("packed/game.atlas"));
     }
 
     public void loadGameData() {
@@ -92,13 +91,6 @@ public class AssetLoader extends AssetManager {
         JsonValue base = json.parse(Gdx.files.internal("JSON/trial.json"));
 
         System.out.println(base);
-
-        for (JsonValue component : base.get("items"))
-        {
-//            System.out.println(component.getString("scale"));
-//            System.out.println(component.get("items").getString("position"));
-//            System.out.println(component.get("items").getString("pathToTexture"));
-        }
     }
 
     public Array<Room> processRoomData(int[][] rawPixelData) {
