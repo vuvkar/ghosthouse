@@ -16,7 +16,6 @@ import com.rockbite.inetrnship.ghosthouse.data.GhostBuilding;
 import com.rockbite.inetrnship.ghosthouse.ecs.components.CameraComponent;
 
 
-
 public class CameraSystem extends EntitySystem {
 
     private ImmutableArray<Entity> entities;
@@ -84,8 +83,6 @@ Cam.rotate(10, -1,0, 0);
             Cameracom.targetvec = (move(1, rooms));
             Cameracom.LL.set(Cam.position);
             dist.set(Cameracom.targetvec.x - Cameracom.LL.x, Cameracom.targetvec.y - Cameracom.LL.y, Cameracom.targetvec.z - Cameracom.LL.z);
-
-
         }
 
         if (Gdx.input.isKeyJustPressed(Input.Keys.NUM_0)) {

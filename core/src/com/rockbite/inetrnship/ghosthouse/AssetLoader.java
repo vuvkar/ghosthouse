@@ -5,10 +5,11 @@ import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
+import com.badlogic.gdx.utils.JsonReader;
+import com.badlogic.gdx.utils.JsonValue;
 import com.rockbite.inetrnship.ghosthouse.data.Room;
 import com.rockbite.inetrnship.ghosthouse.util.RoomParser;
 import com.badlogic.gdx.tools.texturepacker.TexturePacker;
-
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -21,13 +22,13 @@ public class AssetLoader extends AssetManager {
 
     public AssetLoader() {
         loadGameData();
-    //TexturePacker.Settings settings = new TexturePacker.Settings();
-       // settings.maxWidth = 4096;
-      //  settings.maxHeight = 4096;
-       // settings.p
-     //  TexturePacker.process(settings, "textures", "packed", "game");
+    TexturePacker.Settings settings = new TexturePacker.Settings();
+        settings.maxWidth = 4096;
+        settings.maxHeight = 4096;
+       TexturePacker.process(settings, "textures", "packed", "game");
+        loadJSON();
      atlas = new TextureAtlas(Gdx.files.internal("packed/game.atlas"));
-        System.out.println("qaq");
+
     }
 
     public void loadGameData() {
@@ -84,6 +85,20 @@ public class AssetLoader extends AssetManager {
             System.out.println("dsg");
         }
         return (matrix);
+    }
+
+    public void loadJSON() {
+        JsonReader json = new JsonReader();
+        JsonValue base = json.parse(Gdx.files.internal("JSON/trial.json"));
+
+        System.out.println(base);
+
+        for (JsonValue component : base.get("items"))
+        {
+//            System.out.println(component.getString("scale"));
+//            System.out.println(component.get("items").getString("position"));
+//            System.out.println(component.get("items").getString("pathToTexture"));
+        }
     }
 
     public Array<Room> processRoomData(int[][] rawPixelData) {

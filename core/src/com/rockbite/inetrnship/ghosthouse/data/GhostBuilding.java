@@ -172,8 +172,6 @@ public class GhostBuilding {
             right.setX(room.getOrigin().x + room.getWidth());
             right.setY(room.getOrigin().y);
             result.add(right);
-
-
         }
         return  result;
 

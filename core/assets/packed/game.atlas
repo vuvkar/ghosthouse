@@ -6,9 +6,23 @@ filter: Nearest,Nearest
 repeat: none
 badlogic
   rotate: false
-  xy: 1476, 477
+  xy: 2478, 670
   size: 256, 256
   orig: 256, 256
+  offset: 0, 0
+  index: -1
+chair_blue
+  rotate: false
+  xy: 1476, 1004
+  size: 1000, 1000
+  orig: 1000, 1000
+  offset: 0, 0
+  index: -1
+chair_brown
+  rotate: false
+  xy: 1476, 2
+  size: 1000, 1000
+  orig: 1000, 1000
   offset: 0, 0
   index: -1
 floor
@@ -20,30 +34,30 @@ floor
   index: -1
 oboiback
   rotate: false
-  xy: 1476, 735
+  xy: 2478, 1371
   size: 1208, 633
   orig: 1208, 633
   offset: 0, 0
   index: -1
 roomTextureClouds
   rotate: false
-  xy: 1476, 735
+  xy: 2478, 1371
   size: 1208, 633
   orig: 1208, 633
   offset: 0, 0
   index: -1
-oboiback - Copy
-  rotate: false
-  xy: 1476, 1370
-  size: 1208, 634
-  orig: 1208, 634
-  offset: 0, 0
-  index: -1
 roomTexture
   rotate: false
-  xy: 2686, 1563
+  xy: 2478, 928
   size: 761, 441
   orig: 761, 441
+  offset: 0, 0
+  index: -1
+tumbSHka
+  rotate: false
+  xy: 3688, 1740
+  size: 308, 264
+  orig: 308, 264
   offset: 0, 0
   index: -1
 wall

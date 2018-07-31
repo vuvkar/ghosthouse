@@ -2,30 +2,30 @@
   "roomID": 1,
   "items": [
     {
-      "name": "Chair",
+      "name": "ChairBrown",
       "position": [ 2, 2, 0 ],
       "scale": 1,
       "rotation": 0,
       "type": "3d",
-      "pathToTexture": "texture/chair_texture.png"
+      "pathToTexture": "textures/chair_brown.png"
     },
 
     {
-      "name": "Box",
-      "position": [ 6, 2, 0 ],
-      "scale": 1,
-      "rotation": 0,
-      "type": "3d",
-      "pathToTexture": "texture/box_texture,.png"
-    },
-
-    {
-      "name": "Wardrobe",
+      "name": "ChairBlue",
       "position": [ 10, 2, 0 ],
       "scale": 1,
       "rotation": 0,
       "type": "3d",
-      "pathToTexture": "texture/wardrobe_texture.png"
+      "pathToTexture": "textures/chair_blue.png"
+    },
+
+    {
+      "name": "tumbSHka",
+      "position": [ 6, 2, 0 ],
+      "scale": 1,
+      "rotation": 0,
+      "type": "3d",
+      "pathToTexture": "textures/tumbSHka.png"
     }
     ]
 }
