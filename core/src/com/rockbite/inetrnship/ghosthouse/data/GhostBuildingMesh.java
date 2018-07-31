@@ -23,7 +23,7 @@ public class GhostBuildingMesh {
 
     int vertIndex = 0;
     int indIndex = 0;
-
+Vector3 light=new Vector3(10,10,10);
     private Mesh building;
 
     private ShaderProgram shaderProgram;
