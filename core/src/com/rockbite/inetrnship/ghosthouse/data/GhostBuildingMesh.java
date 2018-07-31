@@ -6,7 +6,7 @@ import com.badlogic.gdx.graphics.glutils.ShaderProgram;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.utils.Array;
 
-public class GhostBuildingMesh  {
+public class GhostBuildingMesh {
 
     private final int POSITION_ATTRIBUTE_COUNT = 3;
     private final int COLOR_ATTRIBUTE_COUNT = 4;
@@ -29,7 +29,7 @@ public class GhostBuildingMesh  {
         vertices = new float[rects.size * 4 * ATTRIBUTE_COUNT];
         indices = new short[rects.size * 3 * 2];
 
-        for(GhostRectangle rect: rects) {
+        for (GhostRectangle rect : rects) {
             drawRectangle(rect);
         }
 
@@ -54,38 +54,35 @@ public class GhostBuildingMesh  {
         shaderProgram.end();
     }
 
-
-
-
     public void drawRectangle(GhostRectangle rectangle) {
 
         int vertexCount = vertIndex / ATTRIBUTE_COUNT;
 
-        indices[indIndex++] = (short)(vertexCount);
-        indices[indIndex++] =(short)(vertexCount + 1);
-        indices[indIndex++] = (short)(vertexCount + 2);
-        indices[indIndex++] = (short)(vertexCount + 1);
-        indices[indIndex++] = (short)(vertexCount + 2);
-        indices[indIndex++] = (short)(vertexCount + 3);
+        indices[indIndex++] = (short) (vertexCount);
+        indices[indIndex++] = (short) (vertexCount + 1);
+        indices[indIndex++] = (short) (vertexCount + 2);
+        indices[indIndex++] = (short) (vertexCount + 1);
+        indices[indIndex++] = (short) (vertexCount + 2);
+        indices[indIndex++] = (short) (vertexCount + 3);
 
-        for(int i = 0; i < 4; i++) {
+        for (int i = 0; i < 4; i++) {
             Vector3 normal = rectangle.getNormal();
-            if(normal.x == 0 && normal.y == 0 && (normal.z == 1 || normal.z == -1) ) {
+            if (normal.x == 0 && normal.y == 0 && (normal.z == 1 || normal.z == -1)) {
                 vertices[vertIndex++] = rectangle.getX() + (i % 2) * rectangle.getWidth();
                 vertices[vertIndex++] = rectangle.getY() + (i >> 1) * rectangle.getHeight();
                 vertices[vertIndex++] = rectangle.getZ();
             }
 
-            if(normal.x == 0 && normal.z == 0 && (normal.y == 1 || normal.y == -1) ) {
+            if (normal.x == 0 && normal.z == 0 && (normal.y == 1 || normal.y == -1)) {
                 vertices[vertIndex++] = rectangle.getX() + (i % 2) * rectangle.getWidth();
                 vertices[vertIndex++] = rectangle.getY();
                 vertices[vertIndex++] = rectangle.getZ() + (i >> 1) * rectangle.getHeight();
             }
 
-            if(normal.z == 0 && normal.y == 0 && (normal.x == 1 || normal.x == -1) ) {
+            if (normal.z == 0 && normal.y == 0 && (normal.x == 1 || normal.x == -1)) {
                 vertices[vertIndex++] = rectangle.getX();
                 vertices[vertIndex++] = rectangle.getY() + (i >> 1) * rectangle.getHeight();
-                vertices[vertIndex++] = rectangle.getZ()  + (i % 2) * rectangle.getWidth();
+                vertices[vertIndex++] = rectangle.getZ() + (i % 2) * rectangle.getWidth();
             }
 
             // Vertex Color
@@ -95,8 +92,8 @@ public class GhostBuildingMesh  {
             vertices[vertIndex++] = color.b;
             vertices[vertIndex++] = color.a;
             // UV Coordinates
-            vertices[vertIndex++] = i%2;
-            vertices[vertIndex++] = ((3-i)>>1);
+            vertices[vertIndex++] = i % 2;
+            vertices[vertIndex++] = ((3 - i) >> 1);
             // Normal
             vertices[vertIndex++] = normal.x;
             vertices[vertIndex++] = normal.y;
