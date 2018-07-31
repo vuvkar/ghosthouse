@@ -2,6 +2,8 @@ package com.rockbite.inetrnship.ghosthouse.data;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.*;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.glutils.ShaderProgram;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.utils.Array;
@@ -14,7 +16,7 @@ public class GhostBuildingMesh {
     private final int NORMAL_ATTRIBUTE_COUNT = 3;
     private final int ATTRIBUTE_COUNT = POSITION_ATTRIBUTE_COUNT + COLOR_ATTRIBUTE_COUNT + TEXTURE_ATTRIBUTE_COUNT + NORMAL_ATTRIBUTE_COUNT;
 
-    Texture aboy;
+    Texture assets;
 
     float[] vertices;
     short[] indices;
@@ -27,7 +29,7 @@ public class GhostBuildingMesh {
     private ShaderProgram shaderProgram;
 
     public GhostBuildingMesh(Array<GhostRectangle> rects) {
-        aboy = new Texture(Gdx.files.internal("textures/roomTexture.png"));
+        assets = new Texture(Gdx.files.internal("packed/game.png"));
 
         vertices = new float[rects.size * 4 * ATTRIBUTE_COUNT];
         indices = new short[rects.size * 3 * 2];
@@ -53,7 +55,7 @@ public class GhostBuildingMesh {
         shaderProgram.begin();
         shaderProgram.setUniformMatrix("u_projTrans", camera.combined);
         shaderProgram.setUniformf("u_light", camera.position);
-        aboy.bind();
+        assets.bind();
         building.render(shaderProgram, GL20.GL_TRIANGLES);
         shaderProgram.end();
     }
@@ -90,14 +92,18 @@ public class GhostBuildingMesh {
             }
 
             // Vertex Color
-            Color color = rectangle.getType().vertexColor();
+            Color color = Color.RED;
+
             vertices[vertIndex++] = color.r;
             vertices[vertIndex++] = color.g;
             vertices[vertIndex++] = color.b;
             vertices[vertIndex++] = color.a;
             // UV Coordinates
-            vertices[vertIndex++] = i % 2;
-            vertices[vertIndex++] = ((3 - i) >> 1);
+            TextureAtlas.AtlasRegion region = rectangle.getType().getTexture();
+            float diffU = region.getU2() - region.getU();
+            float diffV = region.getV2() - region.getV();
+            vertices[vertIndex++] = region.getU() + (i % 2) * diffU;
+            vertices[vertIndex++] = region.getV() +  ((3 - i) >> 1) * diffV;
             // Normal
             vertices[vertIndex++] = normal.x;
             vertices[vertIndex++] = normal.y;

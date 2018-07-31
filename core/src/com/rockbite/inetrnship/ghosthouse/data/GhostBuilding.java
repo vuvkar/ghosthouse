@@ -55,13 +55,12 @@ public class GhostBuilding {
     Array<GhostRectangle> createRooms(Array<Room> arr) {
         Array<GhostRectangle> result = new Array<GhostRectangle>();
         for(Room current: arr) {
-            GhostRectangle rectangle = new GhostRectangle();
+            GhostRectangle rectangle = new GhostRectangle(RectangleType.ROOM);
             rectangle.setX(current.getOrigin().x );
             rectangle.setY(current.getOrigin().y );
             rectangle.setZ(0f);
             rectangle.setHeight(current.getHeight() );
             rectangle.setWidth(current.getWidth() );
-            rectangle.setType(RectangleType.ROOM);
             rectangle.setNormal(new Vector3(0f, 0f, 1f));
 
             result.add(rectangle);
@@ -134,45 +133,42 @@ public class GhostBuilding {
         Array<GhostRectangle> result = new Array<GhostRectangle>();
         for(Room room: rooms) {
             //top
-            GhostRectangle top = new GhostRectangle();
+            GhostRectangle top = new GhostRectangle(RectangleType.CEILING);
             top.setWidth(room.getWidth());
             top.setHeight(BUILDING_DEPTH);
             Vector3 topNormal = new Vector3(0, -1, 0);
             top.setNormal(topNormal);
-            top.setType(RectangleType.ROOM);
+
             top.setX(room.getOrigin().x);
             top.setY(room.getOrigin().y + room.getHeight());
             result.add(top);
 
             //bottom
-            GhostRectangle bottom = new GhostRectangle();
+            GhostRectangle bottom = new GhostRectangle(RectangleType.FLOOR);
             bottom.setWidth(room.getWidth());
             bottom.setHeight(BUILDING_DEPTH);
             Vector3 bottomNormal = new Vector3(0, 1, 0);
             bottom.setNormal(bottomNormal);
-            bottom.setType(RectangleType.ROOM);
             bottom.setX(room.getOrigin().x);
             bottom.setY(room.getOrigin().y);
             result.add(bottom);
 
             //left
-            GhostRectangle left = new GhostRectangle();
+            GhostRectangle left = new GhostRectangle(RectangleType.ROOM);
             left.setWidth(BUILDING_DEPTH);
             left.setHeight(room.getHeight());
             Vector3 leftNormal = new Vector3(1, 0, 0);
             left.setNormal(leftNormal);
-            left.setType(RectangleType.ROOM);
             left.setX(room.getOrigin().x);
             left.setY(room.getOrigin().y);
             result.add(left);
 
             //right
-            GhostRectangle right = new GhostRectangle();
+            GhostRectangle right = new GhostRectangle(RectangleType.ROOM);
             right.setWidth(BUILDING_DEPTH);
             right.setHeight(room.getHeight());
             Vector3 rightNormal = new Vector3(-1, 0, 0);
             right.setNormal(rightNormal);
-            right.setType(RectangleType.ROOM);
             right.setX(room.getOrigin().x + room.getWidth());
             right.setY(room.getOrigin().y);
             result.add(right);
@@ -213,8 +209,7 @@ public class GhostBuilding {
         for(int i = 1; i < lines.size ; i++) {
             GhostLine current = lines.get(i);
 
-            GhostRectangle rect = new GhostRectangle();
-            rect.setType(RectangleType.WALL);
+            GhostRectangle rect = new GhostRectangle(RectangleType.WALL);
             rect.setNormal(new Vector3(0f, 0f, 1f));
             rect.setWidth(current.getLength());
             rect.setHeight(currentLevel - current.getY());
