@@ -1,6 +1,4 @@
 buildscript {
-    
-
     repositories {
         mavenLocal()
         mavenCentral()
@@ -9,9 +7,8 @@ buildscript {
         jcenter()
         google()
     }
-    dependencies {
-        
 
+    dependencies {
     }
 }
 
@@ -47,8 +44,7 @@ project(":desktop") {
         compile "com.badlogicgames.gdx:gdx-backend-lwjgl:$gdxVersion"
         compile "com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-desktop"
         compile "com.badlogicgames.gdx:gdx-freetype-platform:$gdxVersion:natives-desktop"
-        compile "com.badlogicgames.gdx:gdx-tools:$gdxVersion"
-        
+        compile 'com.badlogicgames.gdx:gdx-tools:1.9.2'
     }
 }
 

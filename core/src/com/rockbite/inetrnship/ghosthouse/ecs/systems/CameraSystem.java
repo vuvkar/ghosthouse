@@ -86,6 +86,7 @@ public class CameraSystem extends EntitySystem {
 
 
         }
+
         if (Gdx.input.isKeyJustPressed(Input.Keys.NUM_0)) {
 
             t = 0;
@@ -120,13 +121,15 @@ public class CameraSystem extends EntitySystem {
                 t = 0;
             } else {
                 if (t < T) {
-                    t += Gdx.graphics.getDeltaTime() * 18;
+
 
                     Cam.position.set(Cameracom.LL.x + dist.x * t / T, Cameracom.LL.y + dist.y * a.apply(t / T), Cameracom.LL.z + dist.z * z.apply(t / T));
+                    t += Gdx.graphics.getDeltaTime() * 20f;
                 } else if (t >= T) {
                     t = T;
                     Cam.position.set(Cameracom.LL.x + dist.x * t / T, Cameracom.LL.y + dist.y * a.apply(t / T), Cameracom.LL.z + dist.z * z.apply(t / T));
                 }
+
             }
         }
     }
@@ -134,7 +137,7 @@ public class CameraSystem extends EntitySystem {
     public static Vector3 move(int ind, room[] rooms) {
 
         Vector3 VEC = new Vector3(rooms[ind].Pos.x + rooms[ind].dim.x / 2f, rooms[ind].Pos.y + rooms[ind].dim.y / 2f, (float) dist(angle(Gdx.graphics.getWidth(), Gdx.graphics.getHeight(), 67), rooms[ind].dim.x + rooms[ind].dim.x / 3f) + 3);
-
+        System.out.println(VEC);
         return VEC;
     }
 

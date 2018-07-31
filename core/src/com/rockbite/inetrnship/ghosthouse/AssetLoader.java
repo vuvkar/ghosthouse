@@ -1,10 +1,14 @@
 package com.rockbite.inetrnship.ghosthouse;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetManager;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
 import com.rockbite.inetrnship.ghosthouse.data.Room;
 import com.rockbite.inetrnship.ghosthouse.util.RoomParser;
+import com.badlogic.gdx.tools.texturepacker.TexturePacker;
+
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -13,15 +17,26 @@ import java.io.IOException;
 public class AssetLoader extends AssetManager {
 
     private Array<Room> rooms;
+    static TextureAtlas atlas;
 
     public AssetLoader() {
         loadGameData();
+//        TexturePacker.Settings settings = new TexturePacker.Settings();
+//        settings.maxWidth = 4096;
+//        settings.maxHeight = 4096;
+//        //settings.p
+//        TexturePacker.process(settings, "textures", "packed", "game");
+      atlas = new TextureAtlas(Gdx.files.internal("packed/game.atlas"));
+        System.out.println("qaq");
     }
 
     public void loadGameData() {
         int[][] pixelData = readPixelData();
-
         rooms = processRoomData(pixelData);
+    }
+
+    public static TextureAtlas.AtlasRegion getRegion(String name) {
+        return atlas.findRegion(name);
     }
 
     public int[][] readPixelData() {
@@ -75,13 +90,10 @@ public class AssetLoader extends AssetManager {
         //TODO: hi Liana
 
         RoomParser roomParser = new RoomParser();
-
         Array<Room> roomArray = new Array<Room>();
-
         roomParser.search(rawPixelData);
 
         int roomID = roomParser.getRoomCount();
-
         for (int i = 0; i < roomID; ++i) {
 
             Vector2 bottomLeft = roomParser.bottomLeftCorner(rawPixelData, i);

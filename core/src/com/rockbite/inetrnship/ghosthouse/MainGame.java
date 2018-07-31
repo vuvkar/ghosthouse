@@ -73,6 +73,7 @@ public class MainGame {
         // then render decorations/characters and items
         // TODO: render the rest
 
+
         // DO postprocessing of FBO and render it to screen
         // TODO: final render
 
