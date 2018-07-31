@@ -1,0 +1,31 @@
+{
+  "roomID": 1,
+  "items": [
+    {
+      "name": "Chair",
+      "position": [ 2, 2, 0 ],
+      "scale": 1,
+      "rotation": 0,
+      "type": "3d",
+      "pathToTexture": "texture/chair_texture.png"
+    },
+
+    {
+      "name": "Box",
+      "position": [ 6, 2, 0 ],
+      "scale": 1,
+      "rotation": 0,
+      "type": "3d",
+      "pathToTexture": "texture/box_texture,.png"
+    },
+
+    {
+      "name": "Wardrobe",
+      "position": [ 10, 2, 0 ],
+      "scale": 1,
+      "rotation": 0,
+      "type": "3d",
+      "pathToTexture": "texture/wardrobe_texture.png"
+    }
+    ]
+}

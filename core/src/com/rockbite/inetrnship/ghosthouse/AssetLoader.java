@@ -87,13 +87,8 @@ public class AssetLoader extends AssetManager {
             Vector2 bottomLeft = roomParser.bottomLeftCorner(rawPixelData, i);
             Vector2 topRight = roomParser.topRightCorner(rawPixelData, i);
 
-            System.out.println(bottomLeft + " " + topRight);
-
             float height = roomParser.getRoomHeight(rawPixelData, i, bottomLeft, topRight);
             float width = roomParser.getRoomWidth(rawPixelData, i, bottomLeft, topRight);
-
-            System.out.println(width + " " + height);
-            System.out.println();
 
             Room room = new Room(i, bottomLeft, height, width);
             roomArray.add(room);

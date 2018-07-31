@@ -7,11 +7,14 @@ import com.badlogic.gdx.graphics.*;
 import com.badlogic.gdx.graphics.g3d.utils.CameraInputController;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
+import com.badlogic.gdx.utils.JsonReader;
+import com.badlogic.gdx.utils.JsonValue;
 import com.rockbite.inetrnship.ghosthouse.data.GhostBuilding;
 import com.rockbite.inetrnship.ghosthouse.data.GhostBuildingMesh;
 import com.rockbite.inetrnship.ghosthouse.data.Room;
 import com.rockbite.inetrnship.ghosthouse.ecs.components.CameraComponent;
 import com.rockbite.inetrnship.ghosthouse.ecs.systems.CameraSystem;
+
 
 public class MainGame {
 
@@ -49,16 +52,7 @@ public class MainGame {
         Gdx.gl.glEnable(GL20.GL_DEPTH_TEST);
         Gdx.gl.glEnable(GL20.GL_BLEND);
 
-
         assetLoader = new AssetLoader();
-
-//        for (int i = 0; i < 5; i++)
-//            for (int j = 0; j < 4; j++) {
-//                Room room = new Room(i + j, new Vector2(j * width, i * height), width, height);
-//                rooms.add(room);
-//            }
-
-
         building = new GhostBuilding(assetLoader.getRooms());
         buildingMesh = new GhostBuildingMesh(building.getAllRects());
     }
