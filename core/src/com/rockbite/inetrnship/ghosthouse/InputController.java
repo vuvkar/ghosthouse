@@ -7,8 +7,9 @@ import com.badlogic.gdx.math.Vector3;
 public class InputController {
     // TODO: Monika's shit
     public Vector3 target;
+
     public Vector3 getInputCoordinates() {
-return new Vector3(Gdx.input.getX(), Gdx.input.getY(), 10);
+        return new Vector3(Gdx.input.getX(), Gdx.input.getY(), 10);
     }
 
     // TODO: Liana's Megashit
@@ -16,9 +17,9 @@ return new Vector3(Gdx.input.getX(), Gdx.input.getY(), 10);
 
     }
 
-    void update(){
-        if(Gdx.input.justTouched()){
-            target=getInputCoordinates();
+    void update() {
+        if (Gdx.input.justTouched()) {
+            target = getInputCoordinates();
             System.out.println(target);
         }
     }
