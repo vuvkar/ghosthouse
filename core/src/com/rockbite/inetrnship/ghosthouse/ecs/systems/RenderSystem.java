@@ -21,5 +21,10 @@ public class RenderSystem extends EntitySystem {
                                                                     TextureComponent.class, RoomObjectComponent.class).get());
     }
 
+    @Override
+    public void update(float delta) {
+        System.out.println("zibil");
+    }
+
 
 }
