@@ -6,7 +6,7 @@ public class InputController {
 
     }
 
-    // TODO: Liana's MEGAshit
+    // TODO: Liana's Megashit
     public void moveCharacter() {
 
     }
