@@ -19,8 +19,8 @@ public class GhostRectangle implements Comparable<GhostRectangle> {
         this.z = origin.z;
         this.width = width;
         this.height = height;
-
         this.normal = normal;
+
     }
 
     public void setNormal(Vector3 normal) {

@@ -14,7 +14,7 @@ uniform vec3 u_light;
 void main() {
     float dot = dot(normalize(v_toLight), normalize(v_normal));
     vec4 zibil =  texture2D(texture, v_coords);
-    zibil.rgb *= max(dot, 0.0);
+    zibil.rgb *= max(dot, 0.2);
     gl_FragColor =  zibil;
 
 }
