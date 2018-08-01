@@ -4,27 +4,62 @@
     {
       "class": "com.rockbite.inetrnship.ghosthouse.data.GameObject",
       "name": "ChairBrown",
-      "position": [ 2, 2, 0],
-      "scale": [1, 1, 1],
-      "rotation": [0, 0, 0],
+      "position": [
+        2,
+        2,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
       "texture": "textures/chair_brown.png"
     },
-
     {
       "class": "com.rockbite.inetrnship.ghosthouse.data.GameObject",
       "name": "ChairBlue",
-      "position": [ 10, 2, 0 ],
-      "scale": [1, 1, 1],
-      "rotation": [0, 0, 0],
+      "position": [
+        10,
+        2,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
       "texture": "textures/chair_blue.png"
     },
-
     {
       "class": "com.rockbite.inetrnship.ghosthouse.data.GameObject",
       "name": "tumbSHka",
-      "position": [ 6, 2, 0 ],
-      "scale": [1, 1, 1],
-      "rotation": [0, 0, 0],
+      "position": [
+        6,
+        2,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
       "texture": "textures/tumbSHka.png"
-    }]
+    }
+  ]
 }
