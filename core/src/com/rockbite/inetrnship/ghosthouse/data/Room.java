@@ -1,12 +1,15 @@
 package com.rockbite.inetrnship.ghosthouse.data;
 
 import com.badlogic.ashley.core.Entity;
+import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Json;
 import com.rockbite.inetrnship.ghosthouse.ecs.components.*;
+
+import static com.badlogic.gdx.Gdx.files;
 
 public class Room implements Comparable<Room> {
     private int index;
@@ -39,16 +42,23 @@ public class Room implements Comparable<Room> {
         items = new Array<Entity>();
 
         Json json = new Json();
-        Array<GameObject> array = json.fromJson(Array.class, Gdx.files.internal("JSON/trial.json"));
-        for(GameObject object: array) {
-            Entity item = new Entity();
-            item.add(new TextureComponent(object.texture));
-            item.add(new PositionComponent(object.position[0], object.position[1], object.position[2]));
-            item.add(new RoomObjectComponent(this.index));
-            item.add(new ScaleComponent(object.scale[0], object.scale[1], object.scale[2]));
-            item.add(new RotationComponent(object.rotation[0], object.rotation[1], object.rotation[2]));
-            items.add(item);
+        Array<Object> array = json.fromJson(Array.class, Gdx.files.internal("JSON/trial.json"));
+        for(Object object: array.items) {
+            if((GameObject) object != null) {
+                GameObject object2 = (GameObject)object;
+                Entity item = new Entity();
+                item.add(new TextureComponent(object2.texture));
+                item.add(new PositionComponent(object2.position[0], object2.position[1], object2.position[2]));
+                item.add(new RoomObjectComponent(this.index));
+                item.add(new ScaleComponent(object2.scale[0], object2.scale[1], object2.scale[2]));
+                item.add(new RotationComponent(object2.rotation[0], object2.rotation[1], object2.rotation[2]));
+                items.add(item);
+            }
         }
+    }
+
+    public Array<Entity> getItems() {
+        return items;
     }
 
     public int getIndex() {
