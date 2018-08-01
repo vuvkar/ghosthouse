@@ -67,6 +67,8 @@ public class CameraSystem extends EntitySystem {
 
         if (Gdx.input.isKeyJustPressed(Input.Keys.ENTER)) {
             target++;
+            if(target==Rooms.size)
+                target=0;
             t = 0;
             ispressed = true;
             Cameracom.targetvec = (move(target, Rooms));
