@@ -1,6 +1,5 @@
 package com.rockbite.inetrnship.ghosthouse.data;
 
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector3;
 
 public class GhostRectangle implements Comparable<GhostRectangle> {
@@ -23,7 +22,6 @@ public class GhostRectangle implements Comparable<GhostRectangle> {
 
         this.normal = normal;
     }
-
 
     public void setNormal(Vector3 normal) {
         this.normal = normal;

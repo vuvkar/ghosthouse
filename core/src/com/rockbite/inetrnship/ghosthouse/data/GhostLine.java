@@ -62,5 +62,4 @@ public class GhostLine implements Comparable<GhostLine> {
         }
         return value > 0 ? 1 : -1;
     }
-
 }

@@ -1,12 +1,9 @@
 package com.rockbite.inetrnship.ghosthouse.util;
 
 import com.badlogic.gdx.math.Vector2;
-import com.rockbite.inetrnship.ghosthouse.data.Room;
 
-import java.util.Arrays;
 
 public class RoomParser {
-    Room roomData;
     int roomID;
 
     public int getRoomCount() {
@@ -14,15 +11,11 @@ public class RoomParser {
     }
 
     public RoomParser() {
-
     }
 
-    // search for 0 element in array (i. e. room)
+    // search for 0 element in array (i. e. detect where are walls and where not)
     public void search(int[][] arr) {
         int index = 2;
-        int k = 0;
-
-        System.out.println();
 
         for (int i = 0; i < arr.length; ++i) {
             for (int j = 0; j < arr[0].length; ++j) {
@@ -36,16 +29,19 @@ public class RoomParser {
         roomID = index - 2;
     }
 
-    // fills the room with particular index
+    // fills the empty parts of room with particular index
     private void fill(int row, int column, int fillNumber, int[][] array) {
         if (row < 0 || column < 0 || row >= array.length || column >= array[0].length) {
             return;
         }
 
-        if (array[row][column] != 0) return;
+        if (array[row][column] != 0) {
+            return;
+        }
+
         array[row][column] = fillNumber;
 
-
+        // recursive call to check neighbours of the element
         fill(row - 1, column, fillNumber, array);
         fill(row - 1, column - 1, fillNumber, array);
         fill(row, column - 1, fillNumber, array);
@@ -61,51 +57,42 @@ public class RoomParser {
     // returns bottom left corner of room (pushed, i. e. origin point of wall)
     public Vector2 bottomLeftCorner(int[][] filledArr, int index) {
         index += 2;
-        Vector2 bottomCoords = new Vector2();
+        Vector2 bottomCords = new Vector2();
 
         // loop through filled matrix and find origin point
         for (int i = 0; i < filledArr.length; ++i) {
             for (int j = 0; j < filledArr[0].length; ++j) {
                 if (filledArr[i][j] == index) {
-                    //width++;
-                    //System.out.println("width = " + width);
-
                     if (filledArr[i][j - 1] == 1 && filledArr[i + 1][j] == 1) {
-                        // System.out.println(j + " " + i);
-                        bottomCoords.set(j - 1, filledArr.length - i - 2);
+                        bottomCords.set(j - 1, filledArr.length - i - 2);
                         break;
-
                     }
                 }
             }
         }
-        return bottomCoords;
+        return bottomCords;
     }
 
     // returns top right corner of the room(pushed, i. e. origin point of wall)
     public Vector2 topRightCorner(int[][] filledArr, int index) {
         index += 2;
-        Vector2 topCoords = new Vector2();
+        Vector2 topCords = new Vector2();
 
         for (int i = 0; i < filledArr.length; ++i) {
             for (int j = 0; j < filledArr[0].length; ++j) {
                 if (filledArr[i][j] == index) {
-                    if (i == 0) {
-                        // System.out.println("zib");
-                    }
                     if (filledArr[i - 1][j] == 1 && filledArr[i][j + 1] == 1) {
-                        topCoords.set(j + 1, filledArr.length - i);
+                        topCords.set(j + 1, filledArr.length - i);
                         break;
-
                     }
                 }
             }
         }
-        return topCoords;
+        return topCords;
     }
 
-    // returns width and height of the room
-    public float getRoomWidth(int[][] filledArr, int index, Vector2 bottomLeft, Vector2 topRight) {
+    // returns width of the room
+    public float getRoomWidth(int[][] filledArr, int index) {
         float width;
 
         width = Math.abs(topRightCorner(filledArr, index).y - bottomLeftCorner(filledArr, index).y);
@@ -113,7 +100,8 @@ public class RoomParser {
         return width;
     }
 
-    public float getRoomHeight(int[][] filledArr, int index, Vector2 bottomLeft, Vector2 topRight) {
+    // returns height of the room
+    public float getRoomHeight(int[][] filledArr, int index) {
         float height;
 
         height = Math.abs(topRightCorner(filledArr, index).x - bottomLeftCorner(filledArr, index).x);

@@ -15,6 +15,7 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 
+
 public class AssetLoader extends AssetManager {
 
     private Array<Room> rooms;
@@ -22,11 +23,11 @@ public class AssetLoader extends AssetManager {
 
     public AssetLoader() {
         loadGameData();
-        TexturePacker.Settings settings = new TexturePacker.Settings();
-        settings.maxWidth = 4096;
-        settings.maxHeight = 4096;
-        TexturePacker.process(settings, "textures", "packed", "game");
-        loadJSON();
+//        TexturePacker.Settings settings = new TexturePacker.Settings();
+//        settings.maxWidth = 4096;
+//        settings.maxHeight = 4096;
+//        TexturePacker.process(settings, "textures", "packed", "game");
+//        loadJSON();
         atlas = new TextureAtlas(Gdx.files.internal("packed/game.atlas"));
     }
 
@@ -41,33 +42,39 @@ public class AssetLoader extends AssetManager {
 
     public int[][] readPixelData() {
         // TODO: courtesy of Dave
-
         int[][] matrix = new int[0][0];
         String fileName = "PBMs/Monika_Map.pbm";
         String line = null;
         try {
-            FileReader filereader = new FileReader(fileName);
-            BufferedReader bufferedreader = new BufferedReader(filereader);
-            line = bufferedreader.readLine();
+            FileReader fileReader = new FileReader(fileName);
+            BufferedReader bufferedReader = new BufferedReader(fileReader);
+            line = bufferedReader.readLine();
             assert line != "P1";
-            line = bufferedreader.readLine();
+            line = bufferedReader.readLine();
+
             while (line.charAt(0) == '#') {
-                line = bufferedreader.readLine();
+                line = bufferedReader.readLine();
             }
+
             java.lang.String[] tmp = line.split(" ");
             int width = Integer.parseInt(tmp[0]);
             int height = Integer.parseInt(tmp[1]);
 
             matrix = new int[height][width];
+
             int i = 0;
             int j = 0;
+
             while (i < height && j < width) {
-                line = bufferedreader.readLine();
+                line = bufferedReader.readLine();
+
                 while (line.charAt(0) == '#') {
-                    line = bufferedreader.readLine();
+                    line = bufferedReader.readLine();
                 }
+
                 tmp = line.split(" ");
                 int k = 0;
+
                 while (k < tmp.length) {
                     matrix[i][j] = Integer.parseInt(tmp[k]);
                     k++;
@@ -79,9 +86,10 @@ public class AssetLoader extends AssetManager {
                     }
                 }
             }
+
         } catch (IOException e) {
             e.printStackTrace();
-            System.out.println("dsg");
+            System.out.println("Wrong picture format.");
         }
         return (matrix);
     }
@@ -89,8 +97,6 @@ public class AssetLoader extends AssetManager {
     public void loadJSON() {
         JsonReader json = new JsonReader();
         JsonValue base = json.parse(Gdx.files.internal("JSON/trial.json"));
-
-        System.out.println(base);
     }
 
     public Array<Room> processRoomData(int[][] rawPixelData) {
@@ -101,13 +107,12 @@ public class AssetLoader extends AssetManager {
         roomParser.search(rawPixelData);
 
         int roomID = roomParser.getRoomCount();
+
         for (int i = 0; i < roomID; ++i) {
-
             Vector2 bottomLeft = roomParser.bottomLeftCorner(rawPixelData, i);
-            Vector2 topRight = roomParser.topRightCorner(rawPixelData, i);
 
-            float height = roomParser.getRoomHeight(rawPixelData, i, bottomLeft, topRight);
-            float width = roomParser.getRoomWidth(rawPixelData, i, bottomLeft, topRight);
+            float height = roomParser.getRoomHeight(rawPixelData, i);
+            float width = roomParser.getRoomWidth(rawPixelData, i);
 
             Room room = new Room(i, bottomLeft, height, width);
             roomArray.add(room);
