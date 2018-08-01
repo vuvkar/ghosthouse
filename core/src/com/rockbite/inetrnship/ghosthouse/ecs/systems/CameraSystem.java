@@ -11,7 +11,9 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.PerspectiveCamera;
 import com.badlogic.gdx.math.Interpolation;
 
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
+import com.badlogic.gdx.math.collision.Ray;
 import com.badlogic.gdx.utils.Array;
 import com.rockbite.inetrnship.ghosthouse.AssetLoader;
 import com.rockbite.inetrnship.ghosthouse.data.Room;
@@ -49,7 +51,7 @@ public class CameraSystem extends EntitySystem {
 
         Cam.position.set(Rooms.get(0).getOrigin().x+Rooms.get(0).getWidth()/2f, Rooms.get(0).getOrigin().y+Rooms.get(0).getHeight()/2f, (float) dist(angle(Gdx.graphics.getWidth(), Gdx.graphics.getHeight(), 67), Rooms.get(0).getWidth()+Rooms.get(0).getWidth() / 5f) + 3);
 
-
+        System.out.println(Cam.position);
     }
 
     public void update(float deltaTime) {
@@ -76,7 +78,18 @@ public class CameraSystem extends EntitySystem {
             dist.set(Cameracom.targetvec.x - Cameracom.LL.x, Cameracom.targetvec.y - Cameracom.LL.y, Cameracom.targetvec.z - Cameracom.LL.z);
         }
 
+    if(Gdx.input.justTouched()){
+        Vector2 clickPos = new Vector2(Gdx.input.getX(), Gdx.input.getY());
 
+        Vector3 worldCoordinates = Cam.unproject(new Vector3(clickPos, 0), Cam.position.x, Cam.position.y, Gdx.graphics.getWidth(), Gdx.graphics.getHeight() );
+
+        Ray ray= Cam.getPickRay(Gdx.input.getX(), Gdx.input.getY());
+        System.out.println(worldCoordinates.x);
+
+
+        //Vector3 pointOnNearPlane = Cam.unproject(new Vector3(Gdx.input.getX(), Gdx.input.getX(), 0f));
+        //System.out.println(pointOnNearPlane);
+    }
 
     }
 
