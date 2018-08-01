@@ -10,7 +10,7 @@ import com.badlogic.gdx.utils.Array;
 
 public class GhostMesh {
     private final int POSITION_ATTRIBUTE_COUNT = 3;
-    private final int COLOR_ATTRIBUTE_COUNT = 4;
+    private final int COLOR_ATTRIBUTE_COUNT = 0;
     private final int TEXTURE_ATTRIBUTE_COUNT = 2;
     private final int NORMAL_ATTRIBUTE_COUNT = 3;
     private final int ATTRIBUTE_COUNT = POSITION_ATTRIBUTE_COUNT + COLOR_ATTRIBUTE_COUNT + TEXTURE_ATTRIBUTE_COUNT + NORMAL_ATTRIBUTE_COUNT;
@@ -41,7 +41,6 @@ public class GhostMesh {
 
         building = new Mesh(true, vertexIndex, indIndex,
                 new VertexAttribute(VertexAttributes.Usage.Position, POSITION_ATTRIBUTE_COUNT, ShaderProgram.POSITION_ATTRIBUTE),
-                new VertexAttribute(VertexAttributes.Usage.ColorUnpacked, COLOR_ATTRIBUTE_COUNT, ShaderProgram.COLOR_ATTRIBUTE),
                 new VertexAttribute(VertexAttributes.Usage.TextureCoordinates, TEXTURE_ATTRIBUTE_COUNT, ShaderProgram.TEXCOORD_ATTRIBUTE + "0"),
                 new VertexAttribute(VertexAttributes.Usage.Normal, NORMAL_ATTRIBUTE_COUNT, ShaderProgram.NORMAL_ATTRIBUTE));
 
@@ -92,13 +91,6 @@ public class GhostMesh {
                 vertices[vertexIndex++] = rectangle.getZ() + (i % 2) * rectangle.getWidth();
             }
 
-            // Vertex Color
-            Color color = Color.RED;
-
-            vertices[vertexIndex++] = color.r;
-            vertices[vertexIndex++] = color.g;
-            vertices[vertexIndex++] = color.b;
-            vertices[vertexIndex++] = color.a;
             // UV Coordinates
             TextureAtlas.AtlasRegion region = rectangle.getType().getTexture();
             float diffU = region.getU2() - region.getU();
