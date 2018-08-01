@@ -52,6 +52,7 @@ public class Room implements Comparable<Room> {
                 item.add(new RoomObjectComponent(this.index));
                 item.add(new ScaleComponent(object2.scale[0], object2.scale[1], object2.scale[2]));
                 item.add(new RotationComponent(object2.rotation[0], object2.rotation[1], object2.rotation[2]));
+                item.add(new SizeComponent(object2.width, object2.height));
                 items.add(item);
             }
         }

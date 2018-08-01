@@ -10,4 +10,6 @@ public class GameObject {
     float[] scale;
     float[] rotation;
     String texture;
+    float width;
+    float height;
 }

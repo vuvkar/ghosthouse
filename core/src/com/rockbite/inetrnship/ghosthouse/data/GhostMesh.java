@@ -2,6 +2,7 @@ package com.rockbite.inetrnship.ghosthouse.data;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.*;
+import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.glutils.ShaderProgram;
 import com.badlogic.gdx.math.Vector3;
@@ -15,13 +16,20 @@ public class GhostMesh {
     private final int NORMAL_ATTRIBUTE_COUNT = 3;
     private final int ATTRIBUTE_COUNT = POSITION_ATTRIBUTE_COUNT + COLOR_ATTRIBUTE_COUNT + TEXTURE_ATTRIBUTE_COUNT + NORMAL_ATTRIBUTE_COUNT;
 
+    // FIXME: This later should be changed to be calculated dynamically
+    private final int ITEM_COUNT = 100000;
+
     Texture assets;
 
-    float[] vertices;
-    short[] indices;
+    float[] buildingVertices;
+    short[] buildingIndices;
 
-    int vertexIndex = 0;
-    int indIndex = 0;
+    float[] itemVertices;
+    short[] itemIndices;
+
+
+    Integer vertexIndex = new Integer(0);
+    Integer indIndex = new Integer(0);
 
     Vector3 light = new Vector3(10, 10, 10);
 
@@ -32,23 +40,37 @@ public class GhostMesh {
     public GhostMesh(Array<GhostRectangle> rectangles) {
         assets = new Texture(Gdx.files.internal("packed/game.png"));
 
-        vertices = new float[rectangles.size * 4 * ATTRIBUTE_COUNT];
-        indices = new short[rectangles.size * 3 * 2];
+        buildingVertices = new float[rectangles.size * 4 * ATTRIBUTE_COUNT];
+        buildingIndices = new short[rectangles.size * 3 * 2];
+
+        itemVertices = new float[ITEM_COUNT * 4 * ATTRIBUTE_COUNT];
+        itemIndices = new short[ITEM_COUNT * 6];
 
         for (GhostRectangle rect : rectangles) {
-            drawRectangle(rect);
+            drawRectangle(rect, buildingVertices, vertexIndex, buildingIndices, indIndex);
         }
 
-        building = new Mesh(true, vertexIndex, indIndex,
+        building = new Mesh(true, 4 * ATTRIBUTE_COUNT * (ITEM_COUNT + rectangles.size), 6 * (ITEM_COUNT + rectangles.size),
                 new VertexAttribute(VertexAttributes.Usage.Position, POSITION_ATTRIBUTE_COUNT, ShaderProgram.POSITION_ATTRIBUTE),
                 new VertexAttribute(VertexAttributes.Usage.TextureCoordinates, TEXTURE_ATTRIBUTE_COUNT, ShaderProgram.TEXCOORD_ATTRIBUTE + "0"),
                 new VertexAttribute(VertexAttributes.Usage.Normal, NORMAL_ATTRIBUTE_COUNT, ShaderProgram.NORMAL_ATTRIBUTE));
 
-        building.setVertices(vertices);
-        building.setIndices(indices);
+        building.setVertices(buildingVertices);
+        building.setIndices(buildingIndices);
 
         shaderProgram = new ShaderProgram(Gdx.files.internal("shaders/buildingShader.vert"), Gdx.files.internal("shaders/buildingShader.frag"));
         System.out.printf(shaderProgram.getLog());
+        Animation<TextureAtlas.AtlasRegion> animation;
+    }
+
+    public void renderItems(Array<GhostRectangle> items) {
+        int vIndex = 0;
+        int iIndex = 0;
+        for(GhostRectangle rectangle: items) {
+            drawRectangle(rectangle, itemVertices, vIndex, itemIndices, iIndex);
+        }
+
+
     }
 
     public void render(Camera camera) {
@@ -60,7 +82,7 @@ public class GhostMesh {
         shaderProgram.end();
     }
 
-    public void drawRectangle(GhostRectangle rectangle) {
+    public void drawRectangle(GhostRectangle rectangle, float[] vertices, Integer vertexIndexA, short[]indices, Integer indIndexA) {
 
         int vertexCount = vertexIndex / ATTRIBUTE_COUNT;
 

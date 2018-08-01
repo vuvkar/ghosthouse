@@ -7,6 +7,7 @@ import com.rockbite.inetrnship.ghosthouse.AssetLoader;
 
 public enum RectangleType {
     ROOM, BUILDING, WALL, FLOOR, CEILING, ITEM;
+    public String texture;
 
 //    public Color vertexColor() {
 //        switch (this) {
@@ -20,6 +21,7 @@ public enum RectangleType {
 //        return null;
 //    }
 //
+
     public TextureAtlas.AtlasRegion getTexture() {
         switch (this) {
             case ROOM:
@@ -32,6 +34,8 @@ public enum RectangleType {
                 return AssetLoader.getRegion("floor");
             case CEILING:
                 return AssetLoader.getRegion("floor");
+            case ITEM:
+                return  AssetLoader.getRegion(texture);
         }
         return null;
     }
