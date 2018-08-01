@@ -18,6 +18,11 @@ public class GhostBuilding {
     private Array<GhostRectangle> buildingConnectingWalls;
 
     private final float WALL_HEIGHT = 2.5f;
+
+    public float getBUILDING_DEPTH() {
+        return BUILDING_DEPTH;
+    }
+
     private final float BUILDING_DEPTH = 3f;
 
     private float buildingWidth;

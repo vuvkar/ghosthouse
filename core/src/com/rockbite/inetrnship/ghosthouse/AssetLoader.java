@@ -43,7 +43,7 @@ public class AssetLoader extends AssetManager {
     public int[][] readPixelData() {
         // TODO: courtesy of Dave
         int[][] matrix = new int[0][0];
-        String fileName = "PBMs/shit.pbm";
+        String fileName = "PBMs/Monika_Map.pbm";
         String line = null;
         try {
             FileReader fileReader = new FileReader(fileName);

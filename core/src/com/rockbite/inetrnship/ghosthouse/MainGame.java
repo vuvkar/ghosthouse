@@ -19,9 +19,9 @@ public class MainGame {
     private Engine engine;
     private CameraSystem cameraSystem;
     private AssetLoader assetLoader;
-
+    private InputController inputController;
     Entity Cam;
-    public CameraInputController camController;
+   // public CameraInputController camController;
 
     private GhostBuilding building;
     private GhostMesh buildingMesh;
@@ -31,6 +31,7 @@ public class MainGame {
     }
 
     public MainGame(GhostHouse ghostHouse) {
+        inputController=new InputController();
         this.ghostHouse = ghostHouse;
 
         engine = new Engine();
@@ -41,9 +42,9 @@ public class MainGame {
         engine.addSystem(cameraSystem);
         engine.addEntity(Cam);
 
-        camController = new CameraInputController(cameraSystem.Cam);
+     //   camController = new CameraInputController(cameraSystem.Cam);
 
-        Gdx.input.setInputProcessor(camController);
+     //   Gdx.input.setInputProcessor(camController);
 
         Gdx.gl.glEnable(GL20.GL_DEPTH_TEST);
         Gdx.gl.glEnable(GL20.GL_BLEND);
@@ -54,6 +55,7 @@ public class MainGame {
     }
 
     public void render() {
+        inputController.update();
         cameraSystem.Cam.update();
 
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT | GL20.GL_DEPTH_BUFFER_BIT);
