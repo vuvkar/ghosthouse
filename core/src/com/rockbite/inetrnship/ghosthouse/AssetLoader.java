@@ -22,18 +22,16 @@ public class AssetLoader extends AssetManager {
     static TextureAtlas atlas;
 
     public AssetLoader() {
-        loadGameData();
-//        TexturePacker.Settings settings = new TexturePacker.Settings();
-//        settings.maxWidth = 4096;
-//        settings.maxHeight = 4096;
-//        TexturePacker.process(settings, "textures", "packed", "game");
-//        loadJSON();
         atlas = new TextureAtlas(Gdx.files.internal("packed/game.atlas"));
+        loadGameData();
     }
 
     public void loadGameData() {
         int[][] pixelData = readPixelData();
         rooms = processRoomData(pixelData);
+        for(Room room: rooms) {
+            room.loadEntities();
+        }
     }
 
     public static TextureAtlas.AtlasRegion getRegion(String name) {
@@ -92,11 +90,6 @@ public class AssetLoader extends AssetManager {
             System.out.println("Wrong picture format.");
         }
         return (matrix);
-    }
-
-    public void loadJSON() {
-        JsonReader json = new JsonReader();
-        JsonValue base = json.parse(Gdx.files.internal("JSON/trial.json"));
     }
 
     public Array<Room> processRoomData(int[][] rawPixelData) {

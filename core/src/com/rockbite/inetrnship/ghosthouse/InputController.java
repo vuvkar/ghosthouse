@@ -12,7 +12,7 @@ public class InputController {
     public Room targetroom;
     public Vector3 CameraPosition=new Vector3(7.0f,14.5f,10.614609f);
     public Vector3 getInputCoordinates() {
-return new Vector3(Gdx.input.getX(), Gdx.input.getY(), 10);
+        return new Vector3(Gdx.input.getX(), Gdx.input.getY(), 10);
     }
 
     // TODO: Liana's Megashit

@@ -1,11 +1,14 @@
 package com.rockbite.inetrnship.ghosthouse.data;
 
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector3;
 
 public class GhostRectangle implements Comparable<GhostRectangle> {
 
     private Vector3 normal;
     private RectangleType type;
+    private TextureAtlas.AtlasRegion texture;
     private float width;
     private float height;
     private float x;
@@ -62,6 +65,10 @@ public class GhostRectangle implements Comparable<GhostRectangle> {
 
     public RectangleType getType() {
         return type;
+    }
+
+    public TextureAtlas.AtlasRegion getTexture() {
+        return texture;
     }
 
     public float getWidth() {
