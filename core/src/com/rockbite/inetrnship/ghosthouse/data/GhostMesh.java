@@ -9,12 +9,14 @@ import com.badlogic.gdx.utils.Array;
 import com.rockbite.inetrnship.ghosthouse.util.HelperClass;
 import com.rockbite.inetrnship.ghosthouse.util.IntWrapper;
 
+
+
 public class GhostMesh {
     private final int POSITION_ATTRIBUTE_COUNT = 3;
     private final int COLOR_ATTRIBUTE_COUNT = 0;
     private final int TEXTURE_ATTRIBUTE_COUNT = 2;
     private final int NORMAL_ATTRIBUTE_COUNT = 3;
-    private final int ATTRIBUTE_COUNT = POSITION_ATTRIBUTE_COUNT + COLOR_ATTRIBUTE_COUNT + TEXTURE_ATTRIBUTE_COUNT + NORMAL_ATTRIBUTE_COUNT;
+   public final int ATTRIBUTE_COUNT = POSITION_ATTRIBUTE_COUNT + COLOR_ATTRIBUTE_COUNT + TEXTURE_ATTRIBUTE_COUNT + NORMAL_ATTRIBUTE_COUNT;
 
     // FIXME: This later should be changed to be calculated dynamically
     public static int ITEM_COUNT = 0;
@@ -23,16 +25,17 @@ public class GhostMesh {
 
     Texture assets;
 
-    float[] buildingVertices;
-    short[] buildingIndices;
+    public float[] buildingVertices;
+    public short[] buildingIndices;
 
-    float[] itemVertices;
-    short[] itemIndices;
-
+   public  float[] itemVertices;
+   public  short[] itemIndices;
+    public float[] triangles;
     IntWrapper vertexIndex = new IntWrapper(0);
     IntWrapper indIndex = new IntWrapper(0);
 
-    private Mesh building;
+
+    public Mesh building;
 
     public ShaderProgram shaderProgram;
 
@@ -64,8 +67,9 @@ public class GhostMesh {
     public void renderItems(Array<GhostRectangle> items) {
         IntWrapper vert = new IntWrapper(0);
         IntWrapper ind = new IntWrapper(0);
-        for(GhostRectangle rectangle: items) {
-            drawRectangle(rectangle, itemVertices, vert, itemIndices, ind, buildingIndices[indIndex.value - 1] + 1);
+       for(GhostRectangle rectangle: items) {
+          drawRectangle(rectangle, itemVertices, vert, itemIndices, ind, buildingIndices[indIndex.value - 1] + 1);
+
         }
     }
 
@@ -82,6 +86,9 @@ public class GhostMesh {
         building.setVertices(combinedV);
         building.setIndices(combinedI);
         // building.setIndices(HelperClass.shortArrayCopy(buildingIndices, itemIndices));
+       building.setVertices(combinedV);
+       building.setIndices(combinedI);
+       // building.setIndices(HelperClass.shortArrayCopy(buildingIndices, itemIndices));
         assets.bind();
         building.render(shaderProgram, GL20.GL_TRIANGLES);
         shaderProgram.end();

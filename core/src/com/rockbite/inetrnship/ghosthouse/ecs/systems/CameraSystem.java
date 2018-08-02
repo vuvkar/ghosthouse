@@ -15,11 +15,13 @@ import com.badlogic.gdx.math.Interpolation;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.math.collision.Ray;
+import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.Array;
 import com.rockbite.inetrnship.ghosthouse.AssetLoader;
 import com.rockbite.inetrnship.ghosthouse.data.GhostMesh;
 import com.rockbite.inetrnship.ghosthouse.data.Room;
 import com.rockbite.inetrnship.ghosthouse.ecs.components.CameraComponent;
+
 
 public class CameraSystem extends EntitySystem {
     private ImmutableArray<Entity> entities;
@@ -30,17 +32,16 @@ public class CameraSystem extends EntitySystem {
     public Vector3 interpolColor = new Vector3(0, 0, 0);
     int target = 0;
     public PerspectiveCamera Cam;
-
-    public CameraInputController camController;
-
+Stage stage=new Stage();
     private Vector3 dist = new Vector3(0, 0, 0); //Distance to cover when moving from room to room in all 3 directions
     public boolean isPressed = false;
 
     Interpolation a = new Interpolation.SwingIn(2); //Interpolation of y
     Interpolation z = new Interpolation.Pow(2); //Interpolation of z
-
+    public CameraInputController camController;
     float t = 0f; // step time
     final float T = 10f; //Total time for moving from room to room
+
 
     public void addedToEngine(Engine engine) {
 
@@ -54,8 +55,8 @@ public class CameraSystem extends EntitySystem {
         camController = new CameraInputController(Cam);
 
         Gdx.input.setInputProcessor(camController);
-
-        System.out.println(Cam.position);
+       stage.getViewport().setCamera(Cam);
+       Cam.near=1;
     }
 
     public void update(float deltaTime) {
@@ -74,23 +75,31 @@ public class CameraSystem extends EntitySystem {
             t = 0;
             isPressed = true;
             cameraComponent.targetVec = (move(target, Rooms));
+            System.out.println(cameraComponent.targetVec);
             cameraComponent.bottomLeft.set(Cam.position);
             dist.set(cameraComponent.targetVec.x - cameraComponent.bottomLeft.x, cameraComponent.targetVec.y - cameraComponent.bottomLeft.y, cameraComponent.targetVec.z - cameraComponent.bottomLeft.z);
         }
 
-        if (Gdx.input.justTouched()) {
+        /*
+        if(Gdx.input.justTouched()){
             Vector2 clickPos = new Vector2(Gdx.input.getX(), Gdx.input.getY());
-
-            Vector3 worldCoordinates = Cam.unproject(new Vector3(clickPos, 0), Cam.position.x, Cam.position.y, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
-
-            Ray ray = Cam.getPickRay(Gdx.input.getX(), Gdx.input.getY());
-            System.out.println(worldCoordinates.x);
+           // System.out.println(clickPos);
 
 
-            //Vector3 pointOnNearPlane = Cam.unproject(new Vector3(Gdx.input.getX(), Gdx.input.getX(), 0f));
+float dist=(float)dist(angle(Gdx.graphics.getWidth(), Gdx.graphics.getHeight(), 67), 30);
+            System.out.println(Cam.far);
+
+            Vector3 worldCoordinates = Cam.unproject(new Vector3(clickPos, 0));
+           // System.out.println(worldCoordinates);
+           // System.out.println(stage.getViewport().getScreenY());
+          //  System.out.println();
+           System.out.println(Cam.getPickRay(Gdx.input.getX(), Gdx.input.getY(), stage.getViewport().getScreenX(), stage.getViewport().getScreenY(), stage.getViewport().getScreenWidth(), stage.getViewport().getScreenHeight()).origin.add(Cam.getPickRay(Gdx.input.getX(), Gdx.input.getY(), stage.getViewport().getScreenX(), stage.getViewport().getScreenY(), stage.getViewport().getScreenWidth(), stage.getViewport().getScreenHeight()).direction));
+           System.out.println(Cam.getPickRay(Gdx.input.getX(), Gdx.input.getY()));
+
+//Vector3 pointOnNearPlane = Cam.unproject(new Vector3(Gdx.input.getX(), Gdx.input.getX(), 0f));
             //System.out.println(pointOnNearPlane);
         }
-
+*/
     }
 
     public void interpolHandle() {
@@ -110,6 +119,7 @@ public class CameraSystem extends EntitySystem {
                             * a.apply(t / T), cameraComponent.bottomLeft.z + dist.z * z.apply(t / T));
                     GhostMesh.lightColor = new Vector3(Rooms.get(target).getLightCol2().x - Rooms.get(target - 1).getLightCol1().x, Rooms.get(target).getLightCol2().y - Rooms.get(target - 1).getLightCol1().y, Rooms.get(target).getLightCol2().z - Rooms.get(target - 1).getLightCol1().z);
                 }
+
             }
         }
     }

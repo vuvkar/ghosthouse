@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.tools.texturepacker.TexturePacker;
 import com.badlogic.gdx.utils.Array;
+import com.rockbite.inetrnship.ghosthouse.data.GhostMesh;
 import com.rockbite.inetrnship.ghosthouse.data.Room;
 import com.rockbite.inetrnship.ghosthouse.util.RoomParser;
 
@@ -27,10 +28,10 @@ public class AssetLoader extends AssetManager {
 //        TexturePacker.process(settings,"textures", "packed", "game");
         atlas = new TextureAtlas(Gdx.files.internal("packed/game.atlas"));
         loadGameData();
-
     }
 
     public void loadGameData() {
+        GhostMesh.ITEM_COUNT = 0;
         int[][] pixelData = readPixelData();
         rooms = processRoomData(pixelData);
         for(Room room: rooms) {

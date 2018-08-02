@@ -19,12 +19,7 @@ public class GhostBuilding {
 
    static public final float WALL_HEIGHT = 2.5f;
 
-    //FIXME: WTF erexeq? :D
-    public float getBUILDING_DEPTH() {
-        return BUILDING_DEPTH;
-    }
-
-    private final float BUILDING_DEPTH = 3f;
+    public final float BUILDING_DEPTH = 3f;
 
     private float buildingWidth;
     private float buildingHeight;
