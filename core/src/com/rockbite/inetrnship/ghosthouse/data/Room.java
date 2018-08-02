@@ -43,7 +43,6 @@ public class Room implements Comparable<Room> {
 
         Json json = new Json();
         Array<Object> array = json.fromJson(Array.class, Gdx.files.internal("JSON/trial.json"));
-        GhostMesh.ITEM_COUNT += array.items.length;
         for(Object object: array.items) {
             if((GameObject) object != null) {
                 GameObject object2 = (GameObject)object;
@@ -58,6 +57,9 @@ public class Room implements Comparable<Room> {
                 items.add(item);
             }
         }
+        //FIXME: fix this shit
+        GhostMesh.ITEM_COUNT += items.size;
+
     }
 
     public Array<Entity> getItems() {

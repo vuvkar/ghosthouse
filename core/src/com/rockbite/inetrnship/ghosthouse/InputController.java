@@ -42,8 +42,16 @@ public class InputController {
 
         if(Gdx.input.justTouched()){
             ray = Cam.getPickRay(Gdx.input.getX(), Gdx.input.getY());
+            short[] temo = mesh.itemIndices.clone();
+            for(int i = 0; i < temo.length; i++) {
+                temo[i] -= 132;
+                if(temo[i] < 0) {
+                    temo[i] = 0;
+                }
+            }
 
-            if (Intersector.intersectRayTriangles(ray, mesh.buildingVertices, mesh.buildingIndices, 8, targetPosition)) {
+            if (Intersector.intersectRayTriangles(ray, mesh.itemVertices,temo,  8, targetPosition)) {
+                System.out.println(targetPosition);
                 moveCharacter();
             }
 

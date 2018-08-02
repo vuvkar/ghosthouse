@@ -28,7 +28,7 @@ public class GhostMesh {
 
    public  float[] itemVertices;
    public  short[] itemIndices;
-
+    public float[] triangles;
     IntWrapper vertexIndex = new IntWrapper(0);
     IntWrapper indIndex = new IntWrapper(0);
 
@@ -65,8 +65,9 @@ public class GhostMesh {
     public void renderItems(Array<GhostRectangle> items) {
         IntWrapper vert = new IntWrapper(0);
         IntWrapper ind = new IntWrapper(0);
-        for(GhostRectangle rectangle: items) {
-            drawRectangle(rectangle, itemVertices, vert, itemIndices, ind, buildingIndices[indIndex.value - 1] + 1);
+       for(GhostRectangle rectangle: items) {
+          drawRectangle(rectangle, itemVertices, vert, itemIndices, ind, buildingIndices[indIndex.value - 1] + 1);
+
         }
     }
 
@@ -79,8 +80,8 @@ public class GhostMesh {
         float[] combinedV = HelperClass.floatArrayCopy(buildingVertices, itemVertices);
         short[] combinedI = HelperClass.shortArrayCopy(buildingIndices, itemIndices);
 
-        building.setVertices(combinedV);
-        building.setIndices(combinedI);
+       building.setVertices(combinedV);
+       building.setIndices(combinedI);
        // building.setIndices(HelperClass.shortArrayCopy(buildingIndices, itemIndices));
         assets.bind();
         building.render(shaderProgram, GL20.GL_TRIANGLES);
