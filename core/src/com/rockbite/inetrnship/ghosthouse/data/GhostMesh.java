@@ -9,8 +9,6 @@ import com.badlogic.gdx.utils.Array;
 import com.rockbite.inetrnship.ghosthouse.util.HelperClass;
 import com.rockbite.inetrnship.ghosthouse.util.IntWrapper;
 
-
-
 public class GhostMesh {
     private final int POSITION_ATTRIBUTE_COUNT = 3;
     private final int COLOR_ATTRIBUTE_COUNT = 0;
@@ -20,6 +18,8 @@ public class GhostMesh {
 
     // FIXME: This later should be changed to be calculated dynamically
     public static int ITEM_COUNT = 0;
+
+    public static Vector3 lightColor = new Vector3(1f, 1f, 0.5f);
 
     Texture assets;
 
@@ -32,10 +32,9 @@ public class GhostMesh {
     IntWrapper vertexIndex = new IntWrapper(0);
     IntWrapper indIndex = new IntWrapper(0);
 
-
     private Mesh building;
 
-    private ShaderProgram shaderProgram;
+    public ShaderProgram shaderProgram;
 
     public GhostMesh(Array<GhostRectangle> rectangles) {
         assets = new Texture(Gdx.files.internal("packed/game.png"));
@@ -74,6 +73,7 @@ public class GhostMesh {
         shaderProgram.begin();
         shaderProgram.setUniformMatrix("u_projTrans", camera.combined);
         shaderProgram.setUniformf("u_light", camera.position);
+        shaderProgram.setUniformf("u_lightColor", lightColor);
 //        building.setVertices(itemVertices);
 //        building.setIndices(itemIndices);
         float[] combinedV = HelperClass.floatArrayCopy(buildingVertices, itemVertices);
@@ -81,7 +81,7 @@ public class GhostMesh {
 
         building.setVertices(combinedV);
         building.setIndices(combinedI);
-       // building.setIndices(HelperClass.shortArrayCopy(buildingIndices, itemIndices));
+        // building.setIndices(HelperClass.shortArrayCopy(buildingIndices, itemIndices));
         assets.bind();
         building.render(shaderProgram, GL20.GL_TRIANGLES);
         shaderProgram.end();

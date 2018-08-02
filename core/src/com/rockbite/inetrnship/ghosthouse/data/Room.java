@@ -16,6 +16,8 @@ public class Room implements Comparable<Room> {
     private Vector2 origin;
     private float width;
     private float height;
+    private Vector3 lightCol1 = new Vector3(255, 250, 100);
+    private Vector3 lightCol2 = new Vector3(100, 200, 255);
 
     private Array<Entity> items;
 
@@ -60,6 +62,14 @@ public class Room implements Comparable<Room> {
         }
     }
 
+    public Vector3 getLightCol1() {
+        return lightCol1;
+    }
+
+    public Vector3 getLightCol2() {
+        return lightCol2;
+    }
+
     public Array<Entity> getItems() {
         return items;
     }
@@ -80,7 +90,6 @@ public class Room implements Comparable<Room> {
         return height;
     }
 
-
     @Override
     public int compareTo(Room o) {
         float value = this.origin.x - o.origin.x;
@@ -88,7 +97,5 @@ public class Room implements Comparable<Room> {
             return 0;
         }
         return value > 0 ? 1 : -1;
-
     }
 }
-
