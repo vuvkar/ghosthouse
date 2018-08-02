@@ -87,8 +87,7 @@ public class MainGame {
         }
 
 
-        Gdx.gl.glEnable(GL20.GL_DEPTH_TEST);
-        Gdx.gl.glEnable(GL20.GL_BLEND);
+
 
 
     }
@@ -97,11 +96,13 @@ public class MainGame {
         inputController.update(meshok, cameraSystem.Cam);
         cameraSystem.Cam.update();
 
+        Gdx.gl.glEnable(GL20.GL_DEPTH_TEST);
+        Gdx.gl.glEnable(GL20.GL_BLEND);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT | GL20.GL_DEPTH_BUFFER_BIT);
         Gdx.gl.glBlendFunc(GL20.GL_SRC_ALPHA, GL20.GL_ONE_MINUS_SRC_ALPHA);
-        Gdx.gl.glGenerateMipmap(GL11.GL_TEXTURE_2D);
-        Gdx.gl.glTexParameteri(GL11.GL_TEXTURE_2D, GL11.GL_TEXTURE_MIN_FILTER, GL11.GL_LINEAR_MIPMAP_LINEAR);
-        Gdx.gl.glTexParameterf(GL11.GL_TEXTURE_2D, GL14.GL_TEXTURE_LOD_BIAS, -0.4f);
+//        Gdx.gl.glGenerateMipmap(GL11.GL_TEXTURE_2D);
+//        Gdx.gl.glTexParameteri(GL11.GL_TEXTURE_2D, GL11.GL_TEXTURE_MIN_FILTER, GL11.GL_LINEAR_MIPMAP_LINEAR);
+//        Gdx.gl.glTexParameterf(GL11.GL_TEXTURE_2D, GL14.GL_TEXTURE_LOD_BIAS, -0.4f);
         // this all should eventually be rendered to FBO actually
 
         // first render sky
