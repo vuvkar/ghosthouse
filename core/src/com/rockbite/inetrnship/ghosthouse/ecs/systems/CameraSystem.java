@@ -29,10 +29,10 @@ public class CameraSystem extends EntitySystem {
     AssetLoader assetLoader = new AssetLoader();
     Array<Room> Rooms = assetLoader.getRooms();
     CameraComponent cameraComponent;
-    public Vector3 interpolColor = new Vector3(0, 0, 0);
+    public static Vector3 interpolColor = new Vector3(0, 0, 0);
     int target = 0;
     public PerspectiveCamera Cam;
-Stage stage=new Stage();
+    Stage stage = new Stage();
     private Vector3 dist = new Vector3(0, 0, 0); //Distance to cover when moving from room to room in all 3 directions
     public boolean isPressed = false;
 
@@ -55,8 +55,8 @@ Stage stage=new Stage();
         camController = new CameraInputController(Cam);
 
         Gdx.input.setInputProcessor(camController);
-       stage.getViewport().setCamera(Cam);
-       Cam.near=1;
+        stage.getViewport().setCamera(Cam);
+        Cam.near = 1;
     }
 
     public void update(float deltaTime) {
@@ -108,16 +108,23 @@ float dist=(float)dist(angle(Gdx.graphics.getWidth(), Gdx.graphics.getHeight(), 
                 isPressed = false;
                 t = 0;
             } else {
+               float zibil =t/T;
+                float rDistance = Rooms.get(target).getLightCol2().x - Rooms.get(target - 1).getLightCol1().x;
+                float gDistance = Rooms.get(target).getLightCol2().y - Rooms.get(target - 1).getLightCol1().y;
+                float bDistance = Rooms.get(target).getLightCol2().z - Rooms.get(target - 1).getLightCol1().z;
                 if (t < T) {
                     Cam.position.set(cameraComponent.bottomLeft.x + dist.x * t / T, cameraComponent.bottomLeft.y + dist.y
                             * a.apply(t / T), cameraComponent.bottomLeft.z + dist.z * z.apply(t / T));
-                    t += Gdx.graphics.getDeltaTime() * 20f;
-                   GhostMesh.lightColor = new Vector3(Rooms.get(target).getLightCol2().x - Rooms.get(target - 1).getLightCol1().x, Rooms.get(target).getLightCol2().y - Rooms.get(target - 1).getLightCol1().y, Rooms.get(target).getLightCol2().z - Rooms.get(target - 1).getLightCol1().z);
+                    t += Gdx.graphics.getDeltaTime() * 5f;
+                    System.out.println(zibil);
+                   Vector3 apush = new Vector3(Rooms.get(target - 1).getLightCol1().x + zibil * rDistance, Rooms.get(target - 1).getLightCol1().y + zibil * gDistance,Rooms.get(target - 1).getLightCol1().z + zibil*bDistance);
+                   GhostMesh.lightColor.set(apush);
+                    System.out.println(apush);
                 } else if (t >= T) {
+                    GhostMesh.lightColor.set(Rooms.get(target).getLightCol2());
                     t = T;
                     Cam.position.set(cameraComponent.bottomLeft.x + dist.x * t / T, cameraComponent.bottomLeft.y + dist.y
                             * a.apply(t / T), cameraComponent.bottomLeft.z + dist.z * z.apply(t / T));
-                    GhostMesh.lightColor = new Vector3(Rooms.get(target).getLightCol2().x - Rooms.get(target - 1).getLightCol1().x, Rooms.get(target).getLightCol2().y - Rooms.get(target - 1).getLightCol1().y, Rooms.get(target).getLightCol2().z - Rooms.get(target - 1).getLightCol1().z);
                 }
 
             }
@@ -143,5 +150,3 @@ float dist=(float)dist(angle(Gdx.graphics.getWidth(), Gdx.graphics.getHeight(), 
         return Math.sqrt(r * r - y * y);
     }
 }
-
-
