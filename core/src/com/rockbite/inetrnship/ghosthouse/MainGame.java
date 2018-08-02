@@ -93,7 +93,7 @@ public class MainGame {
     }
 
     public void render() {
-        inputController.update(meshok, cameraSystem.Cam);
+        inputController.update(meshok, cameraSystem, rooms);
         cameraSystem.Cam.update();
 
         Gdx.gl.glEnable(GL20.GL_DEPTH_TEST);

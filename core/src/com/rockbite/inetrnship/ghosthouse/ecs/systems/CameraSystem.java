@@ -28,7 +28,7 @@ public class CameraSystem extends EntitySystem {
     AssetLoader assetLoader = new AssetLoader();
     Array<Room> Rooms = assetLoader.getRooms();
     CameraComponent cameraComponent;
-    int target = 0;
+    public int target = 0;
     public PerspectiveCamera Cam;
 Stage stage=new Stage();
     private Vector3 dist = new Vector3(0, 0, 0); //Distance to cover when moving from room to room in all 3 directions

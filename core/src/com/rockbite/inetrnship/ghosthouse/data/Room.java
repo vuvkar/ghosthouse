@@ -17,7 +17,7 @@ public class Room implements Comparable<Room> {
     private float width;
     private float height;
 
-    private Array<Entity> items;
+   public Array<Entity> items;
 
     public void setOrigin(Vector2 origin) {
         this.origin = origin;
