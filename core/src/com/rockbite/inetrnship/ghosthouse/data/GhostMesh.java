@@ -16,24 +16,24 @@ public class GhostMesh {
     private final int COLOR_ATTRIBUTE_COUNT = 0;
     private final int TEXTURE_ATTRIBUTE_COUNT = 2;
     private final int NORMAL_ATTRIBUTE_COUNT = 3;
-    private final int ATTRIBUTE_COUNT = POSITION_ATTRIBUTE_COUNT + COLOR_ATTRIBUTE_COUNT + TEXTURE_ATTRIBUTE_COUNT + NORMAL_ATTRIBUTE_COUNT;
+   public final int ATTRIBUTE_COUNT = POSITION_ATTRIBUTE_COUNT + COLOR_ATTRIBUTE_COUNT + TEXTURE_ATTRIBUTE_COUNT + NORMAL_ATTRIBUTE_COUNT;
 
     // FIXME: This later should be changed to be calculated dynamically
     public static int ITEM_COUNT = 0;
 
     Texture assets;
 
-    float[] buildingVertices;
-    short[] buildingIndices;
+    public float[] buildingVertices;
+    public short[] buildingIndices;
 
-    float[] itemVertices;
-    short[] itemIndices;
+   public  float[] itemVertices;
+   public  short[] itemIndices;
 
     IntWrapper vertexIndex = new IntWrapper(0);
     IntWrapper indIndex = new IntWrapper(0);
 
 
-    private Mesh building;
+    public Mesh building;
 
     private ShaderProgram shaderProgram;
 

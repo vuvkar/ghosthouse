@@ -6,6 +6,11 @@ import com.badlogic.ashley.core.Family;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.*;
 import com.badlogic.gdx.graphics.g3d.utils.CameraInputController;
+import com.badlogic.gdx.math.Intersector;
+import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.math.Vector3;
+import com.badlogic.gdx.math.collision.BoundingBox;
+import com.badlogic.gdx.math.collision.Ray;
 import com.badlogic.gdx.utils.Array;
 import com.rockbite.inetrnship.ghosthouse.data.GhostBuilding;
 import com.rockbite.inetrnship.ghosthouse.data.GhostMesh;
@@ -17,6 +22,7 @@ import com.rockbite.inetrnship.ghosthouse.ecs.systems.RenderSystem;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL14;
 
+import java.util.List;
 
 
 public class MainGame {
@@ -27,14 +33,17 @@ public class MainGame {
     private RenderSystem renderSystem;
     private AssetLoader assetLoader;
     private InputController inputController;
-
+    private Ray ray;
     private Array<Room> rooms;
+    Vector3[] point = new Vector3[2];
 
     Entity Cam;
-   // public CameraInputController camController;
+
+    // public CameraInputController camController;
 
     private GhostBuilding building;
     private GhostMesh meshok;
+    private BoundingBox box = new BoundingBox();
 
     public void act(float delta) {
         engine.update(delta);
@@ -49,7 +58,7 @@ public class MainGame {
         building = new GhostBuilding(rooms);
         meshok = new GhostMesh(building.getAllRects());
 
-        inputController=new InputController();
+        inputController = new InputController();
 
         engine = new Engine();
 
@@ -62,15 +71,17 @@ public class MainGame {
         renderSystem = new RenderSystem();
         renderSystem.mesh = meshok;
         engine.addSystem(renderSystem);
-
+        point[0] = new Vector3(-2.5f, -2.5f, 0);
+        point[1] = new Vector3(30, 20, 3f);
+        box.set(point);
 //        Family gameObjectsFamily = Family.all(PositionComponent.class, RotationComponent.class, ScaleComponent.class,
 //                TextureComponent.class, RoomObjectComponent.class).get();
 //        GameObjectListener listener = new GameObjectListener();
 
-       // engine.addEntityListener(gameObjectsFamily, listener);
+        // engine.addEntityListener(gameObjectsFamily, listener);
 
-        for(Room room: rooms) {
-            for(Entity entity: room.getItems()) {
+        for (Room room : rooms) {
+            for (Entity entity : room.getItems()) {
                 engine.addEntity(entity);
             }
         }
@@ -83,7 +94,7 @@ public class MainGame {
     }
 
     public void render() {
-        inputController.update();
+        inputController.update(meshok, cameraSystem.Cam);
         cameraSystem.Cam.update();
 
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT | GL20.GL_DEPTH_BUFFER_BIT);
@@ -106,7 +117,9 @@ public class MainGame {
         // DO postprocessing of FBO and render it to screen
         // TODO: final render
 
+
     }
+
 
     public void dispose() {
     }

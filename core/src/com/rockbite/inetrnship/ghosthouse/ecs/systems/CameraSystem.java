@@ -15,6 +15,7 @@ import com.badlogic.gdx.math.Interpolation;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.math.collision.Ray;
+import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.Array;
 import com.rockbite.inetrnship.ghosthouse.AssetLoader;
 import com.rockbite.inetrnship.ghosthouse.data.Room;
@@ -29,15 +30,13 @@ public class CameraSystem extends EntitySystem {
     CameraComponent cameraComponent;
     int target = 0;
     public PerspectiveCamera Cam;
-
-    public CameraInputController camController;
-
+Stage stage=new Stage();
     private Vector3 dist = new Vector3(0, 0, 0); //Distance to cover when moving from room to room in all 3 directions
     public boolean isPressed = false;
 
     Interpolation a = new Interpolation.SwingIn(2); //Interpolation of y
     Interpolation z = new Interpolation.Pow(2); //Interpolation of z
-
+    public CameraInputController camController;
     float t = 0f; // step time
     final float T = 10f; //Total time for moving from room to room
 
@@ -51,19 +50,21 @@ public class CameraSystem extends EntitySystem {
 
         Cam.position.set(Rooms.get(0).getOrigin().x+Rooms.get(0).getWidth()/2f, Rooms.get(0).getOrigin().y+Rooms.get(0).getHeight()/2f, (float) dist(angle(Gdx.graphics.getWidth(), Gdx.graphics.getHeight(), 67), Rooms.get(0).getWidth()+Rooms.get(0).getWidth() / 5f) + 3);
 
+        System.out.println(Cam.position);
         camController = new CameraInputController(Cam);
 
         Gdx.input.setInputProcessor(camController);
-
-        System.out.println(Cam.position);
+       stage.getViewport().setCamera(Cam);
+       Cam.near=1;
     }
 
     public void update(float deltaTime) {
         Entity entity = entities.get(0);
         cameraComponent = cm.get(entity);
-
+        //System.out.println(Gdx.input.getX());
         inputHandle();
         interpolHandle();
+
     }
 
     public void inputHandle() {
@@ -74,23 +75,31 @@ public class CameraSystem extends EntitySystem {
             t = 0;
             isPressed = true;
             cameraComponent.targetVec = (move(target, Rooms));
+            System.out.println(cameraComponent.targetVec);
             cameraComponent.bottomLeft.set(Cam.position);
             dist.set(cameraComponent.targetVec.x - cameraComponent.bottomLeft.x, cameraComponent.targetVec.y - cameraComponent.bottomLeft.y, cameraComponent.targetVec.z - cameraComponent.bottomLeft.z);
         }
 
-    if(Gdx.input.justTouched()){
-        Vector2 clickPos = new Vector2(Gdx.input.getX(), Gdx.input.getY());
-
-        Vector3 worldCoordinates = Cam.unproject(new Vector3(clickPos, 0), Cam.position.x, Cam.position.y, Gdx.graphics.getWidth(), Gdx.graphics.getHeight() );
-
-        Ray ray= Cam.getPickRay(Gdx.input.getX(), Gdx.input.getY());
-        System.out.println(worldCoordinates.x);
+        /*
+        if(Gdx.input.justTouched()){
+            Vector2 clickPos = new Vector2(Gdx.input.getX(), Gdx.input.getY());
+           // System.out.println(clickPos);
 
 
-        //Vector3 pointOnNearPlane = Cam.unproject(new Vector3(Gdx.input.getX(), Gdx.input.getX(), 0f));
-        //System.out.println(pointOnNearPlane);
-    }
+float dist=(float)dist(angle(Gdx.graphics.getWidth(), Gdx.graphics.getHeight(), 67), 30);
+            System.out.println(Cam.far);
 
+            Vector3 worldCoordinates = Cam.unproject(new Vector3(clickPos, 0));
+           // System.out.println(worldCoordinates);
+           // System.out.println(stage.getViewport().getScreenY());
+          //  System.out.println();
+           System.out.println(Cam.getPickRay(Gdx.input.getX(), Gdx.input.getY(), stage.getViewport().getScreenX(), stage.getViewport().getScreenY(), stage.getViewport().getScreenWidth(), stage.getViewport().getScreenHeight()).origin.add(Cam.getPickRay(Gdx.input.getX(), Gdx.input.getY(), stage.getViewport().getScreenX(), stage.getViewport().getScreenY(), stage.getViewport().getScreenWidth(), stage.getViewport().getScreenHeight()).direction));
+           System.out.println(Cam.getPickRay(Gdx.input.getX(), Gdx.input.getY()));
+
+//Vector3 pointOnNearPlane = Cam.unproject(new Vector3(Gdx.input.getX(), Gdx.input.getX(), 0f));
+            //System.out.println(pointOnNearPlane);
+        }
+*/
     }
 
     public void interpolHandle() {
