@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.tools.texturepacker.TexturePacker;
 import com.badlogic.gdx.utils.Array;
 import com.rockbite.inetrnship.ghosthouse.data.Room;
 import com.rockbite.inetrnship.ghosthouse.util.RoomParser;
@@ -19,8 +20,14 @@ public class AssetLoader extends AssetManager {
     static TextureAtlas atlas;
 
     public AssetLoader() {
+        //WARNING: es chnjeq :D
+//        TexturePacker.Settings settings = new TexturePacker.Settings();
+//        settings.maxHeight = 4096;
+//        settings.maxWidth = 4096;
+//        TexturePacker.process(settings,"textures", "packed", "game");
         atlas = new TextureAtlas(Gdx.files.internal("packed/game.atlas"));
         loadGameData();
+
     }
 
     public void loadGameData() {

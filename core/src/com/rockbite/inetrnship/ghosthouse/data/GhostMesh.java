@@ -2,11 +2,13 @@ package com.rockbite.inetrnship.ghosthouse.data;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.*;
-import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.glutils.ShaderProgram;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.utils.Array;
+import com.rockbite.inetrnship.ghosthouse.util.HelperClass;
+import com.rockbite.inetrnship.ghosthouse.util.IntWrapper;
+
 
 
 public class GhostMesh {
@@ -17,7 +19,7 @@ public class GhostMesh {
     private final int ATTRIBUTE_COUNT = POSITION_ATTRIBUTE_COUNT + COLOR_ATTRIBUTE_COUNT + TEXTURE_ATTRIBUTE_COUNT + NORMAL_ATTRIBUTE_COUNT;
 
     // FIXME: This later should be changed to be calculated dynamically
-    private final int ITEM_COUNT = 100000;
+    public static int ITEM_COUNT = 0;
 
     Texture assets;
 
@@ -27,11 +29,9 @@ public class GhostMesh {
     float[] itemVertices;
     short[] itemIndices;
 
+    IntWrapper vertexIndex = new IntWrapper(0);
+    IntWrapper indIndex = new IntWrapper(0);
 
-    Integer vertexIndex = new Integer(0);
-    Integer indIndex = new Integer(0);
-
-    Vector3 light = new Vector3(10, 10, 10);
 
     private Mesh building;
 
@@ -47,7 +47,7 @@ public class GhostMesh {
         itemIndices = new short[ITEM_COUNT * 6];
 
         for (GhostRectangle rect : rectangles) {
-            drawRectangle(rect, buildingVertices, vertexIndex, buildingIndices, indIndex);
+            drawRectangle(rect, buildingVertices, vertexIndex, buildingIndices, indIndex, 0);
         }
 
         building = new Mesh(true, 4 * ATTRIBUTE_COUNT * (ITEM_COUNT + rectangles.size), 6 * (ITEM_COUNT + rectangles.size),
@@ -60,69 +60,74 @@ public class GhostMesh {
 
         shaderProgram = new ShaderProgram(Gdx.files.internal("shaders/buildingShader.vert"), Gdx.files.internal("shaders/buildingShader.frag"));
         System.out.printf(shaderProgram.getLog());
-        Animation<TextureAtlas.AtlasRegion> animation;
     }
 
     public void renderItems(Array<GhostRectangle> items) {
-        int vIndex = 0;
-        int iIndex = 0;
+        IntWrapper vert = new IntWrapper(0);
+        IntWrapper ind = new IntWrapper(0);
         for(GhostRectangle rectangle: items) {
-            drawRectangle(rectangle, itemVertices, vIndex, itemIndices, iIndex);
+            drawRectangle(rectangle, itemVertices, vert, itemIndices, ind, buildingIndices[indIndex.value - 1] + 1);
         }
-
-
     }
 
     public void render(Camera camera) {
         shaderProgram.begin();
         shaderProgram.setUniformMatrix("u_projTrans", camera.combined);
         shaderProgram.setUniformf("u_light", camera.position);
+//        building.setVertices(itemVertices);
+//        building.setIndices(itemIndices);
+        float[] combinedV = HelperClass.floatArrayCopy(buildingVertices, itemVertices);
+        short[] combinedI = HelperClass.shortArrayCopy(buildingIndices, itemIndices);
+
+        building.setVertices(combinedV);
+        building.setIndices(combinedI);
+       // building.setIndices(HelperClass.shortArrayCopy(buildingIndices, itemIndices));
         assets.bind();
         building.render(shaderProgram, GL20.GL_TRIANGLES);
         shaderProgram.end();
     }
 
-    public void drawRectangle(GhostRectangle rectangle, float[] vertices, Integer vertexIndexA, short[]indices, Integer indIndexA) {
+    public void drawRectangle(GhostRectangle rectangle, float[] vertices, IntWrapper vertexIndex, short[]indices, IntWrapper indIndex, int offset) {
 
-        int vertexCount = vertexIndex / ATTRIBUTE_COUNT;
+        int vertexCount = vertexIndex.value / ATTRIBUTE_COUNT;
 
-        indices[indIndex++] = (short) (vertexCount);
-        indices[indIndex++] = (short) (vertexCount + 1);
-        indices[indIndex++] = (short) (vertexCount + 2);
-        indices[indIndex++] = (short) (vertexCount + 1);
-        indices[indIndex++] = (short) (vertexCount + 2);
-        indices[indIndex++] = (short) (vertexCount + 3);
+        indices[indIndex.value++] = (short) (vertexCount + offset);
+        indices[indIndex.value++] = (short) (vertexCount + 1 + offset);
+        indices[indIndex.value++] = (short) (vertexCount + 2 + offset);
+        indices[indIndex.value++] = (short) (vertexCount + 1 + offset);
+        indices[indIndex.value++] = (short) (vertexCount + 2 + offset);
+        indices[indIndex.value++] = (short) (vertexCount + 3 + offset);
 
         for (int i = 0; i < 4; i++) {
             Vector3 normal = rectangle.getNormal();
             if (normal.x == 0 && normal.y == 0 && (normal.z == 1 || normal.z == -1)) {
-                vertices[vertexIndex++] = rectangle.getX() + (i % 2) * rectangle.getWidth();
-                vertices[vertexIndex++] = rectangle.getY() + (i >> 1) * rectangle.getHeight();
-                vertices[vertexIndex++] = rectangle.getZ();
+                vertices[vertexIndex.value++] = rectangle.getX() + (i % 2) * rectangle.getWidth();
+                vertices[vertexIndex.value++] = rectangle.getY() + (i >> 1) * rectangle.getHeight();
+                vertices[vertexIndex.value++] = rectangle.getZ();
             }
 
             if (normal.x == 0 && normal.z == 0 && (normal.y == 1 || normal.y == -1)) {
-                vertices[vertexIndex++] = rectangle.getX() + (i % 2) * rectangle.getWidth();
-                vertices[vertexIndex++] = rectangle.getY();
-                vertices[vertexIndex++] = rectangle.getZ() + (i >> 1) * rectangle.getHeight();
+                vertices[vertexIndex.value++] = rectangle.getX() + (i % 2) * rectangle.getWidth();
+                vertices[vertexIndex.value++] = rectangle.getY();
+                vertices[vertexIndex.value++] = rectangle.getZ() + (i >> 1) * rectangle.getHeight();
             }
 
             if (normal.z == 0 && normal.y == 0 && (normal.x == 1 || normal.x == -1)) {
-                vertices[vertexIndex++] = rectangle.getX();
-                vertices[vertexIndex++] = rectangle.getY() + (i >> 1) * rectangle.getHeight();
-                vertices[vertexIndex++] = rectangle.getZ() + (i % 2) * rectangle.getWidth();
+                vertices[vertexIndex.value++] = rectangle.getX();
+                vertices[vertexIndex.value++] = rectangle.getY() + (i >> 1) * rectangle.getHeight();
+                vertices[vertexIndex.value++] = rectangle.getZ() + (i % 2) * rectangle.getWidth();
             }
 
             // UV Coordinates
-            TextureAtlas.AtlasRegion region = rectangle.getType().getTexture();
+            TextureAtlas.AtlasRegion region = rectangle.getType().getTexture(rectangle.getTexture());
             float diffU = region.getU2() - region.getU();
             float diffV = region.getV2() - region.getV();
-            vertices[vertexIndex++] = region.getU() + (i % 2) * diffU;
-            vertices[vertexIndex++] = region.getV() + ((3 - i) >> 1) * diffV;
+            vertices[vertexIndex.value++] = region.getU() + (i % 2) * diffU;
+            vertices[vertexIndex.value++] = region.getV() + ((3 - i) >> 1) * diffV;
             // Normal
-            vertices[vertexIndex++] = normal.x;
-            vertices[vertexIndex++] = normal.y;
-            vertices[vertexIndex++] = normal.z;
+            vertices[vertexIndex.value++] = normal.x;
+            vertices[vertexIndex.value++] = normal.y;
+            vertices[vertexIndex.value++] = normal.z;
         }
 
     }

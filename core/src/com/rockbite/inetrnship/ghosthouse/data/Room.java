@@ -43,12 +43,14 @@ public class Room implements Comparable<Room> {
 
         Json json = new Json();
         Array<Object> array = json.fromJson(Array.class, Gdx.files.internal("JSON/trial.json"));
+        GhostMesh.ITEM_COUNT += array.items.length;
         for(Object object: array.items) {
             if((GameObject) object != null) {
                 GameObject object2 = (GameObject)object;
                 Entity item = new Entity();
                 item.add(new TextureComponent(object2.texture));
-                item.add(new PositionComponent(object2.position[0], object2.position[1], object2.position[2]));
+                item.add(new PositionComponent(this.origin.x + object2.position[0] + GhostBuilding.WALL_HEIGHT,
+                        this.origin.y + object2.position[1] + GhostBuilding.WALL_HEIGHT, object2.position[2]));
                 item.add(new RoomObjectComponent(this.index));
                 item.add(new ScaleComponent(object2.scale[0], object2.scale[1], object2.scale[2]));
                 item.add(new RotationComponent(object2.rotation[0], object2.rotation[1], object2.rotation[2]));

@@ -17,7 +17,7 @@ public class GhostBuilding {
     private Array<GhostRectangle> roomConnectingWalls;
     private Array<GhostRectangle> buildingConnectingWalls;
 
-    private final float WALL_HEIGHT = 2.5f;
+   static public final float WALL_HEIGHT = 2.5f;
 
     //FIXME: WTF erexeq? :D
     public float getBUILDING_DEPTH() {

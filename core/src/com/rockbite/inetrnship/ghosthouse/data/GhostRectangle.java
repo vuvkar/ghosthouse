@@ -13,6 +13,15 @@ public class GhostRectangle implements Comparable<GhostRectangle> {
     private float x;
     private float y;
     private float z;
+    private String texture;
+
+    public String getTexture() {
+        return texture;
+    }
+
+    public void setTexture(String texture) {
+        this.texture = texture;
+    }
 
     public GhostRectangle(Vector3 origin, float width, float height, Vector3 normal, RectangleType type) {
         this.type = type;

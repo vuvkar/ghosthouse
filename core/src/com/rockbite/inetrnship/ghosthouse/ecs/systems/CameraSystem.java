@@ -9,6 +9,7 @@ import com.badlogic.ashley.utils.ImmutableArray;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.PerspectiveCamera;
+import com.badlogic.gdx.graphics.g3d.utils.CameraInputController;
 import com.badlogic.gdx.math.Interpolation;
 
 import com.badlogic.gdx.math.Vector2;
@@ -29,6 +30,8 @@ public class CameraSystem extends EntitySystem {
     int target = 0;
     public PerspectiveCamera Cam;
 
+    public CameraInputController camController;
+
     private Vector3 dist = new Vector3(0, 0, 0); //Distance to cover when moving from room to room in all 3 directions
     public boolean isPressed = false;
 
@@ -47,6 +50,10 @@ public class CameraSystem extends EntitySystem {
         Cam = new PerspectiveCamera(67, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 
         Cam.position.set(Rooms.get(0).getOrigin().x+Rooms.get(0).getWidth()/2f, Rooms.get(0).getOrigin().y+Rooms.get(0).getHeight()/2f, (float) dist(angle(Gdx.graphics.getWidth(), Gdx.graphics.getHeight(), 67), Rooms.get(0).getWidth()+Rooms.get(0).getWidth() / 5f) + 3);
+
+        camController = new CameraInputController(Cam);
+
+        Gdx.input.setInputProcessor(camController);
 
         System.out.println(Cam.position);
     }

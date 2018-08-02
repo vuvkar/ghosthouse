@@ -37,7 +37,7 @@ public class RenderSystem extends EntitySystem {
         items.clear();
         for(Entity entity: entities) {
             GhostRectangle rectangle = new GhostRectangle(RectangleType.ITEM);
-            rectangle.getType().texture = textComp.get(entity).texture;
+            rectangle.setTexture(textComp.get(entity).texture);
             rectangle.setNormal(new Vector3(0f, 0f, 1f));
             rectangle.setX(posComp.get(entity).getX());
             rectangle.setY(posComp.get(entity).getY());
