@@ -1,8 +1,6 @@
 package com.rockbite.inetrnship.ghosthouse.data;
 
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.rockbite.inetrnship.ghosthouse.AssetLoader;
 
 public enum RectangleType {
