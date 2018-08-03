@@ -10,24 +10,25 @@ import com.rockbite.inetrnship.ghosthouse.util.HelperClass;
 import com.rockbite.inetrnship.ghosthouse.util.IntWrapper;
 
 
-
 public class GhostMesh {
     private final int POSITION_ATTRIBUTE_COUNT = 3;
     private final int COLOR_ATTRIBUTE_COUNT = 0;
     private final int TEXTURE_ATTRIBUTE_COUNT = 2;
     private final int NORMAL_ATTRIBUTE_COUNT = 3;
-   public final int ATTRIBUTE_COUNT = POSITION_ATTRIBUTE_COUNT + COLOR_ATTRIBUTE_COUNT + TEXTURE_ATTRIBUTE_COUNT + NORMAL_ATTRIBUTE_COUNT;
+    public final int ATTRIBUTE_COUNT = POSITION_ATTRIBUTE_COUNT + COLOR_ATTRIBUTE_COUNT + TEXTURE_ATTRIBUTE_COUNT + NORMAL_ATTRIBUTE_COUNT;
 
     // FIXME: This later should be changed to be calculated dynamically
     public static int ITEM_COUNT = 0;
+
+    public static Vector3 lightColor = new Vector3(201.0f / 255.0f, 100.0f / 255.0f, 185.0f / 255.0f);
 
     Texture assets;
 
     public float[] buildingVertices;
     public short[] buildingIndices;
 
-   public  float[] itemVertices;
-   public  short[] itemIndices;
+    public float[] itemVertices;
+    public short[] itemIndices;
     public float[] triangles;
     IntWrapper vertexIndex = new IntWrapper(0);
     IntWrapper indIndex = new IntWrapper(0);
@@ -35,7 +36,7 @@ public class GhostMesh {
 
     public Mesh building;
 
-    private ShaderProgram shaderProgram;
+    public ShaderProgram shaderProgram;
 
     public GhostMesh(Array<GhostRectangle> rectangles) {
         assets = new Texture(Gdx.files.internal("packed/game.png"));
@@ -65,9 +66,8 @@ public class GhostMesh {
     public void renderItems(Array<GhostRectangle> items) {
         IntWrapper vert = new IntWrapper(0);
         IntWrapper ind = new IntWrapper(0);
-       for(GhostRectangle rectangle: items) {
-          drawRectangle(rectangle, itemVertices, vert, itemIndices, ind, buildingIndices[indIndex.value - 1] + 1);
-
+        for (GhostRectangle rectangle : items) {
+            drawRectangle(rectangle, itemVertices, vert, itemIndices, ind, buildingIndices[indIndex.value - 1] + 1);
         }
     }
 
@@ -75,20 +75,25 @@ public class GhostMesh {
         shaderProgram.begin();
         shaderProgram.setUniformMatrix("u_projTrans", camera.combined);
         shaderProgram.setUniformf("u_light", camera.position);
+        shaderProgram.setUniformf("u_lightColor", lightColor);
+
 //        building.setVertices(itemVertices);
 //        building.setIndices(itemIndices);
         float[] combinedV = HelperClass.floatArrayCopy(buildingVertices, itemVertices);
         short[] combinedI = HelperClass.shortArrayCopy(buildingIndices, itemIndices);
 
-       building.setVertices(combinedV);
-       building.setIndices(combinedI);
-       // building.setIndices(HelperClass.shortArrayCopy(buildingIndices, itemIndices));
+        building.setVertices(combinedV);
+        building.setIndices(combinedI);
+        // building.setIndices(HelperClass.shortArrayCopy(buildingIndices, itemIndices));
+        building.setVertices(combinedV);
+        building.setIndices(combinedI);
+        // building.setIndices(HelperClass.shortArrayCopy(buildingIndices, itemIndices));
         assets.bind();
         building.render(shaderProgram, GL20.GL_TRIANGLES);
         shaderProgram.end();
     }
 
-    public void drawRectangle(GhostRectangle rectangle, float[] vertices, IntWrapper vertexIndex, short[]indices, IntWrapper indIndex, int offset) {
+    public void drawRectangle(GhostRectangle rectangle, float[] vertices, IntWrapper vertexIndex, short[] indices, IntWrapper indIndex, int offset) {
 
         int vertexCount = vertexIndex.value / ATTRIBUTE_COUNT;
 

@@ -1,4 +1,7 @@
 {
+
+  "class": "com.badlogic.gdx.utils.Array",
+
   "class": "com.badlogic.gdx.utils.Array",
   "items": [
     {
@@ -11,7 +14,6 @@
       "rotation": [0, 0, 0],
       "texture": "chair_brown"
     },
-
     {
       "class": "com.rockbite.inetrnship.ghosthouse.data.GameObject",
       "name": "ChairBlue",
@@ -22,7 +24,6 @@
       "rotation": [0, 0, 0],
       "texture": "chair_blue"
     },
-
     {
       "class": "com.rockbite.inetrnship.ghosthouse.data.GameObject",
       "name": "tumbSHka",

@@ -1,7 +1,6 @@
 package com.rockbite.inetrnship.ghosthouse.data;
 
 import com.badlogic.ashley.core.Entity;
-import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
@@ -9,13 +8,13 @@ import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Json;
 import com.rockbite.inetrnship.ghosthouse.ecs.components.*;
 
-import static com.badlogic.gdx.Gdx.files;
-
 public class Room implements Comparable<Room> {
     private int index;
     private Vector2 origin;
     private float width;
     private float height;
+    private Vector3 lightCol1 = new Vector3(201.0f / 255.0f, 100.0f / 255.0f, 185.0f / 255.0f);
+    private Vector3 lightCol2 = new Vector3(100.0f / 255.0f, 200.0f / 255.0f, 205.0f / 255.0f);
 
    public Array<Entity> items;
 
@@ -43,9 +42,9 @@ public class Room implements Comparable<Room> {
 
         Json json = new Json();
         Array<Object> array = json.fromJson(Array.class, Gdx.files.internal("JSON/trial.json"));
-        for(Object object: array.items) {
-            if((GameObject) object != null) {
-                GameObject object2 = (GameObject)object;
+        for (Object object : array.items) {
+            if ((GameObject) object != null) {
+                GameObject object2 = (GameObject) object;
                 Entity item = new Entity();
                 item.add(new TextureComponent(object2.texture));
                 item.add(new PositionComponent(this.origin.x + object2.position[0],
@@ -60,6 +59,14 @@ public class Room implements Comparable<Room> {
         //FIXME: fix this shit
         GhostMesh.ITEM_COUNT += items.size;
 
+    }
+
+    public Vector3 getLightCol1() {
+        return lightCol1;
+    }
+
+    public Vector3 getLightCol2() {
+        return lightCol2;
     }
 
     public Array<Entity> getItems() {
@@ -82,7 +89,6 @@ public class Room implements Comparable<Room> {
         return height;
     }
 
-
     @Override
     public int compareTo(Room o) {
         float value = this.origin.x - o.origin.x;
@@ -90,7 +96,5 @@ public class Room implements Comparable<Room> {
             return 0;
         }
         return value > 0 ? 1 : -1;
-
     }
 }
-
