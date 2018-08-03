@@ -74,8 +74,7 @@ public class GhostMesh {
         shaderProgram.begin();
         shaderProgram.setUniformMatrix("u_projTrans", camera.combined);
         shaderProgram.setUniformf("u_light", camera.position);
-//        building.setVertices(itemVertices);
-//        building.setIndices(itemIndices);
+
         float[] combinedV = HelperClass.floatArrayCopy(buildingVertices, itemVertices);
         short[] combinedI = HelperClass.shortArrayCopy(buildingIndices, itemIndices);
 

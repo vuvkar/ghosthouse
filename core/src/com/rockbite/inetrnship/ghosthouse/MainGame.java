@@ -74,11 +74,6 @@ public class MainGame {
                 engine.addEntity(entity);
             }
         }
-
-
-
-
-
     }
 
     public void render() {

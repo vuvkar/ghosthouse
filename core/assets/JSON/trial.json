@@ -6,7 +6,7 @@
       "name": "ChairBrown",
       "position": [ 0.5, 0, 1],
       "scale": [1, 1, 1],
-      "width": 2,
+      "width": 3,
       "height": 4,
       "rotation": [0, 0, 0],
       "texture": "chair_brown"
@@ -17,7 +17,7 @@
       "name": "ChairBlue",
       "position": [ 10, 0, 1],
       "scale": [1, 1, 1],
-      "width": 2,
+      "width": 3,
       "height": 4,
       "rotation": [0, 0, 0],
       "texture": "chair_blue"
