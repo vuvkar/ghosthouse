@@ -22,6 +22,8 @@ public class InputController {
     public Ray ray = new Ray();
     PositionComponent pos = new PositionComponent(0, 0, 0);
     SizeComponent size = new SizeComponent(0, 0);
+    AssetLoader assetLoader = new AssetLoader();
+    Array<Room> rooms = assetLoader.getRooms();
     int current=0;
     float[] indexAndMax = {0, 0};
 
@@ -45,12 +47,17 @@ public class InputController {
 
 
     }
+    public boolean checkInteraction(float item) {
+return true; //return true if item is interactable
 
-    void update(GhostMesh mesh, CameraSystem cameraSystem, Array<Room> rooms) {
+    }
 
+    void update(GhostMesh mesh, CameraSystem cameraSystem) {
+
+        //If clicked
         if (Gdx.input.justTouched()) {
 
-            ray = cameraSystem.Cam.getPickRay(Gdx.input.getX(), Gdx.input.getY());
+            ray = cameraSystem.Cam.getPickRay(Gdx.input.getX(), Gdx.input.getY());//casting the ray
             short[] temo = mesh.itemIndices.clone();
             for (int i = 0; i < temo.length; i++) {
                 temo[i] -= 132;
@@ -58,34 +65,33 @@ public class InputController {
                     temo[i] = 0;
                 }
             }
-
+//If intersects the objects' mesh
             if (Intersector.intersectRayTriangles(ray, mesh.itemVertices, temo, 8, targetPosition)) {
-for(int i=0; i<rooms.size; i++){
-    if(rooms.get(i).getIndex()==cameraSystem.target)
-        current=rooms.get(i).getIndex();
-}
-                for (int i = 0; i < rooms.get(current).getItems().size; i++) {
-                    pos = rooms.get(current).items.get(i).getComponent(PositionComponent.class);
-                    size = rooms.get(current).items.get(i).getComponent(SizeComponent.class);
 
-                    // System.out.println("click pos: "+targetPosition +" Object origin: "+new Vector3(pos.getX(), pos.getY(), pos.getZ()));
-                    System.out.println(rooms.get(current).getOrigin());
-                    System.out.println(current);
+                for (int i = 0; i < rooms.get(cameraSystem.target).getItems().size; i++) {
+                    pos = rooms.get(cameraSystem.target).items.get(i).getComponent(PositionComponent.class);
+                    size = rooms.get(cameraSystem.target).items.get(i).getComponent(SizeComponent.class);
+
+                    //which particular item is intersected
                     if (isInside(new Vector3(pos.getX(), pos.getY(), pos.getZ()), new Vector2(size.width, size.height), targetPosition)) {
-                        if (pos.getZ() >= indexAndMax[0]) {
+                        if (pos.getZ() >= indexAndMax[0]) { //If the items are overlapping
                             indexAndMax[0] = pos.getZ();
                             indexAndMax[1] = i;
                         }
-                        // System.out.println("YEY");
+                         System.out.println("YEY to item "+i+" in room"+cameraSystem.target);
                     }
 
                 }
-                //System.out.println("Item:"+indexAndMax[1]+"in room"+cameraSystem.target);
+                System.out.println("Item:"+indexAndMax[1]+"in room"+cameraSystem.target);
                 indexAndMax[0] = 0;
                 indexAndMax[1] = 0;
-            } else if (Intersector.intersectRayTriangles(ray, mesh.buildingVertices, mesh.buildingIndices, 8, targetPosition)) {
-                // System.out.println(targetPosition);
+
             }
+
+            //If click on the building
+//            else if (Intersector.intersectRayTriangles(ray, mesh.buildingVertices, mesh.buildingIndices, 8, targetPosition)) {
+//                moveCharacter(); //move to a place
+//            }
 
 
         }
