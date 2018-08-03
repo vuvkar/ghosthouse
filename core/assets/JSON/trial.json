@@ -1,8 +1,6 @@
 {
-
   "class": "com.badlogic.gdx.utils.Array",
 
-  "class": "com.badlogic.gdx.utils.Array",
   "items": [
     {
       "class": "com.rockbite.inetrnship.ghosthouse.data.GameObject",

@@ -131,7 +131,7 @@ float dist=(float)dist(angle(Gdx.graphics.getWidth(), Gdx.graphics.getHeight(), 
 
     public static Vector3 move(int ind, Array<Room> Rooms) {
         Vector3 VEC = new Vector3(Rooms.get(ind).getOrigin().x + Rooms.get(ind).getWidth() / 2f, Rooms.get(ind).getOrigin().y + Rooms.get(ind).getHeight() / 2f, (float) dist(angle(Gdx.graphics.getWidth(), Gdx.graphics.getHeight(), 67), Rooms.get(ind).getWidth() + Rooms.get(ind).getWidth() / 5f) + 3);
-
+//zbol
         return VEC;
     }
 

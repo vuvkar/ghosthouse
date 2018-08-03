@@ -1,10 +1,8 @@
 package com.rockbite.inetrnship.ghosthouse.data;
 
-import com.badlogic.gdx.math.Vector3;
-import com.badlogic.gdx.utils.Array;
-
 
 public class GameObject {
+    float[] light;
     String name;
     float[] position;
     float[] scale;
@@ -12,4 +10,5 @@ public class GameObject {
     String texture;
     float width;
     float height;
+    String type;
 }
