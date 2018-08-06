@@ -36,12 +36,12 @@ public class MainGame {
     private AssetLoader assetLoader;
     private InputController inputController;
     private Ray ray;
-   // private Hub hud;
+
     private Array<Room> rooms;
     InputMultiplexer multiplexer = new InputMultiplexer();
 
     Vector3[] point = new Vector3[2];
-SpriteBatch batch;
+
     Entity Cam;
 
     // public CameraInputController camController;
@@ -57,8 +57,7 @@ SpriteBatch batch;
     public MainGame(GhostHouse ghostHouse) {
 
         this.ghostHouse = ghostHouse;
-        batch=new SpriteBatch();
-       // hud= new Hub(batch);
+
         assetLoader = new AssetLoader();
         rooms = assetLoader.getRooms();
 
@@ -102,7 +101,7 @@ SpriteBatch batch;
     }
 
     public void render() {
-        //inputController.update(meshok, cameraSystem);
+
         cameraSystem.Cam.update();
 
         Gdx.gl.glEnable(GL20.GL_DEPTH_TEST);
@@ -121,9 +120,7 @@ SpriteBatch batch;
         // then render building walls
         // TODO: render building
         meshok.render(cameraSystem.Cam);
-//        hud.update(Gdx.graphics.getDeltaTime());
-//        this.batch.setProjectionMatrix(hud.stage.getCamera().combined);
-//        hud.stage.draw();
+
         // then render decorations/characters and items
         // TODO: render the rest
 
