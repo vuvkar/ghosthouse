@@ -22,7 +22,7 @@ public class GhostHouse extends ApplicationAdapter {
     public void render() {
         float delta = Math.min(Gdx.graphics.getDeltaTime(), 1 / 30f);
         m_game.act(delta);
-        m_ui.act(delta);
+        m_ui.act();
 
         m_game.render();
         m_ui.draw();

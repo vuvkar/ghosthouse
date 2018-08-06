@@ -4,7 +4,9 @@ import com.badlogic.ashley.core.Engine;
 import com.badlogic.ashley.core.Entity;
 import com.badlogic.ashley.core.Family;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.graphics.*;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g3d.utils.CameraInputController;
 import com.badlogic.gdx.math.Intersector;
 import com.badlogic.gdx.math.Vector2;
@@ -34,9 +36,12 @@ public class MainGame {
     private AssetLoader assetLoader;
     private InputController inputController;
     private Ray ray;
+   // private Hub hud;
     private Array<Room> rooms;
-    Vector3[] point = new Vector3[2];
+    InputMultiplexer multiplexer = new InputMultiplexer();
 
+    Vector3[] point = new Vector3[2];
+SpriteBatch batch;
     Entity Cam;
 
     // public CameraInputController camController;
@@ -50,15 +55,17 @@ public class MainGame {
     }
 
     public MainGame(GhostHouse ghostHouse) {
-        this.ghostHouse = ghostHouse;
 
+        this.ghostHouse = ghostHouse;
+        batch=new SpriteBatch();
+       // hud= new Hub(batch);
         assetLoader = new AssetLoader();
         rooms = assetLoader.getRooms();
 
         building = new GhostBuilding(rooms);
         meshok = new GhostMesh(building.getAllRects());
 
-        inputController = new InputController();
+
 
         engine = new Engine();
 
@@ -67,7 +74,7 @@ public class MainGame {
         Cam.add(new CameraComponent());
         engine.addSystem(cameraSystem);
         engine.addEntity(Cam);
-
+        inputController = new InputController(meshok, cameraSystem, ghostHouse);
         renderSystem = new RenderSystem();
         renderSystem.mesh = meshok;
         engine.addSystem(renderSystem);
@@ -86,14 +93,16 @@ public class MainGame {
             }
         }
 
-
+        multiplexer.addProcessor( ghostHouse.m_ui);
+        multiplexer.addProcessor(inputController);
+        Gdx.input.setInputProcessor(multiplexer);
 
 
 
     }
 
     public void render() {
-        inputController.update(meshok, cameraSystem);
+        //inputController.update(meshok, cameraSystem);
         cameraSystem.Cam.update();
 
         Gdx.gl.glEnable(GL20.GL_DEPTH_TEST);
@@ -112,7 +121,9 @@ public class MainGame {
         // then render building walls
         // TODO: render building
         meshok.render(cameraSystem.Cam);
-
+//        hud.update(Gdx.graphics.getDeltaTime());
+//        this.batch.setProjectionMatrix(hud.stage.getCamera().combined);
+//        hud.stage.draw();
         // then render decorations/characters and items
         // TODO: render the rest
 
