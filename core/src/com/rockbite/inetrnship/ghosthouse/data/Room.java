@@ -15,6 +15,7 @@ public class Room implements Comparable<Room> {
     private float height;
     private Vector3 lightCol1 = new Vector3(201.0f / 255.0f, 100.0f / 255.0f, 185.0f / 255.0f);
     private Vector3 lightCol2 = new Vector3(100.0f / 255.0f, 200.0f / 255.0f, 205.0f / 255.0f);
+    private float[] light;
 
     private Array<Entity> items;
 

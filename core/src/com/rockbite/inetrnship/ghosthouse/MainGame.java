@@ -2,12 +2,8 @@ package com.rockbite.inetrnship.ghosthouse;
 
 import com.badlogic.ashley.core.Engine;
 import com.badlogic.ashley.core.Entity;
-import com.badlogic.ashley.core.Family;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.*;
-import com.badlogic.gdx.graphics.g3d.utils.CameraInputController;
-import com.badlogic.gdx.math.Intersector;
-import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.math.collision.BoundingBox;
 import com.badlogic.gdx.math.collision.Ray;
@@ -16,14 +12,8 @@ import com.rockbite.inetrnship.ghosthouse.data.GhostBuilding;
 import com.rockbite.inetrnship.ghosthouse.data.GhostMesh;
 import com.rockbite.inetrnship.ghosthouse.data.Room;
 import com.rockbite.inetrnship.ghosthouse.ecs.components.*;
-import com.rockbite.inetrnship.ghosthouse.ecs.listeners.GameObjectListener;
 import com.rockbite.inetrnship.ghosthouse.ecs.systems.CameraSystem;
 import com.rockbite.inetrnship.ghosthouse.ecs.systems.RenderSystem;
-import org.lwjgl.opengl.GL11;
-import org.lwjgl.opengl.GL14;
-
-import java.util.List;
-
 
 public class MainGame {
 
@@ -85,11 +75,6 @@ public class MainGame {
                 engine.addEntity(entity);
             }
         }
-
-
-
-
-
     }
 
     public void render() {

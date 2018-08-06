@@ -1,6 +1,6 @@
 {
+  "light": [201, 100, 185],
   "class": "com.badlogic.gdx.utils.Array",
-
   "items": [
     {
       "class": "com.rockbite.inetrnship.ghosthouse.data.GameObject",
