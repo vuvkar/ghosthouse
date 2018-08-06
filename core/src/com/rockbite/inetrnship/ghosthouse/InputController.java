@@ -3,37 +3,24 @@ package com.rockbite.inetrnship.ghosthouse;
 import com.badlogic.ashley.core.ComponentMapper;
 import com.badlogic.ashley.core.Entity;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputProcessor;
-import com.badlogic.gdx.graphics.PerspectiveCamera;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.math.Intersector;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.math.collision.Ray;
-import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.utils.ActorGestureListener;
-import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
-import com.badlogic.gdx.scenes.scene2d.utils.DragListener;
-import com.badlogic.gdx.scenes.scene2d.utils.DragScrollListener;
 import com.badlogic.gdx.utils.Array;
 import com.rockbite.inetrnship.ghosthouse.data.GhostMesh;
 import com.rockbite.inetrnship.ghosthouse.data.Room;
+import com.rockbite.inetrnship.ghosthouse.data.Room1;
 import com.rockbite.inetrnship.ghosthouse.ecs.components.PositionComponent;
 import com.rockbite.inetrnship.ghosthouse.ecs.components.SizeComponent;
 import com.rockbite.inetrnship.ghosthouse.ecs.components.TextureComponent;
 import com.rockbite.inetrnship.ghosthouse.ecs.systems.CameraSystem;
-
-import org.lwjgl.input.Mouse;
-
-import java.awt.Button;
-import java.awt.event.ActionListener;
-
-import javax.swing.JButton;
 
 
 public class InputController implements InputProcessor {
@@ -44,7 +31,7 @@ public class InputController implements InputProcessor {
     SizeComponent size = new SizeComponent(0, 0);
     TextureComponent tx= new TextureComponent("Fa");
     AssetLoader assetLoader = new AssetLoader();
-    Array<Room> rooms = assetLoader.getRooms();
+    Array<Room1> rooms = assetLoader.getRooms();
     TextureAtlas atlas;
     int current=0;
     float[] indexAndMax = {0, 0};
@@ -112,7 +99,7 @@ return true; //return true if item is interactable
     public boolean touchDown(int screenX, int screenY, int pointer, int button) {
 
 
-            ray = cameraSystem.Cam.getPickRay(Gdx.input.getX(), Gdx.input.getY());//casting the ray
+            ray = cameraSystem.cam.getPickRay(Gdx.input.getX(), Gdx.input.getY());//casting the ray
             short[] temo = mesh.itemIndices.clone();
             for (int i = 0; i < temo.length; i++) {
                 temo[i] -= 132;
@@ -123,7 +110,7 @@ return true; //return true if item is interactable
 //If intersects the objects' mesh
             if (Intersector.intersectRayTriangles(ray, mesh.itemVertices, temo, 8, targetPosition)) {
 
-                for (int i = 0; i < rooms.get(cameraSystem.target).getItems().size; i++) {
+                for (int i = 0; i < rooms.get(cameraSystem.target).items.size; i++) {
                     pos = rooms.get(cameraSystem.target).items.get(i).getComponent(PositionComponent.class);
                     size = rooms.get(cameraSystem.target).items.get(i).getComponent(SizeComponent.class);
 

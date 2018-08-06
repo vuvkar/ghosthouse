@@ -6,6 +6,11 @@ import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.glutils.ShaderProgram;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.utils.Array;
+import com.esotericsoftware.spine.Slot;
+import com.esotericsoftware.spine.attachments.Attachment;
+import com.esotericsoftware.spine.attachments.MeshAttachment;
+import com.esotericsoftware.spine.attachments.RegionAttachment;
+import com.rockbite.inetrnship.ghosthouse.AssetLoader;
 import com.rockbite.inetrnship.ghosthouse.util.HelperClass;
 import com.rockbite.inetrnship.ghosthouse.util.IntWrapper;
 
@@ -17,7 +22,6 @@ public class GhostMesh {
     private final int NORMAL_ATTRIBUTE_COUNT = 3;
     public final int ATTRIBUTE_COUNT = POSITION_ATTRIBUTE_COUNT + COLOR_ATTRIBUTE_COUNT + TEXTURE_ATTRIBUTE_COUNT + NORMAL_ATTRIBUTE_COUNT;
 
-    // FIXME: This later should be changed to be calculated dynamically
     public static int ITEM_COUNT = 0;
 
     public static Vector3 lightColor = new Vector3(201.0f / 255.0f, 100.0f / 255.0f, 185.0f / 255.0f);
@@ -29,7 +33,10 @@ public class GhostMesh {
 
     public float[] itemVertices;
     public short[] itemIndices;
-    public float[] triangles;
+
+    public float[] animationVertices;
+    public short[] animationIndices;
+
     IntWrapper vertexIndex = new IntWrapper(0);
     IntWrapper indIndex = new IntWrapper(0);
 
@@ -39,10 +46,14 @@ public class GhostMesh {
     public ShaderProgram shaderProgram;
 
     public GhostMesh(Array<GhostRectangle> rectangles) {
+
         assets = new Texture(Gdx.files.internal("packed/game.png"));
 
         buildingVertices = new float[rectangles.size * 4 * ATTRIBUTE_COUNT];
         buildingIndices = new short[rectangles.size * 3 * 2];
+
+        animationIndices = new short[0];
+        animationVertices = new float[0];
 
         itemVertices = new float[ITEM_COUNT * 4 * ATTRIBUTE_COUNT];
         itemIndices = new short[ITEM_COUNT * 6];
@@ -51,7 +62,7 @@ public class GhostMesh {
             drawRectangle(rect, buildingVertices, vertexIndex, buildingIndices, indIndex, 0);
         }
 
-        building = new Mesh(true, 4 * ATTRIBUTE_COUNT * (ITEM_COUNT + rectangles.size), 6 * (ITEM_COUNT + rectangles.size),
+        building = new Mesh(true, 10000, 10000,
                 new VertexAttribute(VertexAttributes.Usage.Position, POSITION_ATTRIBUTE_COUNT, ShaderProgram.POSITION_ATTRIBUTE),
                 new VertexAttribute(VertexAttributes.Usage.TextureCoordinates, TEXTURE_ATTRIBUTE_COUNT, ShaderProgram.TEXCOORD_ATTRIBUTE + "0"),
                 new VertexAttribute(VertexAttributes.Usage.Normal, NORMAL_ATTRIBUTE_COUNT, ShaderProgram.NORMAL_ATTRIBUTE));
@@ -63,6 +74,45 @@ public class GhostMesh {
         System.out.printf(shaderProgram.getLog());
     }
 
+    public void renderAnimations(Array<Slot> animations) {
+        animationVertices = new float[animations.size * 4 * ATTRIBUTE_COUNT];
+        animationIndices = new short[animations.size * 2 * 3];
+        int index = 0;
+        int slotCount = 0;
+        for(Slot slot: animations) {
+            float[] vertex = new float[0];
+            Attachment attachment = slot.getAttachment();
+            if(attachment instanceof RegionAttachment) {
+                RegionAttachment a = (RegionAttachment)attachment;
+                a.getRegion().getTexture().bind();
+                vertex = a.updateWorldVertices(slot, true);
+            }
+            int i = 0;
+            for(int j = 0; j < vertex.length; j += 5) {
+                animationVertices[index++] = vertex[i++];
+                animationVertices[index++] = vertex[i++];
+                animationVertices[index++] = (float)((GhostBuilding.BUILDING_DEPTH - 0.5) + (0.5/animations.size) * slotCount);
+                i++;
+                animationVertices[index++] = vertex[i++];
+                animationVertices[index++] = vertex[i++];
+                animationVertices[index++] = 0f;
+                animationVertices[index++] = 0f;
+                animationVertices[index++] = 1f;
+            }
+            slotCount++;
+        }
+        index = 0;
+        for (int j = 0; j < animations.size; j++) {
+            int i = j *4;
+            animationIndices[index++] = (short)i;
+            animationIndices[index++] = (short)(i + 1);
+            animationIndices[index++] = (short)(i + 2);
+            animationIndices[index++] = (short)(i + 2);
+            animationIndices[index++] = (short)(i + 3);
+            animationIndices[index++] = (short)i;
+        }
+    }
+
     public void renderItems(Array<GhostRectangle> items) {
         IntWrapper vert = new IntWrapper(0);
         IntWrapper ind = new IntWrapper(0);
@@ -72,25 +122,27 @@ public class GhostMesh {
     }
 
     public void render(Camera camera) {
+
+        float[] combinedVFirst = HelperClass.floatArrayCopy(buildingVertices, itemVertices);
+        short[] combinedIFirst = HelperClass.shortArrayCopy(buildingIndices, itemIndices);
+
+        float[] combinedV = HelperClass.floatArrayCopy(combinedVFirst, animationVertices);
+        for(int i = 0; i < animationIndices.length; i++) {
+            animationIndices[i] += combinedIFirst[combinedIFirst.length - 1] + 1;
+        }
+        short[] combinedI = HelperClass.shortArrayCopy(combinedIFirst, animationIndices);
+
+        building.setVertices(combinedV);
+        building.setIndices(combinedI);
+
         shaderProgram.begin();
         shaderProgram.setUniformMatrix("u_projTrans", camera.combined);
         shaderProgram.setUniformf("u_light", camera.position);
         shaderProgram.setUniformf("u_lightColor", lightColor);
-
-//        building.setVertices(itemVertices);
-//        building.setIndices(itemIndices);
-        float[] combinedV = HelperClass.floatArrayCopy(buildingVertices, itemVertices);
-        short[] combinedI = HelperClass.shortArrayCopy(buildingIndices, itemIndices);
-
-        building.setVertices(combinedV);
-        building.setIndices(combinedI);
-        // building.setIndices(HelperClass.shortArrayCopy(buildingIndices, itemIndices));
-        building.setVertices(combinedV);
-        building.setIndices(combinedI);
-        // building.setIndices(HelperClass.shortArrayCopy(buildingIndices, itemIndices));
         assets.bind();
         building.render(shaderProgram, GL20.GL_TRIANGLES);
         shaderProgram.end();
+
     }
 
     public void drawRectangle(GhostRectangle rectangle, float[] vertices, IntWrapper vertexIndex, short[] indices, IntWrapper indIndex, int offset) {

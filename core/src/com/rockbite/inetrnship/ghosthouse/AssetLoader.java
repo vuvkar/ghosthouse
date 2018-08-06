@@ -8,6 +8,7 @@ import com.badlogic.gdx.tools.texturepacker.TexturePacker;
 import com.badlogic.gdx.utils.Array;
 import com.rockbite.inetrnship.ghosthouse.data.GhostMesh;
 import com.rockbite.inetrnship.ghosthouse.data.Room;
+import com.rockbite.inetrnship.ghosthouse.data.Room1;
 import com.rockbite.inetrnship.ghosthouse.util.RoomParser;
 
 import java.io.BufferedReader;
@@ -17,8 +18,8 @@ import java.io.IOException;
 
 public class AssetLoader extends AssetManager {
 
-    private Array<Room> rooms;
-    static TextureAtlas atlas;
+    private Array<Room1> rooms;
+    public static TextureAtlas atlas;
 
     public AssetLoader() {
         //WARNING: es chnjeq :D
@@ -97,11 +98,11 @@ public class AssetLoader extends AssetManager {
         return (matrix);
     }
 
-    public Array<Room> processRoomData(int[][] rawPixelData) {
+    public Array<Room1> processRoomData(int[][] rawPixelData) {
         //TODO: hi Liana
 
         RoomParser roomParser = new RoomParser();
-        Array<Room> roomArray = new Array<Room>();
+        Array<Room1> roomArray = new Array<Room1>();
         roomParser.search(rawPixelData);
 
         int roomID = roomParser.getRoomCount();
@@ -112,14 +113,14 @@ public class AssetLoader extends AssetManager {
             float height = roomParser.getRoomHeight(rawPixelData, i);
             float width = roomParser.getRoomWidth(rawPixelData, i);
 
-            Room room = new Room(i, bottomLeft, height, width);
+            Room1 room = new Room1(i, bottomLeft, height, width);
             roomArray.add(room);
         }
 
         return roomArray;
     }
 
-    public Array<Room> getRooms() {
+    public Array<Room1> getRooms() {
         return rooms;
     }
 }

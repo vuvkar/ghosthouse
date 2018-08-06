@@ -12,26 +12,24 @@ import com.badlogic.gdx.graphics.PerspectiveCamera;
 import com.badlogic.gdx.graphics.g3d.utils.CameraInputController;
 import com.badlogic.gdx.math.Interpolation;
 
-import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
-import com.badlogic.gdx.math.collision.Ray;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.Array;
 import com.rockbite.inetrnship.ghosthouse.AssetLoader;
 import com.rockbite.inetrnship.ghosthouse.data.GhostMesh;
 import com.rockbite.inetrnship.ghosthouse.data.Room;
+import com.rockbite.inetrnship.ghosthouse.data.Room1;
 import com.rockbite.inetrnship.ghosthouse.ecs.components.CameraComponent;
-
 
 public class CameraSystem extends EntitySystem {
     private ImmutableArray<Entity> entities;
     private ComponentMapper<CameraComponent> cm = ComponentMapper.getFor(CameraComponent.class);
     AssetLoader assetLoader = new AssetLoader();
-    Array<Room> Rooms = assetLoader.getRooms();
+    Array<Room1> Rooms = assetLoader.getRooms();
     CameraComponent cameraComponent;
     public static Vector3 interpolColor = new Vector3(0, 0, 0);
     public int target = 0;
-    public PerspectiveCamera Cam;
+    public PerspectiveCamera cam;
     Stage stage = new Stage();
     private Vector3 dist = new Vector3(0, 0, 0); //Distance to cover when moving from room to room in all 3 directions
     public boolean isPressed = false;
@@ -47,16 +45,19 @@ public class CameraSystem extends EntitySystem {
 
         entities = engine.getEntitiesFor(Family.all(CameraComponent.class).get());
 
-        Cam = new PerspectiveCamera();
-        Cam = new PerspectiveCamera(67, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+        cam = new PerspectiveCamera(87, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 
-        Cam.position.set(Rooms.get(0).getOrigin().x + Rooms.get(0).getWidth() / 2f, Rooms.get(0).getOrigin().y + Rooms.get(0).getHeight() / 2f, (float) dist(angle(Gdx.graphics.getWidth(), Gdx.graphics.getHeight(), 67), Rooms.get(0).getWidth() + Rooms.get(0).getWidth() / 5f) + 3);
+        cam.position.set(Rooms.get(0).origin.x + Rooms.get(0).width / 2f, Rooms.get(0).origin.y + Rooms.get(0).height / 2f, (float) dist(angle(Gdx.graphics.getWidth(), Gdx.graphics.getHeight(), 67), Rooms.get(0).width + Rooms.get(0).width / 5f) + 3);
 
-        camController = new CameraInputController(Cam);
+        camController = new CameraInputController(cam);
 
         Gdx.input.setInputProcessor(camController);
-        stage.getViewport().setCamera(Cam);
-        Cam.near = 1;
+        stage.getViewport().setCamera(cam);
+        cam.near = 1;
+    }
+
+    public void moveToNextRoom() {
+        target++;
     }
 
     public void update(float deltaTime) {
@@ -68,7 +69,8 @@ public class CameraSystem extends EntitySystem {
     }
 
     public void inputHandle() {
-        if (Gdx.input.isKeyJustPressed(Input.Keys.ENTER)) {
+
+        if(Gdx.input.isKeyJustPressed(Input.Keys.ENTER)) {
             target++;
             if (target == Rooms.size)
                 target = 0;
@@ -76,52 +78,33 @@ public class CameraSystem extends EntitySystem {
             isPressed = true;
             cameraComponent.targetVec = (move(target, Rooms));
             System.out.println(cameraComponent.targetVec);
-            cameraComponent.bottomLeft.set(Cam.position);
-            dist.set(cameraComponent.targetVec.x - cameraComponent.bottomLeft.x, cameraComponent.targetVec.y - cameraComponent.bottomLeft.y, cameraComponent.targetVec.z - cameraComponent.bottomLeft.z);
+            cameraComponent.bottomLeft.set(cam.position);
+            dist.set(cameraComponent.targetVec.x - cameraComponent.bottomLeft.x,
+                    cameraComponent.targetVec.y - cameraComponent.bottomLeft.y,
+                    cameraComponent.targetVec.z - cameraComponent.bottomLeft.z);
         }
-
-        /*
-        if(Gdx.input.justTouched()){
-            Vector2 clickPos = new Vector2(Gdx.input.getX(), Gdx.input.getY());
-           // System.out.println(clickPos);
-
-
-float dist=(float)dist(angle(Gdx.graphics.getWidth(), Gdx.graphics.getHeight(), 67), 30);
-            System.out.println(Cam.far);
-
-            Vector3 worldCoordinates = Cam.unproject(new Vector3(clickPos, 0));
-           // System.out.println(worldCoordinates);
-           // System.out.println(stage.getViewport().getScreenY());
-          //  System.out.println();
-           System.out.println(Cam.getPickRay(Gdx.input.getX(), Gdx.input.getY(), stage.getViewport().getScreenX(), stage.getViewport().getScreenY(), stage.getViewport().getScreenWidth(), stage.getViewport().getScreenHeight()).origin.add(Cam.getPickRay(Gdx.input.getX(), Gdx.input.getY(), stage.getViewport().getScreenX(), stage.getViewport().getScreenY(), stage.getViewport().getScreenWidth(), stage.getViewport().getScreenHeight()).direction));
-           System.out.println(Cam.getPickRay(Gdx.input.getX(), Gdx.input.getY()));
-
-//Vector3 pointOnNearPlane = Cam.unproject(new Vector3(Gdx.input.getX(), Gdx.input.getX(), 0f));
-            //System.out.println(pointOnNearPlane);
-        }
-*/
     }
 
     public void interpolHandle() {
         if (isPressed) {
-            if (Cam.position.equals(cameraComponent.targetVec)) {
+            if (cam.position.equals(cameraComponent.targetVec)) {
                 isPressed = false;
                 t = 0;
             } else {
                 float timeRatio = t / T;
-                float rDistance = Rooms.get(target).getLightCol2().x - Rooms.get(target - 1).getLightCol1().x;
-                float gDistance = Rooms.get(target).getLightCol2().y - Rooms.get(target - 1).getLightCol1().y;
-                float bDistance = Rooms.get(target).getLightCol2().z - Rooms.get(target - 1).getLightCol1().z;
+                float rDistance = Rooms.get(target).lightCol2.x - Rooms.get(target - 1).lightCol1.x;
+                float gDistance = Rooms.get(target).lightCol2.y - Rooms.get(target - 1).lightCol1.y;
+                float bDistance = Rooms.get(target).lightCol2.z - Rooms.get(target - 1).lightCol1.z;
                 if (t < T) {
-                    Cam.position.set(cameraComponent.bottomLeft.x + dist.x * t / T, cameraComponent.bottomLeft.y + dist.y
+                    cam.position.set(cameraComponent.bottomLeft.x + dist.x * t / T, cameraComponent.bottomLeft.y + dist.y
                             * a.apply(t / T), cameraComponent.bottomLeft.z + dist.z * z.apply(t / T));
                     t += Gdx.graphics.getDeltaTime() * 5f;
-                    Vector3 roomColor = new Vector3(Rooms.get(target - 1).getLightCol1().x + timeRatio * rDistance, Rooms.get(target - 1).getLightCol1().y + timeRatio * gDistance, Rooms.get(target - 1).getLightCol1().z + timeRatio * bDistance);
+                    Vector3 roomColor = new Vector3(Rooms.get(target - 1).lightCol1.x + timeRatio * rDistance, Rooms.get(target - 1).lightCol1.y + timeRatio * gDistance, Rooms.get(target - 1).lightCol1.z + timeRatio * bDistance);
                     GhostMesh.lightColor.set(roomColor);
                 } else if (t >= T) {
-                    GhostMesh.lightColor.set(Rooms.get(target).getLightCol2());
+                    GhostMesh.lightColor.set(Rooms.get(target).lightCol2);
                     t = T;
-                    Cam.position.set(cameraComponent.bottomLeft.x + dist.x * t / T, cameraComponent.bottomLeft.y + dist.y
+                    cam.position.set(cameraComponent.bottomLeft.x + dist.x * t / T, cameraComponent.bottomLeft.y + dist.y
                             * a.apply(t / T), cameraComponent.bottomLeft.z + dist.z * z.apply(t / T));
                 }
 
@@ -129,8 +112,8 @@ float dist=(float)dist(angle(Gdx.graphics.getWidth(), Gdx.graphics.getHeight(), 
         }
     }
 
-    public static Vector3 move(int ind, Array<Room> Rooms) {
-        Vector3 VEC = new Vector3(Rooms.get(ind).getOrigin().x + Rooms.get(ind).getWidth() / 2f, Rooms.get(ind).getOrigin().y + Rooms.get(ind).getHeight() / 2f, (float) dist(angle(Gdx.graphics.getWidth(), Gdx.graphics.getHeight(), 67), Rooms.get(ind).getWidth() + Rooms.get(ind).getWidth() / 5f) + 3);
+    public static Vector3 move(int ind, Array<Room1> Rooms) {
+        Vector3 VEC = new Vector3(Rooms.get(ind).origin.x + Rooms.get(ind).width / 2f, Rooms.get(ind).origin.y + Rooms.get(ind).height / 2f, (float) dist(angle(Gdx.graphics.getWidth(), Gdx.graphics.getHeight(), 67), Rooms.get(ind).width + Rooms.get(ind).width / 5f) + 3);
 
         return VEC;
     }

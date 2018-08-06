@@ -2,14 +2,10 @@ package com.rockbite.inetrnship.ghosthouse;
 
 import com.badlogic.ashley.core.Engine;
 import com.badlogic.ashley.core.Entity;
-import com.badlogic.ashley.core.Family;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.graphics.*;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.g3d.utils.CameraInputController;
-import com.badlogic.gdx.math.Intersector;
-import com.badlogic.gdx.math.Vector2;
+
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.math.collision.BoundingBox;
 import com.badlogic.gdx.math.collision.Ray;
@@ -17,14 +13,12 @@ import com.badlogic.gdx.utils.Array;
 import com.rockbite.inetrnship.ghosthouse.data.GhostBuilding;
 import com.rockbite.inetrnship.ghosthouse.data.GhostMesh;
 import com.rockbite.inetrnship.ghosthouse.data.Room;
+import com.rockbite.inetrnship.ghosthouse.data.Room1;
 import com.rockbite.inetrnship.ghosthouse.ecs.components.*;
-import com.rockbite.inetrnship.ghosthouse.ecs.listeners.GameObjectListener;
+
 import com.rockbite.inetrnship.ghosthouse.ecs.systems.CameraSystem;
 import com.rockbite.inetrnship.ghosthouse.ecs.systems.RenderSystem;
-import org.lwjgl.opengl.GL11;
-import org.lwjgl.opengl.GL14;
-
-import java.util.List;
+import com.rockbite.inetrnship.ghosthouse.util.HelperClass;
 
 
 public class MainGame {
@@ -37,14 +31,14 @@ public class MainGame {
     private InputController inputController;
     private Ray ray;
 
-    private Array<Room> rooms;
+    private Room currentRoom;
+
+    private Array<Room1> rooms;
     InputMultiplexer multiplexer = new InputMultiplexer();
 
     Vector3[] point = new Vector3[2];
 
     Entity Cam;
-
-    // public CameraInputController camController;
 
     private GhostBuilding building;
     private GhostMesh meshok;
@@ -53,6 +47,7 @@ public class MainGame {
     public void act(float delta) {
         engine.update(delta);
     }
+
 
     public MainGame(GhostHouse ghostHouse) {
 
@@ -63,8 +58,6 @@ public class MainGame {
 
         building = new GhostBuilding(rooms);
         meshok = new GhostMesh(building.getAllRects());
-
-
 
         engine = new Engine();
 
@@ -80,15 +73,16 @@ public class MainGame {
         point[0] = new Vector3(-2.5f, -2.5f, 0);
         point[1] = new Vector3(30, 20, 3f);
         box.set(point);
-//        Family gameObjectsFamily = Family.all(PositionComponent.class, RotationComponent.class, ScaleComponent.class,
-//                TextureComponent.class, RoomObjectComponent.class).get();
-//        GameObjectListener listener = new GameObjectListener();
 
-        // engine.addEntityListener(gameObjectsFamily, listener);
 
+        Vector3 ghostPosition = new Vector3();
         for (Room room : rooms) {
-            for (Entity entity : room.getItems()) {
+            for (Entity entity : room.items) {
                 engine.addEntity(entity);
+            }
+            if(room.id == 0)
+            {
+                ghostPosition.set(room.origin.x + GhostBuilding.WALL_HEIGHT, room.origin.y, building.BUILDING_DEPTH);
             }
         }
 
@@ -98,28 +92,27 @@ public class MainGame {
 
 
 
+
+        Entity ghost = HelperClass.createGhost(ghostPosition);
+        engine.addEntity(ghost);
+
     }
 
     public void render() {
 
-        cameraSystem.Cam.update();
+        cameraSystem.cam.update();
 
         Gdx.gl.glEnable(GL20.GL_DEPTH_TEST);
         Gdx.gl.glEnable(GL20.GL_BLEND);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT | GL20.GL_DEPTH_BUFFER_BIT);
         Gdx.gl.glBlendFunc(GL20.GL_SRC_ALPHA, GL20.GL_ONE_MINUS_SRC_ALPHA);
-        meshok.shaderProgram.setUniformf("u_lightColor", cameraSystem.interpolColor);
-//        Gdx.gl.glGenerateMipmap(GL11.GL_TEXTURE_2D);
-//        Gdx.gl.glTexParameteri(GL11.GL_TEXTURE_2D, GL11.GL_TEXTURE_MIN_FILTER, GL11.GL_LINEAR_MIPMAP_LINEAR);
-//        Gdx.gl.glTexParameterf(GL11.GL_TEXTURE_2D, GL14.GL_TEXTURE_LOD_BIAS, -0.4f);
-        // this all should eventually be rendered to FBO actually
 
         // first render sky
         // TODO: render sky
 
         // then render building walls
         // TODO: render building
-        meshok.render(cameraSystem.Cam);
+        meshok.render(cameraSystem.cam);
 
         // then render decorations/characters and items
         // TODO: render the rest
