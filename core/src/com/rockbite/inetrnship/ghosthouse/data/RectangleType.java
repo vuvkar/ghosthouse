@@ -1,6 +1,9 @@
 package com.rockbite.inetrnship.ghosthouse.data;
 
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.RepeatablePolygonSprite;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.rockbite.inetrnship.ghosthouse.AssetLoader;
 
 public enum RectangleType {
@@ -20,20 +23,28 @@ public enum RectangleType {
 //
 
     public TextureAtlas.AtlasRegion getTexture(String texture) {
+        TextureAtlas.AtlasRegion region = null;
         switch (this) {
             case ROOM:
-                return AssetLoader.getRegion("roomTextureClouds");
+                region = AssetLoader.getRegion("roomTextureClouds");
+                break;
             case WALL:
-                return AssetLoader.getRegion("wall");
+                region = AssetLoader.getRegion("wall");
+                break;
             case BUILDING:
-                return AssetLoader.getRegion("wall");
+                region = AssetLoader.getRegion("wall");
+                break;
             case FLOOR:
-                return AssetLoader.getRegion("floor");
+                region = AssetLoader.getRegion("floor");
+                break;
             case CEILING:
-                return AssetLoader.getRegion("floor");
+                region = AssetLoader.getRegion("floor");
+                break;
             case ITEM:
-                return  AssetLoader.getRegion(texture);
+                region = AssetLoader.getRegion(texture);
+                break;
         }
-        return null;
+
+        return region;
     }
 }

@@ -23,7 +23,7 @@ public abstract class Room implements Comparable<Room> {
     ComponentMapper<ItemTypeComponent> itemTypeComponent = ComponentMapper.getFor(ItemTypeComponent.class);
     ComponentMapper<ItemIdComponent> roomComponent = ComponentMapper.getFor(ItemIdComponent.class);
 
-   public Array<Entity> items;
+    public Array<Entity> items;
 
     public void loadEntities() {
         items = new Array<Entity>();
@@ -55,6 +55,10 @@ public abstract class Room implements Comparable<Room> {
     public void leaveRoom() {
         mainGame.leavedRoom();
     }
+
+    public void removeItemFromRoom(int itemID) {}
+
+    public void changeItemTexture(int itemID, String textureName) {}
 
     public void setItemStatus(int itemID, ItemType type) {
         for(Entity item: items) {

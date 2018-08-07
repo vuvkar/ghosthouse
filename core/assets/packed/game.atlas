@@ -1,363 +1,363 @@
 
 game.png
-size: 4096,2048
+size: 4096,1024
 format: RGBA8888
 filter: Nearest,Nearest
 repeat: none
 badlogic
   rotate: false
-  xy: 3241, 1155
+  xy: 2006, 42
   size: 256, 256
   orig: 256, 256
   offset: 0, 0
   index: -1
 chair_blue
   rotate: false
-  xy: 1476, 1046
+  xy: 2, 7
   size: 1000, 1000
   orig: 1000, 1000
   offset: 0, 0
   index: -1
 chair_brown
   rotate: false
-  xy: 1476, 44
+  xy: 1004, 7
   size: 1000, 1000
   orig: 1000, 1000
   offset: 0, 0
   index: -1
 crosshair
   rotate: false
-  xy: 2521, 266
+  xy: 3905, 741
   size: 45, 45
   orig: 45, 45
   offset: 0, 0
   index: -1
 dust01
   rotate: false
-  xy: 3374, 991
+  xy: 3676, 579
   size: 48, 37
   orig: 48, 37
   offset: 0, 0
   index: -1
 dust02
   rotate: false
-  xy: 4017, 1898
+  xy: 3676, 618
   size: 43, 44
   orig: 43, 44
   offset: 0, 0
   index: -1
 dust03
   rotate: false
-  xy: 231, 16
+  xy: 2723, 387
   size: 31, 26
   orig: 31, 26
   offset: 0, 0
   index: -1
 eye-indifferent
   rotate: false
-  xy: 3374, 1030
+  xy: 3671, 664
   size: 47, 45
   orig: 47, 45
   offset: 0, 0
   index: -1
 eye-surprised
   rotate: false
-  xy: 2751, 616
+  xy: 2564, 338
   size: 47, 45
   orig: 47, 45
   offset: 0, 0
   index: -1
 floor
   rotate: false
-  xy: 2, 1046
-  size: 1472, 1000
-  orig: 1472, 1000
+  xy: 3876, 867
+  size: 140, 140
+  orig: 140, 140
   offset: 0, 0
   index: -1
 front-bracer
   rotate: false
-  xy: 141, 2
+  xy: 3682, 491
   size: 29, 40
   orig: 29, 40
   offset: 0, 0
   index: -1
 front-fist-closed
   rotate: false
-  xy: 2478, 176
+  xy: 4018, 872
   size: 38, 41
   orig: 38, 41
   offset: 0, 0
   index: -1
 front-fist-open
   rotate: false
-  xy: 3423, 1031
+  xy: 3682, 533
   size: 43, 44
   orig: 43, 44
   offset: 0, 0
   index: -1
 front-foot
   rotate: false
-  xy: 2812, 762
+  xy: 3604, 801
   size: 63, 35
   orig: 63, 35
   offset: 0, 0
   index: -1
 front-shin
   rotate: false
-  xy: 2478, 219
+  xy: 4018, 915
   size: 41, 92
   orig: 41, 92
   offset: 0, 0
   index: -1
 front-thigh
   rotate: false
-  xy: 3637, 1355
+  xy: 2264, 43
   size: 24, 56
   orig: 24, 56
   offset: 0, 0
   index: -1
 front-upper-arm
   rotate: false
-  xy: 3977, 1802
+  xy: 3952, 737
   size: 27, 49
   orig: 27, 49
   offset: 0, 0
   index: -1
 goggles
   rotate: false
-  xy: 3241, 992
+  xy: 3543, 579
   size: 131, 83
   orig: 131, 83
   offset: 0, 0
   index: -1
 gun
   rotate: false
-  xy: 3977, 1944
+  xy: 3798, 734
   size: 105, 102
   orig: 105, 102
   offset: 0, 0
   index: -1
 head
   rotate: false
-  xy: 3499, 1262
+  xy: 2616, 415
   size: 136, 149
   orig: 136, 149
   offset: 0, 0
   index: -1
 hoverboard-board
   rotate: false
-  xy: 3241, 1077
+  xy: 2316, 307
   size: 246, 76
   orig: 246, 76
   offset: 0, 0
   index: -1
 hoverboard-thruster
   rotate: false
-  xy: 4017, 1864
+  xy: 2662, 349
   size: 30, 32
   orig: 30, 32
   offset: 0, 0
   index: -1
 hoverglow-small
   rotate: false
-  xy: 2, 4
+  xy: 2006, 2
   size: 137, 38
   orig: 137, 38
   offset: 0, 0
   index: -1
 mouth-grind
   rotate: false
-  xy: 2751, 584
+  xy: 2674, 383
   size: 47, 30
   orig: 47, 30
   offset: 0, 0
   index: -1
 mouth-oooo
   rotate: false
-  xy: 3726, 1417
+  xy: 2564, 306
   size: 47, 30
   orig: 47, 30
   offset: 0, 0
   index: -1
 mouth-smile
   rotate: false
-  xy: 3144, 803
+  xy: 2613, 351
   size: 47, 30
   orig: 47, 30
   offset: 0, 0
   index: -1
 muzzle-glow
   rotate: false
-  xy: 3499, 1161
+  xy: 3541, 478
   size: 99, 99
   orig: 99, 99
   offset: 0, 0
   index: -1
 muzzle-ring
   rotate: false
-  xy: 3938, 1494
+  xy: 2264, 101
   size: 25, 105
   orig: 25, 105
   offset: 0, 0
   index: -1
 muzzle01
   rotate: false
-  xy: 2478, 578
+  xy: 3270, 617
   size: 271, 175
   orig: 271, 175
   offset: 0, 0
   index: -1
 muzzle02
   rotate: false
-  xy: 2812, 799
+  xy: 3604, 838
   size: 270, 169
   orig: 270, 169
   offset: 0, 0
   index: -1
 muzzle03
   rotate: false
-  xy: 2478, 755
+  xy: 3270, 794
   size: 332, 213
   orig: 332, 213
   offset: 0, 0
   index: -1
 muzzle04
   rotate: false
-  xy: 3667, 1601
+  xy: 2316, 385
   size: 298, 179
   orig: 298, 179
   offset: 0, 0
   index: -1
 muzzle05
   rotate: false
-  xy: 3667, 1449
+  xy: 3270, 465
   size: 269, 150
   orig: 269, 150
   offset: 0, 0
   index: -1
 neck
   rotate: false
-  xy: 3219, 947
+  xy: 3798, 711
   size: 18, 21
   orig: 18, 21
   offset: 0, 0
   index: -1
 portal-bg
   rotate: false
-  xy: 2478, 443
+  xy: 3270, 330
   size: 133, 133
   orig: 133, 133
   offset: 0, 0
   index: -1
 portal-flare1
   rotate: false
-  xy: 2877, 767
+  xy: 2616, 383
   size: 56, 30
   orig: 56, 30
   offset: 0, 0
   index: -1
 portal-flare2
   rotate: false
-  xy: 3667, 1416
+  xy: 2145, 9
   size: 57, 31
   orig: 57, 31
   offset: 0, 0
   index: -1
 portal-flare3
   rotate: false
-  xy: 3084, 803
+  xy: 3720, 679
   size: 58, 30
   orig: 58, 30
   offset: 0, 0
   index: -1
 portal-shade
   rotate: false
-  xy: 3084, 835
+  xy: 3405, 330
   size: 133, 133
   orig: 133, 133
   offset: 0, 0
   index: -1
 portal-streaks1
   rotate: false
-  xy: 2478, 313
+  xy: 3543, 664
   size: 126, 128
   orig: 126, 128
   offset: 0, 0
   index: -1
 portsl-streaks2
   rotate: false
-  xy: 2613, 451
+  xy: 3671, 711
   size: 125, 125
   orig: 125, 125
   offset: 0, 0
   index: -1
 rear-bracer
   rotate: false
-  xy: 2568, 275
+  xy: 4061, 917
   size: 28, 36
   orig: 28, 36
   offset: 0, 0
   index: -1
 rear-foot
   rotate: false
-  xy: 172, 12
+  xy: 2204, 10
   size: 57, 30
   orig: 57, 30
   offset: 0, 0
   index: -1
 rear-shin
   rotate: false
-  xy: 3977, 1853
+  xy: 3642, 488
   size: 38, 89
   orig: 38, 89
   offset: 0, 0
   index: -1
 rear-thigh
   rotate: false
-  xy: 3600, 1208
+  xy: 4061, 955
   size: 33, 52
   orig: 33, 52
   offset: 0, 0
   index: -1
 rear-upper-arm
   rotate: false
-  xy: 2521, 220
+  xy: 2613, 305
   size: 24, 44
   orig: 24, 44
   offset: 0, 0
   index: -1
 roomTexture
   rotate: false
-  xy: 2478, 970
+  xy: 2006, 566
   size: 761, 441
   orig: 761, 441
   offset: 0, 0
   index: -1
 roomTextureClouds
   rotate: false
-  xy: 2478, 1413
-  size: 1187, 633
-  orig: 1187, 633
+  xy: 2769, 374
+  size: 499, 633
+  orig: 499, 633
   offset: 0, 0
   index: -1
 torso
   rotate: false
-  xy: 2751, 663
+  xy: 2264, 208
   size: 49, 90
   orig: 49, 90
   offset: 0, 0
   index: -1
 tumbSHka
   rotate: false
-  xy: 3667, 1782
+  xy: 2006, 300
   size: 308, 264
   orig: 308, 264
   offset: 0, 0
   index: -1
 wall
   rotate: false
-  xy: 2, 44
-  size: 1472, 1000
-  orig: 1472, 1000
+  xy: 3905, 788
+  size: 87, 77
+  orig: 87, 77
   offset: 0, 0
   index: -1

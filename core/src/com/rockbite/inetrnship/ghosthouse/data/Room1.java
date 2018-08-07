@@ -22,7 +22,7 @@ public class Room1 extends Room {
     }
 
     @Override
-    public void itemWasDragged(int fromInvenory, int toRoomItem) {
+    public void itemWasDragged(int fromInventory, int toRoomItem) {
 
     }
 }

@@ -16,7 +16,6 @@ import com.badlogic.gdx.scenes.scene2d.utils.ActorGestureListener;
 import com.badlogic.gdx.utils.Array;
 import com.rockbite.inetrnship.ghosthouse.data.GhostMesh;
 import com.rockbite.inetrnship.ghosthouse.data.Room;
-import com.rockbite.inetrnship.ghosthouse.data.Room1;
 import com.rockbite.inetrnship.ghosthouse.ecs.components.PositionComponent;
 import com.rockbite.inetrnship.ghosthouse.ecs.components.SizeComponent;
 import com.rockbite.inetrnship.ghosthouse.ecs.components.TextureComponent;
@@ -115,32 +114,32 @@ return true; //return true if item is interactable
                     //which particular item is intersected
                     if (isInside(new Vector3(pos.getX(), pos.getY(), pos.getZ()), new Vector2(size.width, size.height), targetPosition)) {
                         tx= rooms.get(cameraSystem.target).items.get(i).getComponent(TextureComponent.class);
-                        ghostHouse.m_ui.inventory.addActor(new Image(AssetLoader.getRegion(tx.texture)));
-                        ghostHouse.m_ui.numOfItems++;
-                        ghostHouse.m_ui.inventory.getChildren().get(ghostHouse.m_ui.numOfItems-1).setPosition(ghostHouse.m_ui.inventoryInd.x, ghostHouse.m_ui.inventoryInd.y);
+                        ghostHouse.mainUI.inventory.addActor(new Image(AssetLoader.getRegion(tx.texture)));
+                        ghostHouse.mainUI.numOfItems++;
+                        ghostHouse.mainUI.inventory.getChildren().get(ghostHouse.mainUI.numOfItems-1).setPosition(ghostHouse.mainUI.inventoryInd.x, ghostHouse.mainUI.inventoryInd.y);
 
-                       ghostHouse.m_ui.inventory.getChildren().get(ghostHouse.m_ui.numOfItems-1).setSize(100, 100);
-                        ghostHouse.m_ui.inventory.getChildren().get(ghostHouse.m_ui.numOfItems-1).setBounds(ghostHouse.m_ui.inventoryInd.x, 0, 100, 100);
-                        ghostHouse.m_ui.inventory.getChildren().get(ghostHouse.m_ui.numOfItems-1).setTouchable(Touchable.enabled);
-                        ghostHouse.m_ui.inventoryInd.x+=100;
+                       ghostHouse.mainUI.inventory.getChildren().get(ghostHouse.mainUI.numOfItems-1).setSize(100, 100);
+                        ghostHouse.mainUI.inventory.getChildren().get(ghostHouse.mainUI.numOfItems-1).setBounds(ghostHouse.mainUI.inventoryInd.x, 0, 100, 100);
+                        ghostHouse.mainUI.inventory.getChildren().get(ghostHouse.mainUI.numOfItems-1).setTouchable(Touchable.enabled);
+                        ghostHouse.mainUI.inventoryInd.x+=100;
 
 
-                        ghostHouse.m_ui.inventory.getChildren().get(ghostHouse.m_ui.numOfItems-1).addListener(new ActorGestureListener() {
+                        ghostHouse.mainUI.inventory.getChildren().get(ghostHouse.mainUI.numOfItems-1).addListener(new ActorGestureListener() {
                             Vector2 prevPosActor=new Vector2();
 
                             public void pan(InputEvent event, float x, float y, float deltaX, float deltaY){
-                                event.getListenerActor().setPosition(Gdx.input.getX()-50+Math.abs(ghostHouse.m_ui.inventory.getX()),Gdx.graphics.getHeight()-Gdx.input.getY()-50);
+                                event.getListenerActor().setPosition(Gdx.input.getX()-50+Math.abs(ghostHouse.mainUI.inventory.getX()),Gdx.graphics.getHeight()-Gdx.input.getY()-50);
 
                             }
 
                             public void touchUp(InputEvent event, float x, float y, int pointer, int button){
                                 if(event.getListenerActor().getY()>100){
-                                    for(int i=0; i< ghostHouse.m_ui.inventory.getChildren().size; i++){
-                                        if(ghostHouse.m_ui.inventory.getChildren().get(i).getY()!=0){
+                                    for(int i = 0; i< ghostHouse.mainUI.inventory.getChildren().size; i++){
+                                        if(ghostHouse.mainUI.inventory.getChildren().get(i).getY()!=0){
                                             if(i>0)
-                                            ghostHouse.m_ui.inventory.getChildren().get(i).setPosition(ghostHouse.m_ui.inventory.getChildren().get(i-1).getX()+100, 0);
+                                            ghostHouse.mainUI.inventory.getChildren().get(i).setPosition(ghostHouse.mainUI.inventory.getChildren().get(i-1).getX()+100, 0);
                                             else
-                                                ghostHouse.m_ui.inventory.getChildren().get(i).setPosition(ghostHouse.m_ui.inventory.getX(), 0);
+                                                ghostHouse.mainUI.inventory.getChildren().get(i).setPosition(ghostHouse.mainUI.inventory.getX(), 0);
                                         }
 
 
@@ -161,7 +160,7 @@ return true; //return true if item is interactable
 
                     }
                 }
-                this.ghostHouse.m_game.getBuilding().getCurrentRoom().itemWasClicked((int)indexAndMax[1]);
+                this.ghostHouse.mainGame.getBuilding().getCurrentRoom().itemWasClicked((int)indexAndMax[1]);
                 System.out.println("Item:"+indexAndMax[1]+"in room"+cameraSystem.target);
                 indexAndMax[0] = 0;
                 indexAndMax[1] = 0;

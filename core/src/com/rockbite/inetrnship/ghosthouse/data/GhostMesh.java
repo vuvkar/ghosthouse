@@ -55,6 +55,8 @@ public class GhostMesh {
         animationIndices = new short[0];
         animationVertices = new float[0];
 
+        assets.setWrap(Texture.TextureWrap.Repeat, Texture.TextureWrap.Repeat);
+
         itemVertices = new float[ITEM_COUNT * 4 * ATTRIBUTE_COUNT];
         itemIndices = new short[ITEM_COUNT * 6];
 

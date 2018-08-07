@@ -22,7 +22,7 @@ public class AssetLoader extends AssetManager {
     public static TextureAtlas atlas;
 
     public AssetLoader() {
-        //WARNING: es chnjeq :D
+///       WARNING: DO NOT ATTEMPT TO DELETEEE!!!!!!!! Thanks :)
 //        TexturePacker.Settings settings = new TexturePacker.Settings();
 //        settings.maxHeight = 4096;
 //        settings.maxWidth = 4096;

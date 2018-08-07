@@ -7,8 +7,6 @@ import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.graphics.*;
 
 import com.badlogic.gdx.math.Vector3;
-import com.badlogic.gdx.math.collision.BoundingBox;
-import com.badlogic.gdx.math.collision.Ray;
 import com.badlogic.gdx.utils.Array;
 import com.rockbite.inetrnship.ghosthouse.data.GhostBuilding;
 import com.rockbite.inetrnship.ghosthouse.data.GhostMesh;
@@ -82,7 +80,7 @@ public class MainGame {
             }
         }
 
-        multiplexer.addProcessor( ghostHouse.m_ui);
+        multiplexer.addProcessor( ghostHouse.mainUI);
         multiplexer.addProcessor(inputController);
         Gdx.input.setInputProcessor(multiplexer);
 
