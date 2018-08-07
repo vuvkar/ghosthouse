@@ -6,10 +6,12 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Json;
+import com.rockbite.inetrnship.ghosthouse.MainGame;
 import com.rockbite.inetrnship.ghosthouse.ecs.components.*;
-import com.rockbite.inetrnship.ghosthouse.ecs.systems.CameraSystem;
 
 public abstract class Room implements Comparable<Room> {
+    public MainGame mainGame;
+
     public int id;
     public Vector2 origin;
     public float width;
@@ -42,9 +44,22 @@ public abstract class Room implements Comparable<Room> {
         GhostMesh.ITEM_COUNT += items.size;
     }
 
+    abstract public void roomStarted();
+    abstract public void itemWasClicked(int itemID);
+    abstract public void itemWasDragged(int fromInventory, int toRoomItem);
+
     public void leaveRoom() {
+        mainGame.leavedRoom();
+    }
+
+    public void setItemStatus(int itemID) {
 
     }
+
+    public void getItemStatus(int itemID) {
+
+    }
+
 
     @Override
     public int compareTo(Room o) {

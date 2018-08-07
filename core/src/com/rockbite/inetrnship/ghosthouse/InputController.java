@@ -31,7 +31,7 @@ public class InputController implements InputProcessor {
     SizeComponent size = new SizeComponent(0, 0);
     TextureComponent tx= new TextureComponent("Fa");
     AssetLoader assetLoader = new AssetLoader();
-    Array<Room1> rooms = assetLoader.getRooms();
+    Array<Room> rooms = assetLoader.getRooms();
     TextureAtlas atlas;
     int current=0;
     float[] indexAndMax = {0, 0};
@@ -97,8 +97,6 @@ return true; //return true if item is interactable
 
     @Override
     public boolean touchDown(int screenX, int screenY, int pointer, int button) {
-
-
             ray = cameraSystem.cam.getPickRay(Gdx.input.getX(), Gdx.input.getY());//casting the ray
             short[] temo = mesh.itemIndices.clone();
             for (int i = 0; i < temo.length; i++) {
@@ -163,6 +161,7 @@ return true; //return true if item is interactable
 
                     }
                 }
+                this.ghostHouse.m_game.getBuilding().getCurrentRoom().itemWasClicked((int)indexAndMax[1]);
                 System.out.println("Item:"+indexAndMax[1]+"in room"+cameraSystem.target);
                 indexAndMax[0] = 0;
                 indexAndMax[1] = 0;

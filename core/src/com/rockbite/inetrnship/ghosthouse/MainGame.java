@@ -13,7 +13,6 @@ import com.badlogic.gdx.utils.Array;
 import com.rockbite.inetrnship.ghosthouse.data.GhostBuilding;
 import com.rockbite.inetrnship.ghosthouse.data.GhostMesh;
 import com.rockbite.inetrnship.ghosthouse.data.Room;
-import com.rockbite.inetrnship.ghosthouse.data.Room1;
 import com.rockbite.inetrnship.ghosthouse.ecs.components.*;
 
 import com.rockbite.inetrnship.ghosthouse.ecs.systems.CameraSystem;
@@ -29,25 +28,22 @@ public class MainGame {
     private RenderSystem renderSystem;
     private AssetLoader assetLoader;
     private InputController inputController;
-    private Ray ray;
 
-    private Room currentRoom;
-
-    private Array<Room1> rooms;
+    private Array<Room> rooms;
     InputMultiplexer multiplexer = new InputMultiplexer();
 
-    Vector3[] point = new Vector3[2];
-
-    Entity Cam;
+    Entity cam;
 
     private GhostBuilding building;
     private GhostMesh meshok;
-    private BoundingBox box = new BoundingBox();
 
     public void act(float delta) {
         engine.update(delta);
     }
 
+    public GhostBuilding getBuilding() {
+        return building;
+    }
 
     public MainGame(GhostHouse ghostHouse) {
 
@@ -56,27 +52,27 @@ public class MainGame {
         assetLoader = new AssetLoader();
         rooms = assetLoader.getRooms();
 
+
         building = new GhostBuilding(rooms);
         meshok = new GhostMesh(building.getAllRects());
+
+        building.setCurrentRoom(rooms.first());
 
         engine = new Engine();
 
         cameraSystem = new CameraSystem();
-        Cam = new Entity();
-        Cam.add(new CameraComponent());
+        cam = new Entity();
+        cam.add(new CameraComponent());
         engine.addSystem(cameraSystem);
-        engine.addEntity(Cam);
+        engine.addEntity(cam);
         inputController = new InputController(meshok, cameraSystem, ghostHouse);
         renderSystem = new RenderSystem();
         renderSystem.mesh = meshok;
         engine.addSystem(renderSystem);
-        point[0] = new Vector3(-2.5f, -2.5f, 0);
-        point[1] = new Vector3(30, 20, 3f);
-        box.set(point);
-
 
         Vector3 ghostPosition = new Vector3();
         for (Room room : rooms) {
+            room.mainGame = this;
             for (Entity entity : room.items) {
                 engine.addEntity(entity);
             }
@@ -90,12 +86,15 @@ public class MainGame {
         multiplexer.addProcessor(inputController);
         Gdx.input.setInputProcessor(multiplexer);
 
-
-
-
         Entity ghost = HelperClass.createGhost(ghostPosition);
         engine.addEntity(ghost);
 
+    }
+
+    public void leavedRoom() {
+        cameraSystem.moveToNextRoom();
+        building.moveToNextRoom();
+        building.getCurrentRoom().roomStarted();
     }
 
     public void render() {
@@ -119,7 +118,6 @@ public class MainGame {
 
         // DO postprocessing of FBO and render it to screen
         // TODO: final render
-
 
     }
 

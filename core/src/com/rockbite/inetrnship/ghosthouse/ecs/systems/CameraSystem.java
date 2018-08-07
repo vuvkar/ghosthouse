@@ -25,7 +25,7 @@ public class CameraSystem extends EntitySystem {
     private ImmutableArray<Entity> entities;
     private ComponentMapper<CameraComponent> cm = ComponentMapper.getFor(CameraComponent.class);
     AssetLoader assetLoader = new AssetLoader();
-    Array<Room1> Rooms = assetLoader.getRooms();
+    Array<Room> Rooms = assetLoader.getRooms();
     CameraComponent cameraComponent;
     public static Vector3 interpolColor = new Vector3(0, 0, 0);
     public int target = 0;
@@ -112,7 +112,7 @@ public class CameraSystem extends EntitySystem {
         }
     }
 
-    public static Vector3 move(int ind, Array<Room1> Rooms) {
+    public static Vector3 move(int ind, Array<Room> Rooms) {
         Vector3 VEC = new Vector3(Rooms.get(ind).origin.x + Rooms.get(ind).width / 2f, Rooms.get(ind).origin.y + Rooms.get(ind).height / 2f, (float) dist(angle(Gdx.graphics.getWidth(), Gdx.graphics.getHeight(), 67), Rooms.get(ind).width + Rooms.get(ind).width / 5f) + 3);
 
         return VEC;

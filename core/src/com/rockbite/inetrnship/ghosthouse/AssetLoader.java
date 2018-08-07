@@ -18,7 +18,7 @@ import java.io.IOException;
 
 public class AssetLoader extends AssetManager {
 
-    private Array<Room1> rooms;
+    private Array<Room> rooms;
     public static TextureAtlas atlas;
 
     public AssetLoader() {
@@ -98,11 +98,11 @@ public class AssetLoader extends AssetManager {
         return (matrix);
     }
 
-    public Array<Room1> processRoomData(int[][] rawPixelData) {
+    public Array<Room> processRoomData(int[][] rawPixelData) {
         //TODO: hi Liana
 
         RoomParser roomParser = new RoomParser();
-        Array<Room1> roomArray = new Array<Room1>();
+        Array<Room> roomArray = new Array<Room>();
         roomParser.search(rawPixelData);
 
         int roomID = roomParser.getRoomCount();
@@ -120,7 +120,7 @@ public class AssetLoader extends AssetManager {
         return roomArray;
     }
 
-    public Array<Room1> getRooms() {
+    public Array<Room> getRooms() {
         return rooms;
     }
 }

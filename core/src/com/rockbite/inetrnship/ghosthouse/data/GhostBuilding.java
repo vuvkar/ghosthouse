@@ -10,28 +10,39 @@ import java.util.Set;
 
 
 public class GhostBuilding {
-    private Array<Room1> rooms;
+    private Array<Room> rooms;
 
     private Array<GhostRectangle> faceWalls;
     private Array<GhostRectangle> roomWalls;
     private Array<GhostRectangle> roomConnectingWalls;
     private Array<GhostRectangle> buildingConnectingWalls;
 
-    static public final float WALL_HEIGHT = 1.4f;
+    private Room currentRoom;
 
+    static public final float WALL_HEIGHT = 1.4f;
     static public final float BUILDING_DEPTH = 3f;
 
     private float buildingWidth;
     private float buildingHeight;
     private Vector2 buildingOrigin;
 
-    public GhostBuilding(Array<Room1> rooms) {
+    public GhostBuilding(Array<Room> rooms) {
         this.rooms = rooms;
         this.buildingConnectingWalls = createBuildingConnectingWalls(rooms);
         popInsideRooms();
         this.roomWalls = createRooms(rooms);
         this.faceWalls = createFaceWalls(rooms);
         this.roomConnectingWalls = createConnectingWalls(rooms);
+    }
+
+    public void moveToNextRoom() {
+        int current = currentRoom.id;
+        for(Room room: rooms) {
+            if(room.id == current + 1) {
+                currentRoom = room;
+                break;
+            }
+        }
     }
 
     // Pop rooms inside by WALL_HEIGHT / 2 by y = x line
@@ -58,7 +69,7 @@ public class GhostBuilding {
     }
 
     // Creates rooms back walls
-    Array<GhostRectangle> createRooms(Array<Room1> arr) {
+    Array<GhostRectangle> createRooms(Array<Room> arr) {
         Array<GhostRectangle> result = new Array<GhostRectangle>();
 
         for (Room current : arr) {
@@ -77,8 +88,16 @@ public class GhostBuilding {
         return result;
     }
 
+    public Room getCurrentRoom() {
+        return currentRoom;
+    }
+
+    public void setCurrentRoom(Room currentRoom) {
+        this.currentRoom = currentRoom;
+    }
+
     // Finds building coordinates and creates building walls
-    Array<GhostRectangle> createBuildingConnectingWalls(Array<Room1> arr) {
+    Array<GhostRectangle> createBuildingConnectingWalls(Array<Room> arr) {
 
         Vector2 topRight = new Vector2();
         Vector2 bottomLeft = new Vector2();
@@ -103,7 +122,7 @@ public class GhostBuilding {
         buildingOrigin = bottomLeft;
 
         Room1 fakeRoom = new Room1(-1, bottomLeft, buildingWidth, buildingHeight);
-        Array<Room1> rooms = new Array<Room1>();
+        Array<Room> rooms = new Array<Room>();
         rooms.add(fakeRoom);
 
         Array<GhostRectangle> walls = createConnectingWalls(rooms);
@@ -117,7 +136,7 @@ public class GhostBuilding {
     }
 
     // Creates outer walls
-    Array<GhostRectangle> createFaceWalls(Array<Room1> rooms) {
+    Array<GhostRectangle> createFaceWalls(Array<Room> rooms) {
         Array<GhostLine> lines = createLines(rooms);
         lines = breakLines(lines, rooms);
         Array<GhostRectangle> result = findInitialRects(lines);
@@ -127,7 +146,7 @@ public class GhostBuilding {
     }
 
     // Main algorithm for creating face walls
-    Array<GhostLine> createLines(Array<Room1> rooms) {
+    Array<GhostLine> createLines(Array<Room> rooms) {
         Set<GhostLine> lines = new HashSet<GhostLine>();
 
         for (Room room : rooms) {
@@ -147,7 +166,7 @@ public class GhostBuilding {
     }
 
     // Creates rooms inner side walls + ceiling/floor
-    Array<GhostRectangle> createConnectingWalls(Array<Room1> rooms) {
+    Array<GhostRectangle> createConnectingWalls(Array<Room> rooms) {
         Array<GhostRectangle> result = new Array<GhostRectangle>();
 
         for (Room room : rooms) {
@@ -198,7 +217,7 @@ public class GhostBuilding {
     }
 
     // Main algorithm (step 2)
-    Array<GhostLine> breakLines(Array<GhostLine> lines, Array<Room1> rooms) {
+    Array<GhostLine> breakLines(Array<GhostLine> lines, Array<Room> rooms) {
         rooms.sort();
         int size = lines.size;
 
