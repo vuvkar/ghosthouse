@@ -56,8 +56,6 @@ public abstract class Room implements Comparable<Room> {
         mainGame.leavedRoom();
     }
 
-    public void removeItemFromRoom(int itemID) {}
-
     public void changeItemTexture(int itemID, String textureName) {}
 
     public void setItemStatus(int itemID, ItemType type) {

@@ -24,6 +24,8 @@ public class GhostMesh {
 
     public static int ITEM_COUNT = 0;
 
+    private static int GRID_SIZE = 10;
+
     public static Vector3 lightColor = new Vector3(201.0f / 255.0f, 100.0f / 255.0f, 185.0f / 255.0f);
 
     Texture assets;
@@ -160,23 +162,9 @@ public class GhostMesh {
 
         for (int i = 0; i < 4; i++) {
             Vector3 normal = rectangle.getNormal();
-            if (normal.x == 0 && normal.y == 0 && (normal.z == 1 || normal.z == -1)) {
-                vertices[vertexIndex.value++] = rectangle.getX() + (i % 2) * rectangle.getWidth();
-                vertices[vertexIndex.value++] = rectangle.getY() + (i >> 1) * rectangle.getHeight();
-                vertices[vertexIndex.value++] = rectangle.getZ();
-            }
-
-            if (normal.x == 0 && normal.z == 0 && (normal.y == 1 || normal.y == -1)) {
-                vertices[vertexIndex.value++] = rectangle.getX() + (i % 2) * rectangle.getWidth();
-                vertices[vertexIndex.value++] = rectangle.getY();
-                vertices[vertexIndex.value++] = rectangle.getZ() + (i >> 1) * rectangle.getHeight();
-            }
-
-            if (normal.z == 0 && normal.y == 0 && (normal.x == 1 || normal.x == -1)) {
-                vertices[vertexIndex.value++] = rectangle.getX();
-                vertices[vertexIndex.value++] = rectangle.getY() + (i >> 1) * rectangle.getHeight();
-                vertices[vertexIndex.value++] = rectangle.getZ() + (i % 2) * rectangle.getWidth();
-            }
+            vertices[vertexIndex.value++] = rectangle.getX() + Math.round( (Math.abs(normal.z) + Math.abs(normal.y))/2) *  (i % 2) * rectangle.getWidth();
+            vertices[vertexIndex.value++] = rectangle.getY() + Math.round( (Math.abs(normal.z) + Math.abs(normal.x))/2) * (i >> 1) * rectangle.getHeight();
+            vertices[vertexIndex.value++] = rectangle.getZ() + (i % 2) * Math.abs(normal.x) * rectangle.getWidth() +  Math.abs(normal.y) * (i >> 1) * rectangle.getHeight() ;
 
             // UV Coordinates
             TextureAtlas.AtlasRegion region = rectangle.getType().getTexture(rectangle.getTexture());
@@ -184,6 +172,7 @@ public class GhostMesh {
             float diffV = region.getV2() - region.getV();
             vertices[vertexIndex.value++] = region.getU() + (i % 2) * diffU;
             vertices[vertexIndex.value++] = region.getV() + ((3 - i) >> 1) * diffV;
+
             // Normal
             vertices[vertexIndex.value++] = normal.x;
             vertices[vertexIndex.value++] = normal.y;

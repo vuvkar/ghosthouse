@@ -3,7 +3,7 @@ game.png
 size: 4096,1024
 format: RGBA8888
 filter: Nearest,Nearest
-repeat: none
+repeat: xy
 badlogic
   rotate: false
   xy: 2006, 42

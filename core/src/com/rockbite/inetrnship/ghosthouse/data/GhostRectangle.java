@@ -14,6 +14,7 @@ public class GhostRectangle implements Comparable<GhostRectangle> {
     private float y;
     private float z;
     private String texture;
+    private boolean doesNeedGrid;
 
     public String getTexture() {
         return texture;

@@ -2,6 +2,7 @@ package com.rockbite.inetrnship.ghosthouse;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetManager;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.tools.texturepacker.TexturePacker;
@@ -26,7 +27,10 @@ public class AssetLoader extends AssetManager {
 //        TexturePacker.Settings settings = new TexturePacker.Settings();
 //        settings.maxHeight = 4096;
 //        settings.maxWidth = 4096;
-//        TexturePacker.process(settings,"textures", "packed", "game");
+//        settings.wrapX = Texture.TextureWrap.Repeat;
+//        settings.wrapY = Texture.TextureWrap.Repeat;
+//        TexturePacker.process(settings,"textures",
+//                "packed", "game");
         atlas = new TextureAtlas(Gdx.files.internal("packed/game.atlas"));
         loadGameData();
     }
