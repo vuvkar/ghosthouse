@@ -9,7 +9,6 @@ import com.badlogic.gdx.utils.Array;
 import com.rockbite.inetrnship.ghosthouse.util.HelperClass;
 import com.rockbite.inetrnship.ghosthouse.util.IntWrapper;
 
-
 public class GhostMesh {
     private final int POSITION_ATTRIBUTE_COUNT = 3;
     private final int COLOR_ATTRIBUTE_COUNT = 0;
@@ -20,7 +19,7 @@ public class GhostMesh {
     // FIXME: This later should be changed to be calculated dynamically
     public static int ITEM_COUNT = 0;
 
-    public static Vector3 lightColor = new Vector3(201.0f / 255.0f, 100.0f / 255.0f, 185.0f / 255.0f);
+    //public static Vector3 lightColor = new Vector3(201.0f / 255.0f, 100.0f / 255.0f, 185.0f / 255.0f);
 
     Texture assets;
 
@@ -74,8 +73,8 @@ public class GhostMesh {
     public void render(Camera camera) {
         shaderProgram.begin();
         shaderProgram.setUniformMatrix("u_projTrans", camera.combined);
-        shaderProgram.setUniformf("u_light", camera.position);
-        shaderProgram.setUniformf("u_lightColor", lightColor);
+        shaderProgram.setUniformf("u_light", 5, 5, 5);
+        //shaderProgram.setUniformf("u_lightColor", lightColor);
 
 //        building.setVertices(itemVertices);
 //        building.setIndices(itemIndices);

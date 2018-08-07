@@ -2,8 +2,14 @@ package com.rockbite.inetrnship.ghosthouse;
 
 import com.badlogic.ashley.core.Engine;
 import com.badlogic.ashley.core.Entity;
+import com.badlogic.ashley.core.Family;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.graphics.*;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g3d.utils.CameraInputController;
+import com.badlogic.gdx.math.Intersector;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.math.collision.BoundingBox;
 import com.badlogic.gdx.math.collision.Ray;
@@ -12,8 +18,14 @@ import com.rockbite.inetrnship.ghosthouse.data.GhostBuilding;
 import com.rockbite.inetrnship.ghosthouse.data.GhostMesh;
 import com.rockbite.inetrnship.ghosthouse.data.Room;
 import com.rockbite.inetrnship.ghosthouse.ecs.components.*;
+import com.rockbite.inetrnship.ghosthouse.ecs.listeners.GameObjectListener;
 import com.rockbite.inetrnship.ghosthouse.ecs.systems.CameraSystem;
 import com.rockbite.inetrnship.ghosthouse.ecs.systems.RenderSystem;
+import org.lwjgl.opengl.GL11;
+import org.lwjgl.opengl.GL14;
+
+import java.util.List;
+
 
 public class MainGame {
 
@@ -24,7 +36,10 @@ public class MainGame {
     private AssetLoader assetLoader;
     private InputController inputController;
     private Ray ray;
+
     private Array<Room> rooms;
+    InputMultiplexer multiplexer = new InputMultiplexer();
+
     Vector3[] point = new Vector3[2];
 
     Entity Cam;
@@ -40,6 +55,7 @@ public class MainGame {
     }
 
     public MainGame(GhostHouse ghostHouse) {
+
         this.ghostHouse = ghostHouse;
 
         assetLoader = new AssetLoader();
@@ -48,8 +64,6 @@ public class MainGame {
         building = new GhostBuilding(rooms);
         meshok = new GhostMesh(building.getAllRects());
 
-        inputController = new InputController();
-
         engine = new Engine();
 
         cameraSystem = new CameraSystem();
@@ -57,7 +71,7 @@ public class MainGame {
         Cam.add(new CameraComponent());
         engine.addSystem(cameraSystem);
         engine.addEntity(Cam);
-
+        inputController = new InputController(meshok, cameraSystem, ghostHouse);
         renderSystem = new RenderSystem();
         renderSystem.mesh = meshok;
         engine.addSystem(renderSystem);
@@ -75,17 +89,18 @@ public class MainGame {
                 engine.addEntity(entity);
             }
         }
+//        multiplexer.addProcessor(ghostHouse.m_ui);
+//        multiplexer.addProcessor(inputController);
+//        Gdx.input.setInputProcessor(multiplexer);
     }
 
     public void render() {
-        inputController.update(meshok, cameraSystem.Cam);
         cameraSystem.Cam.update();
-
         Gdx.gl.glEnable(GL20.GL_DEPTH_TEST);
         Gdx.gl.glEnable(GL20.GL_BLEND);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT | GL20.GL_DEPTH_BUFFER_BIT);
         Gdx.gl.glBlendFunc(GL20.GL_SRC_ALPHA, GL20.GL_ONE_MINUS_SRC_ALPHA);
-        meshok.shaderProgram.setUniformf("u_lightColor", cameraSystem.interpolColor);
+        //meshok.shaderProgram.setUniformf("u_lightColor", cameraSystem.interpolColor);
 //        Gdx.gl.glGenerateMipmap(GL11.GL_TEXTURE_2D);
 //        Gdx.gl.glTexParameteri(GL11.GL_TEXTURE_2D, GL11.GL_TEXTURE_MIN_FILTER, GL11.GL_LINEAR_MIPMAP_LINEAR);
 //        Gdx.gl.glTexParameterf(GL11.GL_TEXTURE_2D, GL14.GL_TEXTURE_LOD_BIAS, -0.4f);

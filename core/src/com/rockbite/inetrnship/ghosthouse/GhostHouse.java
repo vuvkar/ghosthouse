@@ -9,6 +9,15 @@ public class GhostHouse extends ApplicationAdapter {
     AssetLoader assetLoader;
 
     MainUI m_ui;
+
+    public MainUI getM_ui() {
+        return m_ui;
+    }
+
+    public void setM_ui(MainUI m_ui) {
+        this.m_ui = m_ui;
+    }
+
     MainGame m_game;
 
     @Override

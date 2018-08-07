@@ -8,7 +8,6 @@ import com.badlogic.gdx.utils.Array;
 import java.util.HashSet;
 import java.util.Set;
 
-
 public class GhostBuilding {
     private Array<Room> rooms;
 

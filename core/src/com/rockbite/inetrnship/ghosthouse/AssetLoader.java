@@ -4,7 +4,6 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.tools.texturepacker.TexturePacker;
 import com.badlogic.gdx.utils.Array;
 import com.rockbite.inetrnship.ghosthouse.data.GhostMesh;
 import com.rockbite.inetrnship.ghosthouse.data.Room;
@@ -14,11 +13,12 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 
-
 public class AssetLoader extends AssetManager {
 
     private Array<Room> rooms;
     static TextureAtlas atlas;
+    TextureAtlas itemAtlas;
+    private boolean contains = false;
 
     public AssetLoader() {
         //WARNING: es chnjeq :D
@@ -26,6 +26,7 @@ public class AssetLoader extends AssetManager {
 //        settings.maxHeight = 4096;
 //        settings.maxWidth = 4096;
 //        TexturePacker.process(settings,"textures", "packed", "game");
+
         atlas = new TextureAtlas(Gdx.files.internal("packed/game.atlas"));
         loadGameData();
     }
@@ -34,7 +35,7 @@ public class AssetLoader extends AssetManager {
         GhostMesh.ITEM_COUNT = 0;
         int[][] pixelData = readPixelData();
         rooms = processRoomData(pixelData);
-        for(Room room: rooms) {
+        for (Room room : rooms) {
             room.loadEntities();
         }
     }
@@ -115,7 +116,6 @@ public class AssetLoader extends AssetManager {
             Room room = new Room(i, bottomLeft, height, width);
             roomArray.add(room);
         }
-
         return roomArray;
     }
 

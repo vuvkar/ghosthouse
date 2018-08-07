@@ -1,35 +1,71 @@
 {
-  "light": [201, 100, 185],
   "class": "com.badlogic.gdx.utils.Array",
   "items": [
     {
       "class": "com.rockbite.inetrnship.ghosthouse.data.GameObject",
       "name": "ChairBrown",
-      "position": [ 0.5, 0, 1],
-      "scale": [1, 1, 1],
+      "position": [
+        0.5,
+        0,
+        1
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ],
       "width": 2,
       "height": 4,
-      "rotation": [0, 0, 0],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
       "texture": "chair_brown"
     },
     {
       "class": "com.rockbite.inetrnship.ghosthouse.data.GameObject",
       "name": "ChairBlue",
-      "position": [ 11, 0, 1],
-      "scale": [1, 1, 1],
+      "position": [
+        11,
+        0,
+        1
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ],
       "width": 2,
       "height": 4,
-      "rotation": [0, 0, 0],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
       "texture": "chair_blue"
     },
     {
       "class": "com.rockbite.inetrnship.ghosthouse.data.GameObject",
       "name": "tumbSHka",
-      "position": [ 6, 0, 1 ],
-      "scale": [1, 1, 1],
-      "width":2,
+      "position": [
+        6,
+        0,
+        1
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "width": 2,
       "height": 2,
-      "rotation": [0, 0, 0],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
       "texture": "tumbSHka"
-    }]
+    }
+  ]
 }

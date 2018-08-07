@@ -31,7 +31,6 @@ public class GhostRectangle implements Comparable<GhostRectangle> {
         this.width = width;
         this.height = height;
         this.normal = normal;
-
     }
 
     public void setNormal(Vector3 normal) {
@@ -61,7 +60,6 @@ public class GhostRectangle implements Comparable<GhostRectangle> {
     public void setZ(float z) {
         this.z = z;
     }
-
 
     public GhostRectangle(RectangleType type) {
         this.type = type;

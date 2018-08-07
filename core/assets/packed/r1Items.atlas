@@ -1,0 +1,341 @@
+r1Items.png
+size: 951, 1700
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+ball
+  rotate: false
+  xy: 650, 0
+  size: 49, 48
+  orig: 49, 48
+  offset: 0, 0
+  index: -1
+balllittle
+  rotate: false
+  xy: 175, 0
+  size: 29, 29
+  orig: 29, 29
+  offset: 0, 0
+  index: -1
+bed
+  rotate: false
+  xy: 442, 891
+  size: 416, 297
+  orig: 416, 297
+  offset: 0, 0
+  index: -1
+books
+  rotate: false
+  xy: 284, 239
+  size: 142, 111
+  orig: 142, 111
+  offset: 0, 0
+  index: -1
+bookspen
+  rotate: false
+  xy: 0, 55
+  size: 119, 57
+  orig: 119, 57
+  offset: 0, 0
+  index: -1
+busket
+  rotate: false
+  xy: 0, 891
+  size: 179, 228
+  orig: 179, 228
+  offset: 0, 0
+  index: -1
+chair
+  rotate: false
+  xy: 0, 1188
+  size: 206, 354
+  orig: 206, 354
+  offset: 0, 0
+  index: -1
+diary
+  rotate: false
+  xy: 432, 0
+  size: 109, 39
+  orig: 109, 39
+  offset: 0, 0
+  index: -1
+disk1
+  rotate: false
+  xy: 814, 55
+  size: 73, 73
+  orig: 73, 73
+  offset: 0, 0
+  index: -1
+disk2
+  rotate: false
+  xy: 0, 128
+  size: 72, 73
+  orig: 72, 73
+  offset: 0, 0
+  index: -1
+disks
+  rotate: false
+  xy: 369, 55
+  size: 174, 68
+  orig: 174, 68
+  offset: 0, 0
+  index: -1
+door1
+  rotate: false
+  xy: 433, 1188
+  size: 227, 512
+  orig: 227, 512
+  offset: 0, 0
+  index: -1
+door2
+  rotate: false
+  xy: 206, 1188
+  size: 227, 512
+  orig: 227, 512
+  offset: 0, 0
+  index: -1
+drawings
+  rotate: false
+  xy: 328, 680
+  size: 169, 164
+  orig: 169, 164
+  offset: 0, 0
+  index: -1
+games
+  rotate: false
+  xy: 758, 0
+  size: 109, 55
+  orig: 109, 55
+  offset: 0, 0
+  index: -1
+joysticks
+  rotate: false
+  xy: 260, 128
+  size: 213, 82
+  orig: 213, 82
+  offset: 0, 0
+  index: -1
+kalgotkas
+  rotate: false
+  xy: 523, 239
+  size: 95, 132
+  orig: 95, 132
+  offset: 0, 0
+  index: -1
+lamp
+  rotate: false
+  xy: 426, 239
+  size: 97, 120
+  orig: 97, 120
+  offset: 0, 0
+  index: -1
+lamp1
+  rotate: false
+  xy: 497, 680
+  size: 227, 211
+  orig: 227, 211
+  offset: 0, 0
+  index: -1
+lock
+  rotate: false
+  xy: 395, 0
+  size: 37, 35
+  orig: 37, 35
+  offset: 0, 0
+  index: -1
+lyustra
+  rotate: false
+  xy: 724, 680
+  size: 227, 211
+  orig: 227, 211
+  offset: 0, 0
+  index: -1
+mag
+  rotate: false
+  xy: 618, 239
+  size: 200, 141
+  orig: 200, 141
+  offset: 0, 0
+  index: -1
+mp3player
+  rotate: false
+  xy: 204, 0
+  size: 135, 32
+  orig: 135, 32
+  offset: 0, 0
+  index: -1
+paper
+  rotate: false
+  xy: 797, 380
+  size: 109, 149
+  orig: 109, 149
+  offset: 0, 0
+  index: -1
+paper4
+  rotate: false
+  xy: 0, 239
+  size: 142, 111
+  orig: 142, 111
+  offset: 0, 0
+  index: -1
+paper6
+  rotate: false
+  xy: 142, 239
+  size: 142, 111
+  orig: 142, 111
+  offset: 0, 0
+  index: -1
+papers
+  rotate: false
+  xy: 582, 128
+  size: 170, 89
+  orig: 170, 89
+  offset: 0, 0
+  index: -1
+papers1
+  rotate: false
+  xy: 220, 55
+  size: 149, 62
+  orig: 149, 62
+  offset: 0, 0
+  index: -1
+penstuff
+  rotate: false
+  xy: 752, 128
+  size: 38, 91
+  orig: 38, 91
+  offset: 0, 0
+  index: -1
+penstuff2
+  rotate: false
+  xy: 327, 380
+  size: 109, 148
+  orig: 109, 148
+  offset: 0, 0
+  index: -1
+phone
+  rotate: false
+  xy: 473, 128
+  size: 109, 87
+  orig: 109, 87
+  offset: 0, 0
+  index: -1
+photos
+  rotate: false
+  xy: 543, 55
+  size: 271, 73
+  orig: 271, 73
+  offset: 0, 0
+  index: -1
+polka1
+  rotate: false
+  xy: 361, 529
+  size: 272, 151
+  orig: 272, 151
+  offset: 0, 0
+  index: -1
+polka2
+  rotate: false
+  xy: 0, 680
+  size: 328, 156
+  orig: 328, 156
+  offset: 0, 0
+  index: -1
+polka3
+  rotate: false
+  xy: 0, 380
+  size: 327, 143
+  orig: 327, 143
+  offset: 0, 0
+  index: -1
+polka4
+  rotate: false
+  xy: 436, 380
+  size: 361, 149
+  orig: 361, 149
+  offset: 0, 0
+  index: -1
+rubiks cube
+  rotate: false
+  xy: 119, 55
+  size: 101, 60
+  orig: 101, 60
+  offset: 0, 0
+  index: -1
+shoe1
+  rotate: false
+  xy: 592, 0
+  size: 58, 45
+  orig: 58, 45
+  offset: 0, 0
+  index: -1
+shoe2
+  rotate: false
+  xy: 541, 0
+  size: 51, 41
+  orig: 51, 41
+  offset: 0, 0
+  index: -1
+sock1
+  rotate: false
+  xy: 0, 0
+  size: 35, 19
+  orig: 35, 19
+  offset: 0, 0
+  index: -1
+sock2
+  rotate: false
+  xy: 790, 128
+  size: 142, 111
+  orig: 142, 111
+  offset: 0, 0
+  index: -1
+socks
+  rotate: false
+  xy: 699, 0
+  size: 59, 50
+  orig: 59, 50
+  offset: 0, 0
+  index: -1
+switcher
+  rotate: false
+  xy: 35, 0
+  size: 19, 26
+  orig: 19, 26
+  offset: 0, 0
+  index: -1
+tapchkas
+  rotate: false
+  xy: 54, 0
+  size: 121, 26
+  orig: 121, 26
+  offset: 0, 0
+  index: -1
+teddy
+  rotate: false
+  xy: 0, 529
+  size: 361, 149
+  orig: 361, 149
+  offset: 0, 0
+  index: -1
+toys
+  rotate: false
+  xy: 72, 128
+  size: 188, 79
+  orig: 188, 79
+  offset: 0, 0
+  index: -1
+trash
+  rotate: false
+  xy: 339, 0
+  size: 56, 34
+  orig: 56, 34
+  offset: 0, 0
+  index: -1
+tumbchka
+  rotate: false
+  xy: 179, 891
+  size: 263, 276
+  orig: 263, 276
+  offset: 0, 0
+  index: -1

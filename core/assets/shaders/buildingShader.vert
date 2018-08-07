@@ -5,7 +5,7 @@ attribute vec2 a_texCoord0;
 
 uniform mat4 u_projTrans;
 uniform vec3 u_light;
-uniform vec3 u_lightColor;
+//uniform vec3 u_lightColor;
 
 varying vec2 v_coords;
 varying vec4 v_color;
