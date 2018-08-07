@@ -8,5 +8,13 @@ public class RoomObjectComponent implements Component {
     public RoomObjectComponent(int roomID) {
         this.roomID = roomID;
     }
+
+    public int getRoomID() {
+        return roomID;
+    }
+
+    public void setRoomID(int roomID) {
+        this.roomID = roomID;
+    }
 }
 
