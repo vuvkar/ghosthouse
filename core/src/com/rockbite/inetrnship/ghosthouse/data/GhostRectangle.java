@@ -14,7 +14,25 @@ public class GhostRectangle implements Comparable<GhostRectangle> {
     private float y;
     private float z;
     private String texture;
-    private boolean doesNeedGrid;
+    private boolean repeatX;
+
+    public boolean isRepeatX() {
+        return repeatX;
+    }
+
+    public void setRepeatX(boolean repeatX) {
+        this.repeatX = repeatX;
+    }
+
+    public boolean isRepeaty() {
+        return repeaty;
+    }
+
+    public void setRepeaty(boolean repeaty) {
+        this.repeaty = repeaty;
+    }
+
+    private boolean repeaty;
 
     public String getTexture() {
         return texture;

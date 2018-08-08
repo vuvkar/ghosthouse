@@ -12,4 +12,5 @@ public class GameObject {
     String texture;
     float width;
     float height;
+    int id;
 }
