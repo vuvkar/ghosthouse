@@ -14,25 +14,7 @@ public class GhostRectangle implements Comparable<GhostRectangle> {
     private float y;
     private float z;
     private String texture;
-    private boolean repeatX;
 
-    public boolean isRepeatX() {
-        return repeatX;
-    }
-
-    public void setRepeatX(boolean repeatX) {
-        this.repeatX = repeatX;
-    }
-
-    public boolean isRepeaty() {
-        return repeaty;
-    }
-
-    public void setRepeaty(boolean repeaty) {
-        this.repeaty = repeaty;
-    }
-
-    private boolean repeaty;
 
     public String getTexture() {
         return texture;
@@ -40,6 +22,17 @@ public class GhostRectangle implements Comparable<GhostRectangle> {
 
     public void setTexture(String texture) {
         this.texture = texture;
+    }
+
+    public GhostRectangle(GhostRectangle other) {
+        this.normal = other.normal;
+        this.type = other.type;
+        this.width = other.width;
+        this.height = other.height;
+        this.x = other.x;
+        this.y = other.y;
+        this.z = other.z;
+        this.texture = other.texture;
     }
 
     public GhostRectangle(Vector3 origin, float width, float height, Vector3 normal, RectangleType type) {
@@ -50,7 +43,6 @@ public class GhostRectangle implements Comparable<GhostRectangle> {
         this.width = width;
         this.height = height;
         this.normal = normal;
-
     }
 
     public void setNormal(Vector3 normal) {

@@ -22,9 +22,14 @@ public class GhostBuilding {
     static public final float WALL_HEIGHT = 1.4f;
     static public final float BUILDING_DEPTH = 3f;
 
+    public final int GRID_SIZE = 10;
+
     private float buildingWidth;
     private float buildingHeight;
     private Vector2 buildingOrigin;
+
+    private float moveZeroX = 0;
+    private float moveZeroY = 0;
 
     public GhostBuilding(Array<Room> rooms) {
         this.rooms = rooms;
@@ -32,6 +37,7 @@ public class GhostBuilding {
         popInsideRooms();
         this.roomWalls = createRooms(rooms);
         this.faceWalls = createFaceWalls(rooms);
+       // makeGridOfFaceWalls();
         this.roomConnectingWalls = createConnectingWalls(rooms);
     }
 
@@ -50,7 +56,12 @@ public class GhostBuilding {
         for (Room room : rooms) {
             Vector2 newOrigin = new Vector2(room.origin.x + WALL_HEIGHT / 2.0f * MathUtils.cosDeg(45f),
                     room.origin.y + WALL_HEIGHT / 2.0f * MathUtils.sinDeg(45f));
+
+            newOrigin.add(moveZeroX, moveZeroY);
+
             room.origin = newOrigin;
+
+
             room.height = room.height + WALL_HEIGHT * MathUtils.sinDeg(225f);
             room.width = room.width + WALL_HEIGHT * MathUtils.cosDeg(225f);
         }
@@ -115,6 +126,11 @@ public class GhostBuilding {
 
         bottomLeft.x += WALL_HEIGHT / 2.0f * MathUtils.cosDeg(225f);
         bottomLeft.y += WALL_HEIGHT / 2.0f * MathUtils.sinDeg(225f);
+
+        moveZeroX = Math.abs(bottomLeft.x);
+        moveZeroY = Math.abs(bottomLeft.y);
+        bottomLeft.add(moveZeroX, moveZeroY);
+        topRight.add(moveZeroX, moveZeroY);
 
         buildingWidth = topRight.x - bottomLeft.x;
         buildingHeight = topRight.y - bottomLeft.y;
@@ -225,7 +241,7 @@ public class GhostBuilding {
             GhostLine current = lines.get(i);
 
             for (Room room : rooms) {
-                float temp = current.getY() - (int) room.origin.y;
+                float temp = current.getY() - room.origin.y;
 
                 if (temp >= 0 && temp < room.height) {
                     GhostLine fragment = new GhostLine(current.getY(), current.getX(),
@@ -286,5 +302,36 @@ public class GhostBuilding {
                 i--;
             }
         }
+    }
+
+    void makeGridOfFaceWalls() {
+        Vector2 gridOrigin = new Vector2(buildingOrigin.x, buildingOrigin.y);
+        float cellSize = buildingWidth / GRID_SIZE;
+        Array<GhostRectangle> xSliced = sliceByX(faceWalls, cellSize, GRID_SIZE, gridOrigin);
+        faceWalls = sliceByY(xSliced, cellSize, GRID_SIZE, gridOrigin);
+    }
+
+    Array<GhostRectangle> sliceByX(Array<GhostRectangle> rects, float cellSize, int cellCount, Vector2 gridOrigin){
+        Array<GhostRectangle> sliced = new Array<GhostRectangle>();
+        for(int i = 0; i < rects.size; i++) {
+            GhostRectangle rect = rects.get(i);
+            int column = (int)((rect.getX() - gridOrigin.x) / cellSize);
+            if(rect.getX() + rect.getWidth() > (column + 1) * cellSize) {
+                GhostRectangle slicedRect = new GhostRectangle(rect);
+                slicedRect.setWidth((column + 1) * cellSize - rect.getX() - rect.getWidth());
+                sliced.add(slicedRect);
+                rect.setX((column + 1) * cellSize);
+                rect.setWidth(rect.getWidth() - slicedRect.getWidth());
+                i--;
+            }
+            else {
+                sliced.add(rect);
+            }
+        }
+      return sliced;
+    }
+
+    Array<GhostRectangle> sliceByY(Array<GhostRectangle> rects, float cellSize, int cellCount, Vector2 gridOrigin){
+        return new Array<GhostRectangle>();
     }
 }

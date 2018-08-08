@@ -26,7 +26,7 @@ public class GhostMesh {
 
     private static int GRID_SIZE = 10;
 
-    public static Vector3 lightColor = new Vector3(201.0f / 255.0f, 100.0f / 255.0f, 185.0f / 255.0f);
+    public static Vector3 lightColor = new Vector3(255.0f / 255.0f, 255.0f / 255.0f, 255.0f / 255.0f);
 
     Texture assets;
 

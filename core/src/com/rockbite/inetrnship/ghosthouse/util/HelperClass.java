@@ -21,7 +21,7 @@ public class HelperClass {
 
     static public Entity createGhost(Vector3 initialPosition) {
         Entity ghost = new Entity();
-        ghost.add(new PositionComponent(initialPosition.x, initialPosition.y, initialPosition.z));
+        ghost.add(new PositionComponent(initialPosition.x + 3, initialPosition.y, initialPosition.z));
         ghost.add(new ScaleComponent(1f, 1f, 1f));
         ghost.add(new RotationComponent(0, 0, 0));
         ghost.add(new SizeComponent(0, 0));

@@ -17,8 +17,8 @@ public abstract class Room implements Comparable<Room> {
     public Vector2 origin;
     public float width;
     public float height;
-    public Vector3 lightCol1 = new Vector3(201.0f / 255.0f, 100.0f / 255.0f, 185.0f / 255.0f);
-    public Vector3 lightCol2 = new Vector3(100.0f / 255.0f, 200.0f / 255.0f, 205.0f / 255.0f);
+    public Vector3 lightCol1 = new Vector3(255.0f / 255.0f, 255.0f / 255.0f, 255.0f / 255.0f);
+    public Vector3 lightCol2 = new Vector3(255.0f / 255.0f, 255.0f / 255.0f, 255.0f / 255.0f);
 
     ComponentMapper<ItemTypeComponent> itemTypeComponent = ComponentMapper.getFor(ItemTypeComponent.class);
     ComponentMapper<ItemIdComponent> roomComponent = ComponentMapper.getFor(ItemIdComponent.class);
@@ -42,7 +42,7 @@ public abstract class Room implements Comparable<Room> {
                 item.add(new ScaleComponent(object2.scale[0], object2.scale[1], object2.scale[2]));
                 item.add(new RotationComponent(object2.rotation[0], object2.rotation[1], object2.rotation[2]));
                 item.add(new SizeComponent(object2.width, object2.height));
-                items.add(item);
+                items.add (item);
             }
         }
         //FIXME: fix this shit
