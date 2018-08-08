@@ -6,7 +6,6 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.utils.Array;
-import com.rockbite.inetrnship.ghosthouse.ecs.components.TextureComponent;
 
 public class FromAtlasItem {
     TextureAtlas atlas;
@@ -22,10 +21,10 @@ public class FromAtlasItem {
         }
     }
 
-   public Array<Item> generateItems() {
+    public Array<Item> generateItems() {
         int id = 0;
-        Array<Item> items =  new Array<Item>();
-        for(TextureAtlas.AtlasRegion texture: atlas.getRegions()) {
+        Array<Item> items = new Array<Item>();
+        for (TextureAtlas.AtlasRegion texture : atlas.getRegions()) {
             Item item = new Item();
             item.setId(id++);
             item.setItemName(texture.name);
@@ -38,6 +37,10 @@ public class FromAtlasItem {
 
     public void setAtlasName(String atlasName) {
         this.atlasName = atlasName;
+    }
+
+    public String getAtlasName() {
+        return atlasName;
     }
 
     public TextureRegion getAtlasRegion() {

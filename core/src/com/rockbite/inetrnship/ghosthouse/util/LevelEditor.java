@@ -51,8 +51,6 @@ public class LevelEditor implements ApplicationListener {
         house = new GhostHouse();
         house.setM_ui(new MainUI(house));
         mainGame = new MainGame(house);
-        loader = new FromAtlasItem();
-        items = loader.generateItems();
         mainUI = new MainUI(house);
 
         texture = new Texture(Gdx.files.internal("packed/r1Items.png"));
