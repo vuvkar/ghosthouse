@@ -82,7 +82,7 @@ public class MainGame {
 
         multiplexer.addProcessor( ghostHouse.mainUI);
         multiplexer.addProcessor(inputController);
-        Gdx.input.setInputProcessor(multiplexer);
+        //Gdx.input.setInputProcessor(multiplexer);
 
         Entity ghost = HelperClass.createGhost(ghostPosition);
         engine.addEntity(ghost);

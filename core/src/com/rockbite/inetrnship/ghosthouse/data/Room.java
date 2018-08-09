@@ -78,6 +78,22 @@ public abstract class Room implements Comparable<Room> {
         return null;
     }
 
+    public void changeTexture(int itemID, String textureName) {
+        Entity item = getItemById(itemID);
+        TextureComponent comp = item.getComponent(TextureComponent.class);
+        comp.setTexture(textureName);
+    }
+
+    private Entity getItemById(int itemID) {
+        for(Entity entity: items) {
+            ItemIdComponent comp =  entity.getComponent(ItemIdComponent.class);
+            if(comp.getItemID() == itemID) {
+                return entity;
+            }
+        }
+        return null;
+    }
+
 
     @Override
     public int compareTo(Room o) {

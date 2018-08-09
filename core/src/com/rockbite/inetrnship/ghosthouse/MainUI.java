@@ -32,7 +32,7 @@ MyActor actor;
 
        // actor=new MyActor();
       //  this.addActor(actor);
-        Gdx.input.setInputProcessor(this);
+      //  Gdx.input.setInputProcessor(this);
        // this.setKeyboardFocus(actor);
 
         this.addActor(inventory);

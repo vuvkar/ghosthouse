@@ -14,7 +14,42 @@ public class GhostRectangle implements Comparable<GhostRectangle> {
     private float y;
     private float z;
     private String texture;
+    private float uOrigin;
+    private float vOrigin;
+    private float uWidht;
+    private  float vHeight;
 
+    public float getuOrigin() {
+        return uOrigin;
+    }
+
+    public void setuOrigin(float uOrigin) {
+        this.uOrigin = uOrigin;
+    }
+
+    public float getvOrigin() {
+        return vOrigin;
+    }
+
+    public void setvOrigin(float vOrigin) {
+        this.vOrigin = vOrigin;
+    }
+
+    public float getuWidht() {
+        return uWidht;
+    }
+
+    public void setuWidht(float uWidht) {
+        this.uWidht = uWidht;
+    }
+
+    public float getvHeight() {
+        return vHeight;
+    }
+
+    public void setvHeight(float vHeight) {
+        this.vHeight = vHeight;
+    }
 
     public String getTexture() {
         return texture;
@@ -32,17 +67,11 @@ public class GhostRectangle implements Comparable<GhostRectangle> {
         this.x = other.x;
         this.y = other.y;
         this.z = other.z;
+        this.uOrigin = other.uOrigin;
+        this.vOrigin = other.vOrigin;
+        this.uWidht = other.uWidht;
+        this.vHeight = other.vHeight;
         this.texture = other.texture;
-    }
-
-    public GhostRectangle(Vector3 origin, float width, float height, Vector3 normal, RectangleType type) {
-        this.type = type;
-        this.x = origin.x;
-        this.y = origin.y;
-        this.z = origin.z;
-        this.width = width;
-        this.height = height;
-        this.normal = normal;
     }
 
     public void setNormal(Vector3 normal) {
@@ -76,6 +105,10 @@ public class GhostRectangle implements Comparable<GhostRectangle> {
 
     public GhostRectangle(RectangleType type) {
         this.type = type;
+        this.uOrigin = 0;
+        this.vOrigin = 0;
+        this.uWidht = 1f;
+        this.vHeight = 1f;
     }
 
     public Vector3 getNormal() {

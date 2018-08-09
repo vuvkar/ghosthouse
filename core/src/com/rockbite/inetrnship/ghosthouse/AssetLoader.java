@@ -22,6 +22,9 @@ public class AssetLoader extends AssetManager {
     private Array<Room> rooms;
     public static TextureAtlas atlas;
 
+    public static float ATLAS_HEIGHT;
+    public static float ATLAS_WIDTH;
+
     public AssetLoader() {
 ///       WARNING: DO NOT ATTEMPT TO DELETEEE!!!!!!!! Thanks :)
 //        TexturePacker.Settings settings = new TexturePacker.Settings();
@@ -32,6 +35,8 @@ public class AssetLoader extends AssetManager {
 //        TexturePacker.process(settings,"textures",
 //                "packed", "game");
         atlas = new TextureAtlas(Gdx.files.internal("packed/game.atlas"));
+        ATLAS_HEIGHT = atlas.getTextures().first().getHeight();
+        ATLAS_WIDTH = atlas.getTextures().first().getWidth();
         loadGameData();
     }
 

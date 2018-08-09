@@ -37,7 +37,7 @@ public class GhostBuilding {
         popInsideRooms();
         this.roomWalls = createRooms(rooms);
         this.faceWalls = createFaceWalls(rooms);
-       // makeGridOfFaceWalls();
+        makeGridOfFaceWalls();
         this.roomConnectingWalls = createConnectingWalls(rooms);
     }
 
@@ -306,32 +306,60 @@ public class GhostBuilding {
 
     void makeGridOfFaceWalls() {
         Vector2 gridOrigin = new Vector2(buildingOrigin.x, buildingOrigin.y);
-        float cellSize = buildingWidth / GRID_SIZE;
-        Array<GhostRectangle> xSliced = sliceByX(faceWalls, cellSize, GRID_SIZE, gridOrigin);
-        faceWalls = sliceByY(xSliced, cellSize, GRID_SIZE, gridOrigin);
+        float cellSize = 5.0f;
+        Array<GhostRectangle> xSliced = sliceByX(faceWalls, cellSize, gridOrigin);
+        faceWalls = sliceByY(xSliced, cellSize, gridOrigin);
     }
 
-    Array<GhostRectangle> sliceByX(Array<GhostRectangle> rects, float cellSize, int cellCount, Vector2 gridOrigin){
+    Array<GhostRectangle> sliceByX(Array<GhostRectangle> rects, float cellSize, Vector2 gridOrigin){
         Array<GhostRectangle> sliced = new Array<GhostRectangle>();
         for(int i = 0; i < rects.size; i++) {
             GhostRectangle rect = rects.get(i);
-            int column = (int)((rect.getX() - gridOrigin.x) / cellSize);
-            if(rect.getX() + rect.getWidth() > (column + 1) * cellSize) {
+            int column = MathUtils.floor((rect.getX() - gridOrigin.x) / cellSize);
+            if(rect.getWidth() > cellSize) {
                 GhostRectangle slicedRect = new GhostRectangle(rect);
-                slicedRect.setWidth((column + 1) * cellSize - rect.getX() - rect.getWidth());
+                slicedRect.setWidth((column + 1) * cellSize - rect.getX());
+                slicedRect.setuOrigin((slicedRect.getX() - column * cellSize) / cellSize);
+                slicedRect.setuWidht(1 - slicedRect.getuOrigin());
                 sliced.add(slicedRect);
                 rect.setX((column + 1) * cellSize);
                 rect.setWidth(rect.getWidth() - slicedRect.getWidth());
                 i--;
             }
             else {
+                rect.setuOrigin((rect.getX() - column * cellSize) / cellSize );
+                rect.setuWidht(rect.getWidth() / cellSize);
                 sliced.add(rect);
             }
         }
       return sliced;
     }
 
-    Array<GhostRectangle> sliceByY(Array<GhostRectangle> rects, float cellSize, int cellCount, Vector2 gridOrigin){
-        return new Array<GhostRectangle>();
+    Array<GhostRectangle> sliceByY(Array<GhostRectangle> rects, float cellSize, Vector2 gridOrigin){
+        Array<GhostRectangle> sliced = new Array<GhostRectangle>();
+        for(int i = 0; i < rects.size; i++) {
+            GhostRectangle rect = rects.get(i);
+            int row = (int)((rect.getY() - gridOrigin.y) / cellSize);
+            if(rect.getHeight() > cellSize) {
+                GhostRectangle slicedRect = new GhostRectangle(rect);
+                slicedRect.setHeight((row + 1) * cellSize - rect.getY());
+                slicedRect.setvOrigin(0);
+                slicedRect.setvHeight(slicedRect.getHeight() / cellSize);
+                sliced.add(slicedRect);
+                rect.setY((float)(row + 1) * cellSize);
+                rect.setHeight(rect.getHeight() - slicedRect.getHeight());
+                i--;
+            }
+            else {
+                rect.setvOrigin(((row + 1) * cellSize - (rect.getY() + rect.getHeight())) / cellSize);
+                if(rect.getvOrigin() < 0) {
+                    System.out.println("hello malmuao");
+                }
+                rect.setvHeight(rect.getHeight() / cellSize);
+                sliced.add(rect);
+
+            }
+        }
+        return sliced;
     }
 }

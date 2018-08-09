@@ -99,8 +99,9 @@ return true; //return true if item is interactable
     public boolean touchDown(int screenX, int screenY, int pointer, int button) {
             ray = cameraSystem.cam.getPickRay(Gdx.input.getX(), Gdx.input.getY());//casting the ray
             short[] temo = mesh.itemIndices.clone();
+            int offset = temo[0];
             for (int i = 0; i < temo.length; i++) {
-                temo[i] -= 132;
+                temo[i] -= offset;
                 if (temo[i] < 0) {
                     temo[i] = 0;
                 }
