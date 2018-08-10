@@ -4,6 +4,7 @@ import com.badlogic.ashley.core.*;
 import com.badlogic.ashley.utils.ImmutableArray;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.graphics.g3d.Model;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.utils.Array;
 import com.esotericsoftware.spine.Slot;
@@ -19,6 +20,8 @@ public class RenderSystem extends EntitySystem {
     private Array<GhostRectangle> items;
     private Array<Slot> animations;
 
+    private Array<Model> models;
+
     private ImmutableArray<Entity> entities;
     private ComponentMapper<PositionComponent> posComp  = ComponentMapper.getFor(PositionComponent.class);
     private ComponentMapper<ScaleComponent> sclComp  = ComponentMapper.getFor(ScaleComponent.class);
@@ -27,20 +30,23 @@ public class RenderSystem extends EntitySystem {
     private ComponentMapper<RoomObjectComponent> objComp  = ComponentMapper.getFor(RoomObjectComponent.class);
     private ComponentMapper<SizeComponent> sizeComp = ComponentMapper.getFor(SizeComponent.class);
     private ComponentMapper<AnimationComponent> animComp = ComponentMapper.getFor(AnimationComponent.class);
+    private ComponentMapper<ModelComponent> modelComp = ComponentMapper.getFor(ModelComponent.class);
 
     @Override
     public void addedToEngine (Engine engine) {
         entities = engine.getEntitiesFor(Family.all(PositionComponent.class,
                                                     RotationComponent.class, ScaleComponent.class,
                                                     RoomObjectComponent.class,
-                                                    SizeComponent.class).one(TextureComponent.class, AnimationComponent.class).get());
+                                                    SizeComponent.class).one(TextureComponent.class, AnimationComponent.class, ModelComponent.class).get());
         items = new Array<GhostRectangle>();
         animations = new Array<Slot>();
+        models = new Array<Model>();
     }
 
     @Override
     public void update(float delta) {
         items.clear();
+        models.clear();
         animations.clear();
 
         for(Entity entity: entities) {
@@ -65,10 +71,12 @@ public class RenderSystem extends EntitySystem {
 
                 animations.addAll(animationComponent.skeleton.getDrawOrder());
             }
+
         }
 
         mesh.renderItems(items);
         mesh.renderAnimations(animations);
+        mesh.renderModels();
     }
 
 }

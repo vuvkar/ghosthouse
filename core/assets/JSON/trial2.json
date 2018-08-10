@@ -1,0 +1,38 @@
+{
+  "class": "com.badlogic.gdx.utils.Array",
+  "items": [
+    {
+      "class": "com.rockbite.inetrnship.ghosthouse.data.GameObject",
+      "name": "ChairBrown",
+      "position": [ 0.5, 0.1, 1],
+      "scale": [1, 1, 1],
+      "width": 3,
+      "height": 4,
+      "rotation": [0, 0, 0],
+      "texture": "chair_brown",
+      "id": 0
+    },
+    {
+      "class": "com.rockbite.inetrnship.ghosthouse.data.GameObject",
+      "name": "ChairBlue",
+      "position": [ 11.0, 0.1, 1.0],
+      "scale": [1, 1, 1],
+      "width": 3,
+      "height": 4,
+      "rotation": [0, 0, 0],
+      "texture": "chair_blue",
+      "id": 1
+
+    },
+    {
+      "class": "com.rockbite.inetrnship.ghosthouse.data.GameObject",
+      "name": "tumbSHka",
+      "position": [ 6.0, 0.0, 1.0 ],
+      "scale": [1, 1, 1],
+      "width":2,
+      "height": 2,
+      "rotation": [0, 0, 0],
+      "texture": "tumbSHka",
+      "id": 2
+    }]
+}

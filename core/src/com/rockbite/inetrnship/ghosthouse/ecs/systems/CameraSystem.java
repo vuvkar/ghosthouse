@@ -18,14 +18,13 @@ import com.badlogic.gdx.utils.Array;
 import com.rockbite.inetrnship.ghosthouse.AssetLoader;
 import com.rockbite.inetrnship.ghosthouse.data.GhostMesh;
 import com.rockbite.inetrnship.ghosthouse.data.Room;
-import com.rockbite.inetrnship.ghosthouse.data.Room1;
 import com.rockbite.inetrnship.ghosthouse.ecs.components.CameraComponent;
 
 public class CameraSystem extends EntitySystem {
     private ImmutableArray<Entity> entities;
     private ComponentMapper<CameraComponent> cm = ComponentMapper.getFor(CameraComponent.class);
-    AssetLoader assetLoader = new AssetLoader();
-    Array<Room> Rooms = assetLoader.getRooms();
+    public AssetLoader assetLoader;
+    Array<Room> rooms;
     CameraComponent cameraComponent;
     public static Vector3 interpolColor = new Vector3(0, 0, 0);
     public int target = 0;
@@ -42,15 +41,11 @@ public class CameraSystem extends EntitySystem {
 
 
     public void addedToEngine(Engine engine) {
-
+        rooms = assetLoader.getRooms();
         entities = engine.getEntitiesFor(Family.all(CameraComponent.class).get());
-
         cam = new PerspectiveCamera(87, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
-
-        cam.position.set(Rooms.get(0).origin.x + Rooms.get(0).width / 2f, Rooms.get(0).origin.y + Rooms.get(0).height / 2f, (float) dist(angle(Gdx.graphics.getWidth(), Gdx.graphics.getHeight(), 67), Rooms.get(0).width + Rooms.get(0).width / 5f) + 3);
-
+        cam.position.set(rooms.get(0).origin.x + rooms.get(0).width / 2f, rooms.get(0).origin.y + rooms.get(0).height / 2f, (float) dist(angle(Gdx.graphics.getWidth(), Gdx.graphics.getHeight(), 67), rooms.get(0).width + rooms.get(0).width / 5f) + 3);
         camController = new CameraInputController(cam);
-
         Gdx.input.setInputProcessor(camController);
         stage.getViewport().setCamera(cam);
         cam.near = 1;
@@ -72,11 +67,11 @@ public class CameraSystem extends EntitySystem {
 
         if(Gdx.input.isKeyJustPressed(Input.Keys.ENTER)) {
             target++;
-            if (target == Rooms.size)
+            if (target == rooms.size)
                 target = 0;
             t = 0;
             isPressed = true;
-            cameraComponent.targetVec = (move(target, Rooms));
+            cameraComponent.targetVec = (move(target, rooms));
             System.out.println(cameraComponent.targetVec);
             cameraComponent.bottomLeft.set(cam.position);
             dist.set(cameraComponent.targetVec.x - cameraComponent.bottomLeft.x,
@@ -92,17 +87,17 @@ public class CameraSystem extends EntitySystem {
                 t = 0;
             } else {
                 float timeRatio = t / T;
-                float rDistance = Rooms.get(target).lightCol2.x - Rooms.get(target - 1).lightCol1.x;
-                float gDistance = Rooms.get(target).lightCol2.y - Rooms.get(target - 1).lightCol1.y;
-                float bDistance = Rooms.get(target).lightCol2.z - Rooms.get(target - 1).lightCol1.z;
+                float rDistance = rooms.get(target).lightCol2.x - rooms.get(target - 1).lightCol1.x;
+                float gDistance = rooms.get(target).lightCol2.y - rooms.get(target - 1).lightCol1.y;
+                float bDistance = rooms.get(target).lightCol2.z - rooms.get(target - 1).lightCol1.z;
                 if (t < T) {
                     cam.position.set(cameraComponent.bottomLeft.x + dist.x * t / T, cameraComponent.bottomLeft.y + dist.y
                             * a.apply(t / T), cameraComponent.bottomLeft.z + dist.z * z.apply(t / T));
                     t += Gdx.graphics.getDeltaTime() * 5f;
-                    Vector3 roomColor = new Vector3(Rooms.get(target - 1).lightCol1.x + timeRatio * rDistance, Rooms.get(target - 1).lightCol1.y + timeRatio * gDistance, Rooms.get(target - 1).lightCol1.z + timeRatio * bDistance);
+                    Vector3 roomColor = new Vector3(rooms.get(target - 1).lightCol1.x + timeRatio * rDistance, rooms.get(target - 1).lightCol1.y + timeRatio * gDistance, rooms.get(target - 1).lightCol1.z + timeRatio * bDistance);
                     GhostMesh.lightColor.set(roomColor);
                 } else if (t >= T) {
-                    GhostMesh.lightColor.set(Rooms.get(target).lightCol2);
+                    GhostMesh.lightColor.set(rooms.get(target).lightCol2);
                     t = T;
                     cam.position.set(cameraComponent.bottomLeft.x + dist.x * t / T, cameraComponent.bottomLeft.y + dist.y
                             * a.apply(t / T), cameraComponent.bottomLeft.z + dist.z * z.apply(t / T));

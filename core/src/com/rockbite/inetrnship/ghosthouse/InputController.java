@@ -30,8 +30,8 @@ public class InputController implements InputProcessor {
     PositionComponent pos = new PositionComponent(0, 0, 0);
     SizeComponent size = new SizeComponent(0, 0);
     TextureComponent tx= new TextureComponent("Fa");
-    AssetLoader assetLoader = new AssetLoader();
-    Array<Room> rooms = assetLoader.getRooms();
+    AssetLoader assetLoader;
+    Array<Room> rooms;
     TextureAtlas atlas;
     int current=0;
     float[] indexAndMax = {0, 0};
@@ -41,6 +41,8 @@ public class InputController implements InputProcessor {
 
 
     public InputController(GhostMesh mesh, CameraSystem cameraSystem, GhostHouse ghostHouse){
+        assetLoader = ghostHouse.assetLoader;
+        rooms = assetLoader.getRooms();
         this.mesh=mesh;
         this.cameraSystem=cameraSystem;
         this.ghostHouse=ghostHouse;

@@ -3,6 +3,7 @@ package com.rockbite.inetrnship.ghosthouse.data;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.*;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.graphics.g3d.Model;
 import com.badlogic.gdx.graphics.glutils.ShaderProgram;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.utils.Array;
@@ -125,6 +126,10 @@ public class GhostMesh {
         }
     }
 
+    public void renderModels() {
+
+    }
+
     public void render(Camera camera) {
 
         float[] combinedVFirst = HelperClass.floatArrayCopy(buildingVertices, itemVertices);
@@ -170,21 +175,9 @@ public class GhostMesh {
             TextureAtlas.AtlasRegion region = rectangle.getType().getTexture(rectangle.getTexture());
             float diffU = region.getU2() - region.getU();
             float diffV = region.getV2() - region.getV();
-//            float atlasUOffs0et = region.getU() + (float)(i % 2) * diffU;
-//            float atlasVOffs0et = region.getV() + (float)((3 - i) >> 1) * diffV;
-            if(rectangle.getvOrigin() + rectangle.getvHeight() > 1) {
-                rectangle.setvHeight(rectangle.getvHeight() - (rectangle.getvOrigin() + rectangle.getvHeight() - 1));
-            }
-
-            if(rectangle.getuOrigin() + rectangle.getuWidht() > 1) {
-                rectangle.setuWidht(rectangle.getuWidht() - (rectangle.getuOrigin() + rectangle.getuWidht() - 1));
-            }
 
             vertices[vertexIndex.value++] = region.getU() + diffU * rectangle.getuOrigin() + (float)(i % 2) * rectangle.getuWidht() * (diffU );
             vertices[vertexIndex.value++] = region.getV() + diffV * rectangle.getvOrigin() + (float)((3 - i) >> 1) * rectangle.getvHeight() * (diffV);
-
-          //  vertices[vertexIndex.value++] = rectangle.getuOrigin() / AssetLoader.ATLAS_WIDTH + (float)(i % 2) * rectangle.getuWidht() / AssetLoader.ATLAS_WIDTH + atlasUOffs0et;
-          //  vertices[vertexIndex.value++] = rectangle.getvOrigin() / AssetLoader.ATLAS_HEIGHT + (float)((3 - i) >> 1) * rectangle.getvHeight() / AssetLoader.ATLAS_HEIGHT + atlasVOffs0et;
 
             // Normal
             vertices[vertexIndex.value++] = normal.x;

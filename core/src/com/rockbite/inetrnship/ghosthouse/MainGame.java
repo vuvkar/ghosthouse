@@ -47,7 +47,7 @@ public class MainGame {
 
         this.ghostHouse = ghostHouse;
 
-        assetLoader = new AssetLoader();
+        assetLoader = ghostHouse.assetLoader;
         rooms = assetLoader.getRooms();
 
 
@@ -59,6 +59,8 @@ public class MainGame {
         engine = new Engine();
 
         cameraSystem = new CameraSystem();
+        cameraSystem.assetLoader = assetLoader;
+
         cam = new Entity();
         cam.add(new CameraComponent());
         engine.addSystem(cameraSystem);
@@ -82,7 +84,7 @@ public class MainGame {
 
         multiplexer.addProcessor( ghostHouse.mainUI);
         multiplexer.addProcessor(inputController);
-        //Gdx.input.setInputProcessor(multiplexer);
+        Gdx.input.setInputProcessor(multiplexer);
 
         Entity ghost = HelperClass.createGhost(ghostPosition);
         engine.addEntity(ghost);

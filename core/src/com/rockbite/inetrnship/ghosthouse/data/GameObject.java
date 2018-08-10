@@ -5,7 +5,6 @@ import com.badlogic.gdx.utils.Array;
 
 
 public class GameObject {
-    String name;
     float[] position;
     float[] scale;
     float[] rotation;
