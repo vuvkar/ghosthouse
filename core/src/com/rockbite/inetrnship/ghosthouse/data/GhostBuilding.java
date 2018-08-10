@@ -20,9 +20,7 @@ public class GhostBuilding {
     private Room currentRoom;
 
     static public final float WALL_HEIGHT = 1.4f;
-    static public final float BUILDING_DEPTH = 3f;
-
-    public final int GRID_SIZE = 10;
+    static public final float BUILDING_DEPTH = 4f;
 
     private float buildingWidth;
     private float buildingHeight;

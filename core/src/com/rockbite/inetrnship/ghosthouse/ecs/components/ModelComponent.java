@@ -6,6 +6,14 @@ import com.badlogic.gdx.graphics.g3d.Model;
 public class ModelComponent implements Component {
     String modelName;
 
+    public String getModelName() {
+        return modelName;
+    }
+
+    public void setModelName(String modelName) {
+        this.modelName = modelName;
+    }
+
     public ModelComponent(String modelName) {
         this.modelName = modelName;
     }

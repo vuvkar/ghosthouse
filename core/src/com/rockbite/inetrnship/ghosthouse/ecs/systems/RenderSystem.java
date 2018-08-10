@@ -3,10 +3,13 @@ package com.rockbite.inetrnship.ghosthouse.ecs.systems;
 import com.badlogic.ashley.core.*;
 import com.badlogic.ashley.utils.ImmutableArray;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.assets.loaders.ModelLoader;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g3d.Model;
+import com.badlogic.gdx.graphics.g3d.loader.G3dModelLoader;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.utils.Array;
+import com.badlogic.gdx.utils.JsonReader;
 import com.esotericsoftware.spine.Slot;
 import com.rockbite.inetrnship.ghosthouse.data.GhostMesh;
 import com.rockbite.inetrnship.ghosthouse.data.GhostRectangle;
@@ -19,18 +22,17 @@ public class RenderSystem extends EntitySystem {
 
     private Array<GhostRectangle> items;
     private Array<Slot> animations;
-
-    private Array<Model> models;
+    private Array<String> models;
 
     private ImmutableArray<Entity> entities;
+
     private ComponentMapper<PositionComponent> posComp  = ComponentMapper.getFor(PositionComponent.class);
-    private ComponentMapper<ScaleComponent> sclComp  = ComponentMapper.getFor(ScaleComponent.class);
-    private ComponentMapper<RotationComponent> rotatComp  = ComponentMapper.getFor(RotationComponent.class);
     private ComponentMapper<TextureComponent> textComp  = ComponentMapper.getFor(TextureComponent.class);
-    private ComponentMapper<RoomObjectComponent> objComp  = ComponentMapper.getFor(RoomObjectComponent.class);
     private ComponentMapper<SizeComponent> sizeComp = ComponentMapper.getFor(SizeComponent.class);
     private ComponentMapper<AnimationComponent> animComp = ComponentMapper.getFor(AnimationComponent.class);
     private ComponentMapper<ModelComponent> modelComp = ComponentMapper.getFor(ModelComponent.class);
+
+
 
     @Override
     public void addedToEngine (Engine engine) {
@@ -40,7 +42,7 @@ public class RenderSystem extends EntitySystem {
                                                     SizeComponent.class).one(TextureComponent.class, AnimationComponent.class, ModelComponent.class).get());
         items = new Array<GhostRectangle>();
         animations = new Array<Slot>();
-        models = new Array<Model>();
+        models = new Array<String>();
     }
 
     @Override
@@ -68,15 +70,19 @@ public class RenderSystem extends EntitySystem {
                 animationComponent.state.apply(animationComponent.skeleton);
                 animationComponent.skeleton.updateWorldTransform();
                 animationComponent.skeleton.setPosition(posComp.get(entity).getX(), posComp.get(entity).getY());
-
                 animations.addAll(animationComponent.skeleton.getDrawOrder());
+            }
+
+            if(modelComp.has(entity)) {
+                ModelComponent comp =modelComp.get(entity);
+                models.add(comp.getModelName());
             }
 
         }
 
         mesh.renderItems(items);
         mesh.renderAnimations(animations);
-        mesh.renderModels();
+        mesh.renderModels(models);
     }
 
 }

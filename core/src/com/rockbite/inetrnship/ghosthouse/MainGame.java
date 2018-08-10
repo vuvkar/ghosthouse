@@ -76,6 +76,9 @@ public class MainGame {
             for (Entity entity : room.items) {
                 engine.addEntity(entity);
             }
+            for(Entity entity: room.models) {
+                engine.addEntity(entity);
+            }
             if(room.id == 0)
             {
                 ghostPosition.set(room.origin.x + GhostBuilding.WALL_HEIGHT, room.origin.y, building.BUILDING_DEPTH);
@@ -84,7 +87,7 @@ public class MainGame {
 
         multiplexer.addProcessor( ghostHouse.mainUI);
         multiplexer.addProcessor(inputController);
-        Gdx.input.setInputProcessor(multiplexer);
+        //Gdx.input.setInputProcessor(multiplexer);
 
         Entity ghost = HelperClass.createGhost(ghostPosition);
         engine.addEntity(ghost);

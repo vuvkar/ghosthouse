@@ -24,9 +24,11 @@ public abstract class Room implements Comparable<Room> {
     ComponentMapper<ItemIdComponent> roomComponent = ComponentMapper.getFor(ItemIdComponent.class);
 
     public Array<Entity> items;
+    public Array<Entity> models;
 
     public void loadEntities() {
         items = new Array<Entity>();
+        models = new Array<Entity>();
 
         Json json = new Json();
         Array<Object> array = json.fromJson(Array.class, Gdx.files.internal("JSON/trial.json"));
@@ -36,7 +38,7 @@ public abstract class Room implements Comparable<Room> {
                 Entity item = new Entity();
                 item.add(new TextureComponent(object2.texture));
                 item.add(new PositionComponent(this.origin.x + object2.position[0],
-                        this.origin.y + object2.position[1], object2.position[2]));
+                        this.origin.y + object2.position[1] - this.height, object2.position[2]));
                 item.add(new RoomObjectComponent(this.id));
                 item.add(new ItemIdComponent(object2.id));
                 item.add(new ScaleComponent(object2.scale[0], object2.scale[1], object2.scale[2]));
@@ -45,6 +47,18 @@ public abstract class Room implements Comparable<Room> {
                 items.add (item);
             }
         }
+
+        Entity item = new Entity();
+        item.add(new ModelComponent("tree.g3db"));
+        item.add(new PositionComponent(this.origin.x + 5,
+                this.origin.y + 5 - this.height, 2));
+        item.add(new RoomObjectComponent(this.id));
+        item.add(new ItemIdComponent(158));
+        item.add(new ScaleComponent(1.0f , 1.0f, 1.0f));
+        item.add(new RotationComponent(0f,0f,0f));
+        item.add(new SizeComponent(1, 1));
+        models.add(item);
+
         //FIXME: fix this shit
         GhostMesh.ITEM_COUNT += items.size;
     }

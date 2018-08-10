@@ -47,9 +47,9 @@
     {
       class: com.rockbite.inetrnship.ghosthouse.data.GameObject,
       position: [
-        0,
-        10,
-        0.104166664
+        4.3469043,
+        11.390142,
+        2.6099997
       ],
       scale: [
         1,
@@ -69,8 +69,8 @@
     {
       class: com.rockbite.inetrnship.ghosthouse.data.GameObject,
       position: [
-        0,
-        10,
+        2.2897599,
+        12.032997,
         0.15625
       ],
       scale: [
@@ -91,8 +91,8 @@
     {
       class: com.rockbite.inetrnship.ghosthouse.data.GameObject,
       position: [
-        0,
-        10,
+        3.975474,
+        11.832998,
         0.20833333
       ],
       scale: [
@@ -113,9 +113,9 @@
     {
       class: com.rockbite.inetrnship.ghosthouse.data.GameObject,
       position: [
-        0,
-        10,
-        0.26041666
+        12.538573,
+        10.990139,
+        0.29000053
       ],
       scale: [
         1,
@@ -135,9 +135,9 @@
     {
       class: com.rockbite.inetrnship.ghosthouse.data.GameObject,
       position: [
-        0,
-        10,
-        0.3125
+        8.915711,
+        11.504424,
+        2.3900006
       ],
       scale: [
         1,
@@ -150,8 +150,8 @@
         0
       ],
       texture: chair,
-      width: 2.06,
-      height: 3.54,
+      width: 1.77,
+      height: 2.98,
       id: 6
     },
     {
@@ -179,8 +179,8 @@
     {
       class: com.rockbite.inetrnship.ghosthouse.data.GameObject,
       position: [
-        0,
-        10,
+        2.061189,
+        14.361573,
         0.41666666
       ],
       scale: [
@@ -201,8 +201,8 @@
     {
       class: com.rockbite.inetrnship.ghosthouse.data.GameObject,
       position: [
-        0,
-        10,
+        12.8040495,
+        15.861572,
         0.46875
       ],
       scale: [
@@ -223,8 +223,8 @@
     {
       class: com.rockbite.inetrnship.ghosthouse.data.GameObject,
       position: [
-        0,
-        10,
+        3.261188,
+        12.090139,
         0.5208333
       ],
       scale: [
@@ -245,9 +245,9 @@
     {
       class: com.rockbite.inetrnship.ghosthouse.data.GameObject,
       position: [
-        0,
-        10,
-        0.5729166
+        1.4183315,
+        14.701426,
+        2.99
       ],
       scale: [
         1,
@@ -260,16 +260,16 @@
         0
       ],
       texture: door1,
-      width: 2.27,
-      height: 5.12,
+      width: 1.69,
+      height: 4.67,
       id: 11
     },
     {
       class: com.rockbite.inetrnship.ghosthouse.data.GameObject,
       position: [
-        0,
-        10,
-        0.625
+        15.38,
+        11.461575,
+        2.99
       ],
       scale: [
         1,
@@ -282,15 +282,15 @@
         0
       ],
       texture: door2,
-      width: 2.27,
-      height: 5.12,
+      width: 0.82,
+      height: 4.6,
       id: 12
     },
     {
       class: com.rockbite.inetrnship.ghosthouse.data.GameObject,
       position: [
-        0,
-        10,
+        9.261183,
+        16.39015,
         0.6770833
       ],
       scale: [
@@ -311,8 +311,8 @@
     {
       class: com.rockbite.inetrnship.ghosthouse.data.GameObject,
       position: [
-        0,
-        10,
+        4.3469024,
+        11.261567,
         0.7291666
       ],
       scale: [
@@ -333,9 +333,9 @@
     {
       class: com.rockbite.inetrnship.ghosthouse.data.GameObject,
       position: [
-        0,
-        10,
-        0.78125
+        7.1897664,
+        11.190133,
+        2.99
       ],
       scale: [
         1,
@@ -355,9 +355,9 @@
     {
       class: com.rockbite.inetrnship.ghosthouse.data.GameObject,
       position: [
-        0,
-        10,
-        0.8333333
+        7.132618,
+        12.390144,
+        2.99
       ],
       scale: [
         1,
@@ -377,8 +377,8 @@
     {
       class: com.rockbite.inetrnship.ghosthouse.data.GameObject,
       position: [
-        0,
-        10,
+        15.2300005,
+        13.0901375,
         0.8854166
       ],
       scale: [
@@ -399,9 +399,9 @@
     {
       class: com.rockbite.inetrnship.ghosthouse.data.GameObject,
       position: [
-        0,
-        10,
-        0.9375
+        7.8754754,
+        17.89,
+        2.5900004
       ],
       scale: [
         1,
@@ -437,15 +437,15 @@
       ],
       texture: lock,
       width: 0.37,
-      height: 0.35,
+      height: 0.3,
       id: 19
     },
     {
       class: com.rockbite.inetrnship.ghosthouse.data.GameObject,
       position: [
-        0,
-        10,
-        1.0416666
+        8.132615,
+        18.84,
+        2.99
       ],
       scale: [
         1,
@@ -458,15 +458,15 @@
         0
       ],
       texture: lyustra,
-      width: 2.27,
-      height: 2.11,
+      width: 1.72,
+      height: 1.16,
       id: 20
     },
     {
       class: com.rockbite.inetrnship.ghosthouse.data.GameObject,
       position: [
-        0,
-        10,
+        12.389764,
+        13.64728,
         1.09375
       ],
       scale: [
@@ -487,8 +487,8 @@
     {
       class: com.rockbite.inetrnship.ghosthouse.data.GameObject,
       position: [
-        0,
-        10,
+        14.849999,
+        14.932999,
         1.1458333
       ],
       scale: [
@@ -509,8 +509,8 @@
     {
       class: com.rockbite.inetrnship.ghosthouse.data.GameObject,
       position: [
-        0,
-        10,
+        5.1469035,
+        15.6329975,
         1.1979166
       ],
       scale: [
@@ -524,15 +524,15 @@
         0
       ],
       texture: paper,
-      width: 1.09,
-      height: 1.49,
+      width: 0.83,
+      height: 0.8,
       id: 23
     },
     {
       class: com.rockbite.inetrnship.ghosthouse.data.GameObject,
       position: [
-        0,
-        10,
+        3.6897588,
+        14.447288,
         1.25
       ],
       scale: [
@@ -546,15 +546,15 @@
         0
       ],
       texture: paper4,
-      width: 1.42,
-      height: 1.11,
+      width: 1.12,
+      height: 1.05,
       id: 24
     },
     {
       class: com.rockbite.inetrnship.ghosthouse.data.GameObject,
       position: [
-        0,
-        10,
+        11.018335,
+        15.675852,
         1.3020833
       ],
       scale: [
@@ -568,15 +568,15 @@
         0
       ],
       texture: paper6,
-      width: 1.42,
-      height: 1.11,
+      width: 0.72,
+      height: 0.57,
       id: 25
     },
     {
       class: com.rockbite.inetrnship.ghosthouse.data.GameObject,
       position: [
-        0,
-        10,
+        8.489764,
+        14.37586,
         1.3541666
       ],
       scale: [
@@ -597,8 +597,8 @@
     {
       class: com.rockbite.inetrnship.ghosthouse.data.GameObject,
       position: [
-        0,
-        10,
+        6.0897584,
+        14.604426,
         1.40625
       ],
       scale: [
@@ -619,8 +619,8 @@
     {
       class: com.rockbite.inetrnship.ghosthouse.data.GameObject,
       position: [
-        0,
-        10,
+        15.504053,
+        13.247279,
         1.4583333
       ],
       scale: [
@@ -641,8 +641,8 @@
     {
       class: com.rockbite.inetrnship.ghosthouse.data.GameObject,
       position: [
-        0,
-        10,
+        10.889763,
+        13.590136,
         1.5104166
       ],
       scale: [
@@ -656,16 +656,16 @@
         0
       ],
       texture: penstuff2,
-      width: 1.09,
-      height: 1.48,
+      width: 0.58,
+      height: 1.43,
       id: 29
     },
     {
       class: com.rockbite.inetrnship.ghosthouse.data.GameObject,
       position: [
-        0,
-        10,
-        1.5625
+        13.746908,
+        13.304426,
+        1.9625
       ],
       scale: [
         1,
@@ -678,16 +678,16 @@
         0
       ],
       texture: phone,
-      width: 1.09,
-      height: 0.87,
+      width: 1.05,
+      height: 0.71,
       id: 30
     },
     {
       class: com.rockbite.inetrnship.ghosthouse.data.GameObject,
       position: [
-        0,
-        10,
-        1.6145833
+        6.3183327,
+        16.04728,
+        0.01
       ],
       scale: [
         1,
@@ -701,15 +701,15 @@
       ],
       texture: photos,
       width: 2.71,
-      height: 0.73,
+      height: 0.69,
       id: 31
     },
     {
       class: com.rockbite.inetrnship.ghosthouse.data.GameObject,
       position: [
-        0,
-        10,
-        1.6666666
+        2.718332,
+        15.8329935,
+        2.4666662
       ],
       scale: [
         1,
@@ -729,8 +729,8 @@
     {
       class: com.rockbite.inetrnship.ghosthouse.data.GameObject,
       position: [
-        0,
-        10,
+        3.0469027,
+        17.318733,
         1.71875
       ],
       scale: [
@@ -751,8 +751,8 @@
     {
       class: com.rockbite.inetrnship.ghosthouse.data.GameObject,
       position: [
-        0,
-        10,
+        11.504049,
+        16.84728,
         1.7708333
       ],
       scale: [
@@ -773,9 +773,9 @@
     {
       class: com.rockbite.inetrnship.ghosthouse.data.GameObject,
       position: [
-        0,
-        10,
-        1.8229166
+        5.846903,
+        16.60443,
+        0.01
       ],
       scale: [
         1,
@@ -788,8 +788,8 @@
         0
       ],
       texture: polka4,
-      width: 3.61,
-      height: 1.49,
+      width: 3.51,
+      height: 0.6,
       id: 35
     },
     {
@@ -810,15 +810,15 @@
         0
       ],
       texture: rubikscube,
-      width: 1.01,
-      height: 0.6,
+      width: 0.38,
+      height: 0.31,
       id: 36
     },
     {
       class: com.rockbite.inetrnship.ghosthouse.data.GameObject,
       position: [
-        0,
-        10,
+        12.004066,
+        18.118742,
         1.9270833
       ],
       scale: [
@@ -832,8 +832,8 @@
         0
       ],
       texture: shoe1,
-      width: 0.58,
-      height: 0.45,
+      width: 0.51,
+      height: 0.42,
       id: 37
     },
     {
@@ -854,8 +854,8 @@
         0
       ],
       texture: shoe2,
-      width: 0.51,
-      height: 0.41,
+      width: 0.37,
+      height: 0.32,
       id: 38
     },
     {
@@ -883,8 +883,8 @@
     {
       class: com.rockbite.inetrnship.ghosthouse.data.GameObject,
       position: [
-        0,
-        10,
+        11.789759,
+        14.504434,
         2.0833333
       ],
       scale: [
@@ -898,16 +898,16 @@
         0
       ],
       texture: sock2,
-      width: 1.42,
-      height: 1.11,
+      width: 0.33,
+      height: 0.46,
       id: 40
     },
     {
       class: com.rockbite.inetrnship.ghosthouse.data.GameObject,
       position: [
-        0,
-        10,
-        2.1354165
+        15.204048,
+        17.018719,
+        0.01
       ],
       scale: [
         1,
@@ -949,8 +949,8 @@
     {
       class: com.rockbite.inetrnship.ghosthouse.data.GameObject,
       position: [
-        0,
-        10,
+        6.97547,
+        14.904413,
         2.2395833
       ],
       scale: [
@@ -971,8 +971,8 @@
     {
       class: com.rockbite.inetrnship.ghosthouse.data.GameObject,
       position: [
-        0,
-        10,
+        6.7611914,
+        16.804434,
         2.2916665
       ],
       scale: [
@@ -986,16 +986,16 @@
         0
       ],
       texture: teddy,
-      width: 3.61,
-      height: 1.49,
+      width: 0.88,
+      height: 1.05,
       id: 44
     },
     {
       class: com.rockbite.inetrnship.ghosthouse.data.GameObject,
       position: [
-        0,
-        10,
-        2.34375
+        12.546902,
+        17.918705,
+        2.99
       ],
       scale: [
         1,
@@ -1008,15 +1008,15 @@
         0
       ],
       texture: toys,
-      width: 1.88,
-      height: 0.79,
+      width: 0.65,
+      height: 0.31,
       id: 45
     },
     {
       class: com.rockbite.inetrnship.ghosthouse.data.GameObject,
       position: [
-        0,
-        10,
+        14.204055,
+        13.5758705,
         2.3958333
       ],
       scale: [
@@ -1037,8 +1037,8 @@
     {
       class: com.rockbite.inetrnship.ghosthouse.data.GameObject,
       position: [
-        0,
-        10,
+        13.097139,
+        10.990139,
         2.4479165
       ],
       scale: [
@@ -1052,8 +1052,8 @@
         0
       ],
       texture: tumbchka,
-      width: 2.63,
-      height: 2.76,
+      width: 2.46,
+      height: 2.48,
       id: 47
     }
   ]
