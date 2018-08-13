@@ -25,6 +25,10 @@ public class AssetLoader extends AssetManager {
     public static float ATLAS_HEIGHT;
     public static float ATLAS_WIDTH;
 
+    public void setRooms(Array<Room> rooms) {
+        this.rooms = rooms;
+    }
+
     public AssetLoader() {
 ///       WARNING: DO NOT ATTEMPT TO DELETEEE!!!!!!!! Thanks :)
 //        TexturePacker.Settings settings = new TexturePacker.Settings();

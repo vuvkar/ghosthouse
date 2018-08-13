@@ -29,6 +29,7 @@ import com.rockbite.inetrnship.ghosthouse.MiniGames.MiniGame;
 import com.rockbite.inetrnship.ghosthouse.MiniGames.Puzzle.Puzzle;
 import com.rockbite.inetrnship.ghosthouse.data.GhostMesh;
 import com.rockbite.inetrnship.ghosthouse.data.Room;
+import com.rockbite.inetrnship.ghosthouse.ecs.components.AnimationComponent;
 import com.rockbite.inetrnship.ghosthouse.ecs.components.PositionComponent;
 import com.rockbite.inetrnship.ghosthouse.ecs.components.SizeComponent;
 import com.rockbite.inetrnship.ghosthouse.ecs.components.TextureComponent;
@@ -84,17 +85,13 @@ public class InputController implements InputProcessor {
 
     // TODO: Liana's Megashit
     public void moveCharacter() {
-//
-//        float deltaTime = Gdx.graphics.getDeltaTime();
-//        final float velocity = 10;
-//
-//        //targetPosition = getInputCoordinates();
-//
-//        Entity current = new Entity();
-//        current.add(new PositionComponent(0, 0, 0));
-//
-//        ComponentMapper<PositionComponent> pm = ComponentMapper.getFor(PositionComponent.class);
-//        PositionComponent position = pm.get(current);
+if(targetPosition.x>=ghostHouse.assetLoader.getRooms().get(CameraSystem.target).origin.x+ghostHouse.assetLoader.getRooms().get(CameraSystem.target).width){
+    targetPosition.x=ghostHouse.assetLoader.getRooms().get(CameraSystem.target).origin.x+ghostHouse.assetLoader.getRooms().get(CameraSystem.target).width-ghostHouse.mainGame.ghost.getComponent(SizeComponent.class).width;
+
+    System.out.println(ghostHouse.assetLoader.getRooms().get(CameraSystem.target).origin.x);
+    System.out.println(ghostHouse.assetLoader.getRooms().get(CameraSystem.target).width);
+
+}
 
         if(ghostHouse.mainGame.ghost.getComponent(PositionComponent.class).getX()==targetPosition.x &&
                 ghostHouse.mainGame.ghost.getComponent(PositionComponent.class).getY()==targetPosition.y){
@@ -115,7 +112,7 @@ public class InputController implements InputProcessor {
             if (t < T) {
                 ghostHouse.mainGame.ghost.getComponent(PositionComponent.class).setXY(prevPosition.x+dist.x*t/T,
                         prevPosition.y+dist.y*movementGhost.apply(t/T));
-                t += Gdx.graphics.getDeltaTime() *8f;
+                t += Gdx.graphics.getDeltaTime() *14f;
             } else if (t >= T) {
 
                 t = T;
@@ -150,7 +147,7 @@ public class InputController implements InputProcessor {
     public boolean keyDown(int keycode) {
         if(keycode== Input.Keys.NUM_0)
             ghostHouse.mainUI.deleteItem(0);
-        // ghostHouse.mainUI.removeitem(0);
+      // ghostHouse.mainUI.removeItem(0);
 
         if(keycode== Input.Keys.NUM_1) {
             //  ghostHouse.mainUI.deleteItem(1);
@@ -163,7 +160,7 @@ public class InputController implements InputProcessor {
             ghostHouse.mainGame.minigameon=true;
         }
         if(keycode== Input.Keys.NUM_3){
-            ghostHouse.mainGame.ghost.getComponent(PositionComponent.class).setXYZ(new Vector3(15, 20, 9));
+            ghostHouse.mainUI.removeItem(47);
         }
         return true;
     }
@@ -196,7 +193,7 @@ public class InputController implements InputProcessor {
                     if (isInside(new Vector3(pos.getX(), pos.getY(), pos.getZ()), new Vector2(size.width, size.height), targetPosition))
                     //
                     {
-
+                        t=0;
                         System.out.println(i);
 
                         if (pos.getZ() >= indexAndMax[0]) { //If the items are overlapping
@@ -226,6 +223,8 @@ public class InputController implements InputProcessor {
 
         //If click on the building
         else if (Intersector.intersectRayTriangles(ray, mesh.buildingVertices, mesh.buildingIndices, 8, targetPosition)) {
+
+            t=0;
             prevPosition=new Vector2(ghostHouse.mainGame.ghost.getComponent(PositionComponent.class).getX(),
                     ghostHouse.mainGame.ghost.getComponent(PositionComponent.class).getY());
             moveCharacter();
@@ -233,7 +232,7 @@ public class InputController implements InputProcessor {
         return true;
     }
 
-    public void addToInventory(int i ){
+    public void addToInventory(int i){
         tx = rooms.get(cameraSystem.target).items.get(i).getComponent(TextureComponent.class);
         ghostHouse.mainUI.addItem(new InventoryItem(i, tx));
     }

@@ -21,6 +21,7 @@ public class GhostHouse extends ApplicationAdapter {
 
     @Override
     public void render() {
+        mainUI.inventory.setDebug(true, true);
         float delta = Math.min(Gdx.graphics.getDeltaTime(), 1 / 30f);
         mainGame.act(delta);
         mainUI.act();

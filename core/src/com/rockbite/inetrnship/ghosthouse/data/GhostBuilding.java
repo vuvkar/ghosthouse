@@ -4,6 +4,7 @@ import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.utils.Array;
+import com.rockbite.inetrnship.ghosthouse.AssetLoader;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -24,12 +25,13 @@ public class GhostBuilding {
 
     private float buildingWidth;
     private float buildingHeight;
+    private AssetLoader loader;
     private Vector2 buildingOrigin;
 
     private float moveZeroX = 0;
     private float moveZeroY = 0;
 
-    public GhostBuilding(Array<Room> rooms) {
+    public GhostBuilding(Array<Room> rooms, AssetLoader loader) {
         this.rooms = rooms;
         this.buildingConnectingWalls = createBuildingConnectingWalls(rooms);
         popInsideRooms();
@@ -37,6 +39,8 @@ public class GhostBuilding {
         this.faceWalls = createFaceWalls(rooms);
         makeGridOfFaceWalls();
         this.roomConnectingWalls = createConnectingWalls(rooms);
+
+        loader.setRooms(rooms);
     }
 
     public void moveToNextRoom() {

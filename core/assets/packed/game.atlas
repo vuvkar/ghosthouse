@@ -4,702 +4,709 @@ size: 4096,2048
 format: RGBA8888
 filter: Nearest,Nearest
 repeat: xy
+Obj
+  rotate: false
+  xy: 2, 2
+  size: 806, 944
+  orig: 806, 944
+  offset: 0, 0
+  index: -1
 badlogic
   rotate: false
-  xy: 730, 194
+  xy: 3310, 1772
   size: 256, 256
   orig: 256, 256
   offset: 0, 0
   index: -1
 ball
   rotate: false
-  xy: 4045, 1906
+  xy: 1549, 16
   size: 49, 48
   orig: 49, 48
   offset: 0, 0
   index: -1
 balllittle
   rotate: false
-  xy: 4045, 1197
+  xy: 2938, 1243
   size: 29, 29
   orig: 29, 29
   offset: 0, 0
   index: -1
 bark
   rotate: false
-  xy: 2, 452
+  xy: 2625, 1516
   size: 512, 512
   orig: 512, 512
   offset: 0, 0
   index: -1
 bed
   rotate: false
-  xy: 2, 153
+  xy: 2041, 1027
   size: 416, 297
   orig: 416, 297
   offset: 0, 0
   index: -1
 books
   rotate: false
-  xy: 1862, 687
+  xy: 1609, 176
   size: 142, 111
   orig: 142, 111
   offset: 0, 0
   index: -1
 bookspen
   rotate: false
-  xy: 3799, 903
+  xy: 2272, 615
   size: 119, 57
   orig: 119, 57
   offset: 0, 0
   index: -1
 busket
   rotate: false
-  xy: 3168, 816
+  xy: 3855, 1570
   size: 179, 228
   orig: 179, 228
   offset: 0, 0
   index: -1
 chair
   rotate: false
-  xy: 1202, 201
+  xy: 2459, 1026
   size: 177, 298
   orig: 177, 298
   offset: 0, 0
   index: -1
 chair_blue
   rotate: false
-  xy: 2041, 1046
-  size: 1000, 1000
-  orig: 1000, 1000
+  xy: 2041, 1326
+  size: 582, 702
+  orig: 582, 702
   offset: 0, 0
   index: -1
 chair_brown
   rotate: false
-  xy: 3043, 1046
-  size: 1000, 1000
-  orig: 1000, 1000
+  xy: 810, 262
+  size: 582, 684
+  orig: 582, 684
   offset: 0, 0
   index: -1
 crosshair
   rotate: false
-  xy: 1590, 296
+  xy: 3633, 1562
   size: 45, 45
   orig: 45, 45
   offset: 0, 0
   index: -1
 diary
   rotate: false
-  xy: 1523, 343
+  xy: 3226, 1346
   size: 109, 39
   orig: 109, 39
   offset: 0, 0
   index: -1
 disk1
   rotate: false
-  xy: 2052, 613
+  xy: 1925, 176
   size: 73, 73
   orig: 73, 73
   offset: 0, 0
   index: -1
 disk2
   rotate: false
-  xy: 1516, 268
+  xy: 1909, 101
   size: 72, 73
   orig: 72, 73
   offset: 0, 0
   index: -1
 disks
   rotate: false
-  xy: 1535, 738
+  xy: 1373, 17
   size: 174, 68
   orig: 174, 68
   offset: 0, 0
   index: -1
 door1
   rotate: false
-  xy: 1030, 497
+  xy: 3139, 1561
   size: 169, 467
   orig: 169, 467
   offset: 0, 0
   index: -1
 door2
   rotate: false
-  xy: 1118, 35
+  xy: 1908, 486
   size: 82, 460
   orig: 82, 460
   offset: 0, 0
   index: -1
 drawings
   rotate: false
-  xy: 1865, 800
+  xy: 2122, 728
   size: 169, 164
   orig: 169, 164
   offset: 0, 0
   index: -1
 dust01
   rotate: false
-  xy: 4045, 1380
+  xy: 2585, 987
   size: 48, 37
   orig: 48, 37
   offset: 0, 0
   index: -1
 dust02
   rotate: false
-  xy: 4045, 1465
+  xy: 3680, 1563
   size: 43, 44
   orig: 43, 44
   offset: 0, 0
   index: -1
 dust03
   rotate: false
-  xy: 1198, 2
+  xy: 2938, 1215
   size: 31, 26
   orig: 31, 26
   offset: 0, 0
   index: -1
 eye-indifferent
   rotate: false
-  xy: 1042, 2
+  xy: 1549, 66
   size: 47, 45
   orig: 47, 45
   offset: 0, 0
   index: -1
 eye-surprised
   rotate: false
-  xy: 1582, 518
+  xy: 3584, 1562
   size: 47, 45
   orig: 47, 45
   offset: 0, 0
   index: -1
 floor
   rotate: false
-  xy: 1381, 359
+  xy: 2130, 586
   size: 140, 140
   orig: 140, 140
   offset: 0, 0
   index: -1
 front-bracer
   rotate: false
-  xy: 4045, 1274
+  xy: 1771, 27
   size: 29, 40
   orig: 29, 40
   offset: 0, 0
   index: -1
 front-fist-closed
   rotate: false
-  xy: 1584, 565
+  xy: 4056, 1803
   size: 38, 41
   orig: 38, 41
   offset: 0, 0
   index: -1
 front-fist-open
   rotate: false
-  xy: 4045, 1419
+  xy: 3725, 1563
   size: 43, 44
   orig: 43, 44
   offset: 0, 0
   index: -1
 front-foot
   rotate: false
-  xy: 1030, 460
+  xy: 2394, 990
   size: 63, 35
   orig: 63, 35
   offset: 0, 0
   index: -1
 front-shin
   rotate: false
-  xy: 2126, 856
+  xy: 4036, 1561
   size: 41, 92
   orig: 41, 92
   offset: 0, 0
   index: -1
 front-thigh
   rotate: false
-  xy: 4045, 1610
+  xy: 3558, 1537
   size: 24, 56
   orig: 24, 56
   offset: 0, 0
   index: -1
 front-upper-arm
   rotate: false
-  xy: 4045, 1559
+  xy: 2912, 1019
   size: 27, 49
   orig: 27, 49
   offset: 0, 0
   index: -1
 games
   rotate: false
-  xy: 3920, 905
+  xy: 2278, 436
   size: 109, 55
   orig: 109, 55
   offset: 0, 0
   index: -1
 goggles
   rotate: false
-  xy: 1449, 518
+  xy: 2293, 674
   size: 131, 83
   orig: 131, 83
   offset: 0, 0
   index: -1
 gun
   rotate: false
-  xy: 3695, 793
+  xy: 1802, 96
   size: 105, 102
   orig: 105, 102
   offset: 0, 0
   index: -1
 head
   rotate: false
-  xy: 331, 2
+  xy: 1992, 539
   size: 136, 149
   orig: 136, 149
   offset: 0, 0
   index: -1
 hoverboard-board
   rotate: false
-  xy: 3551, 897
+  xy: 3310, 1517
   size: 246, 76
   orig: 246, 76
   offset: 0, 0
   index: -1
 hoverboard-thruster
   rotate: false
-  xy: 2361, 950
+  xy: 3278, 1527
   size: 30, 32
   orig: 30, 32
   offset: 0, 0
   index: -1
 hoverglow-small
   rotate: false
-  xy: 3523, 766
+  xy: 3139, 1521
   size: 137, 38
   orig: 137, 38
   offset: 0, 0
   index: -1
 joysticks
   rotate: false
-  xy: 3824, 962
+  xy: 1394, 205
   size: 213, 82
   orig: 213, 82
   offset: 0, 0
   index: -1
 kalgotkas
   rotate: false
-  xy: 1523, 384
+  xy: 3481, 1383
   size: 95, 132
   orig: 95, 132
   offset: 0, 0
   index: -1
 lamp
   rotate: false
-  xy: 1953, 565
+  xy: 2278, 493
   size: 97, 120
   orig: 97, 120
   offset: 0, 0
   index: -1
 lamp1
   rotate: false
-  xy: 2939, 833
+  xy: 1144, 49
   size: 227, 211
   orig: 227, 211
   offset: 0, 0
   index: -1
 leaf
   rotate: false
-  xy: 988, 194
+  xy: 1992, 690
   size: 128, 256
   orig: 128, 256
   offset: 0, 0
   index: -1
 lock
   rotate: false
-  xy: 1684, 542
+  xy: 2870, 992
   size: 37, 30
   orig: 37, 30
   offset: 0, 0
   index: -1
 lyustra
   rotate: false
-  xy: 3349, 785
+  xy: 1373, 87
   size: 172, 116
   orig: 172, 116
   offset: 0, 0
   index: -1
 mag
   rotate: false
-  xy: 3349, 903
+  xy: 1723, 291
   size: 200, 141
   orig: 200, 141
   offset: 0, 0
   index: -1
 mouth-grind
   rotate: false
-  xy: 420, 154
+  xy: 2693, 992
   size: 47, 30
   orig: 47, 30
   offset: 0, 0
   index: -1
 mouth-oooo
   rotate: false
-  xy: 4045, 1348
+  xy: 3770, 1577
   size: 47, 30
   orig: 47, 30
   offset: 0, 0
   index: -1
 mouth-smile
   rotate: false
-  xy: 4045, 1316
+  xy: 2742, 992
   size: 47, 30
   orig: 47, 30
   offset: 0, 0
   index: -1
 mp3player
   rotate: false
-  xy: 2041, 950
+  xy: 810, 13
   size: 135, 32
   orig: 135, 32
   offset: 0, 0
   index: -1
 muzzle-glow
   rotate: false
-  xy: 3802, 802
+  xy: 1925, 333
   size: 99, 99
   orig: 99, 99
   offset: 0, 0
   index: -1
 muzzle-ring
   rotate: false
-  xy: 2006, 693
+  xy: 2912, 1070
   size: 25, 105
   orig: 25, 105
   offset: 0, 0
   index: -1
 muzzle01
   rotate: false
-  xy: 769, 17
+  xy: 3310, 1595
   size: 271, 175
   orig: 271, 175
   offset: 0, 0
   index: -1
 muzzle02
   rotate: false
-  xy: 1202, 30
+  xy: 3583, 1609
   size: 270, 169
   orig: 270, 169
   offset: 0, 0
   index: -1
 muzzle03
   rotate: false
-  xy: 1201, 751
+  xy: 810, 47
   size: 332, 213
   orig: 332, 213
   offset: 0, 0
   index: -1
 muzzle04
   rotate: false
-  xy: 469, 5
+  xy: 2638, 1177
   size: 298, 179
   orig: 298, 179
   offset: 0, 0
   index: -1
 muzzle05
   rotate: false
-  xy: 2668, 894
+  xy: 2955, 1364
   size: 269, 150
   orig: 269, 150
   offset: 0, 0
   index: -1
 neck
   rotate: false
-  xy: 4076, 1293
+  xy: 2272, 705
   size: 18, 21
   orig: 18, 21
   offset: 0, 0
   index: -1
 paper
   rotate: false
-  xy: 2033, 688
+  xy: 1925, 251
   size: 83, 80
   orig: 83, 80
   offset: 0, 0
   index: -1
 paper4
   rotate: false
-  xy: 1839, 580
+  xy: 1598, 69
   size: 112, 105
   orig: 112, 105
   offset: 0, 0
   index: -1
 paper6
   rotate: false
-  xy: 2052, 554
+  xy: 1909, 42
   size: 72, 57
   orig: 72, 57
   offset: 0, 0
   index: -1
 papers
   rotate: false
-  xy: 3523, 806
+  xy: 1753, 200
   size: 170, 89
   orig: 170, 89
   offset: 0, 0
   index: -1
 papers1
   rotate: false
-  xy: 1711, 744
+  xy: 1992, 475
   size: 149, 62
   orig: 149, 62
   offset: 0, 0
   index: -1
 penstuff
   rotate: false
-  xy: 4045, 1813
+  xy: 4056, 1937
   size: 38, 91
   orig: 38, 91
   offset: 0, 0
   index: -1
 penstuff2
   rotate: false
-  xy: 1042, 49
+  xy: 4036, 1655
   size: 58, 143
   orig: 58, 143
   offset: 0, 0
   index: -1
 phone
   rotate: false
-  xy: 2036, 770
+  xy: 1802, 23
   size: 105, 71
   orig: 105, 71
   offset: 0, 0
   index: -1
 photos
   rotate: false
-  xy: 3551, 975
+  xy: 2122, 894
   size: 271, 69
   orig: 271, 69
   offset: 0, 0
   index: -1
 polka1
   rotate: false
-  xy: 2394, 893
+  xy: 2638, 1024
   size: 272, 151
   orig: 272, 151
   offset: 0, 0
   index: -1
 polka2
   rotate: false
-  xy: 1535, 808
+  xy: 2625, 1358
   size: 328, 156
   orig: 328, 156
   offset: 0, 0
   index: -1
 polka3
   rotate: false
-  xy: 2, 8
+  xy: 1394, 289
   size: 327, 143
   orig: 327, 143
   offset: 0, 0
   index: -1
 polka4
   rotate: false
-  xy: 2041, 984
+  xy: 2041, 965
   size: 351, 60
   orig: 351, 60
   offset: 0, 0
   index: -1
 portal-bg
   rotate: false
-  xy: 1381, 224
+  xy: 2293, 759
   size: 133, 133
   orig: 133, 133
   offset: 0, 0
   index: -1
 portal-flare1
   rotate: false
-  xy: 1590, 264
+  xy: 2635, 992
   size: 56, 30
   orig: 56, 30
   offset: 0, 0
   index: -1
 portal-flare2
   rotate: false
-  xy: 1577, 231
+  xy: 2526, 993
   size: 57, 31
   orig: 57, 31
   offset: 0, 0
   index: -1
 portal-flare3
   rotate: false
-  xy: 2301, 952
+  xy: 1711, 37
   size: 58, 30
   orig: 58, 30
   offset: 0, 0
   index: -1
 portal-shade
   rotate: false
-  xy: 1449, 603
+  xy: 2143, 451
   size: 133, 133
   orig: 133, 133
   offset: 0, 0
   index: -1
 portal-streaks1
   rotate: false
-  xy: 1584, 608
+  xy: 3226, 1387
   size: 126, 128
   orig: 126, 128
   offset: 0, 0
   index: -1
 portsl-streaks2
   rotate: false
-  xy: 1712, 617
+  xy: 3354, 1390
   size: 125, 125
   orig: 125, 125
   offset: 0, 0
   index: -1
 rear-bracer
   rotate: false
-  xy: 3662, 768
+  xy: 2938, 1274
   size: 28, 36
   orig: 28, 36
   offset: 0, 0
   index: -1
 rear-foot
   rotate: false
-  xy: 1577, 199
+  xy: 1070, 15
   size: 57, 30
   orig: 57, 30
   offset: 0, 0
   index: -1
 rear-shin
   rotate: false
-  xy: 4045, 1722
+  xy: 4056, 1846
   size: 38, 89
   orig: 38, 89
   offset: 0, 0
   index: -1
 rear-thigh
   rotate: false
-  xy: 4045, 1668
+  xy: 2393, 620
   size: 33, 52
   orig: 33, 52
   offset: 0, 0
   index: -1
 rear-upper-arm
   rotate: false
-  xy: 4045, 1228
+  xy: 2938, 1312
   size: 24, 44
   orig: 24, 44
   offset: 0, 0
   index: -1
 roomTextureClouds
   rotate: false
-  xy: 2, 966
+  xy: 2, 948
   size: 2037, 1080
   orig: 2037, 1080
   offset: 0, 0
   index: -1
 rubikscube
   rotate: false
-  xy: 1158, 2
+  xy: 2791, 991
   size: 38, 31
   orig: 38, 31
   offset: 0, 0
   index: -1
 shoe1
   rotate: false
-  xy: 1631, 528
+  xy: 1600, 25
   size: 51, 42
   orig: 51, 42
   offset: 0, 0
   index: -1
 shoe2
   rotate: false
-  xy: 1682, 574
+  xy: 2831, 990
   size: 37, 32
   orig: 37, 32
   offset: 0, 0
   index: -1
 sock1
   rotate: false
-  xy: 1381, 203
+  xy: 1753, 179
   size: 35, 19
   orig: 35, 19
   offset: 0, 0
   index: -1
 sock2
   rotate: false
-  xy: 4045, 1511
+  xy: 3819, 1561
   size: 33, 46
   orig: 33, 46
   offset: 0, 0
   index: -1
 socks
   rotate: false
-  xy: 1516, 216
+  xy: 1908, 434
   size: 59, 50
   orig: 59, 50
   offset: 0, 0
   index: -1
 switcher
   rotate: false
-  xy: 1231, 2
+  xy: 1373, 234
   size: 19, 26
   orig: 19, 26
   offset: 0, 0
   index: -1
 tapchkas
   rotate: false
-  xy: 2178, 956
+  xy: 947, 19
   size: 121, 26
   orig: 121, 26
   offset: 0, 0
   index: -1
 teddy
   rotate: false
-  xy: 2036, 843
+  xy: 1712, 69
   size: 88, 105
   orig: 88, 105
   offset: 0, 0
   index: -1
 torso
   rotate: false
-  xy: 4045, 1956
+  xy: 1547, 113
   size: 49, 90
   orig: 49, 90
   offset: 0, 0
   index: -1
 toys
   rotate: false
-  xy: 1091, 2
+  xy: 2459, 993
   size: 65, 31
   orig: 65, 31
   offset: 0, 0
   index: -1
 trash
   rotate: false
-  xy: 1624, 572
+  xy: 1653, 33
   size: 56, 34
   orig: 56, 34
   offset: 0, 0
   index: -1
 tumbSHka
   rotate: false
-  xy: 420, 186
-  size: 308, 264
-  orig: 308, 264
+  xy: 3816, 1800
+  size: 238, 228
+  orig: 238, 228
   offset: 0, 0
   index: -1
 tumbchka
   rotate: false
-  xy: 1201, 501
+  xy: 3568, 1780
   size: 246, 248
   orig: 246, 248
   offset: 0, 0
   index: -1
 wall
   rotate: false
-  xy: 516, 452
+  xy: 1394, 434
   size: 512, 512
   orig: 512, 512
   offset: 0, 0
