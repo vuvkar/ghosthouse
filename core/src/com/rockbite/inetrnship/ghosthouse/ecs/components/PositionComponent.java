@@ -38,15 +38,15 @@ public class PositionComponent implements Component {
         this.z = z;
     }
 
-    public void setXYZ(Vector3 vector){
-        this.x=vector.x;
-        this.y=vector.y;
-        this.z=vector.z;
+    public void setXYZ(Vector3 vector) {
+        this.x = vector.x;
+        this.y = vector.y;
+        this.z = vector.z;
     }
 
-    public void setXY(float x, float y){
-        this.x=x;
-        this.y=y;
+    public void setXY(float x, float y) {
+        this.x = x;
+        this.y = y;
 
     }
 }

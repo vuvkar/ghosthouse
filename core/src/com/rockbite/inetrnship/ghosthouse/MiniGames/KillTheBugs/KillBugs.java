@@ -5,7 +5,6 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
-import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.utils.Array;
@@ -13,12 +12,11 @@ import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.rockbite.inetrnship.ghosthouse.MainGame;
 import com.rockbite.inetrnship.ghosthouse.MiniGames.MiniGame;
 
-import java.util.Collections;
 
 public class KillBugs extends MiniGame {
 
     private Stage stage;
-    private int numOfBugs = 10 ;
+    private int numOfBugs = 10;
     private Texture bugImage;
     private float width;
     private float height;
@@ -37,8 +35,8 @@ public class KillBugs extends MiniGame {
     private BugsActor bg;
     private BugsActor timeBar;
     private BugsActor msg;
-    private BugsActor youwin;
-    private BugsActor youlost;
+    private BugsActor youWin;
+    private BugsActor youLost;
     private BugsActor restartBtn;
     private BugsActor timerImg;
     boolean tmp1 = true;
@@ -75,60 +73,60 @@ public class KillBugs extends MiniGame {
 
 
         // create environment
-        fog = new BugsActor(new Texture(Gdx.files.internal("MiniGame/fog.png")), 0,0, "fog", 1);
+        fog = new BugsActor(new Texture(Gdx.files.internal("MiniGame/fog.png")), 0, 0, "fog", 1);
         stage.addActor(fog);
 
         Texture background = new Texture(Gdx.files.internal("MiniGame/background3.png"));
         KillBugs.bgWidth = background.getWidth();
         KillBugs.bgHeight = background.getHeight();
-        width = Gdx.graphics.getWidth()/2-bgWidth/2;
-        height = Gdx.graphics.getHeight()/2-bgHeight/2-20;
+        width = Gdx.graphics.getWidth() / 2 - bgWidth / 2;
+        height = Gdx.graphics.getHeight() / 2 - bgHeight / 2 - 20;
         bg = new BugsActor(background, width, height, "bg", 1);
         stage.addActor(bg);
 
         //create time bar
-        timeBar = new BugsActor(new Texture("MiniGame/ghosts_and_paper.png"), width+bgWidth/2-175, height+bgHeight-15, "bar", 1);
+        timeBar = new BugsActor(new Texture("MiniGame/ghosts_and_paper.png"), width + bgWidth / 2 - 175, height + bgHeight - 15, "bar", 1);
         stage.addActor(timeBar);
 
         //killed bugs text
-        killBugsText = new Label("0/10",label1Style);
-        killBugsText.setPosition(width+bgWidth/2-75, height+bgHeight-10);
+        killBugsText = new Label("0/10", label1Style);
+        killBugsText.setPosition(width + bgWidth / 2 - 75, height + bgHeight - 10);
         stage.addActor(killBugsText);
 
         //timer text
-        timerText = new Label("7",label1Style);
-        timerText.setPosition(width+bgWidth/2+85, height+bgHeight-10);
+        timerText = new Label("7", label1Style);
+        timerText.setPosition(width + bgWidth / 2 + 85, height + bgHeight - 10);
         stage.addActor(timerText);
 
 
         //message box
-        msg = new BugsActor(new Texture(Gdx.files.internal("MiniGame/message.png")), width+(bgWidth-300)/2, height+(bgHeight-200)/2, "message", 1);
+        msg = new BugsActor(new Texture(Gdx.files.internal("MiniGame/message.png")), width + (bgWidth - 300) / 2, height + (bgHeight - 200) / 2, "message", 1);
         stage.addActor(msg);
     }
 
     @Override
-    public void render () {
-        timer+=Gdx.graphics.getDeltaTime();
+    public void render() {
+        timer += Gdx.graphics.getDeltaTime();
 
-        if(gameStarted && !bugsCreated) {
+        if (gameStarted && !bugsCreated) {
             createBugs();
             bugsCreated = true;
             startTimer();
         }
 
         //win
-        if(killedBugs>=numOfBugs && !gameOver && !win) {
+        if (killedBugs >= numOfBugs && !gameOver && !win) {
             System.out.println("YOU WIN!!!");
-            youwin = new BugsActor(new Texture(Gdx.files.internal("MiniGame/youwin.png")), width+(bgWidth-300)/2, height+(bgHeight-200)/2, "win", 1);
-            stage.addActor(youwin);
+            youWin = new BugsActor(new Texture(Gdx.files.internal("MiniGame/youwin.png")), width + (bgWidth - 300) / 2, height + (bgHeight - 200) / 2, "win", 1);
+            stage.addActor(youWin);
             win = true;
         }
 
-        if(gameOver && tmp1) {
+        if (gameOver && tmp1) {
             System.out.println("GAME OVER!!!");
-            youlost = new BugsActor(new Texture(Gdx.files.internal("MiniGame/gameover.png")), width + (bgWidth - 350) / 2, height + (bgHeight - 200) / 2, "die", 1);
-            stage.addActor(youlost);
-            stage.setKeyboardFocus(youlost);
+            youLost = new BugsActor(new Texture(Gdx.files.internal("MiniGame/gameover.png")), width + (bgWidth - 350) / 2, height + (bgHeight - 200) / 2, "die", 1);
+            stage.addActor(youLost);
+            stage.setKeyboardFocus(youLost);
             restartBtn = new BugsActor(new Texture(Gdx.files.internal("MiniGame/restart.png")), width + (bgWidth - 350) / 2, height + (bgHeight - 200) / 2, "gameover", 1);
             stage.addActor(restartBtn);
 //            stage.setKeyboardFocus(restartBtn);
@@ -137,12 +135,12 @@ public class KillBugs extends MiniGame {
         }
 
         //restart game
-        if(restart) {
+        if (restart) {
             restartGame();
             restart = false;
         }
 
-        if(Gdx.input.isKeyPressed(Input.Keys.C))
+        if (Gdx.input.isKeyPressed(Input.Keys.C))
             closeGame();
 
         stage.act(Gdx.graphics.getDeltaTime());
@@ -151,7 +149,7 @@ public class KillBugs extends MiniGame {
 
     private void restartGame() {
         removeBugs();
-        youlost.remove();
+        youLost.remove();
         restartBtn.remove();
         win = false;
         gameOver = false;
@@ -173,40 +171,39 @@ public class KillBugs extends MiniGame {
         killBugsText.remove();
         timerText.remove();
         msg.remove();
-        if(youwin!=null)
-            youwin.remove();
-        if(timerImg!=null)
+        if (youWin != null)
+            youWin.remove();
+        if (timerImg != null)
             timerImg.remove();
 
-        MainGame.minigameon=false;
+        MainGame.miniGameOn = false;
         Gdx.input.setInputProcessor(MainGame.multiplexer);
-        MainGame.miniGame=null;
+        MainGame.miniGame = null;
     }
 
     private void startTimer() {
-        timerImg = new BugsActor(new Texture(Gdx.files.internal("MiniGame/transparent.png")), 0,0, "timer", 1);
+        timerImg = new BugsActor(new Texture(Gdx.files.internal("MiniGame/transparent.png")), 0, 0, "timer", 1);
         stage.addActor(timerImg);
     }
 
     private void createBugs() {
         int dir = 1;
-        for (int i=0; i<numOfBugs; i++) {
-            if(Math.random()>0.5f)
-                dir*=-1;
+        for (int i = 0; i < numOfBugs; i++) {
+            if (Math.random() > 0.5f)
+                dir *= -1;
             BugsActor bug;
-            if(dir == 1)
-                bug = new BugsActor(bugImage, width, height+(bgHeight-bugImage.getHeight())*(float)Math.random(), "bug", dir);
+            if (dir == 1)
+                bug = new BugsActor(bugImage, width, height + (bgHeight - bugImage.getHeight()) * (float) Math.random(), "bug", dir);
             else
-                bug = new BugsActor(bugImage, width+bgWidth, height+(bgHeight-bugImage.getHeight())*(float)Math.random(), "bug", dir);
+                bug = new BugsActor(bugImage, width + bgWidth, height + (bgHeight - bugImage.getHeight()) * (float) Math.random(), "bug", dir);
             bugs.add(bug);
             stage.addActor(bug);
         }
     }
 
     private void removeBugs() {
-        for (int i=0; i<bugs.size; i++) {
+        for (int i = 0; i < bugs.size; i++) {
             bugs.get(i).remove();
         }
     }
-
 }

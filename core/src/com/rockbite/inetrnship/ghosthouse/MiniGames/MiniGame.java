@@ -13,6 +13,7 @@ public class MiniGame {
     private void LoadGame() {
 
     }
+
     public void render() {
     }
 

@@ -2,10 +2,8 @@ package com.rockbite.inetrnship.ghosthouse;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetManager;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.tools.texturepacker.TexturePacker;
 import com.badlogic.gdx.utils.Array;
 import com.rockbite.inetrnship.ghosthouse.data.GhostMesh;
 import com.rockbite.inetrnship.ghosthouse.data.Room;
@@ -30,7 +28,7 @@ public class AssetLoader extends AssetManager {
     }
 
     public AssetLoader() {
-///       WARNING: DO NOT ATTEMPT TO DELETEEE!!!!!!!! Thanks :)
+//       TODO: WARNING: DO NOT ATTEMPT TO DELETEEE!!!!!!!! Thanks :)
 //        TexturePacker.Settings settings = new TexturePacker.Settings();
 //        settings.maxHeight = 4096;
 //        settings.maxWidth = 4096;
@@ -58,7 +56,7 @@ public class AssetLoader extends AssetManager {
         GhostMesh.ITEM_COUNT = 0;
         int[][] pixelData = readPixelData();
         rooms = processRoomData(pixelData);
-        for(Room room: rooms) {
+        for (Room room : rooms) {
             room.loadEntities();
         }
     }

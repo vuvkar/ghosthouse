@@ -11,7 +11,6 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.PerspectiveCamera;
 import com.badlogic.gdx.graphics.g3d.utils.CameraInputController;
 import com.badlogic.gdx.math.Interpolation;
-
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.Array;
@@ -67,9 +66,9 @@ public class CameraSystem extends EntitySystem {
 
     public void inputHandle() {
 
-        if(Gdx.input.isKeyJustPressed(Input.Keys.ENTER)) {
+        if (Gdx.input.isKeyJustPressed(Input.Keys.ENTER)) {
             target++;
-            MainUI.text.setText("Room "+(target+1)+"");
+            MainUI.text.setText("Room " + (target + 1) + "");
             if (target == rooms.size)
                 target = 0;
             t = 0;
@@ -128,6 +127,4 @@ public class CameraSystem extends EntitySystem {
         double r = y / (Math.sin((alpha / 180) * Math.PI / 2));
         return Math.sqrt(r * r - y * y);
     }
-
-
 }

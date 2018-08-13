@@ -29,7 +29,7 @@ public enum RectangleType {
                 break;
         }
 
-        if(region == null) {
+        if (region == null) {
             System.out.println("zibil");
         }
         return region;

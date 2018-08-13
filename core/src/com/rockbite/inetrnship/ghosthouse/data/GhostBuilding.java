@@ -25,7 +25,6 @@ public class GhostBuilding {
 
     private float buildingWidth;
     private float buildingHeight;
-    private AssetLoader loader;
     private Vector2 buildingOrigin;
 
     private float moveZeroX = 0;
@@ -45,8 +44,8 @@ public class GhostBuilding {
 
     public void moveToNextRoom() {
         int current = currentRoom.id;
-        for(Room room: rooms) {
-            if(room.id == current + 1) {
+        for (Room room : rooms) {
+            if (room.id == current + 1) {
                 currentRoom = room;
                 break;
             }
@@ -62,7 +61,6 @@ public class GhostBuilding {
             newOrigin.add(moveZeroX, moveZeroY);
 
             room.origin = newOrigin;
-
 
             room.height = room.height + WALL_HEIGHT * MathUtils.sinDeg(225f);
             room.width = room.width + WALL_HEIGHT * MathUtils.cosDeg(225f);
@@ -149,7 +147,6 @@ public class GhostBuilding {
             wall.setType(RectangleType.BUILDING);
             wall.getNormal().scl(-1f);
         }
-
         return walls;
     }
 
@@ -231,7 +228,6 @@ public class GhostBuilding {
         }
 
         return result;
-
     }
 
     // Main algorithm (step 2)
@@ -253,10 +249,8 @@ public class GhostBuilding {
                     current.setLength(current.getLength() - fragment.getLength());
                     current.setLength(current.getLength() - room.width);
                 }
-
             }
         }
-
         return lines;
     }
 
@@ -286,7 +280,6 @@ public class GhostBuilding {
                 }
             }
         }
-
         return result;
     }
 
@@ -313,12 +306,12 @@ public class GhostBuilding {
         faceWalls = sliceByY(xSliced, cellSize, gridOrigin);
     }
 
-    Array<GhostRectangle> sliceByX(Array<GhostRectangle> rects, float cellSize, Vector2 gridOrigin){
+    Array<GhostRectangle> sliceByX(Array<GhostRectangle> rects, float cellSize, Vector2 gridOrigin) {
         Array<GhostRectangle> sliced = new Array<GhostRectangle>();
-        for(int i = 0; i < rects.size; i++) {
+        for (int i = 0; i < rects.size; i++) {
             GhostRectangle rect = rects.get(i);
             int column = MathUtils.floor((rect.getX() - gridOrigin.x) / cellSize);
-            if(rect.getWidth() > cellSize) {
+            if (rect.getWidth() > cellSize) {
                 GhostRectangle slicedRect = new GhostRectangle(rect);
                 slicedRect.setWidth((column + 1) * cellSize - rect.getX());
                 slicedRect.setuOrigin((slicedRect.getX() - column * cellSize) / cellSize);
@@ -327,39 +320,36 @@ public class GhostBuilding {
                 rect.setX((column + 1) * cellSize);
                 rect.setWidth(rect.getWidth() - slicedRect.getWidth());
                 i--;
-            }
-            else {
-                rect.setuOrigin((rect.getX() - column * cellSize) / cellSize );
+            } else {
+                rect.setuOrigin((rect.getX() - column * cellSize) / cellSize);
                 rect.setuWidht(rect.getWidth() / cellSize);
                 sliced.add(rect);
             }
         }
-      return sliced;
+        return sliced;
     }
 
-    Array<GhostRectangle> sliceByY(Array<GhostRectangle> rects, float cellSize, Vector2 gridOrigin){
+    Array<GhostRectangle> sliceByY(Array<GhostRectangle> rects, float cellSize, Vector2 gridOrigin) {
         Array<GhostRectangle> sliced = new Array<GhostRectangle>();
-        for(int i = 0; i < rects.size; i++) {
+        for (int i = 0; i < rects.size; i++) {
             GhostRectangle rect = rects.get(i);
-            int row = (int)((rect.getY() - gridOrigin.y) / cellSize);
-            if(rect.getHeight() > cellSize) {
+            int row = (int) ((rect.getY() - gridOrigin.y) / cellSize);
+            if (rect.getHeight() > cellSize) {
                 GhostRectangle slicedRect = new GhostRectangle(rect);
                 slicedRect.setHeight((row + 1) * cellSize - rect.getY());
                 slicedRect.setvOrigin(0);
                 slicedRect.setvHeight(slicedRect.getHeight() / cellSize);
                 sliced.add(slicedRect);
-                rect.setY((float)(row + 1) * cellSize);
+                rect.setY((float) (row + 1) * cellSize);
                 rect.setHeight(rect.getHeight() - slicedRect.getHeight());
                 i--;
-            }
-            else {
+            } else {
                 rect.setvOrigin(((row + 1) * cellSize - (rect.getY() + rect.getHeight())) / cellSize);
-                if(rect.getvOrigin() < 0) {
+                if (rect.getvOrigin() < 0) {
                     System.out.println("hello malmuao");
                 }
                 rect.setvHeight(rect.getHeight() / cellSize);
                 sliced.add(rect);
-
             }
         }
         return sliced;
