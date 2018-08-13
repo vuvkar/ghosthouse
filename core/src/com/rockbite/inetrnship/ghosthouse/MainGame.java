@@ -28,8 +28,8 @@ public class MainGame {
     private RenderSystem renderSystem;
     private AssetLoader assetLoader;
     public InputController inputController;
-    public static MiniGame miniGame=new MiniGame();
-    public static boolean minigameon=false;
+    public static MiniGame miniGame = new MiniGame();
+    public static boolean minigameon = false;
     private Array<Room> rooms;
     public static InputMultiplexer multiplexer = new InputMultiplexer();
 
@@ -55,7 +55,7 @@ public class MainGame {
 
 
         building = new GhostBuilding(rooms, assetLoader);
-        meshok = new GhostMesh(building.getAllRects());
+        meshok = new GhostMesh(building.getAllRects(), assetLoader);
 
         building.setCurrentRoom(rooms.first());
 

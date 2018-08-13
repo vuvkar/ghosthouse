@@ -30,7 +30,7 @@ public enum RectangleType {
         }
 
         if(region == null) {
-            System.out.println("zibil");
+            System.out.println(texture);
         }
         return region;
     }

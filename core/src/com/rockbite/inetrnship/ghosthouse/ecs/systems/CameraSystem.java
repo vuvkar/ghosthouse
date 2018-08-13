@@ -90,17 +90,17 @@ public class CameraSystem extends EntitySystem {
                 t = 0;
             } else {
                 float timeRatio = t / T;
-                float rDistance = rooms.get(target).lightCol2.x - rooms.get(target - 1).lightCol1.x;
-                float gDistance = rooms.get(target).lightCol2.y - rooms.get(target - 1).lightCol1.y;
-                float bDistance = rooms.get(target).lightCol2.z - rooms.get(target - 1).lightCol1.z;
+                float rDistance = rooms.get(target).light[0] - rooms.get(target - 1).light[0];
+                float gDistance = rooms.get(target).light[1] - rooms.get(target - 1).light[0];
+                float bDistance = rooms.get(target).light[2] - rooms.get(target - 1).light[2];
                 if (t < T) {
                     cam.position.set(cameraComponent.bottomLeft.x + dist.x * t / T, cameraComponent.bottomLeft.y + dist.y
                             * a.apply(t / T), cameraComponent.bottomLeft.z + dist.z * z.apply(t / T));
                     t += Gdx.graphics.getDeltaTime() * 20f;
-                    Vector3 roomColor = new Vector3(rooms.get(target - 1).lightCol1.x + timeRatio * rDistance, rooms.get(target - 1).lightCol1.y + timeRatio * gDistance, rooms.get(target - 1).lightCol1.z + timeRatio * bDistance);
+                    Vector3 roomColor = new Vector3(rooms.get(target - 1).light[0] + timeRatio * rDistance, rooms.get(target - 1).light[1] + timeRatio * gDistance, rooms.get(target - 1).light[2] + timeRatio * bDistance);
                     GhostMesh.lightColor.set(roomColor);
                 } else if (t >= T) {
-                    GhostMesh.lightColor.set(rooms.get(target).lightCol2);
+                    GhostMesh.lightColor.set(rooms.get(target).light);
                     t = T;
                     cam.position.set(cameraComponent.bottomLeft.x + dist.x * t / T, cameraComponent.bottomLeft.y + dist.y
                             * a.apply(t / T), cameraComponent.bottomLeft.z + dist.z * z.apply(t / T));

@@ -11,6 +11,8 @@ public class Room1 extends Room {
         this.height = height;
     }
 
+    public Room1(){}
+
     @Override
     public void roomStarted() {
 

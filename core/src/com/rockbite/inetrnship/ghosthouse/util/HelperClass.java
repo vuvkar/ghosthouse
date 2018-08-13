@@ -1,6 +1,10 @@
 package com.rockbite.inetrnship.ghosthouse.util;
 
 import com.badlogic.ashley.core.Entity;
+import com.badlogic.gdx.graphics.Mesh;
+import com.badlogic.gdx.graphics.VertexAttribute;
+import com.badlogic.gdx.graphics.VertexAttributes;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.math.Vector3;
 import com.rockbite.inetrnship.ghosthouse.ecs.components.*;
 
@@ -28,5 +32,16 @@ public class HelperClass {
         ghost.add(new RoomObjectComponent(0));
         ghost.add(new AnimationComponent("spineboy"));
         return ghost;
+    }
+
+    static void remapUVs(Mesh in, TextureAtlas.AtlasRegion region) {
+        final VertexAttribute UVs = in.getVertexAttributes().findByUsage(VertexAttributes.Usage.TextureCoordinates);
+        float[] verts = new float[in.getVertexSize() * in.getNumVertices()];
+        in.getVertices(verts);
+        for (int i = 0; i < verts.length; i += in.getVertexSize()) {
+            verts[UVs.offset] = region.getU() + region.getU2() * verts[UVs.offset];
+            verts[UVs.offset + 1] = region.getV() + region.getV2() * verts[UVs.offset + 1];
+        }
+        in.setVertices(verts);
     }
 }

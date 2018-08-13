@@ -74,7 +74,7 @@ public class RenderSystem extends EntitySystem {
             }
 
             if(modelComp.has(entity)) {
-                ModelComponent comp =modelComp.get(entity);
+                ModelComponent comp = modelComp.get(entity);
                 models.add(comp.getModelName());
             }
 
@@ -82,7 +82,7 @@ public class RenderSystem extends EntitySystem {
 
         mesh.renderItems(items);
         mesh.renderAnimations(animations);
-        mesh.renderModels(models);
+       // mesh.renderModels(models);
     }
 
 }

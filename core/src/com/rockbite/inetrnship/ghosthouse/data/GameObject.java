@@ -12,4 +12,5 @@ public class GameObject {
     float width;
     float height;
     int id;
+    String state;
 }
