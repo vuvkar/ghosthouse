@@ -7,7 +7,9 @@ import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.graphics.*;
 
 import com.badlogic.gdx.math.Vector3;
+import com.badlogic.gdx.math.collision.Ray;
 import com.badlogic.gdx.utils.Array;
+import com.rockbite.inetrnship.ghosthouse.MiniGames.MiniGame;
 import com.rockbite.inetrnship.ghosthouse.data.GhostBuilding;
 import com.rockbite.inetrnship.ghosthouse.data.GhostMesh;
 import com.rockbite.inetrnship.ghosthouse.data.Room;
@@ -19,21 +21,22 @@ import com.rockbite.inetrnship.ghosthouse.util.HelperClass;
 
 
 public class MainGame {
-
+    public Entity ghost = HelperClass.createGhost(new Vector3(0,0,0));
     private GhostHouse ghostHouse;
     private Engine engine;
-    private CameraSystem cameraSystem;
+    public CameraSystem cameraSystem;
     private RenderSystem renderSystem;
     private AssetLoader assetLoader;
-    private InputController inputController;
-
+    public InputController inputController;
+    public static MiniGame miniGame=new MiniGame();
+    public static boolean minigameon=false;
     private Array<Room> rooms;
-    InputMultiplexer multiplexer = new InputMultiplexer();
+    public static InputMultiplexer multiplexer = new InputMultiplexer();
 
     Entity cam;
 
     private GhostBuilding building;
-    private GhostMesh meshok;
+    public GhostMesh meshok;
 
     public void act(float delta) {
         engine.update(delta);
@@ -85,11 +88,13 @@ public class MainGame {
             }
         }
 
+
+        ghost.getComponent(PositionComponent.class).setXYZ(ghostPosition);
         multiplexer.addProcessor( ghostHouse.mainUI);
         multiplexer.addProcessor(inputController);
-        //Gdx.input.setInputProcessor(multiplexer);
+        Gdx.input.setInputProcessor(multiplexer);
+        System.out.println( ghost.getComponent(PositionComponent.class).getX());
 
-        Entity ghost = HelperClass.createGhost(ghostPosition);
         engine.addEntity(ghost);
 
     }
@@ -114,6 +119,8 @@ public class MainGame {
 
         // then render building walls
         // TODO: render building
+
+
         meshok.render(cameraSystem.cam);
 
         // then render decorations/characters and items

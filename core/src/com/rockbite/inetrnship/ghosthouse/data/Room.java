@@ -77,7 +77,7 @@ public abstract class Room implements Comparable<Room> {
         for(Entity item: items) {
             if(roomComponent.get(item).getItemID()==itemID)
             {
-               itemTypeComponent.get(item).setType(type);
+                itemTypeComponent.get(item).setType(type);
             }
         }
     }

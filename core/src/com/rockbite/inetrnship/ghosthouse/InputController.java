@@ -3,24 +3,45 @@ package com.rockbite.inetrnship.ghosthouse;
 import com.badlogic.ashley.core.ComponentMapper;
 import com.badlogic.ashley.core.Entity;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputProcessor;
+import com.badlogic.gdx.graphics.PerspectiveCamera;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.math.Interpolation;
 import com.badlogic.gdx.math.Intersector;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.math.collision.Ray;
+import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.utils.ActorGestureListener;
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.badlogic.gdx.scenes.scene2d.utils.DragListener;
+import com.badlogic.gdx.scenes.scene2d.utils.DragScrollListener;
 import com.badlogic.gdx.utils.Array;
+import com.rockbite.inetrnship.ghosthouse.MiniGames.KillTheBugs.KillBugs;
+import com.rockbite.inetrnship.ghosthouse.MiniGames.MiniGame;
+import com.rockbite.inetrnship.ghosthouse.MiniGames.Puzzle.Puzzle;
 import com.rockbite.inetrnship.ghosthouse.data.GhostMesh;
 import com.rockbite.inetrnship.ghosthouse.data.Room;
-import com.rockbite.inetrnship.ghosthouse.ecs.components.ItemIdComponent;
 import com.rockbite.inetrnship.ghosthouse.ecs.components.PositionComponent;
 import com.rockbite.inetrnship.ghosthouse.ecs.components.SizeComponent;
 import com.rockbite.inetrnship.ghosthouse.ecs.components.TextureComponent;
 import com.rockbite.inetrnship.ghosthouse.ecs.systems.CameraSystem;
+
+import net.java.games.input.Component;
+
+import org.lwjgl.input.Mouse;
+
+import java.awt.Button;
+import java.awt.event.ActionListener;
+
+import javax.swing.JButton;
 
 
 public class InputController implements InputProcessor {
@@ -28,17 +49,24 @@ public class InputController implements InputProcessor {
     public Vector3 targetPosition = new Vector3(0, 0, 0);
     public Ray ray = new Ray();
     PositionComponent pos = new PositionComponent(0, 0, 0);
+    Vector2 prevPosition=new Vector2(0,0);
     SizeComponent size = new SizeComponent(0, 0);
     TextureComponent tx = new TextureComponent("Fa");
     AssetLoader assetLoader;
     Array<Room> rooms;
     TextureAtlas atlas;
-    int current = 0;
+    Interpolation movementGhost = new Interpolation.Pow(2);
+    float t = 0f; // step time
+    float T = 10f;
+    Vector2 dist=new Vector2(0,0);
+    int current=0;
     float[] indexAndMax = {0, 0};
     GhostMesh mesh;
     CameraSystem cameraSystem;
     GhostHouse ghostHouse;
-
+    float scale=130/1920f;
+    boolean isMoving=false;
+    boolean takeItem=false;
 
     public InputController(GhostMesh mesh, CameraSystem cameraSystem, GhostHouse ghostHouse) {
         assetLoader = ghostHouse.assetLoader;
@@ -46,6 +74,7 @@ public class InputController implements InputProcessor {
         this.mesh = mesh;
         this.cameraSystem = cameraSystem;
         this.ghostHouse = ghostHouse;
+
     }
 
     public Vector3 getInputCoordinates() {
@@ -55,17 +84,50 @@ public class InputController implements InputProcessor {
 
     // TODO: Liana's Megashit
     public void moveCharacter() {
-        float deltaTime = Gdx.graphics.getDeltaTime();
-        final float velocity = 10;
+//
+//        float deltaTime = Gdx.graphics.getDeltaTime();
+//        final float velocity = 10;
+//
+//        //targetPosition = getInputCoordinates();
+//
+//        Entity current = new Entity();
+//        current.add(new PositionComponent(0, 0, 0));
+//
+//        ComponentMapper<PositionComponent> pm = ComponentMapper.getFor(PositionComponent.class);
+//        PositionComponent position = pm.get(current);
 
-        //targetPosition = getInputCoordinates();
+        if(ghostHouse.mainGame.ghost.getComponent(PositionComponent.class).getX()==targetPosition.x &&
+                ghostHouse.mainGame.ghost.getComponent(PositionComponent.class).getY()==targetPosition.y){
+            System.out.println("LOX");
+            t=0;
+            isMoving=false;
+            if(takeItem){
+                addToInventory((int)indexAndMax[1]);
+                takeItem=false;
+                indexAndMax[0] = 0;
+                indexAndMax[1] = 0;
+            }
+        }
+        else{
+            isMoving=true;
+            dist.set(targetPosition.x-prevPosition.x,
+                    targetPosition.y-prevPosition.y);
+            if (t < T) {
+                ghostHouse.mainGame.ghost.getComponent(PositionComponent.class).setXY(prevPosition.x+dist.x*t/T,
+                        prevPosition.y+dist.y*movementGhost.apply(t/T));
+                t += Gdx.graphics.getDeltaTime() *8f;
+            } else if (t >= T) {
 
-        Entity current = new Entity();
-        current.add(new PositionComponent(0, 0, 0));
+                t = T;
+                ghostHouse.mainGame.ghost.getComponent(PositionComponent.class).setXY(prevPosition.x+dist.x*t/T,
+                        prevPosition.y+dist.y*movementGhost.apply(t/T));
+                prevPosition.x=ghostHouse.mainGame.ghost.getComponent(PositionComponent.class).getX();
+                prevPosition.y=ghostHouse.mainGame.ghost.getComponent(PositionComponent.class).getY();
 
-        ComponentMapper<PositionComponent> pm = ComponentMapper.getFor(PositionComponent.class);
-        PositionComponent position = pm.get(current);
+                System.out.println("LOX");
+            }
 
+        }
 
     }
 
@@ -73,6 +135,7 @@ public class InputController implements InputProcessor {
         return true; //return true if item is interactable
 
     }
+
 
 
     public static boolean isInside(Vector3 origin, Vector2 size, Vector3 point) {
@@ -85,7 +148,24 @@ public class InputController implements InputProcessor {
 
     @Override
     public boolean keyDown(int keycode) {
-        return false;
+        if(keycode== Input.Keys.NUM_0)
+            ghostHouse.mainUI.deleteItem(0);
+        // ghostHouse.mainUI.removeitem(0);
+
+        if(keycode== Input.Keys.NUM_1) {
+            //  ghostHouse.mainUI.deleteItem(1);
+            ghostHouse.mainGame.miniGame = new Puzzle();
+            ghostHouse.mainGame.minigameon=true;
+
+        }
+        if(keycode== Input.Keys.NUM_2){
+            ghostHouse.mainGame.miniGame=new KillBugs();
+            ghostHouse.mainGame.minigameon=true;
+        }
+        if(keycode== Input.Keys.NUM_3){
+            ghostHouse.mainGame.ghost.getComponent(PositionComponent.class).setXYZ(new Vector3(15, 20, 9));
+        }
+        return true;
     }
 
     @Override
@@ -100,89 +180,68 @@ public class InputController implements InputProcessor {
 
     @Override
     public boolean touchDown(int screenX, int screenY, int pointer, int button) {
-        ray = cameraSystem.cam.getPickRay(Gdx.input.getX(), Gdx.input.getY());//casting the ray
-        short[] temo = mesh.itemIndices.clone();
-        int offset = temo[0];
-        for (int i = 0; i < temo.length; i++) {
-            temo[i] -= offset;
-            if (temo[i] < 0) {
-                temo[i] = 0;
-            }
-        }
+
+
+
 //If intersects the objects' mesh
-        if (Intersector.intersectRayTriangles(ray, mesh.itemVertices, temo, 8, targetPosition)) {
+        if(isIntersected()) {
+            if (ghostHouse.mainUI.numberItem <= 14) {
 
-            for (int i = 0; i < rooms.get(cameraSystem.target).items.size; i++) {
-                pos = rooms.get(cameraSystem.target).items.get(i).getComponent(PositionComponent.class);
-                size = rooms.get(cameraSystem.target).items.get(i).getComponent(SizeComponent.class);
+                for (int i = 0; i < rooms.get(cameraSystem.target).items.size; i++) {
 
-                //which particular item is intersected
-                if (isInside(new Vector3(pos.getX(), pos.getY(), pos.getZ()), new Vector2(size.width, size.height), targetPosition)) {
-                    tx = rooms.get(cameraSystem.target).items.get(i).getComponent(TextureComponent.class);
-                    ghostHouse.mainUI.inventory.addActor(new Image(AssetLoader.getRegion(tx.texture)));
-                    ghostHouse.mainUI.numOfItems++;
-                    ghostHouse.mainUI.inventory.getChildren().get(ghostHouse.mainUI.numOfItems - 1).setPosition(ghostHouse.mainUI.inventoryInd.x, ghostHouse.mainUI.inventoryInd.y);
+                    pos = rooms.get(cameraSystem.target).items.get(i).getComponent(PositionComponent.class);
+                    size = rooms.get(cameraSystem.target).items.get(i).getComponent(SizeComponent.class);
 
-                    ghostHouse.mainUI.inventory.getChildren().get(ghostHouse.mainUI.numOfItems - 1).setSize(100, 100);
-                    ghostHouse.mainUI.inventory.getChildren().get(ghostHouse.mainUI.numOfItems - 1).setBounds(ghostHouse.mainUI.inventoryInd.x, 0, 100, 100);
-                    ghostHouse.mainUI.inventory.getChildren().get(ghostHouse.mainUI.numOfItems - 1).setTouchable(Touchable.enabled);
-                    ghostHouse.mainUI.inventoryInd.x += 100;
+                    //which particular item is intersected
+                    if (isInside(new Vector3(pos.getX(), pos.getY(), pos.getZ()), new Vector2(size.width, size.height), targetPosition))
+                    //
+                    {
 
+                        System.out.println(i);
 
-                    ghostHouse.mainUI.inventory.getChildren().get(ghostHouse.mainUI.numOfItems - 1).addListener(new ActorGestureListener() {
-                        Vector2 prevPosActor = new Vector2();
-
-                        public void pan(InputEvent event, float x, float y, float deltaX, float deltaY) {
-                            event.getListenerActor().setPosition(Gdx.input.getX() - 50 + Math.abs(ghostHouse.mainUI.inventory.getX()), Gdx.graphics.getHeight() - Gdx.input.getY() - 50);
-
+                        if (pos.getZ() >= indexAndMax[0]) { //If the items are overlapping
+                            indexAndMax[0] = pos.getZ();
+                            indexAndMax[1] = i;
                         }
+                        //System.out.println("YEY to item " + i + " in room" + cameraSystem.target);
 
-                        public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
-                            if (event.getListenerActor().getY() > 100) {
-                                for (int i = 0; i < ghostHouse.mainUI.inventory.getChildren().size; i++) {
-                                    if (ghostHouse.mainUI.inventory.getChildren().get(i).getY() != 0) {
-                                        if (i > 0)
-                                            ghostHouse.mainUI.inventory.getChildren().get(i).setPosition(ghostHouse.mainUI.inventory.getChildren().get(i - 1).getX() + 100, 0);
-                                        else
-                                            ghostHouse.mainUI.inventory.getChildren().get(i).setPosition(ghostHouse.mainUI.inventory.getX(), 0);
-                                    }
-
-
-                                }
-
-                            }
-                        }
-
-                    });
-
-                    if (pos.getZ() >= indexAndMax[0]) { //If the items are overlapping
-
-
-                        indexAndMax[0] = pos.getZ();
-                        indexAndMax[1] = rooms.get(cameraSystem.target).items.get(i).getComponent(ItemIdComponent.class).getItemID();
                     }
-                    System.out.println("YEY to item " + i + " in room" + cameraSystem.target);
 
                 }
+                prevPosition=new Vector2(ghostHouse.mainGame.ghost.getComponent(PositionComponent.class).getX(),
+                        ghostHouse.mainGame.ghost.getComponent(PositionComponent.class).getY());
+                takeItem=true;
+                moveCharacter();
+
+
+//                    System.out.println("Item:" + indexAndMax[1] + "in room" + cameraSystem.target);
+
+
             }
-            this.ghostHouse.mainGame.getBuilding().getCurrentRoom().itemWasClicked((int) indexAndMax[1]);
-            System.out.println("Item:" + indexAndMax[1] + "in room" + cameraSystem.target);
-            indexAndMax[0] = 0;
-            indexAndMax[1] = 0;
+
+
+
 
         }
 
         //If click on the building
-//            else if (Intersector.intersectRayTriangles(ray, mesh.buildingVertices, mesh.buildingIndices, 8, targetPosition)) {
-//                moveCharacter(); //move to a place
-//            }
-
-
+        else if (Intersector.intersectRayTriangles(ray, mesh.buildingVertices, mesh.buildingIndices, 8, targetPosition)) {
+            prevPosition=new Vector2(ghostHouse.mainGame.ghost.getComponent(PositionComponent.class).getX(),
+                    ghostHouse.mainGame.ghost.getComponent(PositionComponent.class).getY());
+            moveCharacter();
+        }
         return true;
+    }
+
+    public void addToInventory(int i ){
+        tx = rooms.get(cameraSystem.target).items.get(i).getComponent(TextureComponent.class);
+        ghostHouse.mainUI.addItem(new InventoryItem(i, tx));
     }
 
     @Override
     public boolean touchUp(int screenX, int screenY, int pointer, int button) {
+
+
         return false;
     }
 
@@ -193,11 +252,31 @@ public class InputController implements InputProcessor {
 
     @Override
     public boolean mouseMoved(int screenX, int screenY) {
+//        if(Gdx.input.isKeyPressed(Input.Keys.B)){
+//            ghostHouse.mainUI.deleteItem(5);
+//        }
         return false;
     }
 
     @Override
     public boolean scrolled(int amount) {
         return false;
+    }
+
+    public boolean isIntersected(){
+        ray = cameraSystem.cam.getPickRay(Gdx.input.getX(), Gdx.input.getY());//casting the ray
+        short[] temo = mesh.itemIndices.clone();
+        int offset = temo[0];
+        for (int i = 0; i < temo.length; i++) {
+            temo[i] -= offset;
+            if (temo[i] < 0) {
+                temo[i] = 0;
+            }
+        }
+
+        if (Intersector.intersectRayTriangles(ray, mesh.itemVertices, temo, 8, targetPosition))
+            return true;
+        else
+            return false;
     }
 }

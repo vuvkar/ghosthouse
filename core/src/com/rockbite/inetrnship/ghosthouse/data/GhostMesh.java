@@ -155,7 +155,7 @@ public class GhostMesh {
                 for(Mesh mesh: current.meshes) {
 
                 }
-                System.out.println("qaq");
+               // System.out.println("qaq");
             }
             else {
                 addModel(model);

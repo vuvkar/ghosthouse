@@ -38,6 +38,16 @@ public class AssetLoader extends AssetManager {
         ATLAS_HEIGHT = atlas.getTextures().first().getHeight();
         ATLAS_WIDTH = atlas.getTextures().first().getWidth();
         loadGameData();
+//
+//        TexturePacker.Settings settings = new TexturePacker.Settings();
+//     settings.maxHeight = 4096;
+//     settings.maxWidth = 4096;
+//        TexturePacker.process(settings,"Uipics", "Uipacked", "UI");
+
+//                TexturePacker.Settings settings = new TexturePacker.Settings();
+//     settings.maxHeight = 4096;
+//     settings.maxWidth = 4096;
+//        TexturePacker.process(settings,"MiniGame/MinigamePics", "MiniGame/AtlasGame", "PuzzleAtlas");
     }
 
     public void loadGameData() {

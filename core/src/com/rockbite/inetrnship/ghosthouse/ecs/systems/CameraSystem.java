@@ -16,6 +16,7 @@ import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.Array;
 import com.rockbite.inetrnship.ghosthouse.AssetLoader;
+import com.rockbite.inetrnship.ghosthouse.MainUI;
 import com.rockbite.inetrnship.ghosthouse.data.GhostMesh;
 import com.rockbite.inetrnship.ghosthouse.data.Room;
 import com.rockbite.inetrnship.ghosthouse.ecs.components.CameraComponent;
@@ -27,7 +28,7 @@ public class CameraSystem extends EntitySystem {
     Array<Room> rooms;
     CameraComponent cameraComponent;
     public static Vector3 interpolColor = new Vector3(0, 0, 0);
-    public int target = 0;
+    public static int target = 0;
     public PerspectiveCamera cam;
     Stage stage = new Stage();
     private Vector3 dist = new Vector3(0, 0, 0); //Distance to cover when moving from room to room in all 3 directions
@@ -67,6 +68,7 @@ public class CameraSystem extends EntitySystem {
 
         if(Gdx.input.isKeyJustPressed(Input.Keys.ENTER)) {
             target++;
+            MainUI.text.setText("Room "+(target+1)+"");
             if (target == rooms.size)
                 target = 0;
             t = 0;
@@ -93,7 +95,7 @@ public class CameraSystem extends EntitySystem {
                 if (t < T) {
                     cam.position.set(cameraComponent.bottomLeft.x + dist.x * t / T, cameraComponent.bottomLeft.y + dist.y
                             * a.apply(t / T), cameraComponent.bottomLeft.z + dist.z * z.apply(t / T));
-                    t += Gdx.graphics.getDeltaTime() * 5f;
+                    t += Gdx.graphics.getDeltaTime() * 20f;
                     Vector3 roomColor = new Vector3(rooms.get(target - 1).lightCol1.x + timeRatio * rDistance, rooms.get(target - 1).lightCol1.y + timeRatio * gDistance, rooms.get(target - 1).lightCol1.z + timeRatio * bDistance);
                     GhostMesh.lightColor.set(roomColor);
                 } else if (t >= T) {
@@ -125,4 +127,6 @@ public class CameraSystem extends EntitySystem {
         double r = y / (Math.sin((alpha / 180) * Math.PI / 2));
         return Math.sqrt(r * r - y * y);
     }
+
+
 }
