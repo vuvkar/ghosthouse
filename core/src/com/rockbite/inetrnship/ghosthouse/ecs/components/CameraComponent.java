@@ -8,7 +8,6 @@ public class CameraComponent implements Component {
     public Vector3 bottomLeft; //Lower-Left aka the midpoint of the room
     public Vector3 targetVec; //Midpoint of the target room
 
-
     public CameraComponent(Vector3 bottomLeft, Vector3 targetVec) {
         this.bottomLeft = bottomLeft;
         this.targetVec = targetVec;

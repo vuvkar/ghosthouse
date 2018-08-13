@@ -28,10 +28,10 @@ public class GhostHouse extends ApplicationAdapter {
 
         mainGame.render();
         mainUI.draw();
-        if(mainGame.minigameon){
+        if (mainGame.miniGameOn) {
             mainGame.miniGame.render();
         }
-        if(mainGame.inputController.isMoving){
+        if (mainGame.inputController.isMoving) {
             mainGame.inputController.moveCharacter();
         }
     }
@@ -44,7 +44,7 @@ public class GhostHouse extends ApplicationAdapter {
 
     public void resize(int width, int height) {
         mainUI.getViewport().setScreenSize(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
-        if(MainGame.minigameon)
+        if (MainGame.miniGameOn)
             Puzzle.stage.getViewport().setScreenSize(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
         System.out.println(Gdx.graphics.getWidth());
 

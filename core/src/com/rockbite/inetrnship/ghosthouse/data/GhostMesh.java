@@ -2,16 +2,12 @@ package com.rockbite.inetrnship.ghosthouse.data;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetManager;
-import com.badlogic.gdx.assets.loaders.ModelLoader;
 import com.badlogic.gdx.graphics.*;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g3d.Model;
-import com.badlogic.gdx.graphics.g3d.ModelBatch;
-import com.badlogic.gdx.graphics.g3d.ModelInstance;
 import com.badlogic.gdx.graphics.glutils.ShaderProgram;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.utils.Array;
-import com.badlogic.gdx.utils.JsonReader;
 import com.esotericsoftware.spine.Slot;
 import com.esotericsoftware.spine.attachments.Attachment;
 import com.esotericsoftware.spine.attachments.RegionAttachment;
@@ -54,7 +50,6 @@ public class GhostMesh {
 
     IntWrapper vertexIndex = new IntWrapper(0);
     IntWrapper indIndex = new IntWrapper(0);
-
 
     public Mesh building;
 
@@ -101,19 +96,19 @@ public class GhostMesh {
         animationIndices = new short[animations.size * 2 * 3];
         int index = 0;
         int slotCount = 0;
-        for(Slot slot: animations) {
+        for (Slot slot : animations) {
             float[] vertex = new float[0];
             Attachment attachment = slot.getAttachment();
-            if(attachment instanceof RegionAttachment) {
-                RegionAttachment a = (RegionAttachment)attachment;
+            if (attachment instanceof RegionAttachment) {
+                RegionAttachment a = (RegionAttachment) attachment;
                 a.getRegion().getTexture().bind();
                 vertex = a.updateWorldVertices(slot, true);
             }
             int i = 0;
-            for(int j = 0; j < vertex.length; j += 5) {
+            for (int j = 0; j < vertex.length; j += 5) {
                 animationVertices[index++] = vertex[i++];
                 animationVertices[index++] = vertex[i++];
-                animationVertices[index++] = (float)((GhostBuilding.BUILDING_DEPTH - CHARACTER_SPACE) + (CHARACTER_SPACE/animations.size) * slotCount);
+                animationVertices[index++] = (float) ((GhostBuilding.BUILDING_DEPTH - CHARACTER_SPACE) + (CHARACTER_SPACE / animations.size) * slotCount);
                 i++;
                 animationVertices[index++] = vertex[i++];
                 animationVertices[index++] = vertex[i++];
@@ -125,13 +120,13 @@ public class GhostMesh {
         }
         index = 0;
         for (int j = 0; j < animations.size; j++) {
-            int i = j *4;
-            animationIndices[index++] = (short)i;
-            animationIndices[index++] = (short)(i + 1);
-            animationIndices[index++] = (short)(i + 2);
-            animationIndices[index++] = (short)(i + 2);
-            animationIndices[index++] = (short)(i + 3);
-            animationIndices[index++] = (short)i;
+            int i = j * 4;
+            animationIndices[index++] = (short) i;
+            animationIndices[index++] = (short) (i + 1);
+            animationIndices[index++] = (short) (i + 2);
+            animationIndices[index++] = (short) (i + 2);
+            animationIndices[index++] = (short) (i + 3);
+            animationIndices[index++] = (short) i;
         }
     }
 
@@ -215,13 +210,13 @@ public class GhostMesh {
         short[] combinedBuildingAndItemsIndex = HelperClass.shortArrayCopy(buildingIndices, itemIndices);
 
         float[] combinedBuildingAnimationItemsV = HelperClass.floatArrayCopy(combinedBuildingAndItemsVertex, animationVertices);
-        for(int i = 0; i < animationIndices.length; i++) {
+        for (int i = 0; i < animationIndices.length; i++) {
             animationIndices[i] += combinedBuildingAndItemsIndex[combinedBuildingAndItemsIndex.length - 1] + 1;
         }
         short[] combinedBuildingAnimationItemsI = HelperClass.shortArrayCopy(combinedBuildingAndItemsIndex, animationIndices);
 
         float[] combinedEverythingV = HelperClass.floatArrayCopy(combinedBuildingAnimationItemsV, modelVertices);
-        for(int i = 0; i < modelIndices.length; i++) {
+        for (int i = 0; i < modelIndices.length; i++) {
             modelIndices[i] += combinedBuildingAnimationItemsI[combinedBuildingAnimationItemsI.length - 1] + 1;
         }
 
@@ -254,17 +249,17 @@ public class GhostMesh {
 
         for (int i = 0; i < 4; i++) {
             Vector3 normal = rectangle.getNormal();
-            vertices[vertexIndex.value++] = rectangle.getX() + Math.round( (Math.abs(normal.z) + Math.abs(normal.y))/2) *  (i % 2) * rectangle.getWidth();
-            vertices[vertexIndex.value++] = rectangle.getY() + Math.round( (Math.abs(normal.z) + Math.abs(normal.x))/2) * (i >> 1) * rectangle.getHeight();
-            vertices[vertexIndex.value++] = rectangle.getZ() + (i % 2) * Math.abs(normal.x) * rectangle.getWidth() +  Math.abs(normal.y) * (i >> 1) * rectangle.getHeight() ;
+            vertices[vertexIndex.value++] = rectangle.getX() + Math.round((Math.abs(normal.z) + Math.abs(normal.y)) / 2) * (i % 2) * rectangle.getWidth();
+            vertices[vertexIndex.value++] = rectangle.getY() + Math.round((Math.abs(normal.z) + Math.abs(normal.x)) / 2) * (i >> 1) * rectangle.getHeight();
+            vertices[vertexIndex.value++] = rectangle.getZ() + (i % 2) * Math.abs(normal.x) * rectangle.getWidth() + Math.abs(normal.y) * (i >> 1) * rectangle.getHeight();
 
             // UV Coordinates
             TextureAtlas.AtlasRegion region = rectangle.getType().getTexture(rectangle.getTexture());
             float diffU = region.getU2() - region.getU();
             float diffV = region.getV2() - region.getV();
 
-            vertices[vertexIndex.value++] = region.getU() + diffU * rectangle.getuOrigin() + (float)(i % 2) * rectangle.getuWidht() * (diffU );
-            vertices[vertexIndex.value++] = region.getV() + diffV * rectangle.getvOrigin() + (float)((3 - i) >> 1) * rectangle.getvHeight() * (diffV);
+            vertices[vertexIndex.value++] = region.getU() + diffU * rectangle.getuOrigin() + (float) (i % 2) * rectangle.getuWidht() * (diffU);
+            vertices[vertexIndex.value++] = region.getV() + diffV * rectangle.getvOrigin() + (float) ((3 - i) >> 1) * rectangle.getvHeight() * (diffV);
 
             // Normal
             vertices[vertexIndex.value++] = normal.x;
@@ -273,5 +268,4 @@ public class GhostMesh {
         }
 
     }
-
 }

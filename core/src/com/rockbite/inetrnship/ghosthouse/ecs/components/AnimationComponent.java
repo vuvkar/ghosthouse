@@ -22,7 +22,7 @@ public class AnimationComponent implements Component {
        skeleton = new Skeleton(skeletonData); // Skeleton holds skeleton state (bone positions, slot attachments, etc).
        AnimationStateData stateData = new AnimationStateData(skeletonData); // Defines mixing (crossfading) between animations.
 
-       state = new AnimationState(stateData); // Holds the animation state for a skeleton (current animation, time, etc).
-       state.setAnimation(0, "run", true);
-   }
+        state = new AnimationState(stateData); // Holds the animation state for a skeleton (current animation, time, etc).
+        state.setAnimation(0, "run", true);
+    }
 }

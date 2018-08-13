@@ -5,23 +5,20 @@ import com.badlogic.ashley.core.Entity;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.graphics.*;
-
 import com.badlogic.gdx.math.Vector3;
-import com.badlogic.gdx.math.collision.Ray;
 import com.badlogic.gdx.utils.Array;
 import com.rockbite.inetrnship.ghosthouse.MiniGames.MiniGame;
 import com.rockbite.inetrnship.ghosthouse.data.GhostBuilding;
 import com.rockbite.inetrnship.ghosthouse.data.GhostMesh;
 import com.rockbite.inetrnship.ghosthouse.data.Room;
 import com.rockbite.inetrnship.ghosthouse.ecs.components.*;
-
 import com.rockbite.inetrnship.ghosthouse.ecs.systems.CameraSystem;
 import com.rockbite.inetrnship.ghosthouse.ecs.systems.RenderSystem;
 import com.rockbite.inetrnship.ghosthouse.util.HelperClass;
 
 
 public class MainGame {
-    public Entity ghost = HelperClass.createGhost(new Vector3(0,0,0));
+    public Entity ghost = HelperClass.createGhost(new Vector3(0, 0, 0));
     private GhostHouse ghostHouse;
     private Engine engine;
     public CameraSystem cameraSystem;
@@ -29,7 +26,7 @@ public class MainGame {
     private AssetLoader assetLoader;
     public InputController inputController;
     public static MiniGame miniGame = new MiniGame();
-    public static boolean minigameon = false;
+    public static boolean miniGameOn = false;
     private Array<Room> rooms;
     public static InputMultiplexer multiplexer = new InputMultiplexer();
 
@@ -52,7 +49,6 @@ public class MainGame {
 
         assetLoader = ghostHouse.assetLoader;
         rooms = assetLoader.getRooms();
-
 
         building = new GhostBuilding(rooms, assetLoader);
         meshok = new GhostMesh(building.getAllRects(), assetLoader);
@@ -79,24 +75,21 @@ public class MainGame {
             for (Entity entity : room.items) {
                 engine.addEntity(entity);
             }
-            for(Entity entity: room.models) {
+            for (Entity entity : room.models) {
                 engine.addEntity(entity);
             }
-            if(room.id == 0)
-            {
+            if (room.id == 0) {
                 ghostPosition.set(room.origin.x + GhostBuilding.WALL_HEIGHT, room.origin.y, building.BUILDING_DEPTH);
             }
         }
 
-
         ghost.getComponent(PositionComponent.class).setXYZ(ghostPosition);
-        multiplexer.addProcessor( ghostHouse.mainUI);
+        multiplexer.addProcessor(ghostHouse.mainUI);
         multiplexer.addProcessor(inputController);
         Gdx.input.setInputProcessor(multiplexer);
-        System.out.println( ghost.getComponent(PositionComponent.class).getX());
+        System.out.println(ghost.getComponent(PositionComponent.class).getX());
 
         engine.addEntity(ghost);
-
     }
 
     public void leavedRoom() {
@@ -120,7 +113,6 @@ public class MainGame {
         // then render building walls
         // TODO: render building
 
-
         meshok.render(cameraSystem.cam);
 
         // then render decorations/characters and items
@@ -128,9 +120,7 @@ public class MainGame {
 
         // DO postprocessing of FBO and render it to screen
         // TODO: final render
-
     }
-
 
     public void dispose() {
     }

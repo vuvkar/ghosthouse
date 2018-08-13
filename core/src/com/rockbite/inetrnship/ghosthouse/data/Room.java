@@ -51,7 +51,7 @@ public abstract class Room implements Comparable<Room> {
                 item.add(new ScaleComponent(object2.scale[0], object2.scale[1], object2.scale[2]));
                 item.add(new RotationComponent(object2.rotation[0], object2.rotation[1], object2.rotation[2]));
                 item.add(new SizeComponent(object2.width, object2.height));
-                items.add (item);
+                items.add(item);
             }
         }
 
@@ -61,8 +61,8 @@ public abstract class Room implements Comparable<Room> {
                 this.origin.y + 5 - this.height, 2));
         item.add(new RoomObjectComponent(this.id));
         item.add(new ItemIdComponent(158));
-        item.add(new ScaleComponent(1.0f , 1.0f, 1.0f));
-        item.add(new RotationComponent(0f,0f,0f));
+        item.add(new ScaleComponent(1.0f, 1.0f, 1.0f));
+        item.add(new RotationComponent(0f, 0f, 0f));
         item.add(new SizeComponent(1, 1));
         models.add(item);
 
@@ -91,19 +91,21 @@ public abstract class Room implements Comparable<Room> {
     }
 
     abstract public void roomStarted();
+
     abstract public void itemWasClicked(int itemID);
+
     abstract public void itemWasDragged(int fromInventory, int toRoomItem);
 
     public void leaveRoom() {
         mainGame.leavedRoom();
     }
 
-    public void changeItemTexture(int itemID, String textureName) {}
+    public void changeItemTexture(int itemID, String textureName) {
+    }
 
     public void setItemStatus(int itemID, ItemType type) {
-        for(Entity item: items) {
-            if(roomComponent.get(item).getItemID()==itemID)
-            {
+        for (Entity item : items) {
+            if (roomComponent.get(item).getItemID() == itemID) {
                 itemTypeComponent.get(item).setType(type);
             }
         }
@@ -116,9 +118,8 @@ public abstract class Room implements Comparable<Room> {
 
 
     public ItemType getItemStatus(int itemID) {
-        for(Entity item: items) {
-            if(roomComponent.get(item).getItemID()==itemID)
-            {
+        for (Entity item : items) {
+            if (roomComponent.get(item).getItemID() == itemID) {
                 return itemTypeComponent.get(item).getType();
             }
         }
@@ -132,15 +133,14 @@ public abstract class Room implements Comparable<Room> {
     }
 
     private Entity getItemById(int itemID) {
-        for(Entity entity: items) {
-            ItemIdComponent comp =  entity.getComponent(ItemIdComponent.class);
-            if(comp.getItemID() == itemID) {
+        for (Entity entity : items) {
+            ItemIdComponent comp = entity.getComponent(ItemIdComponent.class);
+            if (comp.getItemID() == itemID) {
                 return entity;
             }
         }
         return null;
     }
-
 
     @Override
     public int compareTo(Room o) {

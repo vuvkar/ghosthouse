@@ -1,7 +1,5 @@
 package com.rockbite.inetrnship.ghosthouse.data;
 
-import com.badlogic.gdx.graphics.g2d.TextureAtlas;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector3;
 
 public class GhostRectangle implements Comparable<GhostRectangle> {
@@ -16,8 +14,8 @@ public class GhostRectangle implements Comparable<GhostRectangle> {
     private String texture;
     private float uOrigin;
     private float vOrigin;
-    private float uWidht;
-    private  float vHeight;
+    private float uWidth;
+    private float vHeight;
 
     public float getuOrigin() {
         return uOrigin;
@@ -36,11 +34,11 @@ public class GhostRectangle implements Comparable<GhostRectangle> {
     }
 
     public float getuWidht() {
-        return uWidht;
+        return uWidth;
     }
 
     public void setuWidht(float uWidht) {
-        this.uWidht = uWidht;
+        this.uWidth = uWidht;
     }
 
     public float getvHeight() {
@@ -69,7 +67,7 @@ public class GhostRectangle implements Comparable<GhostRectangle> {
         this.z = other.z;
         this.uOrigin = other.uOrigin;
         this.vOrigin = other.vOrigin;
-        this.uWidht = other.uWidht;
+        this.uWidth = other.uWidth;
         this.vHeight = other.vHeight;
         this.texture = other.texture;
     }
@@ -107,7 +105,7 @@ public class GhostRectangle implements Comparable<GhostRectangle> {
         this.type = type;
         this.uOrigin = 0;
         this.vOrigin = 0;
-        this.uWidht = 1f;
+        this.uWidth = 1f;
         this.vHeight = 1f;
     }
 
