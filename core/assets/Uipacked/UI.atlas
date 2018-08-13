@@ -1,33 +1,40 @@
 
 UI.png
-size: 1024,256
+size: 2048,1024
 format: RGBA8888
 filter: Nearest,Nearest
 repeat: none
 Blue
   rotate: false
-  xy: 285, 118
+  xy: 149, 62
   size: 129, 136
   orig: 129, 136
   offset: 0, 0
   index: -1
 Green
   rotate: false
-  xy: 416, 118
+  xy: 1108, 744
   size: 129, 136
   orig: 129, 136
   offset: 0, 0
   index: -1
 Play
   rotate: false
-  xy: 547, 118
+  xy: 1244, 885
   size: 129, 136
   orig: 129, 136
   offset: 0, 0
   index: -1
+SettingsMenu
+  rotate: false
+  xy: 2, 200
+  size: 1104, 821
+  orig: 1104, 821
+  offset: 0, 0
+  index: -1
 downbar
   rotate: false
-  xy: 73, 72
+  xy: 411, 157
   size: 56, 41
   split: 26, 26, 27, 10
   pad: 0, 0, 0, 0
@@ -36,28 +43,28 @@ downbar
   index: -1
 left
   rotate: false
-  xy: 2, 58
+  xy: 2, 2
   size: 69, 55
   orig: 69, 55
   offset: 0, 0
   index: -1
 pink
   rotate: false
-  xy: 678, 118
+  xy: 280, 62
   size: 129, 136
   orig: 129, 136
   offset: 0, 0
   index: -1
 right
   rotate: false
-  xy: 809, 199
+  xy: 1108, 687
   size: 68, 55
   orig: 68, 55
   offset: 0, 0
   index: -1
 room_name_slot
   rotate: false
-  xy: 2, 2
+  xy: 1375, 967
   size: 54, 54
   split: 25, 25, 25, 25
   pad: 0, 0, 0, 0
@@ -66,14 +73,14 @@ room_name_slot
   index: -1
 slot1
   rotate: false
-  xy: 149, 115
+  xy: 1108, 882
   size: 134, 139
   orig: 134, 139
   offset: 0, 0
   index: -1
 slot2
   rotate: false
-  xy: 2, 115
+  xy: 2, 59
   size: 145, 139
   orig: 145, 139
   offset: 0, 0
