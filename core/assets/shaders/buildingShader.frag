@@ -16,5 +16,7 @@ void main() {
     float dot = dot(normalize(v_toLight), normalize(v_normal));
     vec4 zibil =  texture2D(texture, v_coords);
     zibil.rgb *= max(dot, 0.2);
-    gl_FragColor = zibil * vec4(u_lightColor, 1);
+    if(zibil.a < 0.1)
+       discard;
+    gl_FragColor = zibil * vec4(u_lightColor, 1.0);
 }

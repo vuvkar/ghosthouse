@@ -2,9 +2,12 @@ package com.rockbite.inetrnship.ghosthouse;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetManager;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.tools.texturepacker.TexturePacker;
 import com.badlogic.gdx.utils.Array;
+import com.badlogic.gdx.utils.Json;
 import com.rockbite.inetrnship.ghosthouse.data.GhostMesh;
 import com.rockbite.inetrnship.ghosthouse.data.Room;
 import com.rockbite.inetrnship.ghosthouse.data.Room1;
@@ -18,6 +21,7 @@ import java.io.IOException;
 public class AssetLoader extends AssetManager {
 
     private Array<Room> rooms;
+    public Room currentRoom;
     public static TextureAtlas atlas;
 
     public static float ATLAS_HEIGHT;
@@ -56,9 +60,17 @@ public class AssetLoader extends AssetManager {
         GhostMesh.ITEM_COUNT = 0;
         int[][] pixelData = readPixelData();
         rooms = processRoomData(pixelData);
-        for (Room room : rooms) {
+        Json json = new Json();
+        Room1 room1 = json.fromJson(Room1.class, Gdx.files.internal("JSON/room1.json"));
+        Room1 room2 = json.fromJson(Room1.class, Gdx.files.internal("JSON/room2.json"));
+        Room1 room3 = json.fromJson(Room1.class, Gdx.files.internal("JSON/room3.json"));
+        Room1 room4 = json.fromJson(Room1.class, Gdx.files.internal("JSON/room4.json"));
+        Array<Room> newRooms = new Array<Room>();
+        newRooms.add(room1, room2, room3, room4);
+        for(Room room: newRooms) {
             room.loadEntities();
         }
+        rooms = newRooms;
     }
 
     public static TextureAtlas.AtlasRegion getRegion(String name) {

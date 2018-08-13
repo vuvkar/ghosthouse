@@ -51,9 +51,7 @@ public class MainGame {
         rooms = assetLoader.getRooms();
 
         building = new GhostBuilding(rooms, assetLoader);
-        meshok = new GhostMesh(building.getAllRects());
-
-        building.setCurrentRoom(rooms.first());
+        meshok = new GhostMesh(building.getAllRects(), assetLoader);
 
         engine = new Engine();
 

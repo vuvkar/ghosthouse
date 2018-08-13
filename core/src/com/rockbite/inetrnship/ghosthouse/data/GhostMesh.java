@@ -10,7 +10,10 @@ import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.utils.Array;
 import com.esotericsoftware.spine.Slot;
 import com.esotericsoftware.spine.attachments.Attachment;
+import com.esotericsoftware.spine.attachments.MeshAttachment;
 import com.esotericsoftware.spine.attachments.RegionAttachment;
+import com.rockbite.inetrnship.ghosthouse.AssetLoader;
+import com.rockbite.inetrnship.ghosthouse.GhostHouse;
 import com.rockbite.inetrnship.ghosthouse.util.HelperClass;
 import com.rockbite.inetrnship.ghosthouse.util.IntWrapper;
 
@@ -25,12 +28,14 @@ public class GhostMesh {
 
     public static int ITEM_COUNT = 0;
 
-    public static Vector3 lightColor = new Vector3(255.0f / 255.0f, 255.0f / 255.0f, 255.0f / 255.0f);
+    public static Vector3 lightColor;
 
     private boolean loading;
 
     Texture assets;
     AssetManager assetManager;
+
+    AssetLoader loader;
 
     public float[] buildingVertices;
     public short[] buildingIndices;
@@ -41,7 +46,7 @@ public class GhostMesh {
     public float[] animationVertices;
     public short[] animationIndices;
 
-    public float[] modelVertices;
+    public float[] modelVertices ;
     public short[] modelIndices;
 
     IntWrapper vertexIndex = new IntWrapper(0);
@@ -51,18 +56,19 @@ public class GhostMesh {
 
     public ShaderProgram shaderProgram;
 
-    public GhostMesh(Array<GhostRectangle> rectangles) {
+    public GhostMesh(Array<GhostRectangle> rectangles, AssetLoader loader) {
+        this.loader = loader;
 
         assets = new Texture(Gdx.files.internal("packed/game.png"));
 
         buildingVertices = new float[rectangles.size * 4 * ATTRIBUTE_COUNT];
         buildingIndices = new short[rectangles.size * 3 * 2];
 
+        modelVertices = new float[32767 * 4];
+        modelIndices = new short[10922 * 4];
+
         animationIndices = new short[]{};
         animationVertices = new float[]{};
-
-        modelVertices = new float[]{};
-        modelIndices = new short[]{};
 
         assets.setWrap(Texture.TextureWrap.Repeat, Texture.TextureWrap.Repeat);
 
@@ -75,7 +81,7 @@ public class GhostMesh {
             drawRectangle(rect, buildingVertices, vertexIndex, buildingIndices, indIndex, 0);
         }
 
-        building = new Mesh(true, 10000, 10000,
+        building = new Mesh(true, 300000, 120000,
                 new VertexAttribute(VertexAttributes.Usage.Position, POSITION_ATTRIBUTE_COUNT, ShaderProgram.POSITION_ATTRIBUTE),
                 new VertexAttribute(VertexAttributes.Usage.TextureCoordinates, TEXTURE_ATTRIBUTE_COUNT, ShaderProgram.TEXCOORD_ATTRIBUTE + "0"),
                 new VertexAttribute(VertexAttributes.Usage.Normal, NORMAL_ATTRIBUTE_COUNT, ShaderProgram.NORMAL_ATTRIBUTE));
@@ -96,9 +102,13 @@ public class GhostMesh {
             Attachment attachment = slot.getAttachment();
             if (attachment instanceof RegionAttachment) {
                 RegionAttachment a = (RegionAttachment) attachment;
-                a.getRegion().getTexture().bind();
                 vertex = a.updateWorldVertices(slot, true);
             }
+//            if (attachment instanceof MeshAttachment) {
+//                MeshAttachment a = (MeshAttachment) attachment;
+//                a.getRegion().getTexture().bind();
+//                vertex = a.updateWorldVertices(slot, true);
+//            }
             int i = 0;
             for (int j = 0; j < vertex.length; j += 5) {
                 animationVertices[index++] = vertex[i++];
@@ -139,15 +149,52 @@ public class GhostMesh {
     }
 
     public void renderModels(Array<String> models) {
-        modelVertices = new float[0];
-        modelIndices = new short[0];
-        for (String model : models) {
-            if (assetManager.isLoaded("models/" + model)) {
-                Model current = assetManager.get("models/" + model, Model.class);
-                for (Mesh mesh : current.meshes) {
 
+        int vOffset = 0;
+        int iOffset = 0;
+
+        boolean rendered = true;
+
+        for(String model: models){
+            if (assetManager.isLoaded("models/" + model)) {
+                if(rendered) {
+                    rendered = false;
+                    Model current = assetManager.get("models/" + model, Model.class);
+                    Mesh currentMesh = current.meshes.first();
+
+                 //   ModelInstance
+
+                    //ModelBatch batch = new ModelBatch();
+                 //   batch.render(new ModelInstance(current));
+
+                    float[] currentVertices = new float[currentMesh.getNumVertices() * currentMesh.getVertexAttributes().vertexSize / 4];
+                    short[] currentIndices = new short[currentMesh.getNumIndices()*2];
+
+                    currentMesh.getVertices(currentVertices);
+                    currentMesh.getIndices(currentIndices);
+                    TextureAtlas.AtlasRegion region = AssetLoader.getRegion("bark");
+
+                    for (int i = 0; i < currentVertices.length; ) {
+                        modelVertices[vOffset++] = currentVertices[i++] + 2.0f;
+                        modelVertices[vOffset++] = currentVertices[i++] + 12.0f;
+                        modelVertices[vOffset++] = currentVertices[i++] + 5.0f;
+
+                        modelVertices[vOffset++] = (i % 2) * region.getU() + ((i + 1)%2) * region.getU2();
+                        modelVertices[vOffset++] = (i % 2) * region.getV() + ((i + 1)%2) * region.getV2();
+
+                        modelVertices[vOffset++] = currentVertices[i++];
+                        modelVertices[vOffset++] = currentVertices[i++];
+                        modelVertices[vOffset++] = currentVertices[i++];
+
+                    }
+
+                    for (int i = 0; i < currentIndices.length; i++) {
+                        modelIndices[iOffset++] = currentIndices[i];
+                    }
+                   // System.out.println("qaqik");
                 }
-            } else {
+            }
+            else {
                 addModel(model);
             }
         }
@@ -212,7 +259,7 @@ public class GhostMesh {
             vertices[vertexIndex.value++] = rectangle.getZ() + (i % 2) * Math.abs(normal.x) * rectangle.getWidth() + Math.abs(normal.y) * (i >> 1) * rectangle.getHeight();
 
             // UV Coordinates
-            TextureAtlas.AtlasRegion region = rectangle.getType().getTexture(rectangle.getTexture());
+            TextureAtlas.AtlasRegion region = AssetLoader.getRegion(rectangle.getTexture());
             float diffU = region.getU2() - region.getU();
             float diffV = region.getV2() - region.getV();
 

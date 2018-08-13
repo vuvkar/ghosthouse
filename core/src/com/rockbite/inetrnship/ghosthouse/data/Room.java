@@ -10,6 +10,7 @@ import com.badlogic.gdx.utils.Json;
 import com.rockbite.inetrnship.ghosthouse.MainGame;
 import com.rockbite.inetrnship.ghosthouse.ecs.components.*;
 
+
 public abstract class Room implements Comparable<Room> {
     public MainGame mainGame;
 
@@ -17,23 +18,33 @@ public abstract class Room implements Comparable<Room> {
     public Vector2 origin;
     public float width;
     public float height;
-    public Vector3 lightCol1 = new Vector3(255.0f / 255.0f, 255.0f / 255.0f, 255.0f / 255.0f);
-    public Vector3 lightCol2 = new Vector3(255.0f / 255.0f, 255.0f / 255.0f, 255.0f / 255.0f);
+
+    public String floorTexture;
+    public String sideWallTexture;
+    public String wallTexture;
+    public String ceilingTexture;
+
+    public float[] light;
 
     ComponentMapper<ItemTypeComponent> itemTypeComponent = ComponentMapper.getFor(ItemTypeComponent.class);
     ComponentMapper<ItemIdComponent> roomComponent = ComponentMapper.getFor(ItemIdComponent.class);
 
+    public Array<Object> objects;
+
     public Array<Entity> items;
     public Array<Entity> models;
+
 
     public void loadEntities() {
         items = new Array<Entity>();
         models = new Array<Entity>();
 
-        Json json = new Json();
-        Array<Object> array = json.fromJson(Array.class, Gdx.files.internal("JSON/trial.json"));
-        for (Object object : array.items) {
-            if (object != null) {
+        light[0] /= 255;
+        light[1] /= 255;
+        light[2] /= 255;
+
+        for (Object object : objects) {
+            if ((GameObject) object != null) {
                 GameObject object2 = (GameObject) object;
                 Entity item = new Entity();
                 item.add(new TextureComponent(object2.texture));
@@ -63,6 +74,26 @@ public abstract class Room implements Comparable<Room> {
         GhostMesh.ITEM_COUNT += items.size;
     }
 
+    public void setMainGame(MainGame mainGame) {
+        this.mainGame = mainGame;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public void setOrigin(Vector2 origin) {
+        this.origin = origin;
+    }
+
+    public void setWidth(float width) {
+        this.width = width;
+    }
+
+    public void setHeight(float height) {
+        this.height = height;
+    }
+
     abstract public void roomStarted();
 
     abstract public void itemWasClicked(int itemID);
@@ -83,6 +114,12 @@ public abstract class Room implements Comparable<Room> {
             }
         }
     }
+
+    public void openMiniGame() {
+
+    }
+
+
 
     public ItemType getItemStatus(int itemID) {
         for (Entity item : items) {
