@@ -20,7 +20,7 @@ import java.io.IOException;
 
 public class AssetLoader extends AssetManager {
 
-    private Array<Room> rooms;
+    public static Array<Room> rooms;
     public Room currentRoom;
     public static TextureAtlas atlas;
 
@@ -74,6 +74,9 @@ public class AssetLoader extends AssetManager {
     }
 
     public static TextureAtlas.AtlasRegion getRegion(String name) {
+        if(name == "") {
+            return  new TextureAtlas.AtlasRegion(new Texture(Gdx.files.internal("textures/album.png")), 0, 0, 0, 0);
+        }
         return atlas.findRegion(name);
     }
 
@@ -146,8 +149,8 @@ public class AssetLoader extends AssetManager {
             float height = roomParser.getRoomHeight(rawPixelData, i);
             float width = roomParser.getRoomWidth(rawPixelData, i);
 
-            Room1 room = new Room1(i, bottomLeft, height, width);
-            roomArray.add(room);
+           // Room1 room = new Room1(i, bottomLeft, height, width);
+           // roomArray.add(room);
         }
 
         return roomArray;

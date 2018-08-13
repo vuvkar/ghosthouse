@@ -13,7 +13,10 @@ import com.badlogic.gdx.utils.Array;
 import com.rockbite.inetrnship.ghosthouse.MiniGames.KillTheBugs.KillBugs;
 import com.rockbite.inetrnship.ghosthouse.MiniGames.Puzzle.Puzzle;
 import com.rockbite.inetrnship.ghosthouse.data.GhostMesh;
+import com.rockbite.inetrnship.ghosthouse.data.ItemType;
 import com.rockbite.inetrnship.ghosthouse.data.Room;
+import com.rockbite.inetrnship.ghosthouse.data.Room1;
+import com.rockbite.inetrnship.ghosthouse.ecs.components.ItemIdComponent;
 import com.rockbite.inetrnship.ghosthouse.ecs.components.PositionComponent;
 import com.rockbite.inetrnship.ghosthouse.ecs.components.SizeComponent;
 import com.rockbite.inetrnship.ghosthouse.ecs.components.TextureComponent;
@@ -42,6 +45,7 @@ public class InputController implements InputProcessor {
     boolean isMoving = false;
     boolean takeItem = false;
 
+
     public InputController(GhostMesh mesh, CameraSystem cameraSystem, GhostHouse ghostHouse) {
         assetLoader = ghostHouse.assetLoader;
         rooms = assetLoader.getRooms();
@@ -60,20 +64,28 @@ public class InputController implements InputProcessor {
         if (targetPosition.x >= ghostHouse.assetLoader.getRooms().get(CameraSystem.target).origin.x + ghostHouse.assetLoader.getRooms().get(CameraSystem.target).width) {
             targetPosition.x = ghostHouse.assetLoader.getRooms().get(CameraSystem.target).origin.x + ghostHouse.assetLoader.getRooms().get(CameraSystem.target).width - ghostHouse.mainGame.ghost.getComponent(SizeComponent.class).width;
 
-            System.out.println(ghostHouse.assetLoader.getRooms().get(CameraSystem.target).origin.x);
-            System.out.println(ghostHouse.assetLoader.getRooms().get(CameraSystem.target).width);
+          //  System.out.println(ghostHouse.assetLoader.getRooms().get(CameraSystem.target).origin.x);
+         //   System.out.println(ghostHouse.assetLoader.getRooms().get(CameraSystem.target).width);
         }
 
         if (ghostHouse.mainGame.ghost.getComponent(PositionComponent.class).getX() == targetPosition.x &&
                 ghostHouse.mainGame.ghost.getComponent(PositionComponent.class).getY() == targetPosition.y) {
             t = 0;
             isMoving = false;
-            if (takeItem) {
-                addToInventory((int) indexAndMax[1]);
-                takeItem = false;
+
+                    System.out.println((int) indexAndMax[1]);
+                 //   addToInventory((int) indexAndMax[1]);
+//                    takeItem = false;
+
+                    ghostHouse.mainGame.getBuilding().getCurrentRoom().itemWasClicked((int)indexAndMax[1]);
+                    System.out.println(assetLoader.getRooms().get(0).getItemStatus((int)indexAndMax[1]));
+
+               // System.out.println((assetLoader.getRooms().get(0).getItemStatus((int)indexAndMax[1])== ItemType.TAKEABLE));
+
+
                 indexAndMax[0] = 0;
                 indexAndMax[1] = 0;
-            }
+
         } else {
             isMoving = true;
             dist.set(targetPosition.x - prevPosition.x,
@@ -152,11 +164,12 @@ public class InputController implements InputProcessor {
                     //which particular item is intersected
                     if (isInside(new Vector3(pos.getX(), pos.getY(), pos.getZ()), new Vector2(size.width, size.height), targetPosition)) {
                         t = 0;
-                        System.out.println(i);
+
 
                         if (pos.getZ() >= indexAndMax[0]) { //If the items are overlapping
                             indexAndMax[0] = pos.getZ();
-                            indexAndMax[1] = i;
+                            indexAndMax[1] = rooms.get(cameraSystem.target).items.get(i).getComponent(ItemIdComponent.class).getItemID();
+
                         }
                     }
                 }
@@ -179,7 +192,7 @@ public class InputController implements InputProcessor {
     }
 
     public void addToInventory(int i) {
-        tx = rooms.get(cameraSystem.target).items.get(i).getComponent(TextureComponent.class);
+        tx = rooms.get(cameraSystem.target).getItemById(i).getComponent(TextureComponent.class);
         ghostHouse.mainUI.addItem(new InventoryItem(i, tx));
     }
 

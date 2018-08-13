@@ -2,11 +2,8 @@ package com.rockbite.inetrnship.ghosthouse.data;
 
 import com.badlogic.ashley.core.ComponentMapper;
 import com.badlogic.ashley.core.Entity;
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.utils.Array;
-import com.badlogic.gdx.utils.Json;
 import com.rockbite.inetrnship.ghosthouse.MainGame;
 import com.rockbite.inetrnship.ghosthouse.ecs.components.*;
 
@@ -27,7 +24,7 @@ public abstract class Room implements Comparable<Room> {
     public float[] light;
 
     ComponentMapper<ItemTypeComponent> itemTypeComponent = ComponentMapper.getFor(ItemTypeComponent.class);
-    ComponentMapper<ItemIdComponent> roomComponent = ComponentMapper.getFor(ItemIdComponent.class);
+    ComponentMapper<ItemIdComponent> itemIdComponentm = ComponentMapper.getFor(ItemIdComponent.class);
 
     public Array<Object> objects;
 
@@ -52,6 +49,7 @@ public abstract class Room implements Comparable<Room> {
                         this.origin.y + object2.position[1] - this.height, object2.position[2]));
                 item.add(new RoomObjectComponent(this.id));
                 item.add(new ItemIdComponent(object2.id));
+                item.add(new ItemTypeComponent(ItemType.STATIC));
                 item.add(new ScaleComponent(object2.scale[0], object2.scale[1], object2.scale[2]));
                 item.add(new RotationComponent(object2.rotation[0], object2.rotation[1], object2.rotation[2]));
                 item.add(new SizeComponent(object2.width, object2.height));
@@ -59,16 +57,17 @@ public abstract class Room implements Comparable<Room> {
             }
         }
 
-        Entity item = new Entity();
-        item.add(new ModelComponent("tree.g3db"));
-        item.add(new PositionComponent(this.origin.x + 5,
-                this.origin.y + 5 - this.height, 2));
-        item.add(new RoomObjectComponent(this.id));
-        item.add(new ItemIdComponent(158));
-        item.add(new ScaleComponent(1.0f, 1.0f, 1.0f));
-        item.add(new RotationComponent(0f, 0f, 0f));
-        item.add(new SizeComponent(1, 1));
-        models.add(item);
+//        Entity item = new Entity();
+//        item.add(new ModelComponent("tree.g3db"));
+//        item.add(new PositionComponent(this.origin.x + 5,
+//                this.origin.y + 5 - this.height, 2));
+//        item.add(new RoomObjectComponent(this.id));
+//        item.add(new ItemTypeComponent(ItemType.TAKEABLE));
+//        item.add(new ItemIdComponent(158));
+//        item.add(new ScaleComponent(1.0f, 1.0f, 1.0f));
+//        item.add(new RotationComponent(0f, 0f, 0f));
+//        item.add(new SizeComponent(1, 1));
+//        models.add(item);
 
         //FIXME: fix this shit
         GhostMesh.ITEM_COUNT += items.size;
@@ -104,13 +103,13 @@ public abstract class Room implements Comparable<Room> {
         mainGame.leavedRoom();
     }
 
-    public void changeItemTexture(int itemID, String textureName) {
-    }
 
     public void setItemStatus(int itemID, ItemType type) {
+
         for (Entity item : items) {
-            if (roomComponent.get(item).getItemID() == itemID) {
-                itemTypeComponent.get(item).setType(type);
+            if (itemIdComponentm.get(item).getItemID() == itemID) {
+               itemTypeComponent.get(item).setType(type);
+                System.out.println("AXXXX");
             }
         }
     }
@@ -123,7 +122,8 @@ public abstract class Room implements Comparable<Room> {
 
     public ItemType getItemStatus(int itemID) {
         for (Entity item : items) {
-            if (roomComponent.get(item).getItemID() == itemID) {
+            if (itemIdComponentm.get(item).getItemID() == itemID) {
+
                 return itemTypeComponent.get(item).getType();
             }
         }
@@ -136,11 +136,24 @@ public abstract class Room implements Comparable<Room> {
         comp.setTexture(textureName);
     }
 
-    private Entity getItemById(int itemID) {
-        for (Entity entity : items) {
-            ItemIdComponent comp = entity.getComponent(ItemIdComponent.class);
-            if (comp.getItemID() == itemID) {
-                return entity;
+    public void addToInventory(int itemID) {
+        mainGame.inputController.addToInventory(itemID);
+    }
+
+    public void removeFromInventory(int itemID) {
+      //  mainGame.inputController.
+    }
+
+   public  Entity getItemById(int itemID) {
+        int count = items.size;
+        for(int i = 0; i < count; i++) {
+            if(items != null) {
+                if (itemIdComponentm.has(items.get(i))) {
+                    ItemIdComponent comp = itemIdComponentm.get(items.get(i));
+                    if (comp.getItemID() == itemID) {
+                        return items.get(i);
+                    }
+                }
             }
         }
         return null;

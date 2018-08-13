@@ -30,7 +30,7 @@ public class HelperClass {
         ghost.add(new RotationComponent(0, 0, 0));
         ghost.add(new SizeComponent(0, 0));
         ghost.add(new RoomObjectComponent(0));
-        ghost.add(new AnimationComponent("ghost"));
+        ghost.add(new AnimationComponent("spineboy"));
         return ghost;
     }
 

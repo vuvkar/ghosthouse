@@ -260,6 +260,9 @@ public class GhostMesh {
 
             // UV Coordinates
             TextureAtlas.AtlasRegion region = AssetLoader.getRegion(rectangle.getTexture());
+            if(region == null) {
+                System.out.println(rectangle.getTexture());
+            }
             float diffU = region.getU2() - region.getU();
             float diffV = region.getV2() - region.getV();
 

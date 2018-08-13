@@ -523,6 +523,72 @@
       width: 2.0583334,
       height: 3.4,
       id: 23
+    },
+    {
+      class: com.rockbite.inetrnship.ghosthouse.data.GameObject,
+      position: [
+        3.8571424,
+        11.633001,
+        -22.31
+      ],
+      scale: [
+        1,
+        1,
+        1
+      ],
+      rotation: [
+        0,
+        0,
+        0
+      ],
+      texture: key_part1,
+      width: 3,
+      height: 3,
+      id: 24
+    },
+    {
+      class: com.rockbite.inetrnship.ghosthouse.data.GameObject,
+      position: [
+        3.8571424,
+        11.633001,
+        -2.31
+      ],
+      scale: [
+        1,
+        1,
+        1
+      ],
+      rotation: [
+        0,
+        0,
+        0
+      ],
+      texture: key_part2,
+      width: 3,
+      height: 3,
+      id: 25
+    },
+    {
+      class: com.rockbite.inetrnship.ghosthouse.data.GameObject,
+      position: [
+        3.8571424,
+        11.633001,
+        -92.31
+      ],
+      scale: [
+        1,
+        1,
+        1
+      ],
+      rotation: [
+        0,
+        0,
+        0
+      ],
+      texture: opshiKey,
+      width: 3,
+      height: 3,
+      id: 26
     }
   ]
 }
