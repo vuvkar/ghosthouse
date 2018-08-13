@@ -7,7 +7,6 @@ import com.badlogic.gdx.utils.Array;
 import com.esotericsoftware.spine.Slot;
 import com.rockbite.inetrnship.ghosthouse.data.GhostMesh;
 import com.rockbite.inetrnship.ghosthouse.data.GhostRectangle;
-import com.rockbite.inetrnship.ghosthouse.data.RectangleType;
 import com.rockbite.inetrnship.ghosthouse.ecs.components.*;
 
 public class RenderSystem extends EntitySystem {
@@ -45,7 +44,7 @@ public class RenderSystem extends EntitySystem {
 
         for (Entity entity : entities) {
             if (textComp.has(entity)) {
-                GhostRectangle rectangle = new GhostRectangle(RectangleType.ITEM);
+                GhostRectangle rectangle = new GhostRectangle();
                 rectangle.setTexture(textComp.get(entity).texture);
                 rectangle.setNormal(new Vector3(0f, 0f, 1f));
                 rectangle.setX(posComp.get(entity).getX());

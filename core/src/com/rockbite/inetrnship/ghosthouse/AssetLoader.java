@@ -2,8 +2,10 @@ package com.rockbite.inetrnship.ghosthouse;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetManager;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.tools.texturepacker.TexturePacker;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Json;
 import com.rockbite.inetrnship.ghosthouse.data.GhostMesh;
@@ -19,6 +21,7 @@ import java.io.IOException;
 public class AssetLoader extends AssetManager {
 
     private Array<Room> rooms;
+    public Room currentRoom;
     public static TextureAtlas atlas;
 
     public static float ATLAS_HEIGHT;

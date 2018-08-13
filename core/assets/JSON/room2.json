@@ -5,14 +5,14 @@
   width: 17.0,
   "class": "com.badlogic.gdx.utils.Vector2",
   origin: {x: 17.0, y: 10.0},
-  wallTexture: "room1Wall",
+  wallTexture: "roomTextureClouds",
   ceilingTexture: "room1Ceiling",
   floorTexture: "room1Floor",
   sideWallTexture: "room1SideWall",
   light: [
-    28,
-    156,
-    62
+    255,
+    252,
+    212
   ],
 
   "class": "com.badlogic.gdx.utils.Array",

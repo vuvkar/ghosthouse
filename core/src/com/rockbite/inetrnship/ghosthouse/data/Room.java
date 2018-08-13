@@ -39,6 +39,10 @@ public abstract class Room implements Comparable<Room> {
         items = new Array<Entity>();
         models = new Array<Entity>();
 
+        light[0] /= 255;
+        light[1] /= 255;
+        light[2] /= 255;
+
         for (Object object : objects) {
             if ((GameObject) object != null) {
                 GameObject object2 = (GameObject) object;

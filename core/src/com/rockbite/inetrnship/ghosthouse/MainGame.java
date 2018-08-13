@@ -53,8 +53,6 @@ public class MainGame {
         building = new GhostBuilding(rooms, assetLoader);
         meshok = new GhostMesh(building.getAllRects(), assetLoader);
 
-        building.setCurrentRoom(rooms.first());
-
         engine = new Engine();
 
         cameraSystem = new CameraSystem();

@@ -10,6 +10,7 @@ import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.utils.Array;
 import com.esotericsoftware.spine.Slot;
 import com.esotericsoftware.spine.attachments.Attachment;
+import com.esotericsoftware.spine.attachments.MeshAttachment;
 import com.esotericsoftware.spine.attachments.RegionAttachment;
 import com.rockbite.inetrnship.ghosthouse.AssetLoader;
 import com.rockbite.inetrnship.ghosthouse.GhostHouse;
@@ -27,7 +28,7 @@ public class GhostMesh {
 
     public static int ITEM_COUNT = 0;
 
-    public static Vector3 lightColor = new Vector3(255.0f / 255.0f, 255.0f / 255.0f, 255.0f / 255.0f);
+    public static Vector3 lightColor;
 
     private boolean loading;
 
@@ -101,9 +102,13 @@ public class GhostMesh {
             Attachment attachment = slot.getAttachment();
             if (attachment instanceof RegionAttachment) {
                 RegionAttachment a = (RegionAttachment) attachment;
-                a.getRegion().getTexture().bind();
                 vertex = a.updateWorldVertices(slot, true);
             }
+//            if (attachment instanceof MeshAttachment) {
+//                MeshAttachment a = (MeshAttachment) attachment;
+//                a.getRegion().getTexture().bind();
+//                vertex = a.updateWorldVertices(slot, true);
+//            }
             int i = 0;
             for (int j = 0; j < vertex.length; j += 5) {
                 animationVertices[index++] = vertex[i++];
@@ -159,8 +164,8 @@ public class GhostMesh {
 
                  //   ModelInstance
 
-                    ModelBatch batch = new ModelBatch();
-                    batch.render(new ModelInstance(current));
+                    //ModelBatch batch = new ModelBatch();
+                 //   batch.render(new ModelInstance(current));
 
                     float[] currentVertices = new float[currentMesh.getNumVertices() * currentMesh.getVertexAttributes().vertexSize / 4];
                     short[] currentIndices = new short[currentMesh.getNumIndices()*2];
@@ -254,7 +259,7 @@ public class GhostMesh {
             vertices[vertexIndex.value++] = rectangle.getZ() + (i % 2) * Math.abs(normal.x) * rectangle.getWidth() + Math.abs(normal.y) * (i >> 1) * rectangle.getHeight();
 
             // UV Coordinates
-            TextureAtlas.AtlasRegion region = rectangle.getType().getTexture(rectangle.getTexture());
+            TextureAtlas.AtlasRegion region = AssetLoader.getRegion(rectangle.getTexture());
             float diffU = region.getU2() - region.getU();
             float diffV = region.getV2() - region.getV();
 

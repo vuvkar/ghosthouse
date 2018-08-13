@@ -18,5 +18,5 @@ void main() {
     zibil.rgb *= max(dot, 0.2);
     if(zibil.a < 0.1)
        discard;
-    gl_FragColor = zibil * vec4(u_lightColor, 1);
+    gl_FragColor = zibil * vec4(u_lightColor, 1.0);
 }

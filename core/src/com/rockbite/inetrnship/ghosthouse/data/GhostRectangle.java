@@ -5,7 +5,7 @@ import com.badlogic.gdx.math.Vector3;
 public class GhostRectangle implements Comparable<GhostRectangle> {
 
     private Vector3 normal;
-    private RectangleType type;
+   // private RectangleType type;
     private float width;
     private float height;
     private float x;
@@ -59,7 +59,7 @@ public class GhostRectangle implements Comparable<GhostRectangle> {
 
     public GhostRectangle(GhostRectangle other) {
         this.normal = other.normal;
-        this.type = other.type;
+       // this.type = other.type;
         this.width = other.width;
         this.height = other.height;
         this.x = other.x;
@@ -76,9 +76,9 @@ public class GhostRectangle implements Comparable<GhostRectangle> {
         this.normal = normal;
     }
 
-    public void setType(RectangleType type) {
-        this.type = type;
-    }
+   // public void setType(RectangleType type) {
+     //   this.type = type;
+  //  }
 
     public void setWidth(float width) {
         this.width = width;
@@ -101,8 +101,8 @@ public class GhostRectangle implements Comparable<GhostRectangle> {
     }
 
 
-    public GhostRectangle(RectangleType type) {
-        this.type = type;
+    public GhostRectangle() {
+      //  this.type = type;
         this.uOrigin = 0;
         this.vOrigin = 0;
         this.uWidth = 1f;
@@ -111,10 +111,6 @@ public class GhostRectangle implements Comparable<GhostRectangle> {
 
     public Vector3 getNormal() {
         return normal;
-    }
-
-    public RectangleType getType() {
-        return type;
     }
 
     public float getWidth() {

@@ -1,6 +1,6 @@
 {
   class: com.rockbite.inetrnship.ghosthouse.data.Room1,
-  id: 0,
+  id: 3,
   height: 10.0,
   width: 17.0,
 
@@ -11,9 +11,9 @@
   floorTexture: "room1Floor",
   sideWallTexture: "room1SideWall",
   light: [
-    28,
-    156,
-    62
+    197,
+    252,
+    212
   ],
 
   "class": "com.badlogic.gdx.utils.Array",
