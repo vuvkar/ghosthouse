@@ -16,7 +16,7 @@ public class AnimationComponent implements Component {
    public AnimationComponent(String name) {
        atlas = AssetLoader.atlas;
        SkeletonJson json = new SkeletonJson(atlas); // This loads skeleton JSON data, which is stateless.
-       json.setScale(0.01f);
+       json.setScale(0.0035f);
        SkeletonData skeletonData = json.readSkeletonData(Gdx.files.internal("animations/" + name + "/" + name + ".json"));
        size = new Vector2(skeletonData.getWidth(), skeletonData.getHeight());
        skeleton = new Skeleton(skeletonData); // Skeleton holds skeleton state (bone positions, slot attachments, etc).

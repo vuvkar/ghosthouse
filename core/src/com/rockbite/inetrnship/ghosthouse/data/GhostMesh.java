@@ -8,6 +8,7 @@ import com.badlogic.gdx.graphics.g3d.Model;
 import com.badlogic.gdx.graphics.glutils.ShaderProgram;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.utils.Array;
+import com.esotericsoftware.spine.SkeletonMeshRenderer;
 import com.esotericsoftware.spine.Slot;
 import com.esotericsoftware.spine.attachments.Attachment;
 import com.esotericsoftware.spine.attachments.MeshAttachment;
@@ -93,46 +94,62 @@ public class GhostMesh {
     }
 
     public void renderAnimations(Array<Slot> animations) {
-        animationVertices = new float[animations.size * 4 * ATTRIBUTE_COUNT];
-        animationIndices = new short[animations.size * 2 * 3];
-        int index = 0;
+        animationVertices = new float[animations.size * 40 * ATTRIBUTE_COUNT];
+        animationIndices = new short[animations.size * 200 * 3];
+        int vertexIndex = 0;
+        int indiceIndex = 0;
         int slotCount = 0;
+        int max = 0;
+
         for (Slot slot : animations) {
             float[] vertex = new float[0];
             Attachment attachment = slot.getAttachment();
             if (attachment instanceof RegionAttachment) {
                 RegionAttachment a = (RegionAttachment) attachment;
                 vertex = a.updateWorldVertices(slot, true);
+
+                animationIndices[indiceIndex++] = (short) max;
+                animationIndices[indiceIndex++] = (short) (max + 1);
+                animationIndices[indiceIndex++] = (short) (max + 2);
+                animationIndices[indiceIndex++] = (short) (max + 2);
+                animationIndices[indiceIndex++] = (short) (max + 3);
+                animationIndices[indiceIndex++] = (short) max;
+
+                max += 4;
             }
-//            if (attachment instanceof MeshAttachment) {
-//                MeshAttachment a = (MeshAttachment) attachment;
-//                a.getRegion().getTexture().bind();
-//                vertex = a.updateWorldVertices(slot, true);
-//            }
+            if (attachment instanceof MeshAttachment) {
+
+                MeshAttachment mesh = (MeshAttachment) attachment;
+                vertex = mesh.updateWorldVertices(slot, true);
+
+                int localMax = 0;
+                short[] indicesLocal = mesh.getTriangles();
+
+                for(int i = 0; i < indicesLocal.length; i++) {
+                    animationIndices[indiceIndex++] = (short)(max + indicesLocal[i]);
+                    if(max + indicesLocal[i] > localMax) {
+                        localMax = max + indicesLocal[i];
+                    }
+                }
+
+                max = localMax + 1;
+
+            }
             int i = 0;
             for (int j = 0; j < vertex.length; j += 5) {
-                animationVertices[index++] = vertex[i++];
-                animationVertices[index++] = vertex[i++];
-                animationVertices[index++] = (float) ((GhostBuilding.BUILDING_DEPTH - CHARACTER_SPACE) + (CHARACTER_SPACE / animations.size) * slotCount);
+                animationVertices[vertexIndex++] = vertex[i++];
+                animationVertices[vertexIndex++] = vertex[i++];
+                animationVertices[vertexIndex++] = (float) ((GhostBuilding.BUILDING_DEPTH - CHARACTER_SPACE) + (CHARACTER_SPACE / animations.size) * slotCount);
                 i++;
-                animationVertices[index++] = vertex[i++];
-                animationVertices[index++] = vertex[i++];
-                animationVertices[index++] = 0f;
-                animationVertices[index++] = 0f;
-                animationVertices[index++] = 1f;
+                animationVertices[vertexIndex++] = vertex[i++];
+                animationVertices[vertexIndex++] = vertex[i++];
+                animationVertices[vertexIndex++] = 0f;
+                animationVertices[vertexIndex++] = 0f;
+                animationVertices[vertexIndex++] = 1f;
             }
             slotCount++;
         }
-        index = 0;
-        for (int j = 0; j < animations.size; j++) {
-            int i = j * 4;
-            animationIndices[index++] = (short) i;
-            animationIndices[index++] = (short) (i + 1);
-            animationIndices[index++] = (short) (i + 2);
-            animationIndices[index++] = (short) (i + 2);
-            animationIndices[index++] = (short) (i + 3);
-            animationIndices[index++] = (short) i;
-        }
+
     }
 
     public void renderItems(Array<GhostRectangle> items) {
