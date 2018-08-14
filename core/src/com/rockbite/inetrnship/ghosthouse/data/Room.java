@@ -57,17 +57,17 @@ public abstract class Room implements Comparable<Room> {
             }
         }
 
-//        Entity item = new Entity();
-//        item.add(new ModelComponent("tree.g3db"));
-//        item.add(new PositionComponent(this.origin.x + 5,
-//                this.origin.y + 5 - this.height, 2));
-//        item.add(new RoomObjectComponent(this.id));
-//        item.add(new ItemTypeComponent(ItemType.TAKEABLE));
-//        item.add(new ItemIdComponent(158));
-//        item.add(new ScaleComponent(1.0f, 1.0f, 1.0f));
-//        item.add(new RotationComponent(0f, 0f, 0f));
-//        item.add(new SizeComponent(1, 1));
-//        models.add(item);
+        Entity item = new Entity();
+        item.add(new ModelComponent("HeiHei.obj"));
+        item.add(new PositionComponent(this.origin.x + 5,
+                this.origin.y + 5 - this.height, 2));
+        item.add(new RoomObjectComponent(this.id));
+        item.add(new ItemTypeComponent(ItemType.TAKEABLE));
+        item.add(new ItemIdComponent(158));
+        item.add(new ScaleComponent(1.0f, 1.0f, 1.0f));
+        item.add(new RotationComponent(0f, 0f, 0f));
+        item.add(new SizeComponent(1, 1));
+        models.add(item);
 
         //FIXME: fix this shit
         GhostMesh.ITEM_COUNT += items.size;

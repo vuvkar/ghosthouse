@@ -14,11 +14,12 @@ public class AnimationComponent implements Component {
     public Vector2 size;
 
    public AnimationComponent(String name) {
+       float scale = 0.0035f;
        atlas = AssetLoader.atlas;
        SkeletonJson json = new SkeletonJson(atlas); // This loads skeleton JSON data, which is stateless.
-       json.setScale(0.0035f);
+       json.setScale(scale);
        SkeletonData skeletonData = json.readSkeletonData(Gdx.files.internal("animations/" + name + "/" + name + ".json"));
-       size = new Vector2(skeletonData.getWidth(), skeletonData.getHeight());
+       size = new Vector2(skeletonData.getWidth() * scale, skeletonData.getHeight() * scale);
        skeleton = new Skeleton(skeletonData); // Skeleton holds skeleton state (bone positions, slot attachments, etc).
        AnimationStateData stateData = new AnimationStateData(skeletonData); // Defines mixing (crossfading) between animations.
 

@@ -72,7 +72,7 @@ public class Room1 extends Room {
                     case TAKEABLE:
                         break;
                     case NONTAKEABLE:
-                        changeTexture(WEAPON, "");
+                        //changeTexture(WEAPON, "");
                         setItemStatus(WEAPON,ItemType.STATIC);
                         addToInventory(KEYPART2);
                         break;
@@ -207,11 +207,6 @@ public class Room1 extends Room {
 
     }
     public void itemWasMoved(int fromInventory, int toInventoryItem) {
-        if (fromInventory == 15 && toInventoryItem == 19) {
-            //peace 5
-
-        }
-
         if (fromInventory == 15 && toInventoryItem == 19) {
             //peace 5
 

@@ -21,7 +21,6 @@ import java.io.IOException;
 public class AssetLoader extends AssetManager {
 
     public static Array<Room> rooms;
-    public Room currentRoom;
     public static TextureAtlas atlas;
 
     public static float ATLAS_HEIGHT;

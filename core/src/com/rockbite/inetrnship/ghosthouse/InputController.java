@@ -16,10 +16,7 @@ import com.rockbite.inetrnship.ghosthouse.data.GhostMesh;
 import com.rockbite.inetrnship.ghosthouse.data.ItemType;
 import com.rockbite.inetrnship.ghosthouse.data.Room;
 import com.rockbite.inetrnship.ghosthouse.data.Room1;
-import com.rockbite.inetrnship.ghosthouse.ecs.components.ItemIdComponent;
-import com.rockbite.inetrnship.ghosthouse.ecs.components.PositionComponent;
-import com.rockbite.inetrnship.ghosthouse.ecs.components.SizeComponent;
-import com.rockbite.inetrnship.ghosthouse.ecs.components.TextureComponent;
+import com.rockbite.inetrnship.ghosthouse.ecs.components.*;
 import com.rockbite.inetrnship.ghosthouse.ecs.systems.CameraSystem;
 
 
@@ -27,13 +24,13 @@ public class InputController implements InputProcessor {
     // TODO: Monika's shit
     public Vector3 targetPosition = new Vector3(0, 0, 0);
     public Ray ray = new Ray();
+
     PositionComponent pos = new PositionComponent(0, 0, 0);
     Vector2 prevPosition = new Vector2(0, 0);
     SizeComponent size = new SizeComponent(0, 0);
     TextureComponent tx = new TextureComponent("TextureName");
     AssetLoader assetLoader;
     Array<Room> rooms;
-    TextureAtlas atlas;
     Interpolation movementGhost = new Interpolation.Pow(2);
     float t = 0f; // step time
     float T = 10f;
@@ -62,7 +59,7 @@ public class InputController implements InputProcessor {
     // TODO: Liana's Megashit
     public void moveCharacter() {
         if (targetPosition.x >= ghostHouse.assetLoader.getRooms().get(CameraSystem.target).origin.x + ghostHouse.assetLoader.getRooms().get(CameraSystem.target).width) {
-            targetPosition.x = ghostHouse.assetLoader.getRooms().get(CameraSystem.target).origin.x + ghostHouse.assetLoader.getRooms().get(CameraSystem.target).width - ghostHouse.mainGame.ghost.getComponent(SizeComponent.class).width;
+            targetPosition.x = ghostHouse.assetLoader.getRooms().get(CameraSystem.target).origin.x + ghostHouse.assetLoader.getRooms().get(CameraSystem.target).width - ghostHouse.mainGame.ghost.getComponent(AnimationComponent.class).size.x;
 
           //  System.out.println(ghostHouse.assetLoader.getRooms().get(CameraSystem.target).origin.x);
          //   System.out.println(ghostHouse.assetLoader.getRooms().get(CameraSystem.target).width);
@@ -74,14 +71,9 @@ public class InputController implements InputProcessor {
             isMoving = false;
 
                     System.out.println((int) indexAndMax[1]);
-                 //   addToInventory((int) indexAndMax[1]);
-//                    takeItem = false;
 
                     ghostHouse.mainGame.getBuilding().getCurrentRoom().itemWasClicked((int)indexAndMax[1]);
                     System.out.println(assetLoader.getRooms().get(0).getItemStatus((int)indexAndMax[1]));
-
-               // System.out.println((assetLoader.getRooms().get(0).getItemStatus((int)indexAndMax[1])== ItemType.TAKEABLE));
-
 
                 indexAndMax[0] = 0;
                 indexAndMax[1] = 0;
@@ -192,7 +184,7 @@ public class InputController implements InputProcessor {
     }
 
     public void addToInventory(int i) {
-        tx = rooms.get(cameraSystem.target).getItemById(i).getComponent(TextureComponent.class);
+        tx = ghostHouse.mainGame.getBuilding().getCurrentRoom().getItemById(i).getComponent(TextureComponent.class);
         ghostHouse.mainUI.addItem(new InventoryItem(i, tx));
     }
 

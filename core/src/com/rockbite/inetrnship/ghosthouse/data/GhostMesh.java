@@ -17,6 +17,7 @@ import com.rockbite.inetrnship.ghosthouse.AssetLoader;
 import com.rockbite.inetrnship.ghosthouse.GhostHouse;
 import com.rockbite.inetrnship.ghosthouse.util.HelperClass;
 import com.rockbite.inetrnship.ghosthouse.util.IntWrapper;
+import com.sun.org.apache.xpath.internal.operations.String;
 
 public class GhostMesh {
     private final int POSITION_ATTRIBUTE_COUNT = 3;
@@ -65,8 +66,8 @@ public class GhostMesh {
         buildingVertices = new float[rectangles.size * 4 * ATTRIBUTE_COUNT];
         buildingIndices = new short[rectangles.size * 3 * 2];
 
-        modelVertices = new float[32767 * 4];
-        modelIndices = new short[10922 * 4];
+//        modelVertices = new float[32767 * 4];
+//        modelIndices = new short[10922 * 4];
 
         animationIndices = new short[]{};
         animationVertices = new float[]{};
@@ -165,56 +166,74 @@ public class GhostMesh {
         loading = true;
     }
 
-    public void renderModels(Array<String> models) {
+    public void renderModels(Array<java.lang.String> models) {
 
         int vOffset = 0;
         int iOffset = 0;
 
-        boolean rendered = true;
+        int vertexCount = 0;
+        int indexCount = 0;
+//
+//        for(String model: models) {
+//            if (assetManager.isLoaded("models/" + model)) {
+//                Model current = assetManager.get("models/" + model, Model.class);
+//                int localVC = 0;
+//                int localIC = 0;
+//                for(Mesh mesh: current.meshes) {
+//                    localIC += mesh.getNumIndices();
+//                    localVC += mesh.getNumVertices() * mesh.getVertexSize() / 4;
+//                }
+//                vertexCount += localVC;
+//                indexCount += localIC;
+//                }
+//            }
 
-        for(String model: models){
-            if (assetManager.isLoaded("models/" + model)) {
-                if(rendered) {
-                    rendered = false;
-                    Model current = assetManager.get("models/" + model, Model.class);
-                    Mesh currentMesh = current.meshes.first();
+        modelVertices = new float[vertexCount];
+        modelIndices = new short[indexCount];
 
-                 //   ModelInstance
 
-                    //ModelBatch batch = new ModelBatch();
-                 //   batch.render(new ModelInstance(current));
-
-                    float[] currentVertices = new float[currentMesh.getNumVertices() * currentMesh.getVertexAttributes().vertexSize / 4];
-                    short[] currentIndices = new short[currentMesh.getNumIndices()*2];
-
-                    currentMesh.getVertices(currentVertices);
-                    currentMesh.getIndices(currentIndices);
-                    TextureAtlas.AtlasRegion region = AssetLoader.getRegion("bark");
-
-                    for (int i = 0; i < currentVertices.length; ) {
-                        modelVertices[vOffset++] = currentVertices[i++] + 2.0f;
-                        modelVertices[vOffset++] = currentVertices[i++] + 12.0f;
-                        modelVertices[vOffset++] = currentVertices[i++] + 5.0f;
-
-                        modelVertices[vOffset++] = (i % 2) * region.getU() + ((i + 1)%2) * region.getU2();
-                        modelVertices[vOffset++] = (i % 2) * region.getV() + ((i + 1)%2) * region.getV2();
-
-                        modelVertices[vOffset++] = currentVertices[i++];
-                        modelVertices[vOffset++] = currentVertices[i++];
-                        modelVertices[vOffset++] = currentVertices[i++];
-
-                    }
-
-                    for (int i = 0; i < currentIndices.length; i++) {
-                        modelIndices[iOffset++] = currentIndices[i];
-                    }
-                   // System.out.println("qaqik");
-                }
-            }
-            else {
-                addModel(model);
-            }
-        }
+//        for(String model: models){
+//            if (assetManager.isLoaded("models/" + model)) {
+//                   Model current = assetManager.get("models/" + model, Model.class);
+//                   int localVertex = 0;
+//                   int localIndex = 0;
+//
+//                for(Mesh currentMesh: current.meshes) {
+//                    localIndex += currentMesh.getNumIndices();
+//                    localVertex += currentMesh.getNumVertices() * currentMesh.getVertexSize() / 4;
+//                }
+//
+//                    float[] currentVertices = new float[localVertex];
+//                    short[] currentIndices = new short[localIndex];
+//
+//                    for(Mesh currentMesh: current.meshes) {
+//                        currentMesh.getVertices(currentVertices);
+//                        currentMesh.getIndices(currentIndices);
+//
+//                        for (int i = 0; i < currentVertices.length; ) {
+//                            modelVertices[vOffset++] = currentVertices[i++];
+//                            modelVertices[vOffset++] = currentVertices[i++];
+//                            modelVertices[vOffset++] = currentVertices[i++];
+//
+//                            modelVertices[vOffset++] = currentVertices[i+1];
+//                            modelVertices[vOffset++] = currentVertices[i+2];
+//
+//                            modelVertices[vOffset++] = currentVertices[i++];
+//                            modelVertices[vOffset++] = currentVertices[i++];
+//                            modelVertices[vOffset++] = currentVertices[i++];
+//
+//                            i+=2;
+//                        }
+//
+//                        for (int i = 0; i < currentIndices.length; i++) {
+//                            modelIndices[iOffset++] = currentIndices[i];
+//                        }
+//                    }
+//            }
+//            else {
+//                addModel(model);
+//            }
+//        }
     }
 
     private void doneLoading() {
