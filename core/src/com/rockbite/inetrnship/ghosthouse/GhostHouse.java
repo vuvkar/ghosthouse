@@ -38,6 +38,9 @@ public class GhostHouse extends ApplicationAdapter {
         if (mainGame.inputController.isMoving) {
             mainGame.inputController.moveCharacter();
         }
+        if(mainUI.settingson){
+            mainUI.settingsMusic.draw();
+        }
 
 
 

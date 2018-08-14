@@ -108,42 +108,6 @@ public class KillBugs extends MiniGame {
     public void render() {
         timer += Gdx.graphics.getDeltaTime();
 
-        if (gameStarted && !bugsCreated) {
-            createBugs();
-            bugsCreated = true;
-            startTimer();
-        }
-
-        //win
-        if (killedBugs >= numOfBugs && !gameOver && !win) {
-            System.out.println("YOU WIN!!!");
-            youWin = new BugsActor(new Texture(Gdx.files.internal("MiniGame/youwin.png")), width + (bgWidth - 300) / 2, height + (bgHeight - 200) / 2, "win", 1);
-            stage.addActor(youWin);
-            win = true;
-        }
-
-        if (gameOver && tmp1) {
-            System.out.println("GAME OVER!!!");
-            youLost = new BugsActor(new Texture(Gdx.files.internal("MiniGame/gameover.png")), width + (bgWidth - 350) / 2, height + (bgHeight - 200) / 2, "die", 1);
-            stage.addActor(youLost);
-            stage.setKeyboardFocus(youLost);
-            restartBtn = new BugsActor(new Texture(Gdx.files.internal("MiniGame/restart.png")), width + (bgWidth - 350) / 2, height + (bgHeight - 200) / 2, "gameover", 1);
-            stage.addActor(restartBtn);
-//            stage.setKeyboardFocus(restartBtn);
-
-            tmp1 = false;
-        }
-
-        //restart game
-        if (restart) {
-            restartGame();
-            restart = false;
-        }
-
-        if (Gdx.input.isKeyPressed(Input.Keys.C))
-            closeGame();
-
-        stage.act(Gdx.graphics.getDeltaTime());
         stage.draw();
     }
 

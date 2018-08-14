@@ -136,6 +136,7 @@ public class InputController implements InputProcessor {
         if (keycode == Input.Keys.NUM_3) {
             ghostHouse.mainUI.removeItem(47);
         }
+
         return true;
     }
 

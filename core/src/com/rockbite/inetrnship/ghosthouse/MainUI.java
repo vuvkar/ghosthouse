@@ -26,7 +26,7 @@ public class MainUI extends Stage {
     public Vector3 targetPosition = new Vector3(0, 0, 0);
     AssetLoader assetLoader;
     SettingsMusic settingsMusic;
-    boolean Musicon;
+    public boolean settingson=false;
     public TextureAtlas atlas;
     float scale = Gdx.graphics.getWidth() / 1920f;
     float distscale=Gdx.graphics.getWidth()/800f;
@@ -82,6 +82,7 @@ public class MainUI extends Stage {
         Table RightArrow = new Table();
         Table TEXTSHIT = new Table();
         final Table settingsMenu=new Table();
+
 
         bar.setFillParent(true);
         right.setFillParent(true);
@@ -174,8 +175,8 @@ public class MainUI extends Stage {
         opt.getChildren().get(0).addListener(new ClickListener() {
 
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-            settingsMenu.setVisible(true);
-            Gdx.input.setInputProcessor(event.getStage());
+                settingsMusic=new SettingsMusic();
+           settingson=true;
                 return true;
             }
         });

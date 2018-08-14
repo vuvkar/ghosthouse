@@ -26,6 +26,8 @@ public class MainGame {
     private AssetLoader assetLoader;
     public InputController inputController;
     public static MiniGame miniGame = new MiniGame();
+
+
     public static boolean miniGameOn = false;
     private Array<Room> rooms;
     public static InputMultiplexer multiplexer = new InputMultiplexer();
