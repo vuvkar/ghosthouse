@@ -5,6 +5,10 @@ import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.math.Bresenham2;
 import com.badlogic.gdx.math.Vector2;
 import com.rockbite.inetrnship.ghosthouse.AssetLoader;
+import com.rockbite.inetrnship.ghosthouse.MainGame;
+import com.rockbite.inetrnship.ghosthouse.MainUI;
+import com.rockbite.inetrnship.ghosthouse.ecs.components.TextureComponent;
+
 public class Room1 extends Room {
     final int BEAR = 7;
     final int KEYPART1 = 24;
@@ -205,11 +209,25 @@ public class Room1 extends Room {
             //peace 1
         }
 
+
+
     }
     public void itemWasMoved(int fromInventory, int toInventoryItem) {
         if (fromInventory == 15 && toInventoryItem == 19) {
             //peace 5
 
+        }
+
+        else if (fromInventory==24 && toInventoryItem==25){
+
+            addToInventory(WHOLEKEY);
+            removeFromInventory(fromInventory);
+            removeFromInventory(toInventoryItem);
+        }
+        else if (fromInventory==25 && toInventoryItem==24){
+            addToInventory(WHOLEKEY);
+            removeFromInventory(fromInventory);
+            removeFromInventory(toInventoryItem);
         }
     }
 

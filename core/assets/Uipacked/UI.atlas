@@ -34,11 +34,18 @@ SettingsMenu
   index: -1
 downbar
   rotate: false
-  xy: 411, 157
+  xy: 73, 16
   size: 56, 41
   split: 26, 26, 27, 10
   pad: 0, 0, 0, 0
   orig: 56, 41
+  offset: 0, 0
+  index: -1
+ghost
+  rotate: false
+  xy: 1108, 632
+  size: 75, 110
+  orig: 75, 110
   offset: 0, 0
   index: -1
 left
@@ -46,6 +53,20 @@ left
   xy: 2, 2
   size: 69, 55
   orig: 69, 55
+  offset: 0, 0
+  index: -1
+musi_c minus
+  rotate: false
+  xy: 1375, 936
+  size: 56, 28
+  orig: 56, 28
+  offset: 0, 0
+  index: -1
+music plus
+  rotate: false
+  xy: 1108, 582
+  size: 53, 48
+  orig: 53, 48
   offset: 0, 0
   index: -1
 pink
@@ -57,14 +78,14 @@ pink
   index: -1
 right
   rotate: false
-  xy: 1108, 687
+  xy: 1375, 966
   size: 68, 55
   orig: 68, 55
   offset: 0, 0
   index: -1
 room_name_slot
   rotate: false
-  xy: 1375, 967
+  xy: 411, 144
   size: 54, 54
   split: 25, 25, 25, 25
   pad: 0, 0, 0, 0

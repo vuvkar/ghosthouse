@@ -99,6 +99,8 @@ public abstract class Room implements Comparable<Room> {
 
     abstract public void itemWasDragged(int fromInventory, int toRoomItem);
 
+    abstract public void itemWasMoved(int fromInventory, int toInventory);
+
     public void leaveRoom() {
         mainGame.leavedRoom();
     }
@@ -109,7 +111,7 @@ public abstract class Room implements Comparable<Room> {
         for (Entity item : items) {
             if (itemIdComponentm.get(item).getItemID() == itemID) {
                itemTypeComponent.get(item).setType(type);
-                System.out.println("AXXXX");
+
             }
         }
     }
@@ -117,8 +119,6 @@ public abstract class Room implements Comparable<Room> {
     public void openMiniGame() {
 
     }
-
-
 
     public ItemType getItemStatus(int itemID) {
         for (Entity item : items) {
@@ -141,7 +141,7 @@ public abstract class Room implements Comparable<Room> {
     }
 
     public void removeFromInventory(int itemID) {
-      //  mainGame.inputController.
+      mainGame.inputController.removeFromInventory(itemID);
     }
 
    public  Entity getItemById(int itemID) {

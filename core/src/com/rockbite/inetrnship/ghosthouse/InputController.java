@@ -32,6 +32,7 @@ public class InputController implements InputProcessor {
     AssetLoader assetLoader;
     Array<Room> rooms;
     Interpolation movementGhost = new Interpolation.Pow(2);
+    Vector3 ClickPos=new Vector3();
     float t = 0f; // step time
     float T = 10f;
     Vector2 dist = new Vector2(0, 0);
@@ -58,22 +59,28 @@ public class InputController implements InputProcessor {
 
     // TODO: Liana's Megashit
     public void moveCharacter() {
-        if (targetPosition.x >= ghostHouse.assetLoader.getRooms().get(CameraSystem.target).origin.x + ghostHouse.assetLoader.getRooms().get(CameraSystem.target).width) {
+        //targetPosition.set(ClickPos);
+        if (targetPosition.x >= ghostHouse.assetLoader.getRooms().get(CameraSystem.target).origin.x + ghostHouse.assetLoader.getRooms().get(CameraSystem.target).width- ghostHouse.mainGame.ghost.getComponent(AnimationComponent.class).size.x) {
             targetPosition.x = ghostHouse.assetLoader.getRooms().get(CameraSystem.target).origin.x + ghostHouse.assetLoader.getRooms().get(CameraSystem.target).width - ghostHouse.mainGame.ghost.getComponent(AnimationComponent.class).size.x;
-
-          //  System.out.println(ghostHouse.assetLoader.getRooms().get(CameraSystem.target).origin.x);
-         //   System.out.println(ghostHouse.assetLoader.getRooms().get(CameraSystem.target).width);
         }
-
+        if (targetPosition.y <= ghostHouse.assetLoader.getRooms().get(CameraSystem.target).origin.y) {
+            targetPosition.y = ghostHouse.assetLoader.getRooms().get(CameraSystem.target).origin.y;
+        }
+        if (targetPosition.x <= ghostHouse.assetLoader.getRooms().get(CameraSystem.target).origin.x) {
+            targetPosition.x = ghostHouse.assetLoader.getRooms().get(CameraSystem.target).origin.x;
+        }
+        if (targetPosition.y >= ghostHouse.assetLoader.getRooms().get(CameraSystem.target).origin.y + ghostHouse.assetLoader.getRooms().get(CameraSystem.target).height-ghostHouse.mainGame.ghost.getComponent(AnimationComponent.class).size.y) {
+            targetPosition.y = ghostHouse.assetLoader.getRooms().get(CameraSystem.target).origin.y + ghostHouse.assetLoader.getRooms().get(CameraSystem.target).height - ghostHouse.mainGame.ghost.getComponent(AnimationComponent.class).size.y;
+        }
         if (ghostHouse.mainGame.ghost.getComponent(PositionComponent.class).getX() == targetPosition.x &&
                 ghostHouse.mainGame.ghost.getComponent(PositionComponent.class).getY() == targetPosition.y) {
             t = 0;
             isMoving = false;
+            System.out.println(ghostHouse.mainGame.ghost.getComponent(PositionComponent.class).getY());
 
-                    System.out.println((int) indexAndMax[1]);
+
 
                     ghostHouse.mainGame.getBuilding().getCurrentRoom().itemWasClicked((int)indexAndMax[1]);
-                    System.out.println(assetLoader.getRooms().get(0).getItemStatus((int)indexAndMax[1]));
 
                 indexAndMax[0] = 0;
                 indexAndMax[1] = 0;
@@ -145,6 +152,7 @@ public class InputController implements InputProcessor {
     @Override
     public boolean touchDown(int screenX, int screenY, int pointer, int button) {
         //If intersects the objects' mesh
+        ClickPos.set(Gdx.input.getX(), Gdx.input.getY(), 0);
         if (isIntersected()) {
             if (ghostHouse.mainUI.numberItem <= 14) {
 
@@ -186,6 +194,10 @@ public class InputController implements InputProcessor {
     public void addToInventory(int i) {
         tx = ghostHouse.mainGame.getBuilding().getCurrentRoom().getItemById(i).getComponent(TextureComponent.class);
         ghostHouse.mainUI.addItem(new InventoryItem(i, tx));
+    }
+
+    public void removeFromInventory(int i){
+        ghostHouse.mainUI.removeItem(i);
     }
 
     @Override
