@@ -5,6 +5,7 @@ import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.*;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g3d.Model;
+import com.badlogic.gdx.graphics.g3d.loader.ObjLoader;
 import com.badlogic.gdx.graphics.glutils.ShaderProgram;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.utils.Array;
@@ -17,7 +18,6 @@ import com.rockbite.inetrnship.ghosthouse.AssetLoader;
 import com.rockbite.inetrnship.ghosthouse.GhostHouse;
 import com.rockbite.inetrnship.ghosthouse.util.HelperClass;
 import com.rockbite.inetrnship.ghosthouse.util.IntWrapper;
-import com.sun.org.apache.xpath.internal.operations.String;
 
 public class GhostMesh {
     private final int POSITION_ATTRIBUTE_COUNT = 3;
@@ -41,6 +41,8 @@ public class GhostMesh {
 
     public float[] buildingVertices;
     public short[] buildingIndices;
+
+    boolean isUpdated = false;
 
     public float[] itemVertices;
     public short[] itemIndices;
@@ -66,8 +68,8 @@ public class GhostMesh {
         buildingVertices = new float[rectangles.size * 4 * ATTRIBUTE_COUNT];
         buildingIndices = new short[rectangles.size * 3 * 2];
 
-//        modelVertices = new float[32767 * 4];
-//        modelIndices = new short[10922 * 4];
+        modelVertices = new float[]{};
+        modelIndices = new short[]{};
 
         animationIndices = new short[]{};
         animationVertices = new float[]{};
@@ -95,12 +97,29 @@ public class GhostMesh {
     }
 
     public void renderAnimations(Array<Slot> animations) {
-        animationVertices = new float[animations.size * 40 * ATTRIBUTE_COUNT];
-        animationIndices = new short[animations.size * 200 * 3];
+
         int vertexIndex = 0;
         int indiceIndex = 0;
         int slotCount = 0;
         int max = 0;
+
+        int animationVC = 0;
+        int animationIC = 0;
+
+        for (Slot slot : animations) {
+            Attachment attachment = slot.getAttachment();
+            if (attachment instanceof RegionAttachment) {
+                animationIC += 6;
+                animationVC += ((RegionAttachment) attachment).getWorldVertices().length / 5 * 8;
+            }
+            else if (attachment instanceof MeshAttachment) {
+                animationIC += ((MeshAttachment) attachment).getTriangles().length;
+                animationVC += ((MeshAttachment) attachment).getWorldVertices().length / 5 * 8;
+            }
+        }
+
+        animationVertices = new float[animationVC];
+        animationIndices = new short[animationIC];
 
         for (Slot slot : animations) {
             float[] vertex = new float[0];
@@ -140,7 +159,7 @@ public class GhostMesh {
             for (int j = 0; j < vertex.length; j += 5) {
                 animationVertices[vertexIndex++] = vertex[i++];
                 animationVertices[vertexIndex++] = vertex[i++];
-                animationVertices[vertexIndex++] = (float) ((GhostBuilding.BUILDING_DEPTH - CHARACTER_SPACE) + (CHARACTER_SPACE / animations.size) * slotCount);
+                animationVertices[vertexIndex++] = (GhostBuilding.BUILDING_DEPTH - CHARACTER_SPACE) + (CHARACTER_SPACE / animations.size) * slotCount;
                 i++;
                 animationVertices[vertexIndex++] = vertex[i++];
                 animationVertices[vertexIndex++] = vertex[i++];
@@ -166,78 +185,97 @@ public class GhostMesh {
         loading = true;
     }
 
-    public void renderModels(Array<java.lang.String> models) {
+    public void renderModels(Array<String> models) {
 
         int vOffset = 0;
         int iOffset = 0;
 
         int vertexCount = 0;
         int indexCount = 0;
-//
-//        for(String model: models) {
-//            if (assetManager.isLoaded("models/" + model)) {
-//                Model current = assetManager.get("models/" + model, Model.class);
-//                int localVC = 0;
-//                int localIC = 0;
-//                for(Mesh mesh: current.meshes) {
-//                    localIC += mesh.getNumIndices();
-//                    localVC += mesh.getNumVertices() * mesh.getVertexSize() / 4;
-//                }
-//                vertexCount += localVC;
-//                indexCount += localIC;
-//                }
-//            }
 
-        modelVertices = new float[vertexCount];
-        modelIndices = new short[indexCount];
+        for(String model: models) {
+            if (assetManager.isLoaded("models/" + model)) {
+                Model current = assetManager.get("models/" + model, Model.class);
+                int localVC = 0;
+                int localIC = 0;
+                for(Mesh mesh: current.meshes) {
+                    localIC += mesh.getNumIndices();
+                    localVC += mesh.getNumVertices() * mesh.getVertexSize() / 4;
+                }
+                vertexCount += localVC;
+                indexCount += localIC;
+                }
+            }
+
+        modelVertices = new float[vertexCount * 4];
+        modelIndices = new short[indexCount * 3];
 
 
-//        for(String model: models){
-//            if (assetManager.isLoaded("models/" + model)) {
-//                   Model current = assetManager.get("models/" + model, Model.class);
-//                   int localVertex = 0;
-//                   int localIndex = 0;
-//
-//                for(Mesh currentMesh: current.meshes) {
-//                    localIndex += currentMesh.getNumIndices();
-//                    localVertex += currentMesh.getNumVertices() * currentMesh.getVertexSize() / 4;
-//                }
-//
-//                    float[] currentVertices = new float[localVertex];
-//                    short[] currentIndices = new short[localIndex];
-//
-//                    for(Mesh currentMesh: current.meshes) {
-//                        currentMesh.getVertices(currentVertices);
-//                        currentMesh.getIndices(currentIndices);
-//
-//                        for (int i = 0; i < currentVertices.length; ) {
-//                            modelVertices[vOffset++] = currentVertices[i++];
-//                            modelVertices[vOffset++] = currentVertices[i++];
-//                            modelVertices[vOffset++] = currentVertices[i++];
-//
-//                            modelVertices[vOffset++] = currentVertices[i+1];
-//                            modelVertices[vOffset++] = currentVertices[i+2];
-//
-//                            modelVertices[vOffset++] = currentVertices[i++];
-//                            modelVertices[vOffset++] = currentVertices[i++];
-//                            modelVertices[vOffset++] = currentVertices[i++];
-//
-//                            i+=2;
-//                        }
-//
-//                        for (int i = 0; i < currentIndices.length; i++) {
-//                            modelIndices[iOffset++] = currentIndices[i];
-//                        }
-//                    }
-//            }
-//            else {
-//                addModel(model);
-//            }
-//        }
+        for(String model: models){
+            if (assetManager.isLoaded("models/" + model)) {
+                   Model current = assetManager.get("models/" + model, Model.class);
+                   int localVertex = 0;
+                   int localIndex = 0;
+
+                for(Mesh currentMesh: current.meshes) {
+                    localIndex += currentMesh.getNumIndices();
+                    localVertex += currentMesh.getNumVertices() * currentMesh.getVertexSize() / 4;
+                }
+
+                    float[] currentVertices = new float[localVertex];
+                    short[] currentIndices = new short[localIndex];
+
+                    int offsetV = 0;
+                    int offsetI = 0;
+
+                    short max = 0;
+
+                    for(Mesh currentMesh: current.meshes) {
+                        if(!this.isUpdated) {
+                            HelperClass.remapUVs(currentMesh, AssetLoader.getRegion("Heihei1"));
+                            this.isUpdated = true;
+                        }
+                        currentMesh.getVertices(0, -1, currentVertices, offsetV);
+                        currentMesh.getIndices(currentIndices, offsetI);
+
+                        offsetV += currentMesh.getNumVertices() * currentMesh.getVertexSize() / 4;
+                        offsetI += currentMesh.getNumIndices();
+
+                        for (int i = 0; i < currentVertices.length; ) {
+                            modelVertices[vOffset++] = currentVertices[i++] + 2;
+                            modelVertices[vOffset++] = currentVertices[i++] + 11;
+                            modelVertices[vOffset++] = currentVertices[i++] + 5;
+
+                            modelVertices[vOffset++] = currentVertices[i+3];
+                            modelVertices[vOffset++] = currentVertices[i+4];
+
+                            modelVertices[vOffset++] = currentVertices[i++];
+                            modelVertices[vOffset++] = currentVertices[i++];
+                            modelVertices[vOffset++] = currentVertices[i++];
+
+                            i+=2;
+                        }
+
+                        short localMax = 0;
+                        for (int i = 0; i < currentIndices.length; i++) {
+                            modelIndices[iOffset++] = (short)(currentIndices[i] + max);
+                            if((short)(currentIndices[i] + max) > localMax) {
+                                localMax = (short)(currentIndices[i] + max);
+                            }
+                        }
+                        max = localMax;
+                        max++;
+                    }
+            }
+            else {
+                addModel(model);
+            }
+        }
+       // System.out.println("qaqik");
+
     }
 
     private void doneLoading() {
-//        Model test = assetManager.get("ship.g3db", Model.class);
         loading = false;
     }
 

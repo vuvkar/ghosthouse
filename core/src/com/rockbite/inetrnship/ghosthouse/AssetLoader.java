@@ -11,6 +11,7 @@ import com.badlogic.gdx.utils.Json;
 import com.rockbite.inetrnship.ghosthouse.data.GhostMesh;
 import com.rockbite.inetrnship.ghosthouse.data.Room;
 import com.rockbite.inetrnship.ghosthouse.data.Room1;
+import com.rockbite.inetrnship.ghosthouse.data.Room2;
 import com.rockbite.inetrnship.ghosthouse.util.RoomParser;
 
 import java.io.BufferedReader;
@@ -61,7 +62,7 @@ public class AssetLoader extends AssetManager {
         rooms = processRoomData(pixelData);
         Json json = new Json();
         Room1 room1 = json.fromJson(Room1.class, Gdx.files.internal("JSON/room1.json"));
-        Room1 room2 = json.fromJson(Room1.class, Gdx.files.internal("JSON/room2.json"));
+        Room2 room2 = json.fromJson(Room2.class, Gdx.files.internal("JSON/room2.json"));
         Room1 room3 = json.fromJson(Room1.class, Gdx.files.internal("JSON/room3.json"));
         Room1 room4 = json.fromJson(Room1.class, Gdx.files.internal("JSON/room4.json"));
         Array<Room> newRooms = new Array<Room>();

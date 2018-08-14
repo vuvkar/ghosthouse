@@ -195,7 +195,7 @@ public class GhostBuilding {
         for (Room room : rooms) {
             //top
             GhostRectangle top = new GhostRectangle();
-            top.setTexture(currentRoom.ceilingTexture);
+            top.setTexture(room.ceilingTexture);
             top.setWidth(room.width);
             top.setHeight(BUILDING_DEPTH);
             Vector3 topNormal = new Vector3(0, -1, 0);
@@ -207,7 +207,7 @@ public class GhostBuilding {
 
             //bottom
             GhostRectangle bottom = new GhostRectangle();
-            bottom.setTexture(currentRoom.floorTexture);
+            bottom.setTexture(room.floorTexture);
             bottom.setWidth(room.width);
             bottom.setHeight(BUILDING_DEPTH);
             Vector3 bottomNormal = new Vector3(0, 1, 0);
@@ -218,7 +218,7 @@ public class GhostBuilding {
 
             //left
             GhostRectangle left = new GhostRectangle();
-            left.setTexture(currentRoom.sideWallTexture);
+            left.setTexture(room.sideWallTexture);
             left.setWidth(BUILDING_DEPTH);
             left.setHeight(room.height);
             Vector3 leftNormal = new Vector3(1, 0, 0);
@@ -229,7 +229,7 @@ public class GhostBuilding {
 
             //right
             GhostRectangle right = new GhostRectangle();
-            right.setTexture(currentRoom.sideWallTexture);
+            right.setTexture(room.sideWallTexture);
             right.setWidth(BUILDING_DEPTH);
             right.setHeight(room.height);
             Vector3 rightNormal = new Vector3(-1, 0, 0);

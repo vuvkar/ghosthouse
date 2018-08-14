@@ -58,10 +58,7 @@ public class MainUI extends Stage {
 
     @Override
     public void draw() {
-
-
         super.draw();
-
     }
 
     public void setUI() {
@@ -93,13 +90,6 @@ public class MainUI extends Stage {
         RightArrow.setFillParent(true);
         TEXTSHIT.setFillParent(true);
         settingsMenu.setFillParent(true);
-//        tableLarge.setDebug(true);
-//        up.setDebug(true);
-//        right.setDebug(true);
-//        stop.setDebug(true);
-//        opt.setDebug(true);
-//        LeftArrow.setDebug(true);
-//        RightArrow.setDebug(true);
 
 
         Image hint = new Image(atlas.findRegion("Blue"));
@@ -122,10 +112,8 @@ public class MainUI extends Stage {
 
             slots.getChildren().get(i).setScale(scale);
             slots.getChildren().get(i).setPosition(placeInInventory, 0);
-            //   System.out.println("pos: "+ slots.getChildren().get(i).getX()+", width: "+slots.getChildren().get(i).getWidth()*scale);
-            //   System.out.println(slots.getChildren().get(i).getX()+slots.getChildren().get(i).getWidth()*scale/2f);
-            if (i % 2 == 0) {
 
+            if (i % 2 == 0) {
                 placeInInventory += step.x;
             } else {
                 placeInInventory += step.y;
@@ -134,7 +122,6 @@ public class MainUI extends Stage {
                 slots.getChildren().get(i).setVisible(false);
         }
 
-        // slots.setDebug(true, true);
         slots.setPosition(119*Gdx.graphics.getWidth()/800f, 8);
         inventory.setPosition(119*Gdx.graphics.getWidth()/800f, 8);
         NinePatch patch = new NinePatch(atlas.createPatch("downbar"));
@@ -191,7 +178,6 @@ public class MainUI extends Stage {
         RightArrow.getChildren().get(0).addListener(new ClickListener() {
 
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-
 
                 if (rangeShowing.y < 15) {
                     rangeShowing.add(new Vector2(1, 1));
@@ -255,10 +241,6 @@ public class MainUI extends Stage {
             }
         });
 
-
-        //TEXTSHIT.setDebug(true);
-        //text.setDebug(true);
-
         this.addActor(bar);
         this.addActor(up);
         this.addActor(TEXTSHIT);
@@ -314,8 +296,6 @@ public class MainUI extends Stage {
             inventory.getChildren().get(numberItem - 1).setPosition(slots.getChildren().get(numberItem - 1).getX() + slots.getChildren().get(numberItem - 1).getWidth() * scale / 2f - (45/2f)*AssetLoader.getRegion(inventoryItem.texture.texture).packedWidth/AssetLoader.getRegion(inventoryItem.texture.texture).packedHeight, 4.5f);
         }
 
-
-
         if (numberItem - 1 % 2 == 0)
             placeInSlots += 60;
         else
@@ -360,7 +340,6 @@ public class MainUI extends Stage {
                         }
                     }
                 } else {
-
                     if (ghostHouse.mainGame.inputController.isIntersected()) {
                         int ind=0;
                         targetPosition.set(ghostHouse.mainGame.inputController.targetPosition);
@@ -381,7 +360,6 @@ public class MainUI extends Stage {
                     }
                 }
                 if (event.getListenerActor().getX() != prevPos.x || event.getListenerActor().getY() != prevPos.y) {
-
                     event.getListenerActor().setPosition(prevPos.x, prevPos.y);
                 }
             }
