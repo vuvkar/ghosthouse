@@ -419,7 +419,7 @@ public class MainUI extends Stage {
 
     public void itemToRoomItem(int ind1, int ind2) {
         System.out.println("Item " + ind1 + " from inventory was dragged to" + " Item " + ind2 + " from room");
-
+        ghostHouse.mainGame.getBuilding().getCurrentRoom().itemWasDragged(ind1, ind2);
     }
 
     public void itemToInventoryItem(int ind1, int ind2) {

@@ -15,7 +15,7 @@ public class Room1 extends Room {
     final int WEAPON = 16;
     final int KEYPART2  = 25;
     final int WHOLEKEY = 26;
-    final int BROKEN_BOTTLE = 5;
+    final int BOTTLES = 5;
     final int ARM_CHAIR = 8;
     final int LAMP = 17;
     final int BOX = 3;
@@ -24,6 +24,8 @@ public class Room1 extends Room {
     final int ALBUM = 1;
     final int FISHHOOK = 15;
     final int NEWSPAPER_ON_THE_WALL = 19;
+    final int WARDROB = 23;
+    final int CLOCK = 9;
 
     public boolean isInInventory(int itemId){return false;}
 //    public Room1(int id, Vector2 origin, float width, float height) {
@@ -42,7 +44,7 @@ public class Room1 extends Room {
         setItemStatus(WEAPON,ItemType.NONTAKEABLE);
         setItemStatus(KEYPART2,ItemType.TAKEABLE);
         setItemStatus(WHOLEKEY,ItemType.TAKEABLE);
-        setItemStatus(BROKEN_BOTTLE,ItemType.TAKEABLE);
+        setItemStatus(BOTTLES,ItemType.TAKEABLE);
         setItemStatus(ARM_CHAIR,ItemType.NONTAKEABLE);
         setItemStatus(LAMP,ItemType.NONTAKEABLE);
         setItemStatus(BOX,ItemType.NONTAKEABLE);
@@ -51,11 +53,13 @@ public class Room1 extends Room {
         setItemStatus(ALBUM,ItemType.NONTAKEABLE);
         setItemStatus(FISHHOOK,ItemType.TAKEABLE);
         setItemStatus(NEWSPAPER_ON_THE_WALL,ItemType.NONTAKEABLE);
+        setItemStatus(WARDROB,ItemType.NONTAKEABLE);
+        setItemStatus(CLOCK,ItemType.NONTAKEABLE);
 
     }
     @Override
     public void itemWasClicked(int itemID) {
-        System.out.println(itemID);
+
         switch (itemID){
             case BEAR:
                 switch (getItemStatus(BEAR)) {
@@ -76,19 +80,22 @@ public class Room1 extends Room {
                     case TAKEABLE:
                         break;
                     case NONTAKEABLE:
-                        //changeTexture(WEAPON, "");
+                        changeTexture(WEAPON, "garpunbezstrel");
+                        changeTexture(CLOCK,"chasyslomannye");
                         setItemStatus(WEAPON,ItemType.STATIC);
                         addToInventory(KEYPART2);
                         break;
                 }
                 break;
-            case BROKEN_BOTTLE:
-                switch (getItemStatus(BROKEN_BOTTLE)){
+            case BOTTLES:
+                switch (getItemStatus(BOTTLES)){
                     case STATIC:
                         break;
                     case TAKEABLE:
-                        changeTexture(BROKEN_BOTTLE,"");
-                        setItemStatus(BROKEN_BOTTLE,ItemType.STATIC);
+                        changeTexture(BOTTLES,"bottlered1room1");
+                        addToInventory(BOTTLES);
+                        changeTexture(BOTTLES,"bottlesredroom1");
+                        setItemStatus(BOTTLES,ItemType.STATIC);
                         break;
                     case NONTAKEABLE:
                         break;
@@ -101,8 +108,6 @@ public class Room1 extends Room {
                     case TAKEABLE:
                         break;
                     case NONTAKEABLE:
-                        //changeTexture(ARM_CHAIR,"CutArmchair.png");
-                        if (getItemStatus(BROKEN_BOTTLE)==ItemType.STATIC){setItemStatus(ARM_CHAIR,ItemType.STATIC);}
                         break;
                 }
                 break;
@@ -131,6 +136,7 @@ public class Room1 extends Room {
                         break;
                 }
                 break;
+                // TODO: change Lamp
             case LAMP:
                 switch (getItemStatus(LAMP)){
                     case STATIC:
@@ -151,8 +157,7 @@ public class Room1 extends Room {
                     case TAKEABLE:
                         break;
                     case NONTAKEABLE:
-                        //changeItemTexture(2,"NewspapersWithoutRope.png");
-                        if (getItemStatus(SCISSORS)==ItemType.STATIC){setItemStatus(NEWSPAPER,ItemType.STATIC);}
+
                         break;
                 }
                 break;
@@ -190,8 +195,7 @@ public class Room1 extends Room {
                     case NONTAKEABLE:
 
                         if (getItemStatus(FISHHOOK)==ItemType.STATIC){
-                            setItemStatus(NEWSPAPER_ON_THE_WALL,ItemType.STATIC);
-                            changeTexture(NEWSPAPER_ON_THE_WALL,"");
+
                         }
                         break;
                 }
@@ -202,11 +206,23 @@ public class Room1 extends Room {
     public void itemWasDragged(int fromInventory, int toRoomItem) {
         if (fromInventory==15 && toRoomItem ==19){
             //peace 5
-
-        } else if (fromInventory==18 && toRoomItem==11){
+            setItemStatus(NEWSPAPER_ON_THE_WALL,ItemType.STATIC);
+            changeTexture(NEWSPAPER_ON_THE_WALL,"porvannayagazeta");
+            removeFromInventory(FISHHOOK);
+        } else if (fromInventory==SCISSORS && toRoomItem==NEWSPAPER){
             // peace 2
-        } else if (fromInventory==5 && toRoomItem==8){
+            setItemStatus(NEWSPAPER,ItemType.STATIC);
+            changeTexture(NEWSPAPER,"dokumentyporvannye");
+            removeFromInventory(SCISSORS);
+
+        } else if (fromInventory==BOTTLES && toRoomItem==ARM_CHAIR){
             //peace 1
+            setItemStatus(ARM_CHAIR,ItemType.STATIC);
+            changeTexture(ARM_CHAIR,"porvannoekreslo");
+            removeFromInventory(BOTTLES);
+        } else if (fromInventory==WHOLEKEY && toRoomItem==WARDROB){
+            setItemStatus(WARDROB,ItemType.STATIC);
+            removeFromInventory(WHOLEKEY);
         }
 
 

@@ -211,7 +211,7 @@
         0,
         0
       ],
-      texture: clock,
+      texture: chas@,
       width: 1.5083333,
       height: 2.45,
       id: 9
@@ -590,5 +590,6 @@
       height: 3,
       id: 26
     }
+
   ]
 }
