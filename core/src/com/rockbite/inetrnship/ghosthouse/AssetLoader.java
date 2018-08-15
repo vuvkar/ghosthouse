@@ -50,7 +50,7 @@ public class AssetLoader extends AssetManager {
 //     settings.maxHeight = 4096;
 //     settings.maxWidth = 4096;
 //        TexturePacker.process(settings,"Uipics", "Uipacked", "UI");
-
+//
 //                TexturePacker.Settings settings = new TexturePacker.Settings();
 //     settings.maxHeight = 4096;
 //     settings.maxWidth = 4096;
