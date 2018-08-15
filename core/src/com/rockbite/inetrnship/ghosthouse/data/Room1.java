@@ -1,5 +1,6 @@
 package com.rockbite.inetrnship.ghosthouse.data;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Sound;
@@ -49,6 +50,7 @@ public class Room1 extends Room {
 //    }
 
     public  Room1() {
+
         bearSound = Gdx.audio.newSound(Gdx.files.internal("sounds/tz.mp3"));
         gun = Gdx.audio.newSound(Gdx.files.internal("sounds/gun.mp3"));
         glass = Gdx.audio.newSound(Gdx.files.internal("sounds/glass.mp3"));
@@ -94,8 +96,8 @@ public class Room1 extends Room {
                     case TAKEABLE:
                         break;
                     case NONTAKEABLE:
-                        setItemStatus(BEAR,ItemType.STATIC);
                         key.play();
+                        setItemStatus(BEAR,ItemType.STATIC);
                         addToInventory(KEYPART1);
                         break;
                 }
@@ -149,10 +151,10 @@ public class Room1 extends Room {
                     case STATIC:
                         break;
                     case TAKEABLE:
-                        changeTexture(ARM_CHAIR,"");
                         setItemStatus(SCISSORS,ItemType.STATIC);
                         scissors.play();
                         addToInventory(SCISSORS);
+                        changeTexture(SCISSORS,"");
                         break;
                     case NONTAKEABLE:
                         break;
@@ -216,8 +218,8 @@ public class Room1 extends Room {
                         fish.play ();
 
                         addToInventory(FISHHOOK);
-
                         setItemStatus(FISHHOOK, ItemType.STATIC);
+                        changeTexture(FISHHOOK,"");
                         break;
                     case NONTAKEABLE:
                         break;
