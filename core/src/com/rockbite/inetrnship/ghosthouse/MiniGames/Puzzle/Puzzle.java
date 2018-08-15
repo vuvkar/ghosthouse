@@ -18,12 +18,11 @@ public class Puzzle extends MiniGame {
     private float tileWidth;
 
     public Puzzle() {
-        createGame();
+        create();
     }
 
-    private void createGame() {
+    public void create() {
         stage = new Stage(new ScreenViewport());
-        Gdx.input.setInputProcessor(stage);
 
         // create environment
         PuzzleActor fog = new PuzzleActor(new Texture(Gdx.files.internal("MiniGame/fog.png")), 0, 0, 0, 0, "fog");
@@ -77,12 +76,19 @@ public class Puzzle extends MiniGame {
     }
 
     @Override
+    public void load() {
+        Gdx.input.setInputProcessor(stage);
+    }
+
+    @Override
     public void render() {
         // check for winner
         if (board[0][0] == winningBoard[0][0] && board[1][0] == winningBoard[1][0] && board[2][0] == winningBoard[2][0] &&
                 board[0][1] == winningBoard[0][1] && board[1][1] == winningBoard[1][1] && board[2][1] == winningBoard[2][1] &&
-                board[0][2] == winningBoard[0][2] && board[1][2] == winningBoard[1][2] && board[2][2] == winningBoard[2][2])
+                board[0][2] == winningBoard[0][2] && board[1][2] == winningBoard[1][2] && board[2][2] == winningBoard[2][2]) {
             System.out.println("WIN!!!");
+            end();
+        }
 
         stage.act(Gdx.graphics.getDeltaTime());
         stage.draw();

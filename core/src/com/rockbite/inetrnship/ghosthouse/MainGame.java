@@ -25,8 +25,6 @@ public class MainGame {
     private RenderSystem renderSystem;
     private AssetLoader assetLoader;
     public InputController inputController;
-    public static MiniGame miniGame = new MiniGame();
-
 
     public static boolean miniGameOn = false;
     private Array<Room> rooms;
@@ -52,6 +50,10 @@ public class MainGame {
         assetLoader = ghostHouse.assetLoader;
         rooms = assetLoader.getRooms();
 
+        for(Room room: rooms) {
+            room.mainGame = this;
+        }
+
         building = new GhostBuilding(rooms, assetLoader);
         meshok = new GhostMesh(building.getAllRects(), assetLoader);
 
@@ -71,7 +73,6 @@ public class MainGame {
 
         Vector3 ghostPosition = new Vector3();
         for (Room room : rooms) {
-            room.mainGame = this;
             for (Entity entity : room.items) {
                 engine.addEntity(entity);
             }
@@ -80,6 +81,7 @@ public class MainGame {
             }
             if (room.id == 0) {
                 ghostPosition.set(room.origin.x + GhostBuilding.WALL_HEIGHT, room.origin.y, building.BUILDING_DEPTH);
+                room.roomStarted();
             }
         }
 
@@ -95,6 +97,10 @@ public class MainGame {
     public void leavedRoom() {
         cameraSystem.moveToNextRoom();
         building.moveToNextRoom();
+        building.getCurrentRoom().roomStarted();
+    }
+
+    public  void  startGame() {
         building.getCurrentRoom().roomStarted();
     }
 
@@ -115,7 +121,11 @@ public class MainGame {
 
         meshok.render(cameraSystem.cam);
 
-        // then render decorations/characters and items
+        if(miniGameOn) {
+            building.getCurrentRoom().miniGame.render();
+        }
+
+        // then render decorations/characters and item s
         // TODO: render the rest
 
         // DO postprocessing of FBO and render it to screen

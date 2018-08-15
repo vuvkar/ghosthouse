@@ -35,8 +35,8 @@ public class AssetLoader extends AssetManager {
     public AssetLoader() {
 //       TODO: WARNING: DO NOT ATTEMPT TO DELETEEE!!!!!!!! Thanks :)
 //        TexturePacker.Settings settings = new TexturePacker.Settings();
-//        settings.maxHeight = 4096;
-//        settings.maxWidth = 4096;
+//        settings.maxHeight = 8192;
+//        settings.maxWidth = 8192;
 //        settings.wrapX = Texture.TextureWrap.Repeat;
 //        settings.wrapY = Texture.TextureWrap.Repeat;
 //        TexturePacker.process(settings,"textures",
@@ -50,7 +50,7 @@ public class AssetLoader extends AssetManager {
 //     settings.maxHeight = 4096;
 //     settings.maxWidth = 4096;
 //        TexturePacker.process(settings,"Uipics", "Uipacked", "UI");
-
+//
 //                TexturePacker.Settings settings = new TexturePacker.Settings();
 //     settings.maxHeight = 4096;
 //     settings.maxWidth = 4096;
@@ -85,7 +85,7 @@ public class AssetLoader extends AssetManager {
         // TODO: courtesy of Dave
         int[][] matrix = new int[0][0];
         String fileName = "PBMs/Monika_Map.pbm";
-        String line = null;
+        String line;
         try {
             FileReader fileReader = new FileReader(fileName);
             BufferedReader bufferedReader = new BufferedReader(fileReader);
@@ -159,5 +159,11 @@ public class AssetLoader extends AssetManager {
 
     public Array<Room> getRooms() {
         return rooms;
+    }
+
+    @Override
+    public void dispose() {
+        super.dispose();
+        atlas.dispose();
     }
 }

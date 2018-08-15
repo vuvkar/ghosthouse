@@ -12,6 +12,7 @@ import com.sun.deploy.jcp.dialog.Dialog;
 
 import com.rockbite.inetrnship.ghosthouse.MainGame;
 import com.rockbite.inetrnship.ghosthouse.MainUI;
+import com.rockbite.inetrnship.ghosthouse.MiniGames.Puzzle.Puzzle;
 import com.rockbite.inetrnship.ghosthouse.ecs.components.TextureComponent;
 
 public class Room1 extends Room {
@@ -23,7 +24,7 @@ public class Room1 extends Room {
     final int BOTTLES = 5;
     final int ARM_CHAIR = 8;
     final int LAMP = 17;
-    final int BOX = 3;
+    final int BOX = 6;
     final int SCISSORS = 18;
     final int NEWSPAPER = 12;
     final int ALBUM = 1;
@@ -44,6 +45,10 @@ public class Room1 extends Room {
 
     final int WARDROB = 23;
     final int CLOCK = 9;
+    final int PUZZLE = 27;
+    final int SWITCH = 22;
+
+    int puzzle_count=1;
 
     public boolean isInInventory(int itemId){return false;}
 //    public Room1(int id, Vector2 origin, float width, float height) {
@@ -85,21 +90,17 @@ public class Room1 extends Room {
         setItemStatus(NEWSPAPER_ON_THE_WALL,ItemType.NONTAKEABLE);
         setItemStatus(WARDROB,ItemType.NONTAKEABLE);
         setItemStatus(CLOCK,ItemType.NONTAKEABLE);
-
-
-//        Dialog.showDialog(InGameTexts.qaq);
-
+        setItemStatus(SWITCH,ItemType.NONTAKEABLE);
     }
     @Override
     public void itemWasClicked(int itemID) {
 
-        System.out.println(itemID);
-
         switch (itemID){
             case BEAR:
+                miniGame = new Puzzle();
+                miniGame.start();
                 switch (getItemStatus(BEAR)) {
                     case STATIC:
-                        bearSound.play();
                         break;
                     case TAKEABLE:
                         break;
@@ -107,6 +108,7 @@ public class Room1 extends Room {
                         key.play();
                         setItemStatus(BEAR,ItemType.STATIC);
                         addToInventory(KEYPART1);
+
                         break;
                 }
                 break;
@@ -176,20 +178,33 @@ public class Room1 extends Room {
                     case TAKEABLE:
                         break;
                     case NONTAKEABLE:
+                        puzzle_count++;
                         setItemStatus(BOX,ItemType.STATIC);
                         //addToInventory(PUZZLEPIECE3);
                         break;
                 }
                 break;
-                // TODO: change Lamp
+            case SWITCH:
+                switch (getItemStatus(SWITCH)){
+                    case STATIC:
+                        break;
+                    case TAKEABLE:
+                        break;
+                    case NONTAKEABLE:
+                        changeTexture(LAMP,"lampoff");
+                        setItemStatus(LAMP,ItemType.TAKEABLE);
+                        setItemStatus(SWITCH,ItemType.STATIC);
+                        break;
+                }
             case LAMP:
                 switch (getItemStatus(LAMP)){
                     case STATIC:
                         break;
                     case TAKEABLE:
+                        setItemStatus(LAMP,ItemType.STATIC);
+                        puzzle_count++;
+                        break;
                     case NONTAKEABLE:
-                        //changeItemTexture(2,"TurnedOffLight.png");
-                        setItemStatus(LAMP,ItemType.TAKEABLE);
                         break;
                 }
                 break;
@@ -213,8 +228,8 @@ public class Room1 extends Room {
                     case TAKEABLE:
                         break;
                     case NONTAKEABLE:
-                        //changeItemTexture(2,"OpenedAlbum.png");
                         setItemStatus(ALBUM,ItemType.STATIC);
+                        puzzle_count++;
                         break;
                 }
                 break;
@@ -240,14 +255,14 @@ public class Room1 extends Room {
                     case TAKEABLE:
                         break;
                     case NONTAKEABLE:
-
-                        if (getItemStatus(FISHHOOK)==ItemType.STATIC){
-
-                        }
                         break;
                 }
                 break;
         }
+        System.out.println(puzzle_count);
+        removeFromInventory(PUZZLE);
+        changeTexture(PUZZLE,("puzzle"+Integer.toString(puzzle_count)));
+        addToInventory(PUZZLE);
     }
     @Override
     public void itemWasDragged(int fromInventory, int toRoomItem) {
@@ -256,6 +271,7 @@ public class Room1 extends Room {
             removeFromInventory(FISHHOOK);
             setItemStatus(NEWSPAPER_ON_THE_WALL,ItemType.STATIC);
             changeTexture(NEWSPAPER_ON_THE_WALL,"porvannayagazeta");
+            puzzle_count++;
 
         } else if (fromInventory==SCISSORS && toRoomItem==NEWSPAPER){
             // peace 2
@@ -265,23 +281,28 @@ public class Room1 extends Room {
             newspaper.play();
 
 
+            puzzle_count++;
 
         } else if (fromInventory==BOTTLES && toRoomItem==ARM_CHAIR){
             //peace 1
             removeFromInventory(BOTTLES);
             setItemStatus(ARM_CHAIR,ItemType.STATIC);
             changeTexture(ARM_CHAIR,"porvannoekreslo");
+            puzzle_count++;
             couch.play();
 
         } else if (fromInventory==WHOLEKEY && toRoomItem==WARDROB){
             removeFromInventory(WHOLEKEY);
             setItemStatus(WARDROB,ItemType.STATIC);
-
+            puzzle_count++;
         }
-
+        removeFromInventory(PUZZLE);
+        changeTexture(PUZZLE,("puzzle"+Integer.toString(puzzle_count)));
+        addToInventory(PUZZLE);
 
 
     }
+
     public void itemWasMoved(int fromInventory, int toInventoryItem) {
         if (fromInventory == 15 && toInventoryItem == 19) {
             //peace 5

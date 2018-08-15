@@ -8,6 +8,14 @@ import com.esotericsoftware.spine.*;
 import com.rockbite.inetrnship.ghosthouse.AssetLoader;
 
 public class AnimationComponent implements Component {
+    public final static String moveGhost = "animation";
+    public final static String happyGhost = "congratulations";
+    public final static String xaxand = "idle";
+
+    public final static boolean LEFT = false;
+    public final static boolean RIGHT = true;
+
+
     public TextureAtlas atlas;
     public Skeleton skeleton;
     public AnimationState state;
@@ -24,6 +32,20 @@ public class AnimationComponent implements Component {
        AnimationStateData stateData = new AnimationStateData(skeletonData); // Defines mixing (crossfading) between animations.
 
         state = new AnimationState(stateData); // Holds the animation state for a skeleton (current animation, time, etc).
-        state.setAnimation(0, "idle", true);
+        setState(xaxand, true);
+        setSpeed(0.5f);
+        flip(RIGHT);
+    }
+
+    public void setState(String state, boolean loop) {
+       this.state.setAnimation(0, state, loop);
+    }
+
+    public void flip(boolean direction) {
+       skeleton.setFlip(direction, false);
+    }
+
+    public void setSpeed(float speed) {
+       state.setTimeScale(speed);
     }
 }

@@ -96,7 +96,7 @@ public class BugsActor extends Actor {
                     }
                     MainGame.miniGameOn = false;
                     Gdx.input.setInputProcessor(MainGame.multiplexer);
-                    MainGame.miniGame = null;
+                   // MainGame.miniGame = null;
                 }
             });
         }

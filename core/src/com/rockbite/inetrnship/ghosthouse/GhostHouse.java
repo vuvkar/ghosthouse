@@ -2,9 +2,7 @@ package com.rockbite.inetrnship.ghosthouse;
 
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.math.Vector2;
 import com.rockbite.inetrnship.ghosthouse.MiniGames.Puzzle.Puzzle;
-import com.rockbite.inetrnship.ghosthouse.data.Room1;
 
 public class GhostHouse extends ApplicationAdapter {
 
@@ -19,8 +17,7 @@ public class GhostHouse extends ApplicationAdapter {
         assetLoader = new AssetLoader();
         mainUI = new MainUI(this);
         mainGame = new MainGame(this);
-        //room1=new Room1(0, new Vector2(assetLoader.getRooms().get(0).origin.x, assetLoader.getRooms().get(0).origin.y),assetLoader.getRooms().get(0).width, assetLoader.getRooms().get(0).height);
-
+        mainGame.startGame();
     }
 
     @Override
@@ -32,9 +29,9 @@ public class GhostHouse extends ApplicationAdapter {
 
         mainGame.render();
         mainUI.draw();
-        if (mainGame.miniGameOn) {
-            mainGame.miniGame.render();
-        }
+//        if (mainGame.miniGameOn) {
+//            mainGame.miniGame.render();
+//        }
         if (mainGame.inputController.isMoving) {
             mainGame.inputController.moveCharacter();
         }

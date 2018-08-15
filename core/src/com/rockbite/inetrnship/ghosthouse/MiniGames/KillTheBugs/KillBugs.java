@@ -43,7 +43,8 @@ public class KillBugs extends MiniGame {
         start();
     }
 
-    private void start() {
+    @Override
+    public void start() {
         stage = new Stage(new ScreenViewport());
         Gdx.input.setInputProcessor(stage);
 
@@ -54,10 +55,10 @@ public class KillBugs extends MiniGame {
         label1Style.font = font;
         label1Style.fontColor = Color.WHITE;
 
-        createGame();
+        create();
     }
 
-    private void createGame() {
+    public void create() {
         gameStarted = false;
         win = false;
         gameOver = false;
@@ -94,6 +95,11 @@ public class KillBugs extends MiniGame {
         //message box
         msg = new BugsActor(new Texture(Gdx.files.internal("MiniGame/bugsScreenKill.png")), width-55, height, "message", 1);
         stage.addActor(msg);
+    }
+
+    @Override
+    public void load() {
+        Gdx.input.setInputProcessor(stage);
     }
 
     @Override
