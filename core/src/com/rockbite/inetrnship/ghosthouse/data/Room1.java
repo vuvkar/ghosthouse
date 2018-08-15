@@ -8,8 +8,6 @@ import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.math.Bresenham2;
 import com.badlogic.gdx.math.Vector2;
 import com.rockbite.inetrnship.ghosthouse.AssetLoader;
-import com.sun.deploy.jcp.dialog.Dialog;
-
 import com.rockbite.inetrnship.ghosthouse.MainGame;
 import com.rockbite.inetrnship.ghosthouse.MainUI;
 import com.rockbite.inetrnship.ghosthouse.MiniGames.Puzzle.Puzzle;
@@ -31,7 +29,10 @@ public class Room1 extends Room {
     final int FISHHOOK = 15;
     final int NEWSPAPER_ON_THE_WALL = 19;
     final int WIRE =22;
-
+    final int WARDROB = 23;
+    final int CLOCK = 9;
+    final int PUZZLE = 27;
+    final int SWITCH = 22;
 
     Sound bearSound;
     Sound gun;
@@ -43,23 +44,9 @@ public class Room1 extends Room {
     Sound couch;
     Sound wholekey;
 
-    final int WARDROB = 23;
-    final int CLOCK = 9;
-    final int PUZZLE = 27;
-    final int SWITCH = 22;
-
-    int puzzle_count=1;
-
-    public boolean isInInventory(int itemId){return false;}
-//    public Room1(int id, Vector2 origin, float width, float height) {
-//        this.id = id;
-//        this.origin = origin;
-//        this.width = width;
-//        this.height = height;
-//    }
+    int puzzle_count = 1;
 
     public  Room1() {
-
         bearSound = Gdx.audio.newSound(Gdx.files.internal("sounds/tz.mp3"));
         gun = Gdx.audio.newSound(Gdx.files.internal("sounds/gun.mp3"));
         glass = Gdx.audio.newSound(Gdx.files.internal("sounds/glass.mp3"));
@@ -69,7 +56,6 @@ public class Room1 extends Room {
         newspaper = Gdx.audio.newSound(Gdx.files.internal("sounds/ktrel.mp3"));
         couch = Gdx.audio.newSound(Gdx.files.internal("sounds/couch.mp3"));
         wholekey = Gdx.audio.newSound(Gdx.files.internal("sounds/sparkle.mp3"));
-
     }
 
     @Override
