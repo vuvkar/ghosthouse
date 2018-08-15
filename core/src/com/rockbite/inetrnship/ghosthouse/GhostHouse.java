@@ -25,7 +25,7 @@ public class GhostHouse extends ApplicationAdapter {
 
     @Override
     public void render() {
-        mainUI.inventory.setDebug(true, true);
+      //  mainUI.inventory.setDebug(true, true);
         float delta = Math.min(Gdx.graphics.getDeltaTime(), 1 / 30f);
         mainGame.act(delta);
         mainUI.act();
@@ -38,8 +38,8 @@ public class GhostHouse extends ApplicationAdapter {
         if (mainGame.inputController.isMoving) {
             mainGame.inputController.moveCharacter();
         }
-        if(mainUI.settingson){
-            mainUI.settingsMusic.draw();
+        if(MainUI.settingson){
+            MainUI.settingsMusic.draw();
         }
 
 
@@ -56,7 +56,9 @@ public class GhostHouse extends ApplicationAdapter {
         mainUI.getViewport().setScreenSize(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
         if (MainGame.miniGameOn)
             Puzzle.stage.getViewport().setScreenSize(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
-        System.out.println(Gdx.graphics.getWidth());
+        if (MainUI.settingson)
+            MainUI.settingsMusic.stage.getViewport().setScreenSize(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+
 
     }
 }

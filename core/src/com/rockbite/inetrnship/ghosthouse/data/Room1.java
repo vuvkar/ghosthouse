@@ -206,23 +206,27 @@ public class Room1 extends Room {
     public void itemWasDragged(int fromInventory, int toRoomItem) {
         if (fromInventory==15 && toRoomItem ==19){
             //peace 5
+            removeFromInventory(FISHHOOK);
             setItemStatus(NEWSPAPER_ON_THE_WALL,ItemType.STATIC);
             changeTexture(NEWSPAPER_ON_THE_WALL,"porvannayagazeta");
-            removeFromInventory(FISHHOOK);
+
         } else if (fromInventory==SCISSORS && toRoomItem==NEWSPAPER){
             // peace 2
+            removeFromInventory(SCISSORS);
             setItemStatus(NEWSPAPER,ItemType.STATIC);
             changeTexture(NEWSPAPER,"dokumentyporvannye");
-            removeFromInventory(SCISSORS);
+
 
         } else if (fromInventory==BOTTLES && toRoomItem==ARM_CHAIR){
             //peace 1
+            removeFromInventory(BOTTLES);
             setItemStatus(ARM_CHAIR,ItemType.STATIC);
             changeTexture(ARM_CHAIR,"porvannoekreslo");
-            removeFromInventory(BOTTLES);
+
         } else if (fromInventory==WHOLEKEY && toRoomItem==WARDROB){
-            setItemStatus(WARDROB,ItemType.STATIC);
             removeFromInventory(WHOLEKEY);
+            setItemStatus(WARDROB,ItemType.STATIC);
+
         }
 
 
@@ -235,15 +239,16 @@ public class Room1 extends Room {
         }
 
         else if (fromInventory==24 && toInventoryItem==25){
-
-            addToInventory(WHOLEKEY);
             removeFromInventory(fromInventory);
             removeFromInventory(toInventoryItem);
+            addToInventory(WHOLEKEY);
+
         }
         else if (fromInventory==25 && toInventoryItem==24){
-            addToInventory(WHOLEKEY);
             removeFromInventory(fromInventory);
             removeFromInventory(toInventoryItem);
+            addToInventory(WHOLEKEY);
+
         }
     }
 
