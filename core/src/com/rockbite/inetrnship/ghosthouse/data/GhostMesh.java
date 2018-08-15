@@ -233,7 +233,6 @@ public class GhostMesh {
                     for(Mesh currentMesh: current.meshes) {
                         if(!this.isUpdated) {
                             HelperClass.remapUVs(currentMesh, AssetLoader.getRegion("Heihei1"));
-                            this.isUpdated = true;
                         }
                         currentMesh.getVertices(0, -1, currentVertices, offsetV);
                         currentMesh.getIndices(currentIndices, offsetI);
@@ -266,6 +265,7 @@ public class GhostMesh {
                         max = localMax;
                         max++;
                     }
+                this.isUpdated = true;
             }
             else {
                 addModel(model);
@@ -279,7 +279,8 @@ public class GhostMesh {
         loading = false;
     }
 
-    public void render(Camera camera) {
+    public void
+    render(Camera camera) {
         if (loading && assetManager.update()) {
             doneLoading();
             System.out.println("loaded");

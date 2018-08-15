@@ -1,7 +1,6 @@
 package com.rockbite.inetrnship.ghosthouse;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
@@ -40,8 +39,8 @@ public class AssetLoader extends AssetManager {
     public AssetLoader() {
 //       TODO: WARNING: DO NOT ATTEMPT TO DELETEEE!!!!!!!! Thanks :)
 //        TexturePacker.Settings settings = new TexturePacker.Settings();
-//        settings.maxHeight = 4096;
-//        settings.maxWidth = 4096;
+//        settings.maxHeight = 8192;
+//        settings.maxWidth = 8192;
 //        settings.wrapX = Texture.TextureWrap.Repeat;
 //        settings.wrapY = Texture.TextureWrap.Repeat;
 //        TexturePacker.process(settings,"textures",
@@ -77,15 +76,15 @@ public class AssetLoader extends AssetManager {
         Room1 room4 = json.fromJson(Room1.class, Gdx.files.internal("JSON/room4.json"));
         Array<Room> newRooms = new Array<Room>();
         newRooms.add(room1, room2, room3, room4);
-        for (Room room : newRooms) {
+        for(Room room: newRooms) {
             room.loadEntities();
         }
         rooms = newRooms;
     }
 
     public static TextureAtlas.AtlasRegion getRegion(String name) {
-        if (name == "") {
-            return new TextureAtlas.AtlasRegion(new Texture(Gdx.files.internal("textures/album.png")), 0, 0, 0, 0);
+        if(name == "") {
+            return  new TextureAtlas.AtlasRegion(new Texture(Gdx.files.internal("textures/album.png")), 0, 0, 0, 0);
         }
         return atlas.findRegion(name);
     }
@@ -159,8 +158,8 @@ public class AssetLoader extends AssetManager {
             float height = roomParser.getRoomHeight(rawPixelData, i);
             float width = roomParser.getRoomWidth(rawPixelData, i);
 
-            // Room1 room = new Room1(i, bottomLeft, height, width);
-            // roomArray.add(room);
+           // Room1 room = new Room1(i, bottomLeft, height, width);
+           // roomArray.add(room);
         }
 
         return roomArray;
@@ -168,5 +167,11 @@ public class AssetLoader extends AssetManager {
 
     public Array<Room> getRooms() {
         return rooms;
+    }
+
+    @Override
+    public void dispose() {
+        super.dispose();
+        atlas.dispose();
     }
 }

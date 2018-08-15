@@ -5,6 +5,7 @@ import com.badlogic.ashley.core.Entity;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
 import com.rockbite.inetrnship.ghosthouse.MainGame;
+import com.rockbite.inetrnship.ghosthouse.MiniGames.MiniGame;
 import com.rockbite.inetrnship.ghosthouse.ecs.components.*;
 
 
@@ -20,6 +21,8 @@ public abstract class Room implements Comparable<Room> {
     public String sideWallTexture;
     public String wallTexture;
     public String ceilingTexture;
+
+    public MiniGame miniGame;
 
     public float[] light;
 
@@ -137,6 +140,7 @@ public abstract class Room implements Comparable<Room> {
     }
 
     public void addToInventory(int itemID) {
+
         mainGame.inputController.addToInventory(itemID);
     }
 

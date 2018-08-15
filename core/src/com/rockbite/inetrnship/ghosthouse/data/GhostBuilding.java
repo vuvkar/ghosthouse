@@ -33,7 +33,6 @@ public class GhostBuilding {
     public GhostBuilding(Array<Room> rooms, AssetLoader loader) {
         this.rooms = rooms;
         this.currentRoom = rooms.first();
-        currentRoom.roomStarted();
         GhostMesh.lightColor = new Vector3(currentRoom.light[0], currentRoom.light[1], currentRoom.light[2]);
         this.buildingConnectingWalls = createBuildingConnectingWalls(rooms);
         popInsideRooms();

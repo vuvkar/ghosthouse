@@ -25,8 +25,6 @@ public class MainGame {
     private RenderSystem renderSystem;
     private AssetLoader assetLoader;
     public InputController inputController;
-    public static MiniGame miniGame = new MiniGame();
-
 
     public static boolean miniGameOn = false;
     private Array<Room> rooms;
@@ -51,6 +49,10 @@ public class MainGame {
         assetLoader = ghostHouse.assetLoader;
         rooms = assetLoader.getRooms();
 
+        for(Room room: rooms) {
+            room.mainGame = this;
+        }
+
         building = new GhostBuilding(rooms, assetLoader);
         meshok = new GhostMesh(building.getAllRects(), assetLoader);
 
@@ -70,7 +72,6 @@ public class MainGame {
 
         Vector3 ghostPosition = new Vector3();
         for (Room room : rooms) {
-            room.mainGame = this;
             for (Entity entity : room.items) {
                 engine.addEntity(entity);
             }
@@ -79,13 +80,14 @@ public class MainGame {
             }
             if (room.id == 0) {
                 ghostPosition.set(room.origin.x + GhostBuilding.WALL_HEIGHT, room.origin.y, building.BUILDING_DEPTH);
+                room.roomStarted();
             }
         }
 
         ghost.getComponent(PositionComponent.class).setXYZ(ghostPosition);
         multiplexer.addProcessor(ghostHouse.mainUI);
         multiplexer.addProcessor(inputController);
-        Gdx.input.setInputProcessor(multiplexer);
+      //  Gdx.input.setInputProcessor(multiplexer);
         //System.out.println(ghost.getComponent(PositionComponent.class).getX());
 
         engine.addEntity(ghost);
@@ -94,6 +96,10 @@ public class MainGame {
     public void leavedRoom() {
         cameraSystem.moveToNextRoom();
         building.moveToNextRoom();
+        building.getCurrentRoom().roomStarted();
+    }
+
+    public  void  startGame() {
         building.getCurrentRoom().roomStarted();
     }
 
@@ -109,13 +115,12 @@ public class MainGame {
         // first render sky
         // TODO: render sky
 
-        // then render building walls
-        // TODO: render building
-
+        // then render building walls and items
         meshok.render(cameraSystem.cam);
 
-        // then render decorations/characters and items
-        // TODO: render the rest
+        if(miniGameOn) {
+            building.getCurrentRoom().miniGame.render();
+        }
 
         // DO postprocessing of FBO and render it to screen
         // TODO: final render

@@ -71,6 +71,6 @@ public class RenderSystem extends EntitySystem {
         }
         mesh.renderItems(items);
         mesh.renderAnimations(animations);
-     //   mesh.renderModels(models);
+        mesh.renderModels(models);
     }
 }

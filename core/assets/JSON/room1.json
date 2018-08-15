@@ -11,9 +11,9 @@
   floorTexture: "room1Floor",
   sideWallTexture: "room1SideWall",
   light: [
-    200,
-    200,
-   120
+    255,
+    255,
+   255
   ],
 
   "class": "com.badlogic.gdx.utils.Array",
@@ -589,6 +589,28 @@
       width: 3,
       height: 3,
       id: 26
+    },
+    {
+      class: com.rockbite.inetrnship.ghosthouse.data.GameObject,
+      position: [
+        3.8571424,
+        11.633001,
+        -92.31
+      ],
+      scale: [
+        1,
+        1,
+        1
+      ],
+      rotation: [
+        0,
+        0,
+        0
+      ],
+      texture: puzzle1,
+      width: 3,
+      height: 3,
+      id: 27
     }
 
   ]
