@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.VertexAttribute;
 import com.badlogic.gdx.graphics.VertexAttributes;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.math.Vector3;
+import com.rockbite.inetrnship.ghosthouse.AssetLoader;
 import com.rockbite.inetrnship.ghosthouse.ecs.components.*;
 
 import java.util.Arrays;
@@ -30,17 +31,17 @@ public class HelperClass {
         ghost.add(new RotationComponent(0, 0, 0));
         ghost.add(new SizeComponent(0, 0));
         ghost.add(new RoomObjectComponent(0));
-        ghost.add(new AnimationComponent("spineboy"));
+        ghost.add(new AnimationComponent("ghost"));
         return ghost;
     }
 
-    static void remapUVs(Mesh in, TextureAtlas.AtlasRegion region) {
+    static public void remapUVs(Mesh in, TextureAtlas.AtlasRegion region) {
         final VertexAttribute UVs = in.getVertexAttributes().findByUsage(VertexAttributes.Usage.TextureCoordinates);
-        float[] verts = new float[in.getVertexSize() * in.getNumVertices()];
+        float[] verts = new float[in.getVertexSize() / 4 * in.getNumVertices()];
         in.getVertices(verts);
-        for (int i = 0; i < verts.length; i += in.getVertexSize()) {
-            verts[UVs.offset] = region.getU() + region.getU2() * verts[UVs.offset];
-            verts[UVs.offset + 1] = region.getV() + region.getV2() * verts[UVs.offset + 1];
+        for (int i = 0; i < verts.length; i += in.getVertexSize() / 4) {
+            verts[i + UVs.offset / 4] = region.getU() + (region.getU2() - region.getU()) * verts[i + UVs.offset / 4];
+            verts[i + UVs.offset / 4 + 1] = region.getV() + (region.getV2() - region.getV()) * verts[i + UVs.offset / 4 + 1];
         }
         in.setVertices(verts);
     }

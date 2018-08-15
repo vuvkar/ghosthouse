@@ -16,6 +16,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.utils.ActorGestureListener;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.rockbite.inetrnship.ghosthouse.ecs.components.ItemIdComponent;
 import com.rockbite.inetrnship.ghosthouse.ecs.components.PositionComponent;
 import com.rockbite.inetrnship.ghosthouse.ecs.components.SizeComponent;
 import com.rockbite.inetrnship.ghosthouse.ecs.components.TextureComponent;
@@ -24,21 +25,30 @@ import com.rockbite.inetrnship.ghosthouse.ecs.systems.CameraSystem;
 public class MainUI extends Stage {
     public Vector3 targetPosition = new Vector3(0, 0, 0);
     AssetLoader assetLoader;
+    public static SettingsMusic settingsMusic;
+    public static boolean settingson=false;
     public TextureAtlas atlas;
-    float scale = 800f / 1920f;
+    float scale = Gdx.graphics.getWidth() / 1920f;
+    float distscale=Gdx.graphics.getWidth()/800f;
+
+    float scalex = Gdx.graphics.getWidth() / 1920f;
+    float scaley = Gdx.graphics.getHeight() / 1080f;
+    float distscalex=Gdx.graphics.getWidth()/800f;
+    float distscaley=Gdx.graphics.getHeight()/450f;
     public int numberItem = 0;
     public float placeInInventory = 0;
     public float placeInSlots = 0;
     public Vector2 rangeShowing = new Vector2(0, 8);
     public Group slots;
     public GhostHouse ghostHouse;
-    public Group inventory = new Group();
+    public static Group inventory = new Group();
     Vector2 prevPos = new Vector2(0, 0);
     Table bar = new Table();
     public static Label text;
+
     PositionComponent pos = new PositionComponent(0, 0, 0);
     SizeComponent size = new SizeComponent(0, 0);
-
+   Vector2 step=new Vector2(60*Gdx.graphics.getWidth()/800, 66*Gdx.graphics.getWidth()/800);
     public MainUI(GhostHouse ghostHouse) {
         assetLoader = ghostHouse.assetLoader;
         this.ghostHouse = ghostHouse;
@@ -73,6 +83,8 @@ public class MainUI extends Stage {
         Table LeftArrow = new Table();
         Table RightArrow = new Table();
         Table TEXTSHIT = new Table();
+        final Table settingsMenu=new Table();
+
 
         bar.setFillParent(true);
         right.setFillParent(true);
@@ -82,13 +94,7 @@ public class MainUI extends Stage {
         LeftArrow.setFillParent(true);
         RightArrow.setFillParent(true);
         TEXTSHIT.setFillParent(true);
-//        tableLarge.setDebug(true);
-//        up.setDebug(true);
-//        right.setDebug(true);
-//        stop.setDebug(true);
-//        opt.setDebug(true);
-//        LeftArrow.setDebug(true);
-//        RightArrow.setDebug(true);
+        settingsMenu.setFillParent(true);
 
 
         Image hint = new Image(atlas.findRegion("Blue"));
@@ -96,6 +102,8 @@ public class MainUI extends Stage {
         Image setting = new Image(atlas.findRegion("Green"));
         Image Right = new Image(atlas.findRegion("right"));
         Image Left = new Image(atlas.findRegion("left"));
+        Image settingsMenuImage = new Image(atlas.findRegion("SettingsMenu"));
+
 
 
         slots = new Group();
@@ -107,59 +115,68 @@ public class MainUI extends Stage {
                 slots.addActor(new Image(atlas.findRegion("slot2")));
 
 
-            slots.getChildren().get(i).setScale(scale);
+            slots.getChildren().get(i).setScale(scalex, scaley);
             slots.getChildren().get(i).setPosition(placeInInventory, 0);
-            //   System.out.println("pos: "+ slots.getChildren().get(i).getX()+", width: "+slots.getChildren().get(i).getWidth()*scale);
-            //   System.out.println(slots.getChildren().get(i).getX()+slots.getChildren().get(i).getWidth()*scale/2f);
-            if (i % 2 == 0) {
 
-                placeInInventory += 60;
+            if (i % 2 == 0) {
+                placeInInventory += step.x;
             } else {
-                placeInInventory += 66;
+                placeInInventory += step.y;
             }
             if (i > 8)
                 slots.getChildren().get(i).setVisible(false);
         }
 
-        // slots.setDebug(true, true);
-        slots.setPosition(119, 8);
-        inventory.setPosition(119, 8);
+        slots.setPosition(119*Gdx.graphics.getWidth()/800f, 8);
+        inventory.setPosition(119*Gdx.graphics.getWidth()/800f, 8);
         NinePatch patch = new NinePatch(atlas.createPatch("downbar"));
 
-        patch.scale(scale, scale);
+        patch.scale(scalex, scaley);
         patch.setMiddleWidth(1908 - patch.getTotalWidth() + patch.getMiddleWidth());
         patch.setMiddleHeight(176 - patch.getTotalHeight() + patch.getMiddleHeight());
 
         Image Patch = new Image(patch);
 
-        bar.add(Patch).padRight(2).padLeft(2).padBottom(1).width(Patch.getPrefWidth() * scale).height(Patch.getPrefHeight() * scale);
+        bar.add(Patch).padRight(distscalex*2).padLeft(distscalex*2).padBottom(distscaley*1).width(Patch.getPrefWidth() * scalex).height(Patch.getPrefHeight() * scaley);
         bar.bottom();
 
         patch = new NinePatch(atlas.createPatch("room_name_slot"));
-        patch.scale(scale, scale);
+        patch.scale(scalex, scaley);
         patch.setMiddleWidth(204 - patch.getTotalWidth() + patch.getMiddleWidth());
         patch.setMiddleHeight(95 - patch.getTotalHeight() + patch.getMiddleHeight());
 
         Patch = new Image(patch);
-        up.add(Patch).width(Patch.getPrefWidth() * scale).height(Patch.getPrefHeight() * scale).padLeft(10).padTop(13);
+        up.add(Patch).width(Patch.getPrefWidth() * scalex).height(Patch.getPrefHeight() * scaley).padLeft(distscalex*10).padTop(distscaley*13);
         up.top().left();
 
-        TEXTSHIT.add(text).width(text.getPrefWidth() * scale).height(text.getPrefHeight() * scale).padLeft(16).padTop(26);
+        TEXTSHIT.add(text).width(text.getPrefWidth() * scalex).height(text.getPrefHeight() * scaley).padLeft(distscalex*16).padTop(distscaley*26);
         TEXTSHIT.left().top();
 
-        right.add(hint).width(hint.getPrefWidth() * scale).height(hint.getPrefHeight() * scale).padTop(5).padRight(14);
+        right.add(hint).width(hint.getPrefWidth() * scalex).height(hint.getPrefHeight() * scaley).padTop(5).padRight(distscalex*14);
         right.top().right();
 
-        stop.add(StopB).width(StopB.getPrefWidth() * scale).height(StopB.getPrefHeight() * scale).padLeft(14).padBottom(7);
+        stop.add(StopB).width(StopB.getPrefWidth() * scalex).height(StopB.getPrefHeight() * scaley).padLeft(distscalex*14).padBottom(distscaley*7);
         stop.bottom().left();
 
-        opt.add(setting).width(setting.getPrefWidth() * scale).height(setting.getPrefHeight() * scale).padRight(15).padBottom(7);
+        settingsMenu.add(settingsMenuImage).width(settingsMenuImage.getPrefWidth() * scalex).height(settingsMenuImage.getPrefHeight() * scaley).padTop(distscaley*5).padRight(distscalex*14);
+        settingsMenu.setVisible(false);
+
+        opt.add(setting).width(setting.getPrefWidth() * scalex).height(setting.getPrefHeight() * scaley).padRight(distscalex*15).padBottom(distscaley*7);
         opt.bottom().right();
 
-        RightArrow.add(Right).width(Right.getPrefWidth() * scale).height(Right.getPrefHeight() * scale).padRight(83).padBottom(22);
+        opt.getChildren().get(0).addListener(new ClickListener() {
+
+            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+                settingsMusic=new SettingsMusic();
+           settingson=true;
+                return true;
+            }
+        });
+
+        RightArrow.add(Right).width(Right.getPrefWidth() * scalex).height(Right.getPrefHeight() * scaley).padRight(83*distscalex).padBottom(distscaley*22);
         RightArrow.bottom().right();
 
-        LeftArrow.add(Left).width(Left.getPrefWidth() * scale).height(Left.getPrefHeight() * scale).padLeft(78).padBottom(22);
+        LeftArrow.add(Left).width(Left.getPrefWidth() * scalex).height(Left.getPrefHeight() * scaley).padLeft(distscalex*78).padBottom(distscaley*22);
         LeftArrow.bottom().left();
 
         RightArrow.getChildren().get(0).setTouchable(Touchable.enabled);
@@ -170,11 +187,11 @@ public class MainUI extends Stage {
                 if (rangeShowing.y < 15) {
                     rangeShowing.add(new Vector2(1, 1));
                     if (rangeShowing.x % 2 == 1) {
-                        slots.moveBy(-60, 0);
-                        inventory.moveBy(-60, 0);
+                        slots.moveBy(-step.x, 0);
+                        inventory.moveBy(-step.x, 0);
                     } else {
-                        slots.moveBy(-66, 0);
-                        inventory.moveBy(-66, 0);
+                        slots.moveBy(-step.y, 0);
+                        inventory.moveBy(-step.y, 0);
                     }
                     for (int i = 0; i < 15; i++) {
                         if (i >= rangeShowing.x && i <= rangeShowing.y)
@@ -203,11 +220,11 @@ public class MainUI extends Stage {
                 if (rangeShowing.x > 0) {
                     rangeShowing.sub(new Vector2(1, 1));
                     if (rangeShowing.x % 2 == 1) {
-                        slots.moveBy(66, 0);
-                        inventory.moveBy(66, 0);
+                        slots.moveBy(step.y, 0);
+                        inventory.moveBy(step.y, 0);
                     } else {
-                        slots.moveBy(60, 0);
-                        inventory.moveBy(60, 0);
+                        slots.moveBy(step.x, 0);
+                        inventory.moveBy(step.x, 0);
                     }
 
                     for (int i = 0; i < 15; i++) {
@@ -229,10 +246,6 @@ public class MainUI extends Stage {
             }
         });
 
-
-        //TEXTSHIT.setDebug(true);
-        //text.setDebug(true);
-
         this.addActor(bar);
         this.addActor(up);
         this.addActor(TEXTSHIT);
@@ -246,6 +259,9 @@ public class MainUI extends Stage {
         this.addActor(inventory);
         this.addActor(RightArrow);
         this.addActor(LeftArrow);
+
+
+        this.addActor(settingsMenu);
 
         Gdx.input.setInputProcessor(this);
     }
@@ -276,19 +292,25 @@ public class MainUI extends Stage {
 
         numberItem++;
 
-        inventory.getChildren().get(numberItem - 1).setScale(40 / (float) AssetLoader.getRegion(inventoryItem.texture.texture).packedWidth);
+        if(AssetLoader.getRegion(inventoryItem.texture.texture).packedWidth>=AssetLoader.getRegion(inventoryItem.texture.texture).packedHeight) {
+            inventory.getChildren().get(numberItem - 1).setScale(40 / (float) AssetLoader.getRegion(inventoryItem.texture.texture).packedWidth*distscalex);
 
-        inventory.getChildren().get(numberItem - 1).setPosition(slots.getChildren().get(numberItem - 1).getX() + slots.getChildren().get(numberItem - 1).getWidth() * scale / 2f - 20, 4);
+            inventory.getChildren().get(numberItem - 1).setPosition(slots.getChildren().get(numberItem - 1).getX()+slots.getChildren().get(numberItem - 1).getWidth()*scalex/2f - 20*distscalex, 4.5f);
+        }
+        if(AssetLoader.getRegion(inventoryItem.texture.texture).packedWidth<=AssetLoader.getRegion(inventoryItem.texture.texture).packedHeight) {
+            inventory.getChildren().get(numberItem - 1).setScale(45 / (float) AssetLoader.getRegion(inventoryItem.texture.texture).packedHeight*distscaley);
+            inventory.getChildren().get(numberItem - 1).setPosition(slots.getChildren().get(numberItem - 1).getX() + slots.getChildren().get(numberItem - 1).getWidth() * scalex / 2f - (45/2f)*AssetLoader.getRegion(inventoryItem.texture.texture).packedWidth/AssetLoader.getRegion(inventoryItem.texture.texture).packedHeight*distscaley, 4.5f);
+        }
 
         if (numberItem - 1 % 2 == 0)
-            placeInSlots += 60;
+            placeInSlots += step.x;
         else
-            placeInSlots += 66;
+            placeInSlots += step.y;
 
         inventory.getChildren().get(numberItem - 1).addListener(new ClickListener() {
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
                 prevPos.set(event.getListenerActor().getX(), event.getListenerActor().getY());
-                //  System.out.println(prevPos);
+
                 return true;
             }
         });
@@ -324,8 +346,8 @@ public class MainUI extends Stage {
                         }
                     }
                 } else {
-
                     if (ghostHouse.mainGame.inputController.isIntersected()) {
+                        int ind=0;
                         targetPosition.set(ghostHouse.mainGame.inputController.targetPosition);
                         for (int i = 0; i < ghostHouse.assetLoader.getRooms().get(ghostHouse.mainGame.cameraSystem.target).items.size; i++) {
                             pos = ghostHouse.assetLoader.getRooms().get(ghostHouse.mainGame.cameraSystem.target).items.get(i).getComponent(PositionComponent.class);
@@ -335,15 +357,15 @@ public class MainUI extends Stage {
                                 if (event.getListenerActor().getX() != prevPos.x || event.getListenerActor().getY() != prevPos.y) {
 
                                     event.getListenerActor().setPosition(prevPos.x, prevPos.y);
+                                    ind=ghostHouse.assetLoader.rooms.get(ghostHouse.mainGame.cameraSystem.target).items.get(i).getComponent(ItemIdComponent.class).getItemID();
                                 }
-                                itemToRoomItem(inventoryItemThis.ID, i);
+                                itemToRoomItem(inventoryItemThis.ID, ind);
                                 break;
                             }
                         }
                     }
                 }
                 if (event.getListenerActor().getX() != prevPos.x || event.getListenerActor().getY() != prevPos.y) {
-
                     event.getListenerActor().setPosition(prevPos.x, prevPos.y);
                 }
             }
@@ -351,24 +373,60 @@ public class MainUI extends Stage {
     }
 
 
+//    public void removeItem(int ID) {
+//        InventoryItem inventoryItem;
+//        for (int i = 0; i < inventory.getChildren().size; i++) {
+//            inventoryItem = (InventoryItem) inventory.getChildren().get(i);
+//            if (inventoryItem.ID == ID) {
+//
+//
+//               Vector2 emptyPlace=new Vector2(slots.getChildren().get(i).getX()+slots.getChildren().get(i).getWidth()/2f, slots.getChildren().get(i).getY());
+//                Vector2 temp = new Vector2(0, 0);
+//                inventory.removeActor(inventory.getChildren().get(i));
+//                numberItem--;
+//                for (; i < numberItem; i++) {
+//                    temp.set(slots.getChildren().get(i).getX()+slots.getChildren().get(i).getWidth()/2f, slots.getChildren().get(i).getY());
+//                   if (inventory.getChildren().get(i).getWidth()>=inventory.getChildren().get(i).getHeight())
+//                    inventory.getChildren().get(i).setPosition(emptyPlace.x+slots.getChildren().get(i-1).getWidth()/2f-40*distscalex/2f, emptyPlace.y);
+//                   else
+//                       inventory.getChildren().get(i).setPosition(emptyPlace.x+slots.getChildren().get(i-1).getWidth()/2f-(45*distscalex*inventory.getChildren().get(i).getWidth()/inventory.getChildren().get(i).getHeight())/2f, emptyPlace.y);
+//                    ((InventoryItem) inventory.getChildren().get(i)).placeInInventory--;
+//                    if (i < rangeShowing.x || i > rangeShowing.y)
+//                        inventory.getChildren().get(i).setVisible(false);
+//
+//                    emptyPlace.set(temp.x, temp.y);
+//
+//                }
+//                break;
+//            }
+//        }
+//    }
+
     public void removeItem(int ID) {
         InventoryItem inventoryItem;
         for (int i = 0; i < inventory.getChildren().size; i++) {
             inventoryItem = (InventoryItem) inventory.getChildren().get(i);
             if (inventoryItem.ID == ID) {
-                Vector2 emptyPlace = new Vector2(inventory.getChildren().get(i).getX(), inventory.getChildren().get(i).getY());
+               // Vector2 emptyPlace = new Vector2(inventory.getChildren().get(i).getX(), inventory.getChildren().get(i).getY());
+                Vector2 emptyPlace = new Vector2(0,0);
+                System.out.println("This is the emptyplace "+emptyPlace);
                 Vector2 temp = new Vector2(0, 0);
                 inventory.removeActor(inventory.getChildren().get(i));
                 numberItem--;
+
                 for (; i < numberItem; i++) {
-                    temp.set(inventory.getChildren().get(i).getX(), inventory.getChildren().get(i).getY());
-                    inventory.getChildren().get(i).setPosition(emptyPlace.x, emptyPlace.y);
+                    emptyPlace.set(slots.getChildren().get(i).getX()+slots.getChildren().get(i).getWidth()*scalex/2f, inventory.getChildren().get(i).getY());
+                    temp.set(slots.getChildren().get(i).getX()+slots.getChildren().get(i).getWidth()*scalex/2f, inventory.getChildren().get(i).getY());
+                    System.out.println("This is the next emptyplace "+temp);
+                    if (inventory.getChildren().get(i).getWidth()>=inventory.getChildren().get(i).getHeight())
+                   inventory.getChildren().get(i).setPosition(emptyPlace.x-40*distscalex/2f, emptyPlace.y);
+                    else if(inventory.getChildren().get(i).getWidth()<inventory.getChildren().get(i).getHeight())
+                      inventory.getChildren().get(i).setPosition(emptyPlace.x-(45*distscalex*inventory.getChildren().get(i).getWidth()/inventory.getChildren().get(i).getHeight())/2f, emptyPlace.y);
+                    System.out.println("changed position is "+inventory.getChildren().get(i).getX());
                     ((InventoryItem) inventory.getChildren().get(i)).placeInInventory--;
                     if (i < rangeShowing.x || i > rangeShowing.y)
                         inventory.getChildren().get(i).setVisible(false);
-
                     emptyPlace.set(temp.x, temp.y);
-
                 }
                 break;
             }
@@ -376,38 +434,18 @@ public class MainUI extends Stage {
     }
 
 
-    public void mergeItems(int ind1, int ind2) {
-        removeItem(ind1);
-        //Special texture and ind
-        TextureComponent tx = new TextureComponent("Obj");
-        InventoryItem newItem = new InventoryItem(ind1 + ind2 + 50, tx);
 
-        InventoryItem inventoryItem;
-        for (int i = 0; i < inventory.getChildren().size; i++) {
-            inventoryItem = (InventoryItem) inventory.getChildren().get(i);
-            if (inventoryItem.ID == ind2) {
-                addItem(newItem);
-                removeItem(ind2);
-                System.out.println(numberItem);
-                break;
-
-            }
-        }
-    }
-
-    public void changeItems(int ind1, int ind2) {
-
-    }
 
     public void itemToRoomItem(int ind1, int ind2) {
         System.out.println("Item " + ind1 + " from inventory was dragged to" + " Item " + ind2 + " from room");
-        //if items should act
+        ghostHouse.mainGame.getBuilding().getCurrentRoom().itemWasDragged(ind1, ind2);
     }
 
     public void itemToInventoryItem(int ind1, int ind2) {
         System.out.println("Item " + ind1 + " from inventory was dragged to" + " Item " + ind2 + " from inventory");
-        //if items should merge
-        mergeItems(ind1, ind2);
+        ghostHouse.mainGame.getBuilding().getCurrentRoom().itemWasMoved(ind1, ind2);
+
+
 
     }
 

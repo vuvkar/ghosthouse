@@ -57,17 +57,17 @@ public abstract class Room implements Comparable<Room> {
             }
         }
 
-//        Entity item = new Entity();
-//        item.add(new ModelComponent("tree.g3db"));
-//        item.add(new PositionComponent(this.origin.x + 5,
-//                this.origin.y + 5 - this.height, 2));
-//        item.add(new RoomObjectComponent(this.id));
-//        item.add(new ItemTypeComponent(ItemType.TAKEABLE));
-//        item.add(new ItemIdComponent(158));
-//        item.add(new ScaleComponent(1.0f, 1.0f, 1.0f));
-//        item.add(new RotationComponent(0f, 0f, 0f));
-//        item.add(new SizeComponent(1, 1));
-//        models.add(item);
+        Entity item = new Entity();
+        item.add(new ModelComponent("HeiHei.obj"));
+        item.add(new PositionComponent(this.origin.x + 5,
+                this.origin.y + 5 - this.height, 2));
+        item.add(new RoomObjectComponent(this.id));
+        item.add(new ItemTypeComponent(ItemType.TAKEABLE));
+        item.add(new ItemIdComponent(158));
+        item.add(new ScaleComponent(1.0f, 1.0f, 1.0f));
+        item.add(new RotationComponent(0f, 0f, 0f));
+        item.add(new SizeComponent(1, 1));
+        models.add(item);
 
         //FIXME: fix this shit
         GhostMesh.ITEM_COUNT += items.size;
@@ -99,6 +99,8 @@ public abstract class Room implements Comparable<Room> {
 
     abstract public void itemWasDragged(int fromInventory, int toRoomItem);
 
+    abstract public void itemWasMoved(int fromInventory, int toInventory);
+
     public void leaveRoom() {
         mainGame.leavedRoom();
     }
@@ -109,7 +111,7 @@ public abstract class Room implements Comparable<Room> {
         for (Entity item : items) {
             if (itemIdComponentm.get(item).getItemID() == itemID) {
                itemTypeComponent.get(item).setType(type);
-                System.out.println("AXXXX");
+
             }
         }
     }
@@ -117,8 +119,6 @@ public abstract class Room implements Comparable<Room> {
     public void openMiniGame() {
 
     }
-
-
 
     public ItemType getItemStatus(int itemID) {
         for (Entity item : items) {
@@ -142,7 +142,7 @@ public abstract class Room implements Comparable<Room> {
     }
 
     public void removeFromInventory(int itemID) {
-      //  mainGame.inputController.
+      mainGame.inputController.removeFromInventory(itemID);
     }
 
    public  Entity getItemById(int itemID) {

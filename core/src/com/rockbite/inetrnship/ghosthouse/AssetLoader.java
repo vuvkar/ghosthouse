@@ -11,6 +11,7 @@ import com.badlogic.gdx.utils.Json;
 import com.rockbite.inetrnship.ghosthouse.data.GhostMesh;
 import com.rockbite.inetrnship.ghosthouse.data.Room;
 import com.rockbite.inetrnship.ghosthouse.data.Room1;
+import com.rockbite.inetrnship.ghosthouse.data.Room2;
 import com.rockbite.inetrnship.ghosthouse.util.RoomParser;
 
 import java.io.BufferedReader;
@@ -21,7 +22,6 @@ import java.io.IOException;
 public class AssetLoader extends AssetManager {
 
     public static Array<Room> rooms;
-    public Room currentRoom;
     public static TextureAtlas atlas;
 
     public static float ATLAS_HEIGHT;
@@ -31,15 +31,16 @@ public class AssetLoader extends AssetManager {
         this.rooms = rooms;
     }
 
+
     public AssetLoader() {
 //       TODO: WARNING: DO NOT ATTEMPT TO DELETEEE!!!!!!!! Thanks :)
-//        TexturePacker.Settings settings = new TexturePacker.Settings();
-//        settings.maxHeight = 4096;
-//        settings.maxWidth = 4096;
-//        settings.wrapX = Texture.TextureWrap.Repeat;
-//        settings.wrapY = Texture.TextureWrap.Repeat;
-//        TexturePacker.process(settings,"textures",
-//                "packed", "game");
+        TexturePacker.Settings settings = new TexturePacker.Settings();
+        settings.maxHeight = 4096;
+        settings.maxWidth = 4096;
+        settings.wrapX = Texture.TextureWrap.Repeat;
+        settings.wrapY = Texture.TextureWrap.Repeat;
+        TexturePacker.process(settings,"textures",
+                "packed", "game");
         atlas = new TextureAtlas(Gdx.files.internal("packed/game.atlas"));
         ATLAS_HEIGHT = atlas.getTextures().first().getHeight();
         ATLAS_WIDTH = atlas.getTextures().first().getWidth();
@@ -62,7 +63,7 @@ public class AssetLoader extends AssetManager {
         rooms = processRoomData(pixelData);
         Json json = new Json();
         Room1 room1 = json.fromJson(Room1.class, Gdx.files.internal("JSON/room1.json"));
-        Room1 room2 = json.fromJson(Room1.class, Gdx.files.internal("JSON/room2.json"));
+        Room2 room2 = json.fromJson(Room2.class, Gdx.files.internal("JSON/room2.json"));
         Room1 room3 = json.fromJson(Room1.class, Gdx.files.internal("JSON/room3.json"));
         Room1 room4 = json.fromJson(Room1.class, Gdx.files.internal("JSON/room4.json"));
         Array<Room> newRooms = new Array<Room>();
