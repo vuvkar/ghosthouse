@@ -125,7 +125,7 @@ public class MainGame {
             building.getCurrentRoom().miniGame.render();
         }
 
-        // then render decorations/characters and items
+        // then render decorations/characters and item s
         // TODO: render the rest
 
         // DO postprocessing of FBO and render it to screen

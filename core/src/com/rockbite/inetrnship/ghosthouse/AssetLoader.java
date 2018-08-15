@@ -85,7 +85,7 @@ public class AssetLoader extends AssetManager {
         // TODO: courtesy of Dave
         int[][] matrix = new int[0][0];
         String fileName = "PBMs/Monika_Map.pbm";
-        String line = null;
+        String line;
         try {
             FileReader fileReader = new FileReader(fileName);
             BufferedReader bufferedReader = new BufferedReader(fileReader);

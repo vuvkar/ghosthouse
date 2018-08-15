@@ -41,7 +41,7 @@ public class Room1 extends Room {
 //    }
 
     public  Room1() {
-        miniGame = new Puzzle();
+
     }
 
     @Override
@@ -69,6 +69,8 @@ public class Room1 extends Room {
         System.out.println(itemID);
         switch (itemID){
             case BEAR:
+                miniGame = new Puzzle();
+                miniGame.start();
                 switch (getItemStatus(BEAR)) {
                     case STATIC:
                         break;
@@ -77,7 +79,7 @@ public class Room1 extends Room {
                     case NONTAKEABLE:
                         setItemStatus(BEAR,ItemType.STATIC);
                         addToInventory(KEYPART1);
-                       // miniGame.start();
+
                         break;
                 }
                 break;
