@@ -88,7 +88,7 @@ public class MainGame {
         ghost.getComponent(PositionComponent.class).setXYZ(ghostPosition);
         multiplexer.addProcessor(ghostHouse.mainUI);
         multiplexer.addProcessor(inputController);
-        Gdx.input.setInputProcessor(multiplexer);
+      //  Gdx.input.setInputProcessor(multiplexer);
         //System.out.println(ghost.getComponent(PositionComponent.class).getX());
 
         engine.addEntity(ghost);
@@ -116,17 +116,12 @@ public class MainGame {
         // first render sky
         // TODO: render sky
 
-        // then render building walls
-        // TODO: render building
-
+        // then render building walls and items
         meshok.render(cameraSystem.cam);
 
         if(miniGameOn) {
             building.getCurrentRoom().miniGame.render();
         }
-
-        // then render decorations/characters and item s
-        // TODO: render the rest
 
         // DO postprocessing of FBO and render it to screen
         // TODO: final render
