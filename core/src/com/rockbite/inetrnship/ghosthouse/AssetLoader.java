@@ -31,15 +31,16 @@ public class AssetLoader extends AssetManager {
         this.rooms = rooms;
     }
 
+
     public AssetLoader() {
 //       TODO: WARNING: DO NOT ATTEMPT TO DELETEEE!!!!!!!! Thanks :)
-//        TexturePacker.Settings settings = new TexturePacker.Settings();
-//        settings.maxHeight = 4096;
-//        settings.maxWidth = 4096;
-//        settings.wrapX = Texture.TextureWrap.Repeat;
-//        settings.wrapY = Texture.TextureWrap.Repeat;
-//        TexturePacker.process(settings,"textures",
-//                "packed", "game");
+        TexturePacker.Settings settings = new TexturePacker.Settings();
+        settings.maxHeight = 4096;
+        settings.maxWidth = 4096;
+        settings.wrapX = Texture.TextureWrap.Repeat;
+        settings.wrapY = Texture.TextureWrap.Repeat;
+        TexturePacker.process(settings,"textures",
+                "packed", "game");
         atlas = new TextureAtlas(Gdx.files.internal("packed/game.atlas"));
         ATLAS_HEIGHT = atlas.getTextures().first().getHeight();
         ATLAS_WIDTH = atlas.getTextures().first().getWidth();

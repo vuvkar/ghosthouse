@@ -18,7 +18,7 @@ public class AnimationComponent implements Component {
        atlas = AssetLoader.atlas;
        SkeletonJson json = new SkeletonJson(atlas); // This loads skeleton JSON data, which is stateless.
        json.setScale(scale);
-       SkeletonData skeletonData = json.readSkeletonData(Gdx.files.internal("animations/" + name + "/" + name + ".json"));
+       SkeletonData skeletonData = json.readSkeletonData(Gdx.files.internal("animations/" + name + "/" + "skeleton" + ".json"));
        size = new Vector2(skeletonData.getWidth() * scale, skeletonData.getHeight() * scale);
        skeleton = new Skeleton(skeletonData); // Skeleton holds skeleton state (bone positions, slot attachments, etc).
        AnimationStateData stateData = new AnimationStateData(skeletonData); // Defines mixing (crossfading) between animations.
