@@ -21,20 +21,24 @@ import com.rockbite.inetrnship.ghosthouse.ecs.components.PositionComponent;
 import com.rockbite.inetrnship.ghosthouse.ecs.components.SizeComponent;
 import com.rockbite.inetrnship.ghosthouse.ecs.components.TextureComponent;
 import com.rockbite.inetrnship.ghosthouse.ecs.systems.CameraSystem;
+import okhttp3.*;
+
+import java.io.IOException;
 
 public class MainUI extends Stage {
+    SaveDataLoader saveDataLoader = new SaveDataLoader();
     public Vector3 targetPosition = new Vector3(0, 0, 0);
     AssetLoader assetLoader;
     public static SettingsMusic settingsMusic;
-    public static boolean settingson=false;
+    public static boolean settingson = false;
     public TextureAtlas atlas;
     float scale = Gdx.graphics.getWidth() / 1920f;
-    float distscale=Gdx.graphics.getWidth()/800f;
+    float distscale = Gdx.graphics.getWidth() / 800f;
 
     float scalex = Gdx.graphics.getWidth() / 1920f;
     float scaley = Gdx.graphics.getHeight() / 1080f;
-    float distscalex=Gdx.graphics.getWidth()/800f;
-    float distscaley=Gdx.graphics.getHeight()/450f;
+    float distscalex = Gdx.graphics.getWidth() / 800f;
+    float distscaley = Gdx.graphics.getHeight() / 450f;
     public int numberItem = 0;
     public float placeInInventory = 0;
     public float placeInSlots = 0;
@@ -48,7 +52,8 @@ public class MainUI extends Stage {
 
     PositionComponent pos = new PositionComponent(0, 0, 0);
     SizeComponent size = new SizeComponent(0, 0);
-   Vector2 step=new Vector2(60*Gdx.graphics.getWidth()/800, 66*Gdx.graphics.getWidth()/800);
+    Vector2 step = new Vector2(60 * Gdx.graphics.getWidth() / 800, 66 * Gdx.graphics.getWidth() / 800);
+
     public MainUI(GhostHouse ghostHouse) {
         assetLoader = ghostHouse.assetLoader;
         this.ghostHouse = ghostHouse;
@@ -83,7 +88,7 @@ public class MainUI extends Stage {
         Table LeftArrow = new Table();
         Table RightArrow = new Table();
         Table TEXTSHIT = new Table();
-        final Table settingsMenu=new Table();
+        final Table settingsMenu = new Table();
 
 
         bar.setFillParent(true);
@@ -103,7 +108,6 @@ public class MainUI extends Stage {
         Image Right = new Image(atlas.findRegion("right"));
         Image Left = new Image(atlas.findRegion("left"));
         Image settingsMenuImage = new Image(atlas.findRegion("SettingsMenu"));
-
 
 
         slots = new Group();
@@ -127,8 +131,8 @@ public class MainUI extends Stage {
                 slots.getChildren().get(i).setVisible(false);
         }
 
-        slots.setPosition(119*Gdx.graphics.getWidth()/800f, 8);
-        inventory.setPosition(119*Gdx.graphics.getWidth()/800f, 8);
+        slots.setPosition(119 * Gdx.graphics.getWidth() / 800f, 8);
+        inventory.setPosition(119 * Gdx.graphics.getWidth() / 800f, 8);
         NinePatch patch = new NinePatch(atlas.createPatch("downbar"));
 
         patch.scale(scalex, scaley);
@@ -137,7 +141,7 @@ public class MainUI extends Stage {
 
         Image Patch = new Image(patch);
 
-        bar.add(Patch).padRight(distscalex*2).padLeft(distscalex*2).padBottom(distscaley*1).width(Patch.getPrefWidth() * scalex).height(Patch.getPrefHeight() * scaley);
+        bar.add(Patch).padRight(distscalex * 2).padLeft(distscalex * 2).padBottom(distscaley * 1).width(Patch.getPrefWidth() * scalex).height(Patch.getPrefHeight() * scaley);
         bar.bottom();
 
         patch = new NinePatch(atlas.createPatch("room_name_slot"));
@@ -146,37 +150,42 @@ public class MainUI extends Stage {
         patch.setMiddleHeight(95 - patch.getTotalHeight() + patch.getMiddleHeight());
 
         Patch = new Image(patch);
-        up.add(Patch).width(Patch.getPrefWidth() * scalex).height(Patch.getPrefHeight() * scaley).padLeft(distscalex*10).padTop(distscaley*13);
+        up.add(Patch).width(Patch.getPrefWidth() * scalex).height(Patch.getPrefHeight() * scaley).padLeft(distscalex * 10).padTop(distscaley * 13);
         up.top().left();
 
-        TEXTSHIT.add(text).width(text.getPrefWidth() * scalex).height(text.getPrefHeight() * scaley).padLeft(distscalex*16).padTop(distscaley*26);
+        TEXTSHIT.add(text).width(text.getPrefWidth() * scalex).height(text.getPrefHeight() * scaley).padLeft(distscalex * 16).padTop(distscaley * 26);
         TEXTSHIT.left().top();
 
-        right.add(hint).width(hint.getPrefWidth() * scalex).height(hint.getPrefHeight() * scaley).padTop(5).padRight(distscalex*14);
+        right.add(hint).width(hint.getPrefWidth() * scalex).height(hint.getPrefHeight() * scaley).padTop(5).padRight(distscalex * 14);
         right.top().right();
 
-        stop.add(StopB).width(StopB.getPrefWidth() * scalex).height(StopB.getPrefHeight() * scaley).padLeft(distscalex*14).padBottom(distscaley*7);
+        stop.add(StopB).width(StopB.getPrefWidth() * scalex).height(StopB.getPrefHeight() * scaley).padLeft(distscalex * 14).padBottom(distscaley * 7);
         stop.bottom().left();
 
-        settingsMenu.add(settingsMenuImage).width(settingsMenuImage.getPrefWidth() * scalex).height(settingsMenuImage.getPrefHeight() * scaley).padTop(distscaley*5).padRight(distscalex*14);
+        settingsMenu.add(settingsMenuImage).width(settingsMenuImage.getPrefWidth() * scalex).height(settingsMenuImage.getPrefHeight() * scaley).padTop(distscaley * 5).padRight(distscalex * 14);
         settingsMenu.setVisible(false);
 
-        opt.add(setting).width(setting.getPrefWidth() * scalex).height(setting.getPrefHeight() * scaley).padRight(distscalex*15).padBottom(distscaley*7);
+        opt.add(setting).width(setting.getPrefWidth() * scalex).height(setting.getPrefHeight() * scaley).padRight(distscalex * 15).padBottom(distscaley * 7);
         opt.bottom().right();
 
         opt.getChildren().get(0).addListener(new ClickListener() {
 
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                settingsMusic=new SettingsMusic();
-           settingson=true;
+                settingsMusic = new SettingsMusic();
+                settingson = true;
+
+                //TODO: DO NOT TOUCH!!! NOT YOUR BUSINESS!!!
+                System.out.println("zibil");
+                saveDataLoader.makeRequest();
+
                 return true;
             }
         });
 
-        RightArrow.add(Right).width(Right.getPrefWidth() * scalex).height(Right.getPrefHeight() * scaley).padRight(83*distscalex).padBottom(distscaley*22);
+        RightArrow.add(Right).width(Right.getPrefWidth() * scalex).height(Right.getPrefHeight() * scaley).padRight(83 * distscalex).padBottom(distscaley * 22);
         RightArrow.bottom().right();
 
-        LeftArrow.add(Left).width(Left.getPrefWidth() * scalex).height(Left.getPrefHeight() * scaley).padLeft(distscalex*78).padBottom(distscaley*22);
+        LeftArrow.add(Left).width(Left.getPrefWidth() * scalex).height(Left.getPrefHeight() * scaley).padLeft(distscalex * 78).padBottom(distscaley * 22);
         LeftArrow.bottom().left();
 
         RightArrow.getChildren().get(0).setTouchable(Touchable.enabled);
@@ -292,14 +301,14 @@ public class MainUI extends Stage {
 
         numberItem++;
 
-        if(AssetLoader.getRegion(inventoryItem.texture.texture).packedWidth>=AssetLoader.getRegion(inventoryItem.texture.texture).packedHeight) {
-            inventory.getChildren().get(numberItem - 1).setScale(40 / (float) AssetLoader.getRegion(inventoryItem.texture.texture).packedWidth*distscalex);
+        if (AssetLoader.getRegion(inventoryItem.texture.texture).packedWidth >= AssetLoader.getRegion(inventoryItem.texture.texture).packedHeight) {
+            inventory.getChildren().get(numberItem - 1).setScale(40 / (float) AssetLoader.getRegion(inventoryItem.texture.texture).packedWidth * distscalex);
 
-            inventory.getChildren().get(numberItem - 1).setPosition(slots.getChildren().get(numberItem - 1).getX()+slots.getChildren().get(numberItem - 1).getWidth()*scalex/2f - 20*distscalex, 4.5f);
+            inventory.getChildren().get(numberItem - 1).setPosition(slots.getChildren().get(numberItem - 1).getX() + slots.getChildren().get(numberItem - 1).getWidth() * scalex / 2f - 20 * distscalex, 4.5f);
         }
-        if(AssetLoader.getRegion(inventoryItem.texture.texture).packedWidth<=AssetLoader.getRegion(inventoryItem.texture.texture).packedHeight) {
-            inventory.getChildren().get(numberItem - 1).setScale(45 / (float) AssetLoader.getRegion(inventoryItem.texture.texture).packedHeight*distscaley);
-            inventory.getChildren().get(numberItem - 1).setPosition(slots.getChildren().get(numberItem - 1).getX() + slots.getChildren().get(numberItem - 1).getWidth() * scalex / 2f - (45/2f)*AssetLoader.getRegion(inventoryItem.texture.texture).packedWidth/AssetLoader.getRegion(inventoryItem.texture.texture).packedHeight*distscaley, 4.5f);
+        if (AssetLoader.getRegion(inventoryItem.texture.texture).packedWidth <= AssetLoader.getRegion(inventoryItem.texture.texture).packedHeight) {
+            inventory.getChildren().get(numberItem - 1).setScale(45 / (float) AssetLoader.getRegion(inventoryItem.texture.texture).packedHeight * distscaley);
+            inventory.getChildren().get(numberItem - 1).setPosition(slots.getChildren().get(numberItem - 1).getX() + slots.getChildren().get(numberItem - 1).getWidth() * scalex / 2f - (45 / 2f) * AssetLoader.getRegion(inventoryItem.texture.texture).packedWidth / AssetLoader.getRegion(inventoryItem.texture.texture).packedHeight * distscaley, 4.5f);
         }
 
         if (numberItem - 1 % 2 == 0)
@@ -347,7 +356,7 @@ public class MainUI extends Stage {
                     }
                 } else {
                     if (ghostHouse.mainGame.inputController.isIntersected()) {
-                        int ind=0;
+                        int ind = 0;
                         targetPosition.set(ghostHouse.mainGame.inputController.targetPosition);
                         for (int i = 0; i < ghostHouse.assetLoader.getRooms().get(ghostHouse.mainGame.cameraSystem.target).items.size; i++) {
                             pos = ghostHouse.assetLoader.getRooms().get(ghostHouse.mainGame.cameraSystem.target).items.get(i).getComponent(PositionComponent.class);
@@ -357,7 +366,7 @@ public class MainUI extends Stage {
                                 if (event.getListenerActor().getX() != prevPos.x || event.getListenerActor().getY() != prevPos.y) {
 
                                     event.getListenerActor().setPosition(prevPos.x, prevPos.y);
-                                    ind=ghostHouse.assetLoader.rooms.get(ghostHouse.mainGame.cameraSystem.target).items.get(i).getComponent(ItemIdComponent.class).getItemID();
+                                    ind = ghostHouse.assetLoader.rooms.get(ghostHouse.mainGame.cameraSystem.target).items.get(i).getComponent(ItemIdComponent.class).getItemID();
                                 }
                                 itemToRoomItem(inventoryItemThis.ID, ind);
                                 break;
@@ -407,22 +416,22 @@ public class MainUI extends Stage {
         for (int i = 0; i < inventory.getChildren().size; i++) {
             inventoryItem = (InventoryItem) inventory.getChildren().get(i);
             if (inventoryItem.ID == ID) {
-               // Vector2 emptyPlace = new Vector2(inventory.getChildren().get(i).getX(), inventory.getChildren().get(i).getY());
-                Vector2 emptyPlace = new Vector2(0,0);
-                System.out.println("This is the emptyplace "+emptyPlace);
+                // Vector2 emptyPlace = new Vector2(inventory.getChildren().get(i).getX(), inventory.getChildren().get(i).getY());
+                Vector2 emptyPlace = new Vector2(0, 0);
+                System.out.println("This is the emptyplace " + emptyPlace);
                 Vector2 temp = new Vector2(0, 0);
                 inventory.removeActor(inventory.getChildren().get(i));
                 numberItem--;
 
                 for (; i < numberItem; i++) {
-                    emptyPlace.set(slots.getChildren().get(i).getX()+slots.getChildren().get(i).getWidth()*scalex/2f, inventory.getChildren().get(i).getY());
-                    temp.set(slots.getChildren().get(i).getX()+slots.getChildren().get(i).getWidth()*scalex/2f, inventory.getChildren().get(i).getY());
-                    System.out.println("This is the next emptyplace "+temp);
-                    if (inventory.getChildren().get(i).getWidth()>=inventory.getChildren().get(i).getHeight())
-                   inventory.getChildren().get(i).setPosition(emptyPlace.x-40*distscalex/2f, emptyPlace.y);
-                    else if(inventory.getChildren().get(i).getWidth()<inventory.getChildren().get(i).getHeight())
-                      inventory.getChildren().get(i).setPosition(emptyPlace.x-(45*distscalex*inventory.getChildren().get(i).getWidth()/inventory.getChildren().get(i).getHeight())/2f, emptyPlace.y);
-                    System.out.println("changed position is "+inventory.getChildren().get(i).getX());
+                    emptyPlace.set(slots.getChildren().get(i).getX() + slots.getChildren().get(i).getWidth() * scalex / 2f, inventory.getChildren().get(i).getY());
+                    temp.set(slots.getChildren().get(i).getX() + slots.getChildren().get(i).getWidth() * scalex / 2f, inventory.getChildren().get(i).getY());
+                    System.out.println("This is the next emptyplace " + temp);
+                    if (inventory.getChildren().get(i).getWidth() >= inventory.getChildren().get(i).getHeight())
+                        inventory.getChildren().get(i).setPosition(emptyPlace.x - 40 * distscalex / 2f, emptyPlace.y);
+                    else if (inventory.getChildren().get(i).getWidth() < inventory.getChildren().get(i).getHeight())
+                        inventory.getChildren().get(i).setPosition(emptyPlace.x - (45 * distscalex * inventory.getChildren().get(i).getWidth() / inventory.getChildren().get(i).getHeight()) / 2f, emptyPlace.y);
+                    System.out.println("changed position is " + inventory.getChildren().get(i).getX());
                     ((InventoryItem) inventory.getChildren().get(i)).placeInInventory--;
                     if (i < rangeShowing.x || i > rangeShowing.y)
                         inventory.getChildren().get(i).setVisible(false);
@@ -433,9 +442,6 @@ public class MainUI extends Stage {
         }
     }
 
-
-
-
     public void itemToRoomItem(int ind1, int ind2) {
         System.out.println("Item " + ind1 + " from inventory was dragged to" + " Item " + ind2 + " from room");
         ghostHouse.mainGame.getBuilding().getCurrentRoom().itemWasDragged(ind1, ind2);
@@ -444,7 +450,6 @@ public class MainUI extends Stage {
     public void itemToInventoryItem(int ind1, int ind2) {
         System.out.println("Item " + ind1 + " from inventory was dragged to" + " Item " + ind2 + " from inventory");
         ghostHouse.mainGame.getBuilding().getCurrentRoom().itemWasMoved(ind1, ind2);
-
 
 
     }

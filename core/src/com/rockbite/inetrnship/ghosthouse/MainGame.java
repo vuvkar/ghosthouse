@@ -46,7 +46,6 @@ public class MainGame {
     }
 
     public MainGame(GhostHouse ghostHouse) {
-
         this.ghostHouse = ghostHouse;
 
         assetLoader = ghostHouse.assetLoader;

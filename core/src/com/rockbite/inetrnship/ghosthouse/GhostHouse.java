@@ -40,6 +40,7 @@ public class GhostHouse extends ApplicationAdapter {
         }
         if(MainUI.settingson){
             MainUI.settingsMusic.draw();
+
         }
 
 
@@ -56,9 +57,9 @@ public class GhostHouse extends ApplicationAdapter {
         mainUI.getViewport().setScreenSize(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
         if (MainGame.miniGameOn)
             Puzzle.stage.getViewport().setScreenSize(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
-        if (MainUI.settingson)
+        if (MainUI.settingson) {
             MainUI.settingsMusic.stage.getViewport().setScreenSize(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
-
+        }
 
     }
 }

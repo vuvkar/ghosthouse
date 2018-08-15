@@ -1,6 +1,7 @@
 package com.rockbite.inetrnship.ghosthouse;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
@@ -18,6 +19,8 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 
+import static javax.swing.UIManager.getString;
+
 
 public class AssetLoader extends AssetManager {
 
@@ -27,6 +30,8 @@ public class AssetLoader extends AssetManager {
     public static float ATLAS_HEIGHT;
     public static float ATLAS_WIDTH;
 
+    private int room = 0;
+
     public void setRooms(Array<Room> rooms) {
         this.rooms = rooms;
     }
@@ -34,18 +39,22 @@ public class AssetLoader extends AssetManager {
 
     public AssetLoader() {
 //       TODO: WARNING: DO NOT ATTEMPT TO DELETEEE!!!!!!!! Thanks :)
-        TexturePacker.Settings settings = new TexturePacker.Settings();
-        settings.maxHeight = 4096;
-        settings.maxWidth = 4096;
-        settings.wrapX = Texture.TextureWrap.Repeat;
-        settings.wrapY = Texture.TextureWrap.Repeat;
-        TexturePacker.process(settings,"textures",
-                "packed", "game");
+//        TexturePacker.Settings settings = new TexturePacker.Settings();
+//        settings.maxHeight = 4096;
+//        settings.maxWidth = 4096;
+//        settings.wrapX = Texture.TextureWrap.Repeat;
+//        settings.wrapY = Texture.TextureWrap.Repeat;
+//        TexturePacker.process(settings,"textures",
+//                "packed", "game");
         atlas = new TextureAtlas(Gdx.files.internal("packed/game.atlas"));
-        ATLAS_HEIGHT = atlas.getTextures().first().getHeight();
-        ATLAS_WIDTH = atlas.getTextures().first().getWidth();
+//        ATLAS_HEIGHT = atlas.getTextures().first().getHeight();
+//        ATLAS_WIDTH = atlas.getTextures().first().getWidth();
         loadGameData();
-//
+        SaveDataLoader saveLoad = new SaveDataLoader();
+        saveLoad.save(room);
+        room = saveLoad.load();
+
+
 //        TexturePacker.Settings settings = new TexturePacker.Settings();
 //     settings.maxHeight = 4096;
 //     settings.maxWidth = 4096;
@@ -68,15 +77,15 @@ public class AssetLoader extends AssetManager {
         Room1 room4 = json.fromJson(Room1.class, Gdx.files.internal("JSON/room4.json"));
         Array<Room> newRooms = new Array<Room>();
         newRooms.add(room1, room2, room3, room4);
-        for(Room room: newRooms) {
+        for (Room room : newRooms) {
             room.loadEntities();
         }
         rooms = newRooms;
     }
 
     public static TextureAtlas.AtlasRegion getRegion(String name) {
-        if(name == "") {
-            return  new TextureAtlas.AtlasRegion(new Texture(Gdx.files.internal("textures/album.png")), 0, 0, 0, 0);
+        if (name == "") {
+            return new TextureAtlas.AtlasRegion(new Texture(Gdx.files.internal("textures/album.png")), 0, 0, 0, 0);
         }
         return atlas.findRegion(name);
     }
@@ -150,8 +159,8 @@ public class AssetLoader extends AssetManager {
             float height = roomParser.getRoomHeight(rawPixelData, i);
             float width = roomParser.getRoomWidth(rawPixelData, i);
 
-           // Room1 room = new Room1(i, bottomLeft, height, width);
-           // roomArray.add(room);
+            // Room1 room = new Room1(i, bottomLeft, height, width);
+            // roomArray.add(room);
         }
 
         return roomArray;
