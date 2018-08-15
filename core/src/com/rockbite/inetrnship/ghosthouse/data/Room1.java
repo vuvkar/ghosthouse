@@ -38,6 +38,10 @@ public class Room1 extends Room {
     Sound scissors;
     Sound fish;
     Sound key;
+    Sound newspaper;
+    Sound couch;
+    Sound wholekey;
+
     final int WARDROB = 23;
     final int CLOCK = 9;
 
@@ -57,6 +61,9 @@ public class Room1 extends Room {
         scissors = Gdx.audio.newSound(Gdx.files.internal("sounds/scissors.mp3"));
         fish = Gdx.audio.newSound(Gdx.files.internal("sounds/fish.mp3"));
         key = Gdx.audio.newSound( Gdx.files.internal("sounds/Keys.mp3"));
+        newspaper = Gdx.audio.newSound(Gdx.files.internal("sounds/ktrel.mp3"));
+        couch = Gdx.audio.newSound(Gdx.files.internal("sounds/couch.mp3"));
+        wholekey = Gdx.audio.newSound(Gdx.files.internal("sounds/sparkle.mp3"));
 
     }
 
@@ -78,6 +85,7 @@ public class Room1 extends Room {
         setItemStatus(NEWSPAPER_ON_THE_WALL,ItemType.NONTAKEABLE);
         setItemStatus(WARDROB,ItemType.NONTAKEABLE);
         setItemStatus(CLOCK,ItemType.NONTAKEABLE);
+
 
 //        Dialog.showDialog(InGameTexts.qaq);
 
@@ -254,6 +262,8 @@ public class Room1 extends Room {
             removeFromInventory(SCISSORS);
             setItemStatus(NEWSPAPER,ItemType.STATIC);
             changeTexture(NEWSPAPER,"dokumentyporvannye");
+            newspaper.play();
+
 
 
         } else if (fromInventory==BOTTLES && toRoomItem==ARM_CHAIR){
@@ -261,6 +271,7 @@ public class Room1 extends Room {
             removeFromInventory(BOTTLES);
             setItemStatus(ARM_CHAIR,ItemType.STATIC);
             changeTexture(ARM_CHAIR,"porvannoekreslo");
+            couch.play();
 
         } else if (fromInventory==WHOLEKEY && toRoomItem==WARDROB){
             removeFromInventory(WHOLEKEY);
@@ -281,7 +292,7 @@ public class Room1 extends Room {
             removeFromInventory(fromInventory);
             removeFromInventory(toInventoryItem);
             addToInventory(WHOLEKEY);
-
+            wholekey.play();
         }
         else if (fromInventory==25 && toInventoryItem==24){
             removeFromInventory(fromInventory);
