@@ -29,9 +29,9 @@ public class GhostHouse extends ApplicationAdapter {
 
         mainGame.render();
         mainUI.draw();
-        if (mainGame.miniGameOn) {
-            mainGame.miniGame.render();
-        }
+//        if (mainGame.miniGameOn) {
+//            mainGame.miniGame.render();
+//        }
         if (mainGame.inputController.isMoving) {
             mainGame.inputController.moveCharacter();
         }

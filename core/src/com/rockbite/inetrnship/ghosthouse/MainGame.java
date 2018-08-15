@@ -25,8 +25,6 @@ public class MainGame {
     private RenderSystem renderSystem;
     private AssetLoader assetLoader;
     public InputController inputController;
-    public static MiniGame miniGame = new MiniGame();
-
 
     public static boolean miniGameOn = false;
     private Array<Room> rooms;
@@ -122,6 +120,10 @@ public class MainGame {
         // TODO: render building
 
         meshok.render(cameraSystem.cam);
+
+        if(miniGameOn) {
+            building.getCurrentRoom().miniGame.render();
+        }
 
         // then render decorations/characters and items
         // TODO: render the rest

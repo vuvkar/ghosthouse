@@ -40,7 +40,9 @@ public class Room1 extends Room {
 //        this.height = height;
 //    }
 
-    public  Room1() {}
+    public  Room1() {
+        miniGame = new Puzzle();
+    }
 
     @Override
     public void roomStarted() {
@@ -75,6 +77,7 @@ public class Room1 extends Room {
                     case NONTAKEABLE:
                         setItemStatus(BEAR,ItemType.STATIC);
                         addToInventory(KEYPART1);
+                       // miniGame.start();
                         break;
                 }
                 break;

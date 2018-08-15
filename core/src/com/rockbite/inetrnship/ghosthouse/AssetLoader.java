@@ -160,4 +160,10 @@ public class AssetLoader extends AssetManager {
     public Array<Room> getRooms() {
         return rooms;
     }
+
+    @Override
+    public void dispose() {
+        super.dispose();
+        atlas.dispose();
+    }
 }

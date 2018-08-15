@@ -43,7 +43,8 @@ public class KillBugs extends MiniGame {
         start();
     }
 
-    private void start() {
+    @Override
+    public void start() {
         stage = new Stage(new ScreenViewport());
         Gdx.input.setInputProcessor(stage);
 

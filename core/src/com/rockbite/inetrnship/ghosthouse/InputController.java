@@ -135,12 +135,12 @@ public class InputController implements InputProcessor {
 
         if (keycode == Input.Keys.NUM_1) {
             //  ghostHouse.mainUI.deleteItem(1);
-            ghostHouse.mainGame.miniGame = new Puzzle();
+            //ghostHouse.mainGame.miniGame = new Puzzle();
             ghostHouse.mainGame.miniGameOn = true;
 
         }
         if (keycode == Input.Keys.NUM_2) {
-            ghostHouse.mainGame.miniGame = new KillBugs();
+            //ghostHouse.mainGame.miniGame = new KillBugs();
             ghostHouse.mainGame.miniGameOn = true;
         }
         if (keycode == Input.Keys.NUM_3) {
