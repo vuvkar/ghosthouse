@@ -232,6 +232,7 @@ public class Room1 extends Room {
 
 
     }
+
     public void itemWasMoved(int fromInventory, int toInventoryItem) {
         if (fromInventory == 15 && toInventoryItem == 19) {
             //peace 5

@@ -52,6 +52,10 @@ public class MainGame {
         assetLoader = ghostHouse.assetLoader;
         rooms = assetLoader.getRooms();
 
+        for(Room room: rooms) {
+            room.mainGame = this;
+        }
+
         building = new GhostBuilding(rooms, assetLoader);
         meshok = new GhostMesh(building.getAllRects(), assetLoader);
 
@@ -71,7 +75,6 @@ public class MainGame {
 
         Vector3 ghostPosition = new Vector3();
         for (Room room : rooms) {
-            room.mainGame = this;
             for (Entity entity : room.items) {
                 engine.addEntity(entity);
             }
@@ -95,6 +98,10 @@ public class MainGame {
     public void leavedRoom() {
         cameraSystem.moveToNextRoom();
         building.moveToNextRoom();
+        building.getCurrentRoom().roomStarted();
+    }
+
+    public  void  startGame() {
         building.getCurrentRoom().roomStarted();
     }
 

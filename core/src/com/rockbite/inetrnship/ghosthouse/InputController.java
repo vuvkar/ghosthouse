@@ -59,9 +59,12 @@ public class InputController implements InputProcessor {
 
     // TODO: Liana's Megashit
     public void moveCharacter() {
+        AnimationComponent animationComponent = ghostHouse.mainGame.ghost.getComponent(AnimationComponent.class);
+        PositionComponent positionComponent = ghostHouse.mainGame.ghost.getComponent(PositionComponent.class);
+
         //targetPosition.set(ClickPos); 
-        if (targetPosition.x >= ghostHouse.assetLoader.getRooms().get(CameraSystem.target).origin.x + ghostHouse.assetLoader.getRooms().get(CameraSystem.target).width- ghostHouse.mainGame.ghost.getComponent(AnimationComponent.class).size.x) {
-            targetPosition.x = ghostHouse.assetLoader.getRooms().get(CameraSystem.target).origin.x + ghostHouse.assetLoader.getRooms().get(CameraSystem.target).width - ghostHouse.mainGame.ghost.getComponent(AnimationComponent.class).size.x;
+        if (targetPosition.x >= ghostHouse.assetLoader.getRooms().get(CameraSystem.target).origin.x + ghostHouse.assetLoader.getRooms().get(CameraSystem.target).width - ghostHouse.mainGame.ghost.getComponent(AnimationComponent.class).size.x / 2) {
+            targetPosition.x = ghostHouse.assetLoader.getRooms().get(CameraSystem.target).origin.x + ghostHouse.assetLoader.getRooms().get(CameraSystem.target).width - ghostHouse.mainGame.ghost.getComponent(AnimationComponent.class).size.x / 2;
         }
         if (targetPosition.y <= ghostHouse.assetLoader.getRooms().get(CameraSystem.target).origin.y) {
             targetPosition.y = ghostHouse.assetLoader.getRooms().get(CameraSystem.target).origin.y;
@@ -76,16 +79,23 @@ public class InputController implements InputProcessor {
                 ghostHouse.mainGame.ghost.getComponent(PositionComponent.class).getY() == targetPosition.y) {
             t = 0;
             isMoving = false;
+            animationComponent.setState(AnimationComponent.xaxand, true);
             System.out.println(ghostHouse.mainGame.ghost.getComponent(PositionComponent.class).getY());
-
-
-
                     ghostHouse.mainGame.getBuilding().getCurrentRoom().itemWasClicked((int)indexAndMax[1]);
-
                 indexAndMax[0] = 0;
                 indexAndMax[1] = 0;
 
         } else {
+            if(!isMoving) {
+                if(positionComponent.getX() > targetPosition.x) {
+                    animationComponent.flip(AnimationComponent.LEFT);
+                }
+                else {
+                    animationComponent.flip(AnimationComponent.RIGHT);
+                }
+
+                animationComponent.setState(AnimationComponent.moveGhost, true);
+            }
             isMoving = true;
             dist.set(targetPosition.x - prevPosition.x,
                     targetPosition.y - prevPosition.y);
