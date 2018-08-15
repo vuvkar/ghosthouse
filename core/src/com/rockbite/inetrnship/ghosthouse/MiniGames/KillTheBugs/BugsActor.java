@@ -9,6 +9,7 @@ import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.scenes.scene2d.actions.MoveByAction;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.rockbite.inetrnship.ghosthouse.MainGame;
 
 public class BugsActor extends Actor {
     private Sprite texture;
@@ -21,8 +22,8 @@ public class BugsActor extends Actor {
     private float dir = 1;
     private float dir2 = 1;
     private String actorType;
-    private Texture bug1 = new Texture(Gdx.files.internal("MiniGame/bug.png"));
-    private Texture bug2 = new Texture(Gdx.files.internal("MiniGame/bug2.png"));
+    private Texture bug1 = new Texture(Gdx.files.internal("MiniGame/bug_1_1.png"));
+    private Texture bug2 = new Texture(Gdx.files.internal("MiniGame/bug_1_2.png"));
     private Texture blood = new Texture(Gdx.files.internal("MiniGame/blood.png"));
     private Texture death = new Texture(Gdx.files.internal("MiniGame/death.png"));
 
@@ -30,20 +31,19 @@ public class BugsActor extends Actor {
         this.texture = new Sprite(texture);
         this.actorType = actorType;
         this.dir = direction;
-        setBounds(x, y, texture.getWidth(), texture.getHeight());
+        setBounds(x,y,texture.getWidth(),texture.getHeight());
         setTouchable(Touchable.enabled);
         KillBugs.timer = 0;
 
-        if (actorType.equals("bug")) {
+
+        if(actorType.equals("bug")) {
             addListener(new ClickListener() {
                 @Override
-                public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                    return true;
-                }
+                public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) { return true; }
 
                 @Override
                 public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
-                    if (!KillBugs.gameOver && !isDead) {
+                    if(!KillBugs.gameOver && !isDead) {
                         isDead = true;
                         BugsActor.this.texture.setTexture(blood);
                         KillBugs.killedBugs++;
@@ -53,7 +53,7 @@ public class BugsActor extends Actor {
             });
         }
 
-        if (actorType.equals("message")) {
+        if(actorType.equals("message")) {
             addListener(new ClickListener() {
                 @Override
                 public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
@@ -68,7 +68,7 @@ public class BugsActor extends Actor {
             });
         }
 
-        if (actorType.equals("gameover")) {
+        if(actorType.equals("gameover")) {
             addListener(new ClickListener() {
                 @Override
                 public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
@@ -81,36 +81,56 @@ public class BugsActor extends Actor {
                 }
             });
         }
+
+        if(actorType.equals("close")) {
+            addListener(new ClickListener() {
+                @Override
+                public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+                    return true;
+                }
+
+                @Override
+                public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
+                    for (int i = 0; i < getStage().getActors().size; i++) {
+                        getStage().getActors().get(i).setVisible(false);
+                    }
+                    MainGame.miniGameOn = false;
+                    Gdx.input.setInputProcessor(MainGame.multiplexer);
+                    MainGame.miniGame = null;
+                }
+            });
+        }
+
     }
 
     @Override
     protected void positionChanged() {
-        texture.setPosition(getX(), getY());
+        texture.setPosition(getX(),getY());
         super.positionChanged();
     }
-
     @Override
     public void draw(Batch batch, float parentAlpha) {
         texture.draw(batch);
     }
-
     @Override
     public void act(float delta) {
-        time += Gdx.graphics.getDeltaTime();
-
+        time+=Gdx.graphics.getDeltaTime();
         //start bugs movement
-        if (time >= timeDelta && !isDead) {
+        if(time>=timeDelta && !isDead) {
             time = 0;
-            animate();
-        } else if (time > 2)
+            if(!KillBugs.gameOver && actorType=="bug") {
+                animate();
+            }
+        } else if(time>2)
             texture.setTexture(death);
 
         //timer
-        if (KillBugs.timer >= 1 && KillBugs.timer <= maxTime && actorType.equals("timer") && !KillBugs.gameOver && !KillBugs.win) {
-            KillBugs.timerText.setText(7 - (int) KillBugs.timer + "");
+        if(KillBugs.timer>=1 && KillBugs.timer<=maxTime && actorType.equals("timer") && !KillBugs.gameOver && !KillBugs.win) {
+//            texture.setTexture(new Texture(Gdx.files.internal("MiniGame/tile_" + (int) KillBugs.timer + ".png")));
+            KillBugs.timerText.setText(7-(int) KillBugs.timer+"");
 
         }
-        if (KillBugs.timer >= maxTime && actorType.equals("timer") && !KillBugs.win && !KillBugs.gameOver) { // && !KillBugs.restart
+        if(KillBugs.timer>=maxTime && actorType.equals("timer") && !KillBugs.win && !KillBugs.gameOver) { // && !KillBugs.restart
             KillBugs.gameOver = true;
             KillBugs.timer = 0;
 
@@ -119,44 +139,45 @@ public class BugsActor extends Actor {
     }
 
     private void animate() {
-        if (actorType.equals("bug")) {
-            speed = (float) Math.random();
-            if (Math.random() > 0.5f)
+        if(actorType.equals("bug")) {
+            speed = (float)Math.random();
+            if(Math.random()>0.5f)
                 dir *= -1;
 
             //check for borders
-            if (getX() >= KillBugs.bgWidth + (Gdx.graphics.getWidth() - KillBugs.bgWidth) / 2 - bug1.getWidth()) {
+            if(getX() >= KillBugs.bgWidth+(Gdx.graphics.getWidth()-KillBugs.bgWidth)/2-bug1.getWidth()) {
                 dir2 *= -1;
                 texture.setTexture(bug2);
                 MoveByAction mba = new MoveByAction();
-                mba.setAmount(-getWidth() / 5, 0);
+                mba.setAmount(-getWidth()/5,0);
                 mba.setDuration(timeDelta);
                 BugsActor.this.addAction(mba);
-            } else if (getX() <= (Gdx.graphics.getWidth() - KillBugs.bgWidth) / 2) {
+            }
+            else if(getX() <= (Gdx.graphics.getWidth()-KillBugs.bgWidth)/2) {
                 dir2 *= -1;
                 texture.setTexture(bug1);
                 MoveByAction mba = new MoveByAction();
-                mba.setAmount(getWidth() / 5, 0);
+                mba.setAmount(getWidth()/5,0);
                 mba.setDuration(timeDelta);
                 BugsActor.this.addAction(mba);
             }
-            if (getY() <= (Gdx.graphics.getHeight() - KillBugs.bgHeight) / 2) {
+            if(getY() <= (Gdx.graphics.getHeight()-KillBugs.bgHeight)/2) {
                 MoveByAction mba = new MoveByAction();
-                mba.setAmount(0, getHeight() / 5);
+                mba.setAmount(0,getHeight()/5);
                 mba.setDuration(timeDelta);
                 BugsActor.this.addAction(mba);
             }
-            if (getY() >= KillBugs.bgHeight + (Gdx.graphics.getHeight() - KillBugs.bgHeight) / 2 - bug1.getHeight()) {
+            if(getY() >= KillBugs.bgHeight+(Gdx.graphics.getHeight()-KillBugs.bgHeight)/2-bug1.getHeight()) {
                 MoveByAction mba = new MoveByAction();
-                mba.setAmount(0, -getHeight() / 5);
+                mba.setAmount(0,-getHeight()/5);
                 mba.setDuration(timeDelta);
                 BugsActor.this.addAction(mba);
             }
 
             //move bugs
-            for (int i = 0; i < 10; i++) {
+            for (int i=0; i<10; i++) {
                 MoveByAction mba = new MoveByAction();
-                mba.setAmount((float) Math.random() * step * speed * dir2, 0.4f * dir);
+                mba.setAmount((float) Math.random()*step*speed*dir2, 0.4f*dir);
                 mba.setDuration(timeDelta);
                 BugsActor.this.addAction(mba);
             }
