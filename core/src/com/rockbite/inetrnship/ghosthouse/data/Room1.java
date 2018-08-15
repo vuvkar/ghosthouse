@@ -1,7 +1,11 @@
 package com.rockbite.inetrnship.ghosthouse.data;
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.math.Bresenham2;
 import com.badlogic.gdx.math.Vector2;
 import com.rockbite.inetrnship.ghosthouse.AssetLoader;
+import com.sun.deploy.jcp.dialog.Dialog;
+
 public class Room1 extends Room {
     final int BEAR = 7;
     final int KEYPART1 = 24;
@@ -17,6 +21,15 @@ public class Room1 extends Room {
     final int ALBUM = 1;
     final int FISHHOOK = 15;
     final int NEWSPAPER_ON_THE_WALL = 19;
+    final int WIRE =22;
+
+
+    Sound bearSound;
+    Sound gun;
+    Sound glass ;
+    Sound scissors;
+    Sound fish;
+    Sound key;
 
     public boolean isInInventory(int itemId){return false;}
 //    public Room1(int id, Vector2 origin, float width, float height) {
@@ -26,7 +39,15 @@ public class Room1 extends Room {
 //        this.height = height;
 //    }
 
-    public  Room1() {}
+    public  Room1() {
+        bearSound = Gdx.audio.newSound(Gdx.files.internal("sounds/tz.mp3"));
+        gun = Gdx.audio.newSound(Gdx.files.internal("sounds/gun.mp3"));
+        glass = Gdx.audio.newSound(Gdx.files.internal("sounds/glass.mp3"));
+        scissors = Gdx.audio.newSound(Gdx.files.internal("sounds/scissors.mp3"));
+        fish = Gdx.audio.newSound(Gdx.files.internal("sounds/fish.mp3"));
+        key = Gdx.audio.newSound( Gdx.files.internal("sounds/Keys.mp3"));
+
+    }
 
     @Override
     public void roomStarted() {
@@ -45,19 +66,24 @@ public class Room1 extends Room {
         setItemStatus(FISHHOOK,ItemType.TAKEABLE);
         setItemStatus(NEWSPAPER_ON_THE_WALL,ItemType.NONTAKEABLE);
 
+//        Dialog.showDialog(InGameTexts.qaq);
+
     }
     @Override
     public void itemWasClicked(int itemID) {
+
         System.out.println(itemID);
         switch (itemID){
             case BEAR:
                 switch (getItemStatus(BEAR)) {
                     case STATIC:
+                        bearSound.play();
                         break;
                     case TAKEABLE:
                         break;
                     case NONTAKEABLE:
                         setItemStatus(BEAR,ItemType.STATIC);
+                        key.play();
                         addToInventory(KEYPART1);
                         break;
                 }
@@ -65,12 +91,14 @@ public class Room1 extends Room {
             case WEAPON:
                 switch (getItemStatus(WEAPON)){
                     case STATIC:
+                        gun.play();
                         break;
                     case TAKEABLE:
                         break;
                     case NONTAKEABLE:
                         changeTexture(WEAPON, "");
                         setItemStatus(WEAPON,ItemType.STATIC);
+                        key.play();
                         addToInventory(KEYPART2);
                         break;
                 }
@@ -82,6 +110,8 @@ public class Room1 extends Room {
                     case TAKEABLE:
                         changeTexture(BROKEN_BOTTLE,"");
                         setItemStatus(BROKEN_BOTTLE,ItemType.STATIC);
+                        glass.play();
+
                         break;
                     case NONTAKEABLE:
                         break;
@@ -104,9 +134,10 @@ public class Room1 extends Room {
                     case STATIC:
                         break;
                     case TAKEABLE:
+                        changeTexture(ARM_CHAIR,"");
                         setItemStatus(SCISSORS,ItemType.STATIC);
+                        scissors.play();
                         addToInventory(SCISSORS);
-                        changeTexture(SCISSORS, "");
                         break;
                     case NONTAKEABLE:
                         break;
@@ -121,6 +152,7 @@ public class Room1 extends Room {
                         break;
                     case NONTAKEABLE:
                         setItemStatus(BOX,ItemType.STATIC);
+                        //addToInventory(PUZZLEPIECE3);
                         break;
                 }
                 break;
@@ -129,14 +161,14 @@ public class Room1 extends Room {
                     case STATIC:
                         break;
                     case TAKEABLE:
-                        setItemStatus(LAMP,ItemType.STATIC);
-                        break;
                     case NONTAKEABLE:
                         //changeItemTexture(2,"TurnedOffLight.png");
                         setItemStatus(LAMP,ItemType.TAKEABLE);
                         break;
                 }
                 break;
+//            case WIRE:
+
             case NEWSPAPER:
                 switch (getItemStatus(NEWSPAPER)){
                     case STATIC:
@@ -166,8 +198,10 @@ public class Room1 extends Room {
                     case STATIC:
                         break;
                     case TAKEABLE:
+                        fish.play ();
+
                         addToInventory(FISHHOOK);
-                        changeTexture(FISHHOOK,"");
+
                         setItemStatus(FISHHOOK, ItemType.STATIC);
                         break;
                     case NONTAKEABLE:

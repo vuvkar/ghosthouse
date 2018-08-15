@@ -137,6 +137,7 @@ public abstract class Room implements Comparable<Room> {
     }
 
     public void addToInventory(int itemID) {
+
         mainGame.inputController.addToInventory(itemID);
     }
 
