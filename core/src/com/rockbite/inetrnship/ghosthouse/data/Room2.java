@@ -180,8 +180,13 @@ public class Room2 extends Room {
     }
 
     @Override
-    public void miniGameWasClosed()
+    public void miniGameWasClosed(boolean hasWon)
     {
+
+    }
+
+    @Override
+    public void itemWasClickedOnInventory(int itemID) {
 
     }
 }

@@ -37,6 +37,7 @@ public class Room1 extends Room {
     final int PUZZLE = 27;
     final int SWITCH = 22;
     final int DOOR = 13;
+    final int PASSWORD = 28;
 
     Sound bearSound;
     Sound gun;
@@ -54,6 +55,7 @@ public class Room1 extends Room {
     Sound himaralbom;
 
     int puzzle_count = 1;
+    boolean canOpenDoor = false;
 
     public  Room1() {
         bearSound = Gdx.audio.newSound(Gdx.files.internal("sounds/tz.mp3"));
@@ -194,7 +196,6 @@ public class Room1 extends Room {
                         box.play(Room.soundVolume);
                         DialogSystem.dialogSystem.startDialog(InGameTexts.box, 1.5f, 0.7f, 0f);
                         setItemStatus(BOX,ItemType.STATIC);
-                        //addToInventory(PUZZLEPIECE3);
                         break;
                 }
                 break;
@@ -223,8 +224,6 @@ public class Room1 extends Room {
                         break;
                 }
                 break;
-//            case WIRE:
-
             case NEWSPAPER:
                 switch (getItemStatus(NEWSPAPER)){
                     case STATIC:
@@ -314,6 +313,11 @@ public class Room1 extends Room {
                         setItemStatus(SWITCH,ItemType.NONTAKEABLE);
                         this.miniGame = new Lock();
                         miniGame.mainGame = mainGame;
+                        Lock miniGame = new Lock();
+                        if(canOpenDoor) {
+                            miniGame.canWin = true;
+                        }
+                        this.miniGame = miniGame;
                         openMiniGame();
                         break;
                 }
@@ -327,13 +331,33 @@ public class Room1 extends Room {
     }
 
     @Override
-    public void miniGameWasClosed() {
-        DialogSystem.dialogSystem.startDialog(InGameTexts.pagvel + "\n" + InGameTexts.pagvel2, 5f, 0.5f, 0f);
+    public void miniGameWasClosed(boolean hasWon) {
+            DialogSystem.dialogSystem.startDialog(InGameTexts.pagvel + "\n" + InGameTexts.pagvel2, 5f, 0.5f, 0f);
+        if(miniGame instanceof Puzzle) {
+            if(hasWon) {
+                canOpenDoor = true;
+                removeFromInventory(PUZZLE);
+                addToInventory(PASSWORD);
+            }
+        }
+        if(miniGame instanceof  Lock) {
+            if(hasWon) {
+                leaveRoom();
+            }
+        }
+    }
+
+    @Override
+    public void itemWasClickedOnInventory(int itemID) {
+        if(itemID == PUZZLE && puzzle_count == 8) {
+            this.miniGame = new Puzzle();
+            miniGame.start();
+        }
     }
 
     @Override
     public void itemWasDragged(int fromInventory, int toRoomItem) {
-        if (fromInventory==15 && toRoomItem ==19){
+        if (fromInventory==FISHHOOK && toRoomItem ==NEWSPAPER_ON_THE_WALL){
             //peace 5
             removeFromInventory(FISHHOOK);
             setItemStatus(NEWSPAPER_ON_THE_WALL,ItemType.STATIC);
@@ -377,26 +401,12 @@ public class Room1 extends Room {
     }
 
     public void itemWasMoved(int fromInventory, int toInventoryItem) {
-        if (fromInventory == 15 && toInventoryItem == 19){
-            //peace 5
-
-        }
-
-        else if (fromInventory==24 && toInventoryItem==25){
+        if ((fromInventory==KEYPART1 && toInventoryItem==KEYPART2) || (fromInventory==KEYPART2 && toInventoryItem==KEYPART1)){
             removeFromInventory(fromInventory);
             removeFromInventory(toInventoryItem);
             addToInventory(WHOLEKEY);
             wholekey.play(Room.soundVolume);
             DialogSystem.dialogSystem.startDialog(InGameTexts.keyaz, 2f, 0.5f, 0f);
-        }
-        else if (fromInventory==25 && toInventoryItem==24){
-            removeFromInventory(fromInventory);
-            removeFromInventory(toInventoryItem);
-            addToInventory(WHOLEKEY);
-            DialogSystem.dialogSystem.startDialog(InGameTexts.keyaz, 1.5f, 0.5f, 0f);
-            wholekey.play(Room.soundVolume);
-            DialogSystem.dialogSystem.startDialog(InGameTexts.keyaz, 2f, 0.5f, 0f);
-
         }
     }
 

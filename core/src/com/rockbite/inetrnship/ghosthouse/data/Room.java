@@ -108,7 +108,9 @@ public abstract class Room implements Comparable<Room> {
 
     abstract public void itemWasMoved(int fromInventory, int toInventory);
 
-    abstract  public void miniGameWasClosed();
+    abstract  public void miniGameWasClosed(boolean hasWon);
+
+    abstract public void itemWasClickedOnInventory(int itemID);
 
     public void leaveRoom() {
         mainGame.leavedRoom();
@@ -129,14 +131,15 @@ public abstract class Room implements Comparable<Room> {
         Entity item = getItemById(itemID);
         PositionComponent positionComponent = item.getComponent(PositionComponent.class);
        PositionComponent ghostPosition =  mainGame.ghost.getComponent(PositionComponent.class);
-      // mainGame.inputController.targetPosition = new Vector3(50f, 50f, 50f);
+       mainGame.inputController.targetPosition = new Vector3(positionComponent.getX(), positionComponent.getY(), ghostPosition.getZ());
        mainGame.inputController.moveCharacter();
-       ghostPosition.setX(positionComponent.getX() - 0.6f);
-       ghostPosition.setY(positionComponent.getY() - 0.6f);
+
     }
 
     public void openMiniGame() {
+        miniGame.mainGame = this.mainGame;
         this.miniGame.start();
+
     }
 
     public ItemType getItemStatus(int itemID) {

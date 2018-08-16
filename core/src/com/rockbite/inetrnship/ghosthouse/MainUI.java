@@ -107,7 +107,6 @@ public class MainUI extends Stage {
 
         settingsMenu.setFillParent(true);
 
-
         Image hint = new Image(atlas.findRegion("Blue"));
         Image StopB = new Image(atlas.findRegion("pink"));
         Image PlayB = new Image(atlas.findRegion("Play"));
@@ -371,10 +370,23 @@ public class MainUI extends Stage {
             placeInSlots += step.y;
 
         inventory.getChildren().get(numberItem - 1).addListener(new ClickListener() {
+            boolean isDragged = false;
+
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
                 prevPos.set(event.getListenerActor().getX(), event.getListenerActor().getY());
-
+                isDragged = false;
                 return true;
+            }
+
+            public void touchDragged (InputEvent event, float x, float y, int pointer) {
+                isDragged = true;
+            }
+
+            public void touchUp (InputEvent event, float x, float y, int pointer, int button) {
+                if(!isDragged) {
+                    InventoryItem item = (InventoryItem) event.getListenerActor();
+                    ghostHouse.mainGame.getBuilding().getCurrentRoom().itemWasClickedOnInventory(item.ID);
+                }
             }
         });
 

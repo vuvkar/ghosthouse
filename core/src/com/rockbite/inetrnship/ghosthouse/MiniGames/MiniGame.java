@@ -19,9 +19,9 @@ public abstract class MiniGame {
         Gdx.input.setInputProcessor(stage);
         load();
     }
-    public  void end() {
+    public  void end(boolean hasWon) {
         MainGame.miniGameOn = false;
-        mainGame.getBuilding().getCurrentRoom().miniGameWasClosed();
+        mainGame.getBuilding().getCurrentRoom().miniGameWasClosed(hasWon);
         Gdx.input.setInputProcessor(MainGame.multiplexer);
     }
 }
