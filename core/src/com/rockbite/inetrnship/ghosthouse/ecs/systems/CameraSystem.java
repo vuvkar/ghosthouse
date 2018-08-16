@@ -9,10 +9,13 @@ import com.badlogic.ashley.utils.ImmutableArray;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.PerspectiveCamera;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g3d.utils.CameraInputController;
 import com.badlogic.gdx.math.Interpolation;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.utils.Array;
 import com.rockbite.inetrnship.ghosthouse.AssetLoader;
 import com.rockbite.inetrnship.ghosthouse.MainUI;
@@ -33,13 +36,14 @@ public class CameraSystem extends EntitySystem {
     Stage stage = new Stage();
     private Vector3 dist = new Vector3(0, 0, 0); //Distance to cover when moving from room to room in all 3 directions
     public boolean isPressed = false;
-
+    public TextureAtlas atlas = new TextureAtlas(Gdx.files.internal("Uipacked/UI.atlas"));
     Interpolation a = new Interpolation.SwingIn(2); //Interpolation of y
     Interpolation z = new Interpolation.Pow(2); //Interpolation of z
     public CameraInputController camController;
     float t = 0f; // step time
     final float T = 10f; //Total time for moving from room to room
-
+    float scalex = Gdx.graphics.getWidth() / 1920f;
+    float scaley = Gdx.graphics.getHeight() / 1080f;
 
     public void addedToEngine(Engine engine) {
         rooms = assetLoader.getRooms();
@@ -48,7 +52,7 @@ public class CameraSystem extends EntitySystem {
         entities = engine.getEntitiesFor(Family.all(CameraComponent.class).get());
         cam = new PerspectiveCamera(87, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
         cam.position.set(rooms.get(0).origin.x + rooms.get(0).width / 2f, rooms.get(0).origin.y + rooms.get(0).height / 2f, (float) dist(angle(Gdx.graphics.getWidth(), Gdx.graphics.getHeight(), 67), rooms.get(0).width + rooms.get(0).width / 5f) + 3);
-        System.out.println(rooms.get(0).origin.x + rooms.get(0).width);
+
         camController = new CameraInputController(cam);
         Gdx.input.setInputProcessor(camController);
         stage.getViewport().setCamera(cam);
@@ -63,7 +67,11 @@ public class CameraSystem extends EntitySystem {
                 break;
             }
         }
-        MainUI.text.setText("Room " + (sequence.size ) + "");
+     // MainUI.Text.setText("Room " + (sequence.size ) + "");
+        changeRoomNum(sequence.size);
+
+
+
     }
 
     public void update(float deltaTime) {
@@ -83,7 +91,7 @@ public class CameraSystem extends EntitySystem {
             t = 0;
             isPressed = true;
             cameraComponent.targetVec = (move(target, rooms));
-            System.out.println(cameraComponent.targetVec);
+
             cameraComponent.bottomLeft.set(cam.position);
             dist.set(cameraComponent.targetVec.x - cameraComponent.bottomLeft.x,
                     cameraComponent.targetVec.y - cameraComponent.bottomLeft.y,
@@ -135,5 +143,14 @@ public class CameraSystem extends EntitySystem {
         double y = size / 2;
         double r = y / (Math.sin((alpha / 180) * Math.PI / 2));
         return Math.sqrt(r * r - y * y);
+    }
+
+    public void changeRoomNum(int i){
+        if(i<5){
+            MainUI.Text.removeActor(MainUI.Text.getChildren().get(0));
+            MainUI.Text.addActor(new Image(atlas.findRegion("Room"+i)));
+            MainUI.Text.getChildren().get(0).setScale(scalex, scaley);
+
+        }
     }
 }

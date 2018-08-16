@@ -28,8 +28,7 @@ public class MainUI extends Stage {
     public static SettingsMusic settingsMusic;
     public static boolean settingson=false;
     public TextureAtlas atlas;
-    float scale = Gdx.graphics.getWidth() / 1920f;
-    float distscale=Gdx.graphics.getWidth()/800f;
+    public boolean gameison=true;
 
     float scalex = Gdx.graphics.getWidth() / 1920f;
     float scaley = Gdx.graphics.getHeight() / 1080f;
@@ -45,10 +44,10 @@ public class MainUI extends Stage {
     Vector2 prevPos = new Vector2(0, 0);
     Table bar = new Table();
     public static Label text;
-
+    public static Group Text=new Table();
     PositionComponent pos = new PositionComponent(0, 0, 0);
     SizeComponent size = new SizeComponent(0, 0);
-   Vector2 step=new Vector2(60*Gdx.graphics.getWidth()/800, 66*Gdx.graphics.getWidth()/800);
+    Vector2 step=new Vector2(60*Gdx.graphics.getWidth()/800, 66*Gdx.graphics.getWidth()/800);
     public MainUI(GhostHouse ghostHouse) {
         assetLoader = ghostHouse.assetLoader;
         this.ghostHouse = ghostHouse;
@@ -67,22 +66,26 @@ public class MainUI extends Stage {
     }
 
     public void setUI() {
-        Label.LabelStyle label1Style = new Label.LabelStyle();
+//        Label.LabelStyle label1Style = new Label.LabelStyle();
+//
+//        BitmapFont font;
+//        font = new BitmapFont(Gdx.files.internal("Uipacked/font.fnt"));
+//        label1Style.font = font;
+//        label1Style.fontColor = Color.CYAN;
+//
+//        text = new Label("Room " + (CameraSystem.target + 1), label1Style);
+//        text.setPosition(21,411);
+//        text.setDebug(true);
 
-        BitmapFont font;
-        font = new BitmapFont(Gdx.files.internal("shit.fnt"));
-        label1Style.font = font;
-        label1Style.fontColor = Color.CYAN;
-        text = new Label("Room " + (CameraSystem.target + 1), label1Style);
-        text.setFontScale(0.7f);
         Table bar = new Table();
         Table up = new Table();
         Table right = new Table();
-        Table stop = new Table();
+        final Table stop = new Table();
+        final Table play = new Table();
         Table opt = new Table();
-        Table LeftArrow = new Table();
-        Table RightArrow = new Table();
-        Table TEXTSHIT = new Table();
+        final Table LeftArrow = new Table();
+        final Table RightArrow = new Table();
+
         final Table settingsMenu=new Table();
 
 
@@ -90,21 +93,28 @@ public class MainUI extends Stage {
         right.setFillParent(true);
         up.setFillParent(true);
         stop.setFillParent(true);
+        play.setFillParent(true);
         opt.setFillParent(true);
         LeftArrow.setFillParent(true);
         RightArrow.setFillParent(true);
-        TEXTSHIT.setFillParent(true);
+
         settingsMenu.setFillParent(true);
 
 
         Image hint = new Image(atlas.findRegion("Blue"));
         Image StopB = new Image(atlas.findRegion("pink"));
+        Image PlayB = new Image(atlas.findRegion("Play"));
         Image setting = new Image(atlas.findRegion("Green"));
         Image Right = new Image(atlas.findRegion("right"));
         Image Left = new Image(atlas.findRegion("left"));
         Image settingsMenuImage = new Image(atlas.findRegion("SettingsMenu"));
-
-
+        Image text=new Image(atlas.findRegion("Room"+1));
+        NinePatch spatch = new NinePatch(atlas.createPatch("black"));
+        spatch.setMiddleWidth(Gdx.graphics.getWidth() - spatch.getTotalWidth() + spatch.getMiddleWidth());
+        spatch.setMiddleHeight(Gdx.graphics.getHeight() - spatch.getTotalHeight() + spatch.getMiddleHeight());
+        final Image sPatch = new Image(spatch);
+        sPatch.setVisible(false);
+        sPatch.setTouchable(Touchable.disabled);
 
         slots = new Group();
 
@@ -127,8 +137,8 @@ public class MainUI extends Stage {
                 slots.getChildren().get(i).setVisible(false);
         }
 
-        slots.setPosition(119*Gdx.graphics.getWidth()/800f, 8);
-        inventory.setPosition(119*Gdx.graphics.getWidth()/800f, 8);
+        slots.setPosition(119*distscalex, 8);
+        inventory.setPosition(119*distscalex, 8);
         NinePatch patch = new NinePatch(atlas.createPatch("downbar"));
 
         patch.scale(scalex, scaley);
@@ -149,15 +159,53 @@ public class MainUI extends Stage {
         up.add(Patch).width(Patch.getPrefWidth() * scalex).height(Patch.getPrefHeight() * scaley).padLeft(distscalex*10).padTop(distscaley*13);
         up.top().left();
 
-        TEXTSHIT.add(text).width(text.getPrefWidth() * scalex).height(text.getPrefHeight() * scaley).padLeft(distscalex*16).padTop(distscaley*26);
-        TEXTSHIT.left().top();
+
+        Text.addActor(text);
+        Text.setPosition(22*distscalex, 411*distscaley);
+        Text.getChildren().get(0).setScale(scalex, scaley);
+
+
 
         right.add(hint).width(hint.getPrefWidth() * scalex).height(hint.getPrefHeight() * scaley).padTop(5).padRight(distscalex*14);
         right.top().right();
 
         stop.add(StopB).width(StopB.getPrefWidth() * scalex).height(StopB.getPrefHeight() * scaley).padLeft(distscalex*14).padBottom(distscaley*7);
         stop.bottom().left();
+        stop.getChildren().get(0).addListener(new ClickListener() {
 
+            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+                if(gameison){
+                    gameison=false;
+                    play.setVisible(true);
+                    play.setTouchable(Touchable.enabled);
+                    sPatch.setVisible(true);
+
+                }
+
+
+                return true;
+            }
+        });
+
+        play.add(PlayB).width(PlayB.getPrefWidth() * scalex).height(PlayB.getPrefHeight() * scaley).padLeft(distscalex*14).padBottom(distscaley*7);
+        play.bottom().left();
+       play.setVisible(false);
+//        play.setTouchable(Touchable.disabled);
+        play.getChildren().get(0).addListener(new ClickListener() {
+
+            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+                if(!gameison){
+                    gameison=true;
+
+                    play.setVisible(false);
+                    play.setTouchable(Touchable.enabled);
+                    sPatch.setVisible(false);
+
+
+                }
+                return true;
+            }
+        });
         settingsMenu.add(settingsMenuImage).width(settingsMenuImage.getPrefWidth() * scalex).height(settingsMenuImage.getPrefHeight() * scaley).padTop(distscaley*5).padRight(distscalex*14);
         settingsMenu.setVisible(false);
 
@@ -246,12 +294,13 @@ public class MainUI extends Stage {
             }
         });
 
+
         this.addActor(bar);
         this.addActor(up);
-        this.addActor(TEXTSHIT);
+        this.addActor(Text);
 
         this.addActor(right);
-        this.addActor(stop);
+
         this.addActor(opt);
 
 
@@ -259,8 +308,9 @@ public class MainUI extends Stage {
         this.addActor(inventory);
         this.addActor(RightArrow);
         this.addActor(LeftArrow);
-
-
+        this.addActor(stop);
+        this.addActor(play);
+        this.addActor(sPatch);
         this.addActor(settingsMenu);
 
         Gdx.input.setInputProcessor(this);
@@ -373,34 +423,7 @@ public class MainUI extends Stage {
     }
 
 
-//    public void removeItem(int ID) {
-//        InventoryItem inventoryItem;
-//        for (int i = 0; i < inventory.getChildren().size; i++) {
-//            inventoryItem = (InventoryItem) inventory.getChildren().get(i);
-//            if (inventoryItem.ID == ID) {
-//
-//
-//               Vector2 emptyPlace=new Vector2(slots.getChildren().get(i).getX()+slots.getChildren().get(i).getWidth()/2f, slots.getChildren().get(i).getY());
-//                Vector2 temp = new Vector2(0, 0);
-//                inventory.removeActor(inventory.getChildren().get(i));
-//                numberItem--;
-//                for (; i < numberItem; i++) {
-//                    temp.set(slots.getChildren().get(i).getX()+slots.getChildren().get(i).getWidth()/2f, slots.getChildren().get(i).getY());
-//                   if (inventory.getChildren().get(i).getWidth()>=inventory.getChildren().get(i).getHeight())
-//                    inventory.getChildren().get(i).setPosition(emptyPlace.x+slots.getChildren().get(i-1).getWidth()/2f-40*distscalex/2f, emptyPlace.y);
-//                   else
-//                       inventory.getChildren().get(i).setPosition(emptyPlace.x+slots.getChildren().get(i-1).getWidth()/2f-(45*distscalex*inventory.getChildren().get(i).getWidth()/inventory.getChildren().get(i).getHeight())/2f, emptyPlace.y);
-//                    ((InventoryItem) inventory.getChildren().get(i)).placeInInventory--;
-//                    if (i < rangeShowing.x || i > rangeShowing.y)
-//                        inventory.getChildren().get(i).setVisible(false);
-//
-//                    emptyPlace.set(temp.x, temp.y);
-//
-//                }
-//                break;
-//            }
-//        }
-//    }
+
 
     public void removeItem(int ID) {
         InventoryItem inventoryItem;
@@ -409,7 +432,7 @@ public class MainUI extends Stage {
             if (inventoryItem.ID == ID) {
                // Vector2 emptyPlace = new Vector2(inventory.getChildren().get(i).getX(), inventory.getChildren().get(i).getY());
                 Vector2 emptyPlace = new Vector2(0,0);
-                System.out.println("This is the emptyplace "+emptyPlace);
+
                 Vector2 temp = new Vector2(0, 0);
                 inventory.removeActor(inventory.getChildren().get(i));
                 numberItem--;
@@ -417,12 +440,12 @@ public class MainUI extends Stage {
                 for (; i < numberItem; i++) {
                     emptyPlace.set(slots.getChildren().get(i).getX()+slots.getChildren().get(i).getWidth()*scalex/2f, inventory.getChildren().get(i).getY());
                     temp.set(slots.getChildren().get(i).getX()+slots.getChildren().get(i).getWidth()*scalex/2f, inventory.getChildren().get(i).getY());
-                    System.out.println("This is the next emptyplace "+temp);
+
                     if (inventory.getChildren().get(i).getWidth()>=inventory.getChildren().get(i).getHeight())
                    inventory.getChildren().get(i).setPosition(emptyPlace.x-40*distscalex/2f, emptyPlace.y);
                     else if(inventory.getChildren().get(i).getWidth()<inventory.getChildren().get(i).getHeight())
                       inventory.getChildren().get(i).setPosition(emptyPlace.x-(45*distscalex*inventory.getChildren().get(i).getWidth()/inventory.getChildren().get(i).getHeight())/2f, emptyPlace.y);
-                    System.out.println("changed position is "+inventory.getChildren().get(i).getX());
+
                     ((InventoryItem) inventory.getChildren().get(i)).placeInInventory--;
                     if (i < rangeShowing.x || i > rangeShowing.y)
                         inventory.getChildren().get(i).setVisible(false);
@@ -448,6 +471,7 @@ public class MainUI extends Stage {
 
 
     }
+
 
     public static boolean isInside(Vector2 origin, Vector2 size, Vector2 point) {
 

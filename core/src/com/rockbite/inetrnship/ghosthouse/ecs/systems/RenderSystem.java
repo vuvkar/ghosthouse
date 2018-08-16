@@ -24,6 +24,7 @@ public class RenderSystem extends EntitySystem {
     private ComponentMapper<SizeComponent> sizeComp = ComponentMapper.getFor(SizeComponent.class);
     private ComponentMapper<AnimationComponent> animComp = ComponentMapper.getFor(AnimationComponent.class);
     private ComponentMapper<ModelComponent> modelComp = ComponentMapper.getFor(ModelComponent.class);
+    private ComponentMapper<NormalMapComponent> normalMapComp = ComponentMapper.getFor(NormalMapComponent.class);
 
     @Override
     public void addedToEngine(Engine engine) {
@@ -52,6 +53,7 @@ public class RenderSystem extends EntitySystem {
                 rectangle.setZ(posComp.get(entity).getZ());
                 rectangle.setWidth(sizeComp.get(entity).width);
                 rectangle.setHeight(sizeComp.get(entity).height);
+                rectangle.setNormalMap("normal");
                 items.add(rectangle);
             }
 
@@ -71,6 +73,6 @@ public class RenderSystem extends EntitySystem {
         }
         mesh.renderItems(items);
         mesh.renderAnimations(animations);
-        mesh.renderModels(models);
+      //  mesh.renderModels(models);
     }
 }
