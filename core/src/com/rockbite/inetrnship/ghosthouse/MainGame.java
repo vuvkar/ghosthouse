@@ -83,7 +83,6 @@ public class MainGame {
             }
             if (room.id == 0) {
                 ghostPosition.set(room.origin.x + GhostBuilding.WALL_HEIGHT, room.origin.y, building.BUILDING_DEPTH);
-                room.roomStarted();
             }
         }
 

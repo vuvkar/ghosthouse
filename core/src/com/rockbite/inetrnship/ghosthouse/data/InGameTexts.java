@@ -4,6 +4,7 @@ public class InGameTexts
 {
     public static String start1 = "What the?...";
     public static String start2 = "I need to get out of here";
+    public static String checkdoor = "Let's check the door";
     public static String doorcode1 = "Looks like we don't have enough information here";
     public static String doorcode2 = "let's leave this for later";
     public static String piecebegins1 = "If only I can find the other pieces";
@@ -21,7 +22,7 @@ public class InGameTexts
     public static String notinteritem2 = "Not this time";
     public static String rightcode = "Finally";
     public static String keyaz = "now it's ready to use";
-    public static String couch = "Some more";
+    public static String couch = "We'll need something sharp";
     // static room2
     public static String startr1 = "Yei, the door is open here";
     public static String startr2 = "Let's go";

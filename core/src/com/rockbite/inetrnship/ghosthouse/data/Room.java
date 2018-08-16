@@ -3,6 +3,7 @@ package com.rockbite.inetrnship.ghosthouse.data;
 import com.badlogic.ashley.core.ComponentMapper;
 import com.badlogic.ashley.core.Entity;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.utils.Array;
 import com.rockbite.inetrnship.ghosthouse.MainGame;
 import com.rockbite.inetrnship.ghosthouse.MainUI;
@@ -107,6 +108,8 @@ public abstract class Room implements Comparable<Room> {
 
     abstract public void itemWasMoved(int fromInventory, int toInventory);
 
+    abstract  public void miniGameWasClosed();
+
     public void leaveRoom() {
         mainGame.leavedRoom();
     }
@@ -120,6 +123,16 @@ public abstract class Room implements Comparable<Room> {
 
             }
         }
+    }
+
+    public void moveGhostTo(int itemID) {
+        Entity item = getItemById(itemID);
+        PositionComponent positionComponent = item.getComponent(PositionComponent.class);
+       PositionComponent ghostPosition =  mainGame.ghost.getComponent(PositionComponent.class);
+      // mainGame.inputController.targetPosition = new Vector3(50f, 50f, 50f);
+       mainGame.inputController.moveCharacter();
+       ghostPosition.setX(positionComponent.getX() - 0.6f);
+       ghostPosition.setY(positionComponent.getY() - 0.6f);
     }
 
     public void openMiniGame() {

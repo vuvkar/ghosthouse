@@ -1,4 +1,6 @@
 package com.rockbite.inetrnship.ghosthouse.data;
+import com.rockbite.inetrnship.ghosthouse.DialogSystem;
+
 import javax.xml.transform.sax.SAXTransformerFactory;
 import java.awt.print.Paper;
 import java.util.Set;
@@ -21,6 +23,7 @@ public class Room2 extends Room {
 
     @Override
     public void roomStarted() {
+        DialogSystem.dialogSystem.startDialog(InGameTexts.startr1 + "\n" + InGameTexts.startr2, 1.5f, 0.7f, 1f);
         setItemStatus(PAPER,ItemType.TAKEABLE);
         setItemStatus(SPRAY_BOTTLE,ItemType.STATIC);
         setItemStatus(RED_BOTTLE,ItemType.STATIC);
@@ -30,7 +33,6 @@ public class Room2 extends Room {
         setItemStatus(JEANS,ItemType.STATIC);
         setItemStatus(WARDROBE,ItemType.STATIC);
         setItemStatus(EUCALYPTUS,ItemType.STATIC);
-
     }
 
     @Override
@@ -172,5 +174,11 @@ public class Room2 extends Room {
             if (fromInventory==RED_BOTTLE || fromInventory==DRUG_BOTTLE || fromInventory==YELLOW_BOTTLE || fromInventory==SILICA || fromInventory==LEAF){}
             removeFromInventory(fromInventory);
         }
+    }
+
+    @Override
+    public void miniGameWasClosed()
+    {
+
     }
 }

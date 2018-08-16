@@ -75,7 +75,9 @@ public class Room1 extends Room {
 
     @Override
     public void roomStarted() {
-    //    DialogSystem.dialogSystem.startDialog(InGameTexts.start1 + "\n" + InGameTexts.start2, 1.5f, 0.7f, 0.5f);
+        DialogSystem.dialogSystem.startDialog(InGameTexts.start1 + "\n" + InGameTexts.start2 + "\n" + InGameTexts.checkdoor, 3f, 0.5f, 0.5f);
+        moveGhostTo(DOOR);
+        addToInventory(PUZZLE);
         setItemStatus(BEAR,ItemType.NONTAKEABLE);
         setItemStatus(KEYPART1,ItemType.TAKEABLE);
         setItemStatus(WEAPON,ItemType.NONTAKEABLE);
@@ -157,6 +159,7 @@ public class Room1 extends Room {
                     case TAKEABLE:
                         break;
                     case NONTAKEABLE:
+                        DialogSystem.dialogSystem.startDialog(InGameTexts.couch, 1.5f, 0.7f, 0f);
                         break;
                 }
                 break;
@@ -283,6 +286,12 @@ public class Room1 extends Room {
         changeTexture(PUZZLE,("puzzle"+Integer.toString(puzzle_count)));
         addToInventory(PUZZLE);
     }
+
+    @Override
+    public void miniGameWasClosed() {
+        DialogSystem.dialogSystem.startDialog("pagvel em aziz", 1.0f, 1.7f, 0);
+    }
+
     @Override
     public void itemWasDragged(int fromInventory, int toRoomItem) {
         if (fromInventory==15 && toRoomItem ==19){
