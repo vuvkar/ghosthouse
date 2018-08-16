@@ -22,6 +22,7 @@ public class GhostBuilding {
 
     static public final float WALL_HEIGHT = 1.4f;
     static public final float BUILDING_DEPTH = 4f;
+    static public final float FACE_WALL_CELL_SIZE = 2.0f;
 
     private float buildingWidth;
     private float buildingHeight;
@@ -313,9 +314,8 @@ public class GhostBuilding {
 
     void makeGridOfFaceWalls() {
         Vector2 gridOrigin = new Vector2(buildingOrigin.x, buildingOrigin.y);
-        float cellSize = 5.0f;
-        Array<GhostRectangle> xSliced = sliceByX(faceWalls, cellSize, gridOrigin);
-        faceWalls = sliceByY(xSliced, cellSize, gridOrigin);
+        Array<GhostRectangle> xSliced = sliceByX(faceWalls, FACE_WALL_CELL_SIZE, gridOrigin);
+        faceWalls = sliceByY(xSliced, FACE_WALL_CELL_SIZE, gridOrigin);
     }
 
     Array<GhostRectangle> sliceByX(Array<GhostRectangle> rects, float cellSize, Vector2 gridOrigin) {
