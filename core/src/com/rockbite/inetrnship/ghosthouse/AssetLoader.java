@@ -5,7 +5,6 @@ import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.tools.texturepacker.TexturePacker;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Json;
 import com.rockbite.inetrnship.ghosthouse.data.GhostMesh;
@@ -17,8 +16,6 @@ import com.rockbite.inetrnship.ghosthouse.util.RoomParser;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
-
-import static javax.swing.UIManager.getString;
 
 
 public class AssetLoader extends AssetManager {
