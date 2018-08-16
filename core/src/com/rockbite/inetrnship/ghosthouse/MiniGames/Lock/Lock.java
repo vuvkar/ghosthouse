@@ -16,6 +16,7 @@ import com.rockbite.inetrnship.ghosthouse.DialogSystem;
 import com.rockbite.inetrnship.ghosthouse.MainGame;
 import com.rockbite.inetrnship.ghosthouse.MainUI;
 import com.rockbite.inetrnship.ghosthouse.MiniGames.MiniGame;
+import com.rockbite.inetrnship.ghosthouse.data.InGameTexts;
 
 public class Lock extends MiniGame {
     public static Array<Integer> combination = new Array<Integer>();
@@ -101,7 +102,7 @@ public class Lock extends MiniGame {
     @Override
     public void load() {
         if(!KEY)
-            DialogSystem.dialogSystem.startDialog("You don't have enough info yet,\nlet's leave this for later.", 5, 0.6f, 0);
+            DialogSystem.dialogSystem.startDialog(InGameTexts.code, 5f, 0.6f, 0);
     }
 
     @Override

@@ -98,12 +98,12 @@ public class Room1 extends Room {
                         setItemStatus(BEAR,ItemType.STATIC);
                         addToInventory(KEYPART1);
                         key.play(Room.soundVolume);
-                        DialogSystem.dialogSystem.startDialog(InGameTexts.napo2, 1.5f, 0.7f, 0f);
+                        DialogSystem.dialogSystem.startDialog(InGameTexts.napo2, 1.5f, 0.5f, 0f);
                         if(getItemStatus(CLOCK) == ItemType.STATIC) {
-                            DialogSystem.dialogSystem.startDialog(InGameTexts.fullkey,  1.5f, 0.7f, 0f);
+                            DialogSystem.dialogSystem.startDialog(InGameTexts.fullkey,  1.5f, 0.5f, 0f);
                         }
                         else {
-                            DialogSystem.dialogSystem.startDialog(InGameTexts.napo2, 2f, 0.7f, 0f);
+                            DialogSystem.dialogSystem.startDialog(InGameTexts.napo2, 2f, 0.5f, 0f);
                         }                        break;
                 }
                 break;
@@ -114,7 +114,7 @@ public class Room1 extends Room {
                     case TAKEABLE:
                         break;
                     case NONTAKEABLE:
-                        DialogSystem.dialogSystem.startDialog(InGameTexts.clock, 1.5f, 0.7f, 0f);
+                        DialogSystem.dialogSystem.startDialog(InGameTexts.clock, 1.5f, 0.5f, 0f);
                         break;
                 }
                 break;
@@ -132,10 +132,10 @@ public class Room1 extends Room {
                         setItemStatus(WEAPON,ItemType.STATIC);
                         key.play(Room.soundVolume);
                         if(getItemStatus(BEAR) == ItemType.STATIC) {
-                            DialogSystem.dialogSystem.startDialog(InGameTexts.fullkey, 2f, 0.7f, 0f);
+                            DialogSystem.dialogSystem.startDialog(InGameTexts.fullkey, 2f, 0.5f, 0f);
                         }
                         else {
-                            DialogSystem.dialogSystem.startDialog(InGameTexts.napo2, 2f, 0.7f, 0f);
+                            DialogSystem.dialogSystem.startDialog(InGameTexts.napo2, 2f, 0.5f, 0f);
                         }
                         addToInventory(KEYPART2);
                         break;
@@ -273,7 +273,7 @@ public class Room1 extends Room {
                     case TAKEABLE:
                         break;
                     case NONTAKEABLE:
-                        DialogSystem.dialogSystem.startDialog(InGameTexts.newswall, 1.5f, 0.7f, 0f);
+                        DialogSystem.dialogSystem.startDialog(InGameTexts.newswall, 1.5f, 0.5f, 0f);
                         break;
                 }
                 break;
@@ -284,7 +284,7 @@ public class Room1 extends Room {
                     case TAKEABLE:
                         break;
                     case NONTAKEABLE:
-                        DialogSystem.dialogSystem.startDialog(InGameTexts.ward, 1.5f, 0.7f, 0f);
+                        DialogSystem.dialogSystem.startDialog(InGameTexts.ward, 1.5f, 0.5f, 0f);
                         break;
                 }
                 break;
@@ -328,7 +328,7 @@ public class Room1 extends Room {
 
     @Override
     public void miniGameWasClosed() {
-        DialogSystem.dialogSystem.startDialog("pagvel em aziz", 1.0f, 1.7f, 0);
+        DialogSystem.dialogSystem.startDialog(InGameTexts.pagvel + "\n" + InGameTexts.pagvel2, 5f, 0.5f, 0f);
     }
 
     @Override
@@ -339,7 +339,7 @@ public class Room1 extends Room {
             setItemStatus(NEWSPAPER_ON_THE_WALL,ItemType.STATIC);
             changeTexture(NEWSPAPER_ON_THE_WALL,"porvannayagazeta");
             news.play(Room.soundVolume);
-            DialogSystem.dialogSystem.startDialog(InGameTexts.newsgot, 1.5f, 0.7f, 0f);
+            DialogSystem.dialogSystem.startDialog(InGameTexts.newsgot, 1.5f, 0.5f, 0f);
 
             puzzle_count++;
 
@@ -360,7 +360,7 @@ public class Room1 extends Room {
             setItemStatus(ARM_CHAIR,ItemType.STATIC);
             changeTexture(ARM_CHAIR,"porvannoekreslo");
             puzzle_count++;
-            DialogSystem.dialogSystem.startDialog(InGameTexts.couchdrag, 1.5f, 0.7f, 0f);
+            DialogSystem.dialogSystem.startDialog(InGameTexts.couchdrag, 1.5f, 0.5f, 0f);
             couch.play(Room.soundVolume);
 
         } else if (fromInventory==WHOLEKEY && toRoomItem==WARDROB){
@@ -393,9 +393,9 @@ public class Room1 extends Room {
             removeFromInventory(fromInventory);
             removeFromInventory(toInventoryItem);
             addToInventory(WHOLEKEY);
-            DialogSystem.dialogSystem.startDialog(InGameTexts.keyaz, 1.5f, 0.7f, 0f);
+            DialogSystem.dialogSystem.startDialog(InGameTexts.keyaz, 1.5f, 0.5f, 0f);
             wholekey.play(Room.soundVolume);
-            DialogSystem.dialogSystem.startDialog(InGameTexts.keyaz, 2f, 0.4f, 0f);
+            DialogSystem.dialogSystem.startDialog(InGameTexts.keyaz, 2f, 0.5f, 0f);
 
         }
     }

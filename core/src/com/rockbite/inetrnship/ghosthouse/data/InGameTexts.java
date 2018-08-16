@@ -27,6 +27,9 @@ public class InGameTexts
     public static String newswall = "Can't tear this yet";
     public static String newsgot = "Yeii, We got this";
     public static String couchdrag = "That was smart";
+    public static String pagvel = "Maybe the photo piece that I have can help us.";
+    public static String pagvel2 = "Let's explore the room!";
+    public static String code = "We don't have the code, let's leave this for later";
     // static room2
     public static String startr1 = "Yei, the door is open here";
     public static String startr2 = "Let's go";
