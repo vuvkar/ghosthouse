@@ -10,9 +10,9 @@
   floorTexture: "room1Floor",
   sideWallTexture: "room1SideWall",
   light: [
-    100,
-    20,
-    30
+    200,
+    210,
+    200
   ],
 
   "class": "com.badlogic.gdx.utils.Array",

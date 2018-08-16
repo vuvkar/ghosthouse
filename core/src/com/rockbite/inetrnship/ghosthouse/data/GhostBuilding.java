@@ -17,12 +17,14 @@ public class GhostBuilding {
     private Array<GhostRectangle> roomWalls;
     private Array<GhostRectangle> roomConnectingWalls;
     private Array<GhostRectangle> buildingConnectingWalls;
+    private GhostRectangle sky;
 
     private Room currentRoom;
 
     static public final float WALL_HEIGHT = 1.4f;
     static public final float BUILDING_DEPTH = 4f;
     static public final float FACE_WALL_CELL_SIZE = 2.0f;
+    static public final float SKY_OFFSET = 13f;
 
     private float buildingWidth;
     private float buildingHeight;
@@ -41,6 +43,7 @@ public class GhostBuilding {
         this.faceWalls = createFaceWalls(rooms);
         makeGridOfFaceWalls();
         this.roomConnectingWalls = createConnectingWalls(rooms);
+        this.sky = createSky();
 
         loader.setRooms(rooms);
     }
@@ -78,6 +81,8 @@ public class GhostBuilding {
         rectangles.addAll(faceWalls);
         rectangles.addAll(roomConnectingWalls);
         rectangles.addAll(buildingConnectingWalls);
+
+        rectangles.add(sky);
 
         return rectangles;
     }
@@ -294,6 +299,18 @@ public class GhostBuilding {
             }
         }
         return result;
+    }
+
+    GhostRectangle createSky() {
+        GhostRectangle sky = new GhostRectangle();
+        sky.setTexture("sky");
+        sky.setNormal(new Vector3(0f, 0f, 1f));
+        sky.setZ(-1f);
+        sky.setX(buildingOrigin.x - SKY_OFFSET);
+        sky.setY(buildingOrigin.y - SKY_OFFSET);
+        sky.setWidth(buildingWidth + 2 * SKY_OFFSET);
+        sky.setHeight(buildingHeight + 2 * SKY_OFFSET);
+        return sky;
     }
 
     // Main algorithm (step 4)

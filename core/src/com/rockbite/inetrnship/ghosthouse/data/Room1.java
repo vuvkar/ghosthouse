@@ -9,12 +9,12 @@ import com.badlogic.gdx.math.Bresenham2;
 import com.badlogic.gdx.math.Vector2;
 import com.rockbite.inetrnship.ghosthouse.AssetLoader;
 
-//import com.rockbite.inetrnship.ghosthouse.DialogSystem;
 import com.rockbite.inetrnship.ghosthouse.DialogSystem;
-import com.sun.deploy.jcp.dialog.Dialog;
+import com.rockbite.inetrnship.ghosthouse.DialogSystem;
 
 import com.rockbite.inetrnship.ghosthouse.MainGame;
 import com.rockbite.inetrnship.ghosthouse.MainUI;
+import com.rockbite.inetrnship.ghosthouse.MiniGames.Lock.Lock;
 import com.rockbite.inetrnship.ghosthouse.MiniGames.Puzzle.Puzzle;
 import com.rockbite.inetrnship.ghosthouse.ecs.components.TextureComponent;
 
@@ -75,7 +75,7 @@ public class Room1 extends Room {
 
     @Override
     public void roomStarted() {
-        DialogSystem.dialogSystem.startDialog(InGameTexts.start1 + "\n" + InGameTexts.start2, 1.5f, 0.7f, 0.5f);
+    //    DialogSystem.dialogSystem.startDialog(InGameTexts.start1 + "\n" + InGameTexts.start2, 1.5f, 0.7f, 0.5f);
         setItemStatus(BEAR,ItemType.NONTAKEABLE);
         setItemStatus(KEYPART1,ItemType.TAKEABLE);
         setItemStatus(WEAPON,ItemType.NONTAKEABLE);
@@ -272,7 +272,8 @@ public class Room1 extends Room {
                     case TAKEABLE:
                         break;
                     case NONTAKEABLE:
-//                      DialogSystem.dialogSystem.startDialog("bzbzbzb", 1.0f, 1.7f, 0f);
+                        this.miniGame = new Lock();
+                        openMiniGame();
                         break;
                 }
                 break;

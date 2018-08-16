@@ -10,9 +10,9 @@
   "floorTexture": "floor2",
   "sideWallTexture": "leftsidewall2",
   "light": [
-    255,
-    252,
-    212
+    210,
+    200,
+    200
   ],
 
   "class": "com.badlogic.gdx.utils.Array",

@@ -9,7 +9,6 @@ import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.scenes.scene2d.actions.MoveByAction;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
-import com.rockbite.inetrnship.ghosthouse.MainGame;
 
 public class BugsActor extends Actor {
     private Sprite texture;
@@ -34,7 +33,6 @@ public class BugsActor extends Actor {
         setBounds(x,y,texture.getWidth(),texture.getHeight());
         setTouchable(Touchable.enabled);
         KillBugs.timer = 0;
-
 
         if(actorType.equals("bug")) {
             addListener(new ClickListener() {
@@ -94,14 +92,11 @@ public class BugsActor extends Actor {
                     for (int i = 0; i < getStage().getActors().size; i++) {
                         getStage().getActors().get(i).setVisible(false);
                     }
-                    MainGame.miniGameOn = false;
-                    Gdx.input.setInputProcessor(MainGame.multiplexer);
-                   // MainGame.miniGame = null;
                 }
             });
         }
 
-    }
+     }
 
     @Override
     protected void positionChanged() {
