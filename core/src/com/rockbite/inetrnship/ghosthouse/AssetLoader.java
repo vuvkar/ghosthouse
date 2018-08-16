@@ -18,6 +18,8 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 
+import static javax.swing.UIManager.getString;
+
 
 public class AssetLoader extends AssetManager {
 
@@ -26,6 +28,8 @@ public class AssetLoader extends AssetManager {
 
     public static float ATLAS_HEIGHT;
     public static float ATLAS_WIDTH;
+
+    private int room = 0;
 
     public void setRooms(Array<Room> rooms) {
         this.rooms = rooms;
@@ -42,15 +46,19 @@ public class AssetLoader extends AssetManager {
 //        TexturePacker.process(settings,"textures",
 //                "packed", "game");
         atlas = new TextureAtlas(Gdx.files.internal("packed/game.atlas"));
-        ATLAS_HEIGHT = atlas.getTextures().first().getHeight();
-        ATLAS_WIDTH = atlas.getTextures().first().getWidth();
+//        ATLAS_HEIGHT = atlas.getTextures().first().getHeight();
+//        ATLAS_WIDTH = atlas.getTextures().first().getWidth();
         loadGameData();
-//
+        SaveDataLoader saveLoad = new SaveDataLoader();
+        saveLoad.save(room);
+        room = saveLoad.load();
+
+
 //        TexturePacker.Settings settings = new TexturePacker.Settings();
 //     settings.maxHeight = 4096;
 //     settings.maxWidth = 4096;
 //        TexturePacker.process(settings,"Uipics", "Uipacked", "UI");
-//
+
 //                TexturePacker.Settings settings = new TexturePacker.Settings();
 //     settings.maxHeight = 4096;
 //     settings.maxWidth = 4096;
@@ -85,7 +93,7 @@ public class AssetLoader extends AssetManager {
         // TODO: courtesy of Dave
         int[][] matrix = new int[0][0];
         String fileName = "PBMs/Monika_Map.pbm";
-        String line;
+        String line = null;
         try {
             FileReader fileReader = new FileReader(fileName);
             BufferedReader bufferedReader = new BufferedReader(fileReader);
