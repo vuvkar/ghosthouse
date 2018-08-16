@@ -46,18 +46,6 @@ public class LockActor extends Actor {
                     }
                 }
             });
-        } else if(actorType.equals( "close" )) {
-            addListener(new ClickListener() {
-                @Override
-                public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) { return true; }
-
-                @Override
-                public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
-                    for (int i = 0; i < getStage().getActors().size; i++) {
-                        getStage().getActors().get(i).setVisible(false);
-                    }
-                }
-            });
         }
     }
 

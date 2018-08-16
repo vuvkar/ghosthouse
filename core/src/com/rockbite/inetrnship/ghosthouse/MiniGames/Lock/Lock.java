@@ -5,8 +5,10 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
@@ -54,13 +56,22 @@ public class Lock extends MiniGame {
         float height = Gdx.graphics.getHeight()/2f-background.getHeight()/2f;
         LockActor bg = new LockActor(background, width, height, "bg", 0);
         stage.addActor(bg);
-
         LockActor codeBG = new LockActor(new Texture(Gdx.files.internal("MiniGame/codeBG.png")), Gdx.graphics.getWidth()/2f-125, Gdx.graphics.getHeight()/2f+140, "bar", 0);
-        codeBG.setHeight(1.0f);
-        codeBG.setWidth(1.0f);
         stage.addActor(codeBG);
 
-        LockActor close = new LockActor(new Texture(Gdx.files.internal("MiniGame/bugsBtnExit.png")), width+background.getWidth()-45, height+background.getHeight()-40, "close", 0);
+        final LockActor close = new LockActor(new Texture(Gdx.files.internal("MiniGame/bugsBtnExit.png")), width+background.getWidth()-45, height+background.getHeight()-40, "close", 0);
+        close.addListener(new ClickListener() {
+                @Override
+                public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) { return true; }
+
+                @Override
+                public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
+                    for (int i = 0; i < close.getStage().getActors().size; i++) {
+                        close.getStage().getActors().get(i).setVisible(false);
+                    }
+                    end();
+                }
+            });
         stage.addActor(close);
 
         light1 = new LockActor(new Texture(Gdx.files.internal("MiniGame/lightR.png")), width+background.getWidth()-130, height+background.getHeight()-60, "light", 0);
@@ -85,13 +96,10 @@ public class Lock extends MiniGame {
         code.setPosition(Gdx.graphics.getWidth()/2f-90, height+background.getHeight()-code.getHeight()-25);
         stage.addActor(code);
 
-        stage.getViewport().setScreenSize(10, 10);
-
     }
 
     @Override
     public void load() {
-        Gdx.input.setInputProcessor(stage);
         if(!KEY)
             DialogSystem.dialogSystem.startDialog("You don't have enough info yet,\nlet's leave this for later.", 5, 0.6f, 0);
     }

@@ -42,8 +42,6 @@ public class KillBugs extends MiniGame {
     }
 
     public void start() {
-        Gdx.input.setInputProcessor(stage);
-
         bugImage = new Texture(Gdx.files.internal("MiniGame/bug_1_1.png"));
 
         font = new BitmapFont(Gdx.files.internal("MiniGame/font.fnt"));

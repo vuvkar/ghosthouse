@@ -276,6 +276,7 @@ public class Room1 extends Room {
                         break;
                     case NONTAKEABLE:
                         this.miniGame = new Lock();
+                        miniGame.mainGame = mainGame;
                         openMiniGame();
                         break;
                 }
@@ -283,6 +284,7 @@ public class Room1 extends Room {
         }
         System.out.println(puzzle_count);
         removeFromInventory(PUZZLE);
+
         changeTexture(PUZZLE,("puzzle"+Integer.toString(puzzle_count)));
         addToInventory(PUZZLE);
     }
