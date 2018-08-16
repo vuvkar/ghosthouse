@@ -19,11 +19,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.rockbite.inetrnship.ghosthouse.ecs.components.ItemIdComponent;
 import com.rockbite.inetrnship.ghosthouse.ecs.components.PositionComponent;
 import com.rockbite.inetrnship.ghosthouse.ecs.components.SizeComponent;
-import com.rockbite.inetrnship.ghosthouse.ecs.components.TextureComponent;
 import com.rockbite.inetrnship.ghosthouse.ecs.systems.CameraSystem;
-import okhttp3.*;
-
-import java.io.IOException;
 
 public class MainUI extends Stage {
     SaveDataLoader saveDataLoader = new SaveDataLoader();
@@ -224,7 +220,7 @@ public class MainUI extends Stage {
 
                 //TODO: DO NOT TOUCH!!! NOT YOUR BUSINESS!!!
                 System.out.println("zibilRequest");
-                saveDataLoader.makeRequest();
+                //saveDataLoader.makeRequest();
 
                 return true;
             }

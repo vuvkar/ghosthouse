@@ -46,9 +46,9 @@ public class AssetLoader extends AssetManager {
 //        ATLAS_HEIGHT = atlas.getTextures().first().getHeight();
 //        ATLAS_WIDTH = atlas.getTextures().first().getWidth();
         loadGameData();
-        SaveDataLoader saveLoad = new SaveDataLoader();
-        saveLoad.save(room);
-        room = saveLoad.load();
+//        SaveDataLoader saveLoad = new SaveDataLoader();
+//        saveLoad.save(room);
+//        room = saveLoad.load();
 
 
 //        TexturePacker.Settings settings = new TexturePacker.Settings();

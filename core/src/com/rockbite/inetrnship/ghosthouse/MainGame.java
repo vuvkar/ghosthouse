@@ -4,28 +4,28 @@ import com.badlogic.ashley.core.Engine;
 import com.badlogic.ashley.core.Entity;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputMultiplexer;
-import com.badlogic.gdx.graphics.*;
+import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.utils.Array;
-import com.rockbite.inetrnship.ghosthouse.MiniGames.MiniGame;
 import com.rockbite.inetrnship.ghosthouse.data.GhostBuilding;
 import com.rockbite.inetrnship.ghosthouse.data.GhostMesh;
 import com.rockbite.inetrnship.ghosthouse.data.Room;
-import com.rockbite.inetrnship.ghosthouse.data.Room1;
-import com.rockbite.inetrnship.ghosthouse.ecs.components.*;
+import com.rockbite.inetrnship.ghosthouse.ecs.components.CameraComponent;
+import com.rockbite.inetrnship.ghosthouse.ecs.components.PositionComponent;
 import com.rockbite.inetrnship.ghosthouse.ecs.systems.CameraSystem;
 import com.rockbite.inetrnship.ghosthouse.ecs.systems.RenderSystem;
 import com.rockbite.inetrnship.ghosthouse.util.HelperClass;
 
 
 public class MainGame {
-   public Entity ghost = HelperClass.createGhost(new Vector3(0, 0, 0));
+    public Entity ghost = HelperClass.createGhost(new Vector3(0, 0, 0));
     public GhostHouse ghostHouse;
     private Engine engine;
     public CameraSystem cameraSystem;
     private RenderSystem renderSystem;
     private AssetLoader assetLoader;
     public InputController inputController;
+    private SaveDataLoader saveDataLoader;
 
     public static boolean miniGameOn = false;
     private Array<Room> rooms;
@@ -46,6 +46,8 @@ public class MainGame {
     }
 
     public MainGame(GhostHouse ghostHouse) {
+
+        saveDataLoader = new SaveDataLoader();
 
         this.ghostHouse = ghostHouse;
 
@@ -99,6 +101,7 @@ public class MainGame {
         cameraSystem.moveToNextRoom();
         building.moveToNextRoom();
         building.getCurrentRoom().roomStarted();
+        saveDataLoader.save(building.getCurrentRoom().id);
     }
 
     public  void  startGame() {
@@ -114,13 +117,14 @@ public class MainGame {
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT | GL20.GL_DEPTH_BUFFER_BIT);
         Gdx.gl.glBlendFunc(GL20.GL_SRC_ALPHA, GL20.GL_ONE_MINUS_SRC_ALPHA);
 
+
         // first render sky
         // TODO: render sky
 
         // then render building walls and items
         meshok.render(cameraSystem.cam);
 
-        if(miniGameOn) {
+        if (miniGameOn) {
             building.getCurrentRoom().miniGame.render();
         }
 
@@ -128,6 +132,7 @@ public class MainGame {
 
         // DO postprocessing of FBO and render it to screen
         // TODO: final render
+
     }
 
     public void dispose() {
