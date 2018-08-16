@@ -31,18 +31,22 @@ public class InGameTexts
     public static String pagvel2 = "Let's explore the room!";
     public static String code = "We don't have the code, let's leave this for later";
     // static room2
-    public static String startr1 = "Yei, the door is open here";
-    public static String startr2 = "Let's go";
+    public static String startr1 = "Yei, the door is open here!";
+    public static String startr2 = "Let's go!";
     public static String bug1 = "AAAAAAAAAAAA";
     public static String bug2 = "My biggest feaaar";
     public static String bug3 = "I need to find a way to kill them, otherwise I'm stuck here";
     public static String paper1 = "Anti-Bug remedy? hmm...let's see...";
     public static String paper2 = "we'll need to mix couple of ingredients into a spray bottle";
-    public static String spray = "Ingredients are missing";
-    public static String pills = "It will need to be mixed with a liquid";
+    public static String spray = "We'll have to mix all the ingredients inside";
+    public static String pills = "More poison HAHAHA";
     public static String wbottle = "it's empty, but can serve as a shaker";
     public static String vodka = "Some drops will be enough";
-    public static String eucalyptus = "couple of remedies and I'm saved";
-    public static String silicagel = "Never though I'd be doing this";
-    public static String drugbotttles = "Drug always serve well as a poison";
+    public static String eucalyptus = "Eucalyptus leaf will complement to the whole remedy";
+    public static String eucalyptus1 = "We'll need the leaf";
+    public static String silicagel = "This is good to hold moisture";
+    public static String drugbotttles = "Drugs always serve well as a poison";
+    public static String sekator = "This will help for the most important ingredient";
+    public static String recipe = "I don't know the recipe";
+    public static String spraydone = "Now I can move forward fearlessly";
 }
