@@ -20,7 +20,7 @@ import com.rockbite.inetrnship.ghosthouse.util.HelperClass;
 
 public class MainGame {
    public Entity ghost = HelperClass.createGhost(new Vector3(0, 0, 0));
-    private GhostHouse ghostHouse;
+    public GhostHouse ghostHouse;
     private Engine engine;
     public CameraSystem cameraSystem;
     private RenderSystem renderSystem;
@@ -91,7 +91,7 @@ public class MainGame {
         multiplexer.addProcessor(ghostHouse.mainUI);
         multiplexer.addProcessor(inputController);
         Gdx.input.setInputProcessor(multiplexer);
-        //System.out.println(ghost.getComponent(PositionComponent.class).getX());
+
 
         engine.addEntity(ghost);
     }

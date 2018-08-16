@@ -5,6 +5,7 @@ import com.badlogic.ashley.core.Entity;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
 import com.rockbite.inetrnship.ghosthouse.MainGame;
+import com.rockbite.inetrnship.ghosthouse.MainUI;
 import com.rockbite.inetrnship.ghosthouse.MiniGames.MiniGame;
 import com.rockbite.inetrnship.ghosthouse.ecs.components.*;
 
@@ -122,7 +123,7 @@ public abstract class Room implements Comparable<Room> {
     }
 
     public void openMiniGame() {
-
+        this.miniGame.start();
     }
 
     public ItemType getItemStatus(int itemID) {

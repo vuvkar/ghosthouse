@@ -11,8 +11,6 @@ import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.rockbite.inetrnship.ghosthouse.MiniGames.MiniGame;
 
 public class KillBugs extends MiniGame {
-
-    private Stage stage;
     private int numOfBugs = 10 ;
     private Texture bugImage;
     private float width;
@@ -43,9 +41,7 @@ public class KillBugs extends MiniGame {
         start();
     }
 
-    @Override
     public void start() {
-        stage = new Stage(new ScreenViewport());
         Gdx.input.setInputProcessor(stage);
 
         bugImage = new Texture(Gdx.files.internal("MiniGame/bug_1_1.png"));
@@ -59,11 +55,6 @@ public class KillBugs extends MiniGame {
     }
 
     public void create() {
-        gameStarted = false;
-        win = false;
-        gameOver = false;
-        killedBugs = 0;
-        timer = 0;
 
         // create environment
         BugsActor fog = new BugsActor(new Texture(Gdx.files.internal("MiniGame/fog.png")), 0,0, "fog", 1);
@@ -99,7 +90,7 @@ public class KillBugs extends MiniGame {
 
     @Override
     public void load() {
-        Gdx.input.setInputProcessor(stage);
+
     }
 
     @Override

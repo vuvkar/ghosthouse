@@ -9,8 +9,8 @@ public class GhostHouse extends ApplicationAdapter {
     SaveDataLoader saveData;
     AssetLoader assetLoader;
 
-    MainUI mainUI;
-    MainGame mainGame;
+    public MainUI mainUI;
+    public MainGame mainGame;
     public static SettingsMusic settingsMusic;
     @Override
     public void create() {
@@ -57,7 +57,7 @@ public class GhostHouse extends ApplicationAdapter {
        mainUI.getViewport().update(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
         mainUI.getViewport().setScreenSize(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
         if (MainGame.miniGameOn)
-            Puzzle.stage.getViewport().setScreenSize(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+            mainGame.getBuilding().getCurrentRoom().miniGame.stage.getViewport().setScreenSize(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
         if (MainUI.settingson) {
             MainUI.settingsMusic.stage.getViewport().setScreenSize(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
         }

@@ -11,7 +11,6 @@ import java.util.Collections;
 
 
 public class Puzzle extends MiniGame {
-    public static Stage stage;
     public static int[][] board;
     public static int[][] winningBoard;
     private Texture[] tileTextures;

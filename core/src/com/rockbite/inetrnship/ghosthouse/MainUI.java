@@ -31,6 +31,9 @@ public class MainUI extends Stage {
     AssetLoader assetLoader;
     public static SettingsMusic settingsMusic;
     public static boolean settingson = false;
+
+    public static float BAR_HEIGHT = 0;
+
     public TextureAtlas atlas;
     float scale = Gdx.graphics.getWidth() / 1920f;
     float distscale = Gdx.graphics.getWidth() / 800f;
@@ -48,7 +51,7 @@ public class MainUI extends Stage {
     public GhostHouse ghostHouse;
     public static Group inventory = new Group();
     Vector2 prevPos = new Vector2(0, 0);
-    Table bar = new Table();
+    public Table bar = new Table();
     public static Label text;
     public static Group Text=new Table();
     PositionComponent pos = new PositionComponent(0, 0, 0);
@@ -153,6 +156,8 @@ public class MainUI extends Stage {
 
         bar.add(Patch).padRight(distscalex * 2).padLeft(distscalex * 2).padBottom(distscaley * 1).width(Patch.getPrefWidth() * scalex).height(Patch.getPrefHeight() * scaley);
         bar.bottom();
+
+        BAR_HEIGHT = bar.getChildren().first().getHeight();
 
         patch = new NinePatch(atlas.createPatch("room_name_slot"));
         patch.scale(scalex, scaley);

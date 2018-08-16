@@ -53,7 +53,6 @@ public class DialogSystem {
     }
 
     public void render() {
-        System.out.println(startCountdown);
         if(time>=delay && startCountdown) {
             setDialogOn(true);
             dialogText.setVisible(true);
@@ -78,11 +77,11 @@ public class DialogSystem {
     public void setDialogOn(boolean dialogOn) {
 
         if(dialogOn) {
-            zibil = Gdx.input.getInputProcessor();
-            Gdx.input.setInputProcessor(stage);
+          //  zibil = Gdx.input.getInputProcessor();
+        //    Gdx.input.setInputProcessor(stage);
         }
         else {
-            Gdx.input.setInputProcessor(zibil);
+          //  Gdx.input.setInputProcessor(zibil);
         }
 
         isDialogOn = dialogOn;
