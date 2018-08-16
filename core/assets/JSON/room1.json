@@ -611,6 +611,28 @@
       width: 3,
       height: 3,
       id: 27
+    },
+    {
+      class: com.rockbite.inetrnship.ghosthouse.data.GameObject,
+      position: [
+        3.8571424,
+        11.633001,
+        -92.31
+      ],
+      scale: [
+        1,
+        1,
+        1
+      ],
+      rotation: [
+        0,
+        0,
+        0
+      ],
+      texture: passcode,
+      width: 3,
+      height: 3,
+      id: 28
     }
 
   ]

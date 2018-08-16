@@ -311,8 +311,6 @@ public class Room1 extends Room {
                         setItemStatus(WARDROB,ItemType.NONTAKEABLE);
                         setItemStatus(CLOCK,ItemType.NONTAKEABLE);
                         setItemStatus(SWITCH,ItemType.NONTAKEABLE);
-                        this.miniGame = new Lock();
-                        miniGame.mainGame = mainGame;
                         Lock miniGame = new Lock();
                         if(canOpenDoor) {
                             miniGame.canWin = true;
@@ -324,15 +322,15 @@ public class Room1 extends Room {
                 break;
         }
         System.out.println(puzzle_count);
-        removeFromInventory(PUZZLE);
-
-        changeTexture(PUZZLE,("puzzle"+Integer.toString(puzzle_count)));
-        addToInventory(PUZZLE);
+        if(!canOpenDoor) {
+            removeFromInventory(PUZZLE);
+            changeTexture(PUZZLE, ("puzzle" + Integer.toString(puzzle_count)));
+            addToInventory(PUZZLE);
+        }
     }
 
     @Override
     public void miniGameWasClosed(boolean hasWon) {
-            DialogSystem.dialogSystem.startDialog(InGameTexts.pagvel + "\n" + InGameTexts.pagvel2, 5f, 0.5f, 0f);
         if(miniGame instanceof Puzzle) {
             if(hasWon) {
                 canOpenDoor = true;
@@ -344,15 +342,18 @@ public class Room1 extends Room {
             if(hasWon) {
                 leaveRoom();
             }
+            else {
+                DialogSystem.dialogSystem.startDialog(InGameTexts.pagvel + "\n" + InGameTexts.pagvel2, 5f, 0.5f, 0f);
+            }
         }
     }
 
     @Override
     public void itemWasClickedOnInventory(int itemID) {
-        if(itemID == PUZZLE && puzzle_count == 8) {
+      //  if(itemID == PUZZLE && puzzle_count == 8) {
             this.miniGame = new Puzzle();
-            miniGame.start();
-        }
+            openMiniGame();
+      //  }
     }
 
     @Override
@@ -393,9 +394,11 @@ public class Room1 extends Room {
             puzzle_count++;
             shelf.play(Room.soundVolume);
         }
-        removeFromInventory(PUZZLE);
-        changeTexture(PUZZLE,("puzzle"+Integer.toString(puzzle_count)));
-        addToInventory(PUZZLE);
+        if(!canOpenDoor) {
+            removeFromInventory(PUZZLE);
+            changeTexture(PUZZLE, ("puzzle" + Integer.toString(puzzle_count)));
+            addToInventory(PUZZLE);
+        }
 
 
     }

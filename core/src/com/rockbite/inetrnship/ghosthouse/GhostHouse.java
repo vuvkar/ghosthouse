@@ -8,7 +8,7 @@ public class GhostHouse extends ApplicationAdapter {
     SaveDataLoader saveData;
     AssetLoader assetLoader;
 
-    static boolean isLoaded = false;
+    static boolean isLoaded = true;
 
     public MainUI mainUI;
     public MainGame mainGame;

@@ -16,6 +16,9 @@ import com.rockbite.inetrnship.ghosthouse.ecs.systems.CameraSystem;
 import com.rockbite.inetrnship.ghosthouse.ecs.systems.RenderSystem;
 import com.rockbite.inetrnship.ghosthouse.util.HelperClass;
 
+import java.util.Timer;
+import java.util.TimerTask;
+
 
 public class MainGame {
     public Entity ghost = HelperClass.createGhost(new Vector3(0, 0, 0));

@@ -14,14 +14,16 @@ public abstract class MiniGame {
     public abstract  void load();
     public abstract void render();
 
-    public  void start() {
+    public void start() {
         MainGame.miniGameOn = true;
         Gdx.input.setInputProcessor(stage);
         load();
     }
+
     public  void end(boolean hasWon) {
         MainGame.miniGameOn = false;
-        mainGame.getBuilding().getCurrentRoom().miniGameWasClosed(hasWon);
         Gdx.input.setInputProcessor(MainGame.multiplexer);
+        mainGame.getBuilding().getCurrentRoom().miniGameWasClosed(hasWon);
+
     }
 }

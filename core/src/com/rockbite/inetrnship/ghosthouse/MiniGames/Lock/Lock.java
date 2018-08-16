@@ -23,7 +23,7 @@ import java.util.TimerTask;
 
 public class Lock extends MiniGame {
     public static Array<Integer> combination = new Array<Integer>();
-    public static Array<Integer> correctCombination = new Array<Integer>();
+    public  Array<Integer> correctCombination = new Array<Integer>();
 
     private BitmapFont font;
     private Label.LabelStyle label1Style;
@@ -114,7 +114,8 @@ public class Lock extends MiniGame {
                             Lock.code.setText(Lock.code.getText() +"" + btn.value + "   ");
                             System.out.println(Lock.combination);
 
-                            if (Lock.combination.size >= 4 && Lock.combination.equals(Lock.correctCombination) && canWin) {
+                            if (combination.size >= 4 && combination.equals(correctCombination) && canWin) {
+
                                 Lock.isDoorOpen = true;
                                 Lock.light1.setVisible(false);
                                 Lock.light2.setVisible(true);
@@ -140,7 +141,7 @@ public class Lock extends MiniGame {
 
     @Override
     public void load() {
-        if(!KEY)
+        if(!KEY && !canWin)
             DialogSystem.dialogSystem.startDialog(InGameTexts.code, 5f, 0.6f, 0);
     }
 

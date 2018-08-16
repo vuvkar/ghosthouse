@@ -8,6 +8,8 @@ import com.rockbite.inetrnship.ghosthouse.DialogSystem;
 import javax.xml.transform.sax.SAXTransformerFactory;
 import java.awt.print.Paper;
 import java.util.Set;
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class Room2 extends Room
 {
@@ -22,25 +24,25 @@ public class Room2 extends Room
     Sound vodka;
     Sound spray1;
 
-    final int PAPER = 6;
+    final int PAPER = 7;
     final int SPRAY_BOTTLE = 1;
-    final int RED_BOTTLE = 14;
-    final int DRUG_BOTTLE = 4;
+    final int RED_BOTTLE = 15;
+    final int DRUG_BOTTLE = 5;
     final int YELLOW_BOTTLE = 3;
-    final int RIGHT_PILLOW = 9;
-    final int JEANS = 8;
-    final int WARDROBE = 15;
-    final int EUCALYPTUS = 13;
-    final int PILLOW = 9;
-    final int PILLS = 16;
-    final int SEKATOR = 17;
-    final int SILICA = 18;
-    final int LEAF = 19;
+    final int RIGHT_PILLOW = 10;
+    final int JEANS = 9;
+    final int WARDROBE = 16;
+    final int EUCALYPTUS = 14;
+    final int PILLOW = 10;
+    final int PILLS = 17;
+    final int SEKATOR = 18;
+    final int SILICA = 19;
+    final int LEAF = 20;
+    final int DOOR = 4;
 
    int sprayPercent = 0;
 
     {
-
         recipesound = Gdx.audio.newSound(Gdx.files.internal("sounds/news.mp3"));
         spray = Gdx.audio.newSound(Gdx.files.internal("sounds/spray.mp3"));
         waterbottle = Gdx.audio.newSound(Gdx.files.internal("sounds/waterbottle.mp3"));
@@ -50,14 +52,26 @@ public class Room2 extends Room
         silicagel = Gdx.audio.newSound(Gdx.files.internal("sounds/tsts.mp3"));
         vodka = Gdx.audio.newSound(Gdx.files.internal("sounds/vodka.mp3"));
         spray1 = Gdx.audio.newSound(Gdx.files.internal("sounds/ps.mp3"));
-
     }
 
 
     @Override
     public void roomStarted()
     {
-        DialogSystem.dialogSystem.startDialog(InGameTexts.startr1 + "\n" + InGameTexts.startr2, 1.5f, 0.5f, 1f);
+        moveGhostTo(PILLOW);
+        Timer timer = new Timer();
+        timer.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                DialogSystem.dialogSystem.startDialog(InGameTexts.startr1 + "\n" + InGameTexts.startr2, 3f, 0.5f, 0.2f);
+                Timer create = new Timer();
+                create.schedule(new TimerTask() {
+                    public void run() {
+                        changeTexture(4, "door2withbug");
+                    }
+                }, 4000);
+            }
+        }, 1000);
         setItemStatus(PAPER, ItemType.TAKEABLE);
 
     }
@@ -236,7 +250,7 @@ public class Room2 extends Room
             sekator.play(Room.soundVolume);
         {
             addToInventory(LEAF);
-            setItemStatus(EUCALYPTUS, ItemType.STATIC);
+            setItemStatus(EUCALYPTUS, ItemType.TAKEABLE);
             removeFromInventory(SEKATOR);
         }
     }

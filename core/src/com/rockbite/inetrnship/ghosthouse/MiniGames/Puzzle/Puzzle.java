@@ -17,6 +17,7 @@ public class Puzzle extends MiniGame {
     public static int[][] winningBoard;
     private Texture[] tileTextures;
     private float tileWidth;
+    private Actor code;
 
     public Puzzle() {
         create();
@@ -30,10 +31,16 @@ public class Puzzle extends MiniGame {
         stage.addActor(fog);
         stage.setKeyboardFocus(fog);
 
+
         Texture background = new Texture(Gdx.files.internal("MiniGame/background2.png"));
         float width = Gdx.graphics.getWidth() / 2 - background.getWidth() / 2;
         float height = Gdx.graphics.getHeight() / 2 - background.getHeight() / 2;
         PuzzleActor bg = new PuzzleActor(background, width, height, 0, 0, "bg");
+
+        PuzzleActor code = new PuzzleActor(new Texture(Gdx.files.internal("MiniGame/code.png")), width - 20, height, 0, 0, "code");
+        this.code = code;
+        stage.addActor(code);
+        code.setVisible(false);
 
         stage.addActor(bg);
         stage.setKeyboardFocus(bg);
@@ -79,7 +86,7 @@ public class Puzzle extends MiniGame {
         timer.schedule(new TimerTask() {
             @Override
             public void run() {
-                end(true);
+                win();
             }
         }, 1000);
     }
@@ -95,10 +102,24 @@ public class Puzzle extends MiniGame {
         if (board[0][0] == winningBoard[0][0] && board[1][0] == winningBoard[1][0] && board[2][0] == winningBoard[2][0] &&
                 board[0][1] == winningBoard[0][1] && board[1][1] == winningBoard[1][1] && board[2][1] == winningBoard[2][1] &&
                 board[0][2] == winningBoard[0][2] && board[1][2] == winningBoard[1][2] && board[2][2] == winningBoard[2][2]) {
-            end(true);
+            win();
         }
 
         stage.act(Gdx.graphics.getDeltaTime());
         stage.draw();
+    }
+
+    public void  win() {
+        for(Actor actor: stage.getActors()) {
+            actor.setVisible(false);
+        }
+        code.setVisible(true);
+        Timer timer = new Timer();
+        timer.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                end(true);
+            }
+        }, 2000);
     }
 }

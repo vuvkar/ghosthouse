@@ -69,6 +69,7 @@ public class CameraSystem extends EntitySystem {
         }
      // MainUI.Text.setText("Room " + (sequence.size ) + "");
         changeRoomNum(sequence.size);
+        leaveRoom();
 
 
 
@@ -85,7 +86,12 @@ public class CameraSystem extends EntitySystem {
     public void inputHandle() {
 
         if (Gdx.input.isKeyJustPressed(Input.Keys.ENTER)) {
-            assetLoader.getRooms().get(target).leaveRoom();
+            leaveRoom();
+        }
+
+    }
+
+    public void leaveRoom() {
             if (target == rooms.size)
                 target = 0;
             t = 0;
@@ -96,7 +102,6 @@ public class CameraSystem extends EntitySystem {
             dist.set(cameraComponent.targetVec.x - cameraComponent.bottomLeft.x,
                     cameraComponent.targetVec.y - cameraComponent.bottomLeft.y,
                     cameraComponent.targetVec.z - cameraComponent.bottomLeft.z);
-        }
     }
 
     public void interpolHandle() {
