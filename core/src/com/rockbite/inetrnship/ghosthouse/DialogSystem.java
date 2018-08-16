@@ -18,16 +18,16 @@ public class DialogSystem {
     private Label dialogText;
     private LockActor dialogBox;
     private float time = 0;
+    private float delay = 0;
     private float duration = 0;
     public boolean isDialogOn = false;
     InputProcessor zibil;
+    private boolean startCountdown = false;
 
     public static DialogSystem dialogSystem = new DialogSystem();
 
     public DialogSystem() {
-        System.out.println("wtf");
         stage = new Stage(new ScreenViewport());
-       // Gdx.input.setInputProcessor(stage);
 
         font = new BitmapFont(Gdx.files.internal("MiniGame/font.fnt"));
         label1Style = new Label.LabelStyle();
@@ -43,20 +43,28 @@ public class DialogSystem {
         dialogText.setVisible(false);
     }
 
-    public void startDialog(String text, float duration, float fontSize) {
-        setDialogOn(true);
+    public void startDialog(String text, float duration, float fontSize, float delay) {
+        startCountdown = true;
         this.duration = duration;
-        dialogText.setVisible(true);
-        dialogBox.setVisible(true);
+        this.delay = delay;
         dialogText.setFontScale(fontSize);
         dialogText.setText(text);
         stage.addActor(dialogText);
     }
 
     public void render() {
-        if(dialogText.isVisible())
+        System.out.println(startCountdown);
+        if(time>=delay && startCountdown) {
+            setDialogOn(true);
+            dialogText.setVisible(true);
+            dialogBox.setVisible(true);
+            time = 0;
+            startCountdown = false;
+        }
+
+        if(startCountdown || dialogText.isVisible())
             time+=Gdx.graphics.getDeltaTime();
-        if(time>=duration) {
+        if(time>=duration && !startCountdown) {
             dialogText.setVisible(false);
             dialogBox.setVisible(false);
             time = 0;
@@ -66,9 +74,6 @@ public class DialogSystem {
         stage.draw();
     }
 
-    public boolean isDialogOn() {
-        return isDialogOn;
-    }
 
     public void setDialogOn(boolean dialogOn) {
 

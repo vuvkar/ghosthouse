@@ -33,11 +33,11 @@ public class Room1 extends Room {
     final int ALBUM = 1;
     final int FISHHOOK = 15;
     final int NEWSPAPER_ON_THE_WALL = 19;
-    final int WIRE =22;
     final int WARDROB = 23;
     final int CLOCK = 9;
     final int PUZZLE = 27;
     final int SWITCH = 22;
+    final int DOOR = 13;
 
     Sound bearSound;
     Sound gun;
@@ -75,7 +75,7 @@ public class Room1 extends Room {
 
     @Override
     public void roomStarted() {
-        DialogSystem.dialogSystem.startDialog(InGameTexts.start1 + "\n" + InGameTexts.start2, 1.5f, 0.7f);
+        DialogSystem.dialogSystem.startDialog(InGameTexts.start1 + "\n" + InGameTexts.start2, 1.5f, 0.7f, 0.5f);
         setItemStatus(BEAR,ItemType.NONTAKEABLE);
         setItemStatus(KEYPART1,ItemType.TAKEABLE);
         setItemStatus(WEAPON,ItemType.NONTAKEABLE);
@@ -93,6 +93,7 @@ public class Room1 extends Room {
         setItemStatus(WARDROB,ItemType.NONTAKEABLE);
         setItemStatus(CLOCK,ItemType.NONTAKEABLE);
         setItemStatus(SWITCH,ItemType.NONTAKEABLE);
+        setItemStatus(DOOR,ItemType.NONTAKEABLE);
     }
     @Override
     public void itemWasClicked(int itemID) {
@@ -111,8 +112,7 @@ public class Room1 extends Room {
                         setItemStatus(BEAR,ItemType.STATIC);
                         addToInventory(KEYPART1);
                         key.play();
-                        DialogSystem.dialogSystem.startDialog("bobo", 7f, 0.8f);
-
+                        DialogSystem.dialogSystem.startDialog(InGameTexts.napo2, 1.5f, 0.7f, 0f);
                         break;
                 }
                 break;
@@ -128,6 +128,7 @@ public class Room1 extends Room {
                         changeTexture(CLOCK,"chasyslomannye");
                         setItemStatus(WEAPON,ItemType.STATIC);
                         key.play();
+                        DialogSystem.dialogSystem.startDialog(InGameTexts.fullkey, 1.5f, 0.7f, 0f);
                         addToInventory(KEYPART2);
                         break;
                 }
@@ -144,6 +145,7 @@ public class Room1 extends Room {
                         changeTexture(BOTTLES,"bottlesredroom1");
                         setItemStatus(BOTTLES,ItemType.STATIC);
                         glass.play();
+                        DialogSystem.dialogSystem.startDialog(InGameTexts.glass, 1.5f, 0.7f, 0f);
 
                         break;
                     case NONTAKEABLE:
@@ -265,6 +267,17 @@ public class Room1 extends Room {
                         break;
                 }
                 break;
+            case DOOR:
+                switch (getItemStatus(DOOR)) {
+                    case STATIC:
+                        break;
+                    case TAKEABLE:
+                        break;
+                    case NONTAKEABLE:
+//                      DialogSystem.dialogSystem.startDialog("bzbzbzb", 1.0f, 1.7f, 0f);
+                        break;
+                }
+                break;
         }
         System.out.println(puzzle_count);
         removeFromInventory(PUZZLE);
@@ -324,12 +337,14 @@ public class Room1 extends Room {
             removeFromInventory(fromInventory);
             removeFromInventory(toInventoryItem);
             addToInventory(WHOLEKEY);
+            DialogSystem.dialogSystem.startDialog(InGameTexts.keyaz, 1.5f, 0.7f, 0f);
             wholekey.play();
         }
         else if (fromInventory==25 && toInventoryItem==24){
             removeFromInventory(fromInventory);
             removeFromInventory(toInventoryItem);
             addToInventory(WHOLEKEY);
+            DialogSystem.dialogSystem.startDialog(InGameTexts.keyaz, 1.5f, 0.7f, 0f);
             wholekey.play();
 
         }
