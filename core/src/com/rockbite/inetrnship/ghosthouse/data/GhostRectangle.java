@@ -1,6 +1,7 @@
 package com.rockbite.inetrnship.ghosthouse.data;
 
 import com.badlogic.gdx.math.Vector3;
+import com.rockbite.inetrnship.ghosthouse.AssetLoader;
 
 public class GhostRectangle implements Comparable<GhostRectangle> {
 
@@ -12,6 +13,7 @@ public class GhostRectangle implements Comparable<GhostRectangle> {
     private float y;
     private float z;
     private String texture;
+    private String normalMap;
     private float uOrigin;
     private float vOrigin;
     private float uWidth;
@@ -57,6 +59,14 @@ public class GhostRectangle implements Comparable<GhostRectangle> {
         this.texture = texture;
     }
 
+    public String getNormalMap() {
+        return normalMap;
+    }
+
+    public void setNormalMap(String normalMap) {
+        this.normalMap = "normal";
+    }
+
     public GhostRectangle(GhostRectangle other) {
         this.normal = other.normal;
        // this.type = other.type;
@@ -70,6 +80,7 @@ public class GhostRectangle implements Comparable<GhostRectangle> {
         this.uWidth = other.uWidth;
         this.vHeight = other.vHeight;
         this.texture = other.texture;
+        this.normalMap=other.normalMap;
     }
 
     public void setNormal(Vector3 normal) {
@@ -107,6 +118,7 @@ public class GhostRectangle implements Comparable<GhostRectangle> {
         this.vOrigin = 0;
         this.uWidth = 1f;
         this.vHeight = 1f;
+        this.normalMap="normal";
     }
 
     public Vector3 getNormal() {

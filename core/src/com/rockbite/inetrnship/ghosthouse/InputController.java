@@ -62,7 +62,7 @@ public class InputController implements InputProcessor {
         AnimationComponent animationComponent = ghostHouse.mainGame.ghost.getComponent(AnimationComponent.class);
         PositionComponent positionComponent = ghostHouse.mainGame.ghost.getComponent(PositionComponent.class);
 
-        //targetPosition.set(ClickPos); 
+        //targetPosition.set(ClickPos);
         if (targetPosition.x >= ghostHouse.assetLoader.getRooms().get(CameraSystem.target).origin.x + ghostHouse.assetLoader.getRooms().get(CameraSystem.target).width - ghostHouse.mainGame.ghost.getComponent(AnimationComponent.class).size.x / 2) {
             targetPosition.x = ghostHouse.assetLoader.getRooms().get(CameraSystem.target).origin.x + ghostHouse.assetLoader.getRooms().get(CameraSystem.target).width - ghostHouse.mainGame.ghost.getComponent(AnimationComponent.class).size.x / 2;
         }
@@ -114,9 +114,7 @@ public class InputController implements InputProcessor {
         }
     }
 
-    public boolean checkInteraction(float item) {
-        return true; //return true if item is interactable
-    }
+
 
 
     public static boolean isInside(Vector3 origin, Vector2 size, Vector3 point) {
@@ -164,40 +162,44 @@ public class InputController implements InputProcessor {
     public boolean touchDown(int screenX, int screenY, int pointer, int button) {
         //If intersects the objects' mesh
         ClickPos.set(Gdx.input.getX(), Gdx.input.getY(), 0);
-        if (isIntersected()) {
-            if (ghostHouse.mainUI.numberItem <= 14) {
+        if(ghostHouse.mainUI.gameison) {
+            if (isIntersected()) {
+                if (ghostHouse.mainUI.numberItem <= 14) {
 
-                for (int i = 0; i < rooms.get(cameraSystem.target).items.size; i++) {
+                    for (int i = 0; i < rooms.get(cameraSystem.target).items.size; i++) {
 
-                    pos = rooms.get(cameraSystem.target).items.get(i).getComponent(PositionComponent.class);
-                    size = rooms.get(cameraSystem.target).items.get(i).getComponent(SizeComponent.class);
+                        pos = rooms.get(cameraSystem.target).items.get(i).getComponent(PositionComponent.class);
+                        size = rooms.get(cameraSystem.target).items.get(i).getComponent(SizeComponent.class);
 
-                    //which particular item is intersected
-                    if (isInside(new Vector3(pos.getX(), pos.getY(), pos.getZ()), new Vector2(size.width, size.height), targetPosition)) {
-                        t = 0;
+                        //which particular item is intersected
+                        if (isInside(new Vector3(pos.getX(), pos.getY(), pos.getZ()), new Vector2(size.width, size.height), targetPosition)) {
+                            t = 0;
 
 
-                        if (pos.getZ() >= indexAndMax[0]) { //If the items are overlapping
-                            indexAndMax[0] = pos.getZ();
-                            indexAndMax[1] = rooms.get(cameraSystem.target).items.get(i).getComponent(ItemIdComponent.class).getItemID();
+                            if (pos.getZ() >= indexAndMax[0]) { //If the items are overlapping
+                                indexAndMax[0] = pos.getZ();
+                                indexAndMax[1] = rooms.get(cameraSystem.target).items.get(i).getComponent(ItemIdComponent.class).getItemID();
 
+                            }
                         }
                     }
+                    prevPosition = new Vector2(ghostHouse.mainGame.ghost.getComponent(PositionComponent.class).getX(),
+                            ghostHouse.mainGame.ghost.getComponent(PositionComponent.class).getY());
+                    takeItem = true;
+
+                    moveCharacter();
                 }
+            }
+
+            //If click on the building
+            else if (Intersector.intersectRayTriangles(ray, mesh.buildingVertices, mesh.buildingIndices, mesh.ATTRIBUTE_COUNT, targetPosition)) {
+
+                t = 0;
                 prevPosition = new Vector2(ghostHouse.mainGame.ghost.getComponent(PositionComponent.class).getX(),
                         ghostHouse.mainGame.ghost.getComponent(PositionComponent.class).getY());
-                takeItem = true;
                 moveCharacter();
             }
-        }
 
-        //If click on the building
-        else if (Intersector.intersectRayTriangles(ray, mesh.buildingVertices, mesh.buildingIndices, 8, targetPosition)) {
-
-            t = 0;
-            prevPosition = new Vector2(ghostHouse.mainGame.ghost.getComponent(PositionComponent.class).getX(),
-                    ghostHouse.mainGame.ghost.getComponent(PositionComponent.class).getY());
-            moveCharacter();
         }
         return true;
     }
@@ -245,7 +247,7 @@ public class InputController implements InputProcessor {
             }
         }
 
-        if (Intersector.intersectRayTriangles(ray, mesh.itemVertices, temo, 8, targetPosition))
+        if (Intersector.intersectRayTriangles(ray, mesh.itemVertices, temo, mesh.ATTRIBUTE_COUNT, targetPosition))
             return true;
         else
             return false;

@@ -6,6 +6,7 @@ public class GameObject {
     float[] scale;
     float[] rotation;
     String texture;
+    String normalMap;
     float width;
     float height;
     int id;

@@ -24,8 +24,9 @@ public class GhostMesh {
     private final int COLOR_ATTRIBUTE_COUNT = 0;
     private final int TEXTURE_ATTRIBUTE_COUNT = 2;
     private final int NORMAL_ATTRIBUTE_COUNT = 3;
-    public final int ATTRIBUTE_COUNT = POSITION_ATTRIBUTE_COUNT + COLOR_ATTRIBUTE_COUNT + TEXTURE_ATTRIBUTE_COUNT + NORMAL_ATTRIBUTE_COUNT;
-
+    private final int NORMAL_MAP_ATTRIBUTE = 2;
+    public final int ATTRIBUTE_COUNT = POSITION_ATTRIBUTE_COUNT + COLOR_ATTRIBUTE_COUNT + TEXTURE_ATTRIBUTE_COUNT + NORMAL_ATTRIBUTE_COUNT + NORMAL_MAP_ATTRIBUTE;
+    Texture normalMap;
     public final float CHARACTER_SPACE = 0.01f;
 
     public static int ITEM_COUNT = 0;
@@ -61,10 +62,11 @@ public class GhostMesh {
     public ShaderProgram shaderProgram;
 
     public GhostMesh(Array<GhostRectangle> rectangles, AssetLoader loader) {
+
         this.loader = loader;
 
         assets = new Texture(Gdx.files.internal("packed/game.png"));
-
+        normalMap = new Texture("normal_mapping.png");
         buildingVertices = new float[rectangles.size * 4 * ATTRIBUTE_COUNT];
         buildingIndices = new short[rectangles.size * 3 * 2];
 
@@ -88,12 +90,14 @@ public class GhostMesh {
         building = new Mesh(true, 300000, 120000,
                 new VertexAttribute(VertexAttributes.Usage.Position, POSITION_ATTRIBUTE_COUNT, ShaderProgram.POSITION_ATTRIBUTE),
                 new VertexAttribute(VertexAttributes.Usage.TextureCoordinates, TEXTURE_ATTRIBUTE_COUNT, ShaderProgram.TEXCOORD_ATTRIBUTE + "0"),
-                new VertexAttribute(VertexAttributes.Usage.Normal, NORMAL_ATTRIBUTE_COUNT, ShaderProgram.NORMAL_ATTRIBUTE));
+                new VertexAttribute(VertexAttributes.Usage.Normal, NORMAL_ATTRIBUTE_COUNT, ShaderProgram.NORMAL_ATTRIBUTE),
+                        new VertexAttribute(VertexAttributes.Usage.BiNormal, NORMAL_MAP_ATTRIBUTE, ShaderProgram.BINORMAL_ATTRIBUTE));
 
         building.setVertices(buildingVertices);
         building.setIndices(buildingIndices);
 
         shaderProgram = new ShaderProgram(Gdx.files.internal("shaders/buildingShader.vert"), Gdx.files.internal("shaders/buildingShader.frag"));
+        System.out.println(shaderProgram.getLog());
     }
 
     public void renderAnimations(Array<Slot> animations) {
@@ -110,11 +114,11 @@ public class GhostMesh {
             Attachment attachment = slot.getAttachment();
             if (attachment instanceof RegionAttachment) {
                 animationIC += 6;
-                animationVC += ((RegionAttachment) attachment).getWorldVertices().length / 5 * 8;
+                animationVC += ((RegionAttachment) attachment).getWorldVertices().length / 5 * ATTRIBUTE_COUNT;
             }
             else if (attachment instanceof MeshAttachment) {
                 animationIC += ((MeshAttachment) attachment).getTriangles().length;
-                animationVC += ((MeshAttachment) attachment).getWorldVertices().length / 5 * 8;
+                animationVC += ((MeshAttachment) attachment).getWorldVertices().length / 5 * ATTRIBUTE_COUNT;
             }
         }
 
@@ -166,6 +170,8 @@ public class GhostMesh {
                 animationVertices[vertexIndex++] = 0f;
                 animationVertices[vertexIndex++] = 0f;
                 animationVertices[vertexIndex++] = 1f;
+                animationVertices[vertexIndex++] = 0f;
+                animationVertices[vertexIndex++] = 0f;
             }
             slotCount++;
         }
@@ -252,6 +258,9 @@ public class GhostMesh {
                             modelVertices[vOffset++] = currentVertices[i++];
                             modelVertices[vOffset++] = currentVertices[i++];
 
+                            modelVertices[vOffset++] = 0;
+                            modelVertices[vOffset++] = 0;
+
                             i+=2;
                         }
 
@@ -305,12 +314,17 @@ public class GhostMesh {
 
         building.setVertices(combinedEverythingV);
         building.setIndices(combinedEverythingI);
+        Gdx.gl20.glActiveTexture(GL20.GL_TEXTURE0);
 
         shaderProgram.begin();
+
+        assets.bind(0);
+
         shaderProgram.setUniformMatrix("u_projTrans", camera.combined);
         shaderProgram.setUniformf("u_light", camera.position);
         shaderProgram.setUniformf("u_lightColor", lightColor);
-        assets.bind();
+
+
         building.render(shaderProgram, GL20.GL_TRIANGLES);
         shaderProgram.end();
 
@@ -335,6 +349,7 @@ public class GhostMesh {
 
             // UV Coordinates
             TextureAtlas.AtlasRegion region = AssetLoader.getRegion(rectangle.getTexture());
+
             if(region == null) {
                 System.out.println(rectangle.getTexture());
             }
@@ -348,6 +363,20 @@ public class GhostMesh {
             vertices[vertexIndex.value++] = normal.x;
             vertices[vertexIndex.value++] = normal.y;
             vertices[vertexIndex.value++] = normal.z;
+
+            TextureAtlas.AtlasRegion region2 = AssetLoader.getRegion(rectangle.getNormalMap());
+            float diffNU = region2.getU2() - region2.getU();
+            float diffNV = region2.getV2() - region2.getV();
+            if(rectangle.getTexture()=="bed2"){
+                System.out.println("DIS");
+                vertices[vertexIndex.value++] = region2.getU() + diffNU * rectangle.getuOrigin() + (float) (i % 2) * rectangle.getuWidht() * (diffNU);
+                vertices[vertexIndex.value++] = region2.getV() + diffNV * rectangle.getvOrigin() + (float) ((3 - i) >> 1) * rectangle.getvHeight() * (diffNV);
+            }
+            else{
+                vertices[vertexIndex.value++]=0;
+                vertices[vertexIndex.value++]=0;
+            }
+
         }
 
     }
