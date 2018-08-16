@@ -138,8 +138,6 @@ public class Room1 extends Room {
                     case STATIC:
                         break;
                     case TAKEABLE:
-
-
                         changeTexture(BOTTLES,"bottlered1room1");
                         addToInventory(BOTTLES);
                         changeTexture(BOTTLES,"bottlesredroom1");

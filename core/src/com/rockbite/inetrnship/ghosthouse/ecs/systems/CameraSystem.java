@@ -85,7 +85,7 @@ public class CameraSystem extends EntitySystem {
     public void inputHandle() {
 
         if (Gdx.input.isKeyJustPressed(Input.Keys.ENTER)) {
-            moveToNextRoom();
+            assetLoader.getRooms().get(target).leaveRoom();
             if (target == rooms.size)
                 target = 0;
             t = 0;
