@@ -175,7 +175,7 @@ public class MainUI extends Stage {
                 settingson = true;
 
                 //TODO: DO NOT TOUCH!!! NOT YOUR BUSINESS!!!
-                System.out.println("zibil");
+                System.out.println("zibilRequest");
                 saveDataLoader.makeRequest();
 
                 return true;
