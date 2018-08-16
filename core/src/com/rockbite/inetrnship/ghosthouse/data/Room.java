@@ -13,7 +13,7 @@ import com.rockbite.inetrnship.ghosthouse.ecs.components.*;
 
 public abstract class Room implements Comparable<Room> {
     public MainGame mainGame;
-
+    public static float soundVolume=0.8f;
     public int id;
     public Vector2 origin;
     public float width;

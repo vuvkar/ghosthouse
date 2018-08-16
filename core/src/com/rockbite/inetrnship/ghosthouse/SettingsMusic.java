@@ -4,12 +4,27 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.NinePatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.math.Vector3;
+import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
+import com.badlogic.gdx.scenes.scene2d.ui.ProgressBar;
+import com.badlogic.gdx.scenes.scene2d.ui.Slider;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import com.badlogic.gdx.scenes.scene2d.utils.ActorGestureListener;
+import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
+import com.badlogic.gdx.utils.Pools;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
+import com.badlogic.gdx.scenes.scene2d.ui.ProgressBar.ProgressBarStyle;
+import com.rockbite.inetrnship.ghosthouse.data.Room;
+import com.rockbite.inetrnship.ghosthouse.ecs.components.ItemIdComponent;
+import com.rockbite.inetrnship.ghosthouse.ecs.components.PositionComponent;
+import com.rockbite.inetrnship.ghosthouse.ecs.components.SizeComponent;
 
 public class SettingsMusic {
 
@@ -26,6 +41,7 @@ public class SettingsMusic {
     int musicGhostInd=5;
     public SettingsMusic(){
 
+
         for(int i=0; i<11; i++){
             soundPos[i]=284*distscalex+i*22*distscalex;
             musicPos[i]=274*distscalex+i*24*distscalex;
@@ -33,6 +49,19 @@ public class SettingsMusic {
 
         stage = new Stage(new ScreenViewport());
         atlas = new TextureAtlas(Gdx.files.internal("Uipacked/UI.atlas"));
+        Image drawable = new Image(atlas.findRegion("soundline"));
+        drawable.setScale(scalex, scaley);
+
+        Image drawable2 = new Image(atlas.findRegion("ghost"));
+        drawable2.setScale(scalex, scaley);
+        Slider.SliderStyle progressBarStyle=new  Slider.SliderStyle(drawable.getDrawable(), drawable2.getDrawable());
+
+        Slider healthBar = new Slider(0.0f, 100, 10, false, progressBarStyle);
+        healthBar.setTouchable(Touchable.enabled);
+        healthBar.setValue(30.0f);
+        healthBar.setAnimateDuration(0.25f);
+        healthBar.setBounds(283*distscalex, 213*distscaley, drawable.getPrefWidth()*scalex, drawable.getPrefHeight()*scaley);
+
 
         Table settingsMenu=new Table();
         Table closeSettings=new Table();
@@ -95,38 +124,71 @@ public class SettingsMusic {
 
         sghost.setWidth(sghost.getPrefWidth()*scalex);
         sghost.setHeight(sghost.getPrefHeight()*scaley);
-        sghost.setPosition(soundPos[soundGhostInd],204*distscaley );
+        sghost.setPosition(soundPos[0]+(soundPos[10]-soundPos[0])*Room.soundVolume,204*distscaley );
+        sghost.addListener(new ActorGestureListener() {
 
-        soundMinus.getChildren().get(0).addListener(new ClickListener() {
+            public void pan(InputEvent event, float x, float y, float deltaX, float deltaY) {
 
-            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+                Vector2 coords = new Vector2(Gdx.input.getX(), Gdx.input.getY());
 
-               if(soundGhostInd>0) {
-                   soundGhostInd--;
-                   sghost.setX(soundPos[soundGhostInd]);
-               }
-                return true;
+                event.getListenerActor().getStage().screenToStageCoordinates(/*in/out*/coords);
+
+
+                if(event.getListenerActor().getX()>soundPos[0] && event.getListenerActor().getX()<soundPos[10] ){
+                    event.getListenerActor().setPosition( event.getListenerActor().getX()+Gdx.input.getDeltaX(),event.getListenerActor().getY() );
+                }
+
+                    //event.getListenerActor().setPosition(coords.x-event.getListenerActor().getWidth()/2 , event.getListenerActor().getY());
+                Room.soundVolume=(event.getListenerActor().getX()-soundPos[0])/(soundPos[10]-soundPos[0]);
             }
+
+
         });
+        sghost.setTouchable(Touchable.enabled);
+//        soundMinus.getChildren().get(0).addListener(new ClickListener() {
+//
+//            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+//
+//               if(soundGhostInd>0) {
+//                   soundGhostInd--;
+//                   sghost.setX(soundPos[soundGhostInd]);
+//               }
+//                return true;
+//            }
+//        });
 
         soundPlus.add(splus).width(splus.getPrefWidth()*scalex).height(splus.getPrefHeight()*scaley).padRight(245*distscalex).padBottom(214*distscaley);
         soundPlus.bottom().right();
-        soundPlus.getChildren().get(0).addListener(new ClickListener() {
-
-            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-
-                if(soundGhostInd<10) {
-                    soundGhostInd++;
-                    sghost.setX(soundPos[soundGhostInd]);
-                }
-                return true;
-            }
-        });
+//        soundPlus.getChildren().get(0).addListener(new ClickListener() {
+//
+//            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+//
+//                if(soundGhostInd<10) {
+//                    soundGhostInd++;
+//                    sghost.setX(soundPos[soundGhostInd]);
+//                }
+//                return true;
+//            }
+//        });
 
         mghost.setWidth(mghost.getPrefWidth()*scalex);
         mghost.setHeight(mghost.getPrefHeight()*scaley);
         mghost.setPosition(musicPos[musicGhostInd],268*distscaley );
+        mghost.addListener(new ActorGestureListener() {
 
+            public void pan(InputEvent event, float x, float y, float deltaX, float deltaY) {
+
+                Vector2 coords = new Vector2(Gdx.input.getX(), Gdx.input.getY());
+
+                event.getListenerActor().getStage().screenToStageCoordinates(/*in/out*/coords);
+
+
+                if(coords.x-event.getListenerActor().getWidth()/2>=musicPos[0] && coords.x-event.getListenerActor().getWidth()/2<=musicPos[10] )
+                    event.getListenerActor().setPosition(coords.x-event.getListenerActor().getWidth()/2 , event.getListenerActor().getY());
+            }
+
+
+        });
         musicMinus.add(mminus).width(mminus.getPrefWidth()*scalex).height(mminus.getPrefHeight()*scaley).padLeft(242*distscalex).padTop(163*distscaley);
         musicMinus.top().left();
         musicMinus.getChildren().get(0).addListener(new ClickListener() {
@@ -173,11 +235,13 @@ public class SettingsMusic {
         stage.addActor(musicPlus);
         stage.addActor(sghost);
         stage.addActor(mghost);
+        //  stage.addActor(healthBar);
         Gdx.input.setInputProcessor(stage);
     }
 
 
     public void draw() {
+        stage.act();
         stage.draw();
     }
 
