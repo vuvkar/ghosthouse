@@ -2,88 +2,71 @@ package com.rockbite.inetrnship.ghosthouse;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Preferences;
+import com.badlogic.gdx.utils.Json;
 import okhttp3.*;
 import okio.BufferedSink;
+import org.json.simple.JSONObject;
 
 import java.io.IOException;
 
-import static javax.swing.UIManager.getString;
-
 public class SaveDataLoader {
     OkHttpClient client = new OkHttpClient();
+    Preferences prefs = Gdx.app.getPreferences("data");
+
+    static String URI = "http://10.10.29.126:8080/api/foo/";
 
     // variables for prefs
-    private int hashcode;
-    private int newHashcode;
-    private String hashStr;
-    private int room = 86574;
+    private String hashcode;
 
     public SaveDataLoader() {
-        Preferences prefs = Gdx.app.getPreferences("prefs");
-        prefs.putString(String.valueOf(hashcode), "No hash code");
-        String user = prefs.getString("hashcode", "newHashcode");
-
-        if (getString(prefs) == null) {
-            newHashcode = (int) (Math.random() * 1000 + 1);
-            prefs.putString(String.valueOf(newHashcode), "new hash code");
-            System.out.println("APER NO PREFS????!??!?!??!?!!!!!");
-            System.out.println("hash: " + newHashcode);
-
-            // saving hash code with flush
+        hashcode = prefs.getString("hashcode", "");
+        if (hashcode.equals("")) {
+            hashcode = (Math.random() * 1000 + 1) + "";
+            prefs.putString("hashcode", hashcode + "");
             prefs.flush();
-        } else {
-            prefs.getString(String.valueOf(hashcode), "old hash code");
-            System.out.println("ba stex mtnum es ap?!?!");
         }
     }
 
-    public void makeRequest() {
-        RequestBody fromBody = new RequestBody() {
-            @Override
-            public MediaType contentType() {
-                return null;
-            }
-
-            @Override
-            public void writeTo(BufferedSink sink) throws IOException {
-
-            }
-        };
-        String url = "http://localhost:8080/api/foo";
-        get(url);
-        post(fromBody, url);
-    }
-
     // GET method for getting user data from db
-    private void get(String uri) {
+    private void get() {
+
         final Request request = new Request.Builder()
-                .url(uri)
+                .url(URI)
+                .header("user", hashcode)
+                .get()
                 .build();
         client.newCall(request).enqueue(new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
-                //eshutyun[0]
-                System.out.println("Nothing to show");
             }
 
             @Override
             public void onResponse(Call call, Response response) throws IOException {
-                System.out.println(response.body().string());
+                GhostHouse.isLoaded = true;
             }
         });
     }
 
     // FIXME: ADD FUNCTIONALITY FOR POST METHOD
-    private void post(RequestBody formBody, String uri) {
-        RequestBody.create(MediaType.parse("application/json; charset=utf-8"), "");
+    private void post(int roomID) {
+        JSONObject obj = new JSONObject();
+        try {
+            obj.put("hashcode", hashcode);
+            obj.put("room_id", roomID);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+
+        RequestBody requestBody = RequestBody.create(MediaType.parse("application/json; charset=utf-8"), obj.toString());
+
         final Request request = new Request.Builder()
-                .url(uri)
-                .post(formBody)
+                .url(URI)
+                .post(requestBody)
                 .build();
+
         client.newCall(request).enqueue(new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
-                //eshutyun[1]
                 System.out.println("Nothing to show");
             }
 
@@ -96,14 +79,10 @@ public class SaveDataLoader {
     }
 
     public void save(int room) {
-        //qaq ker meri
-        System.out.println("AXPEEEEEEEEEEERSSSSSSSSSSSSSSSSS SAVE-UM AAAAAAAA");
+        post(room);
     }
 
-    public int load() {
-        //zibil ker meri
-        System.out.println("MERNEM QEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE LOAD-UM ESSSSSSSSSSSSS");
-        // room from db
-        return room;
+    public void load() {
+        get();
     }
 }
