@@ -23,7 +23,7 @@ public class Room2 extends Room {
 
     @Override
     public void roomStarted() {
-        DialogSystem.dialogSystem.startDialog(InGameTexts.startr1 + "\n" + InGameTexts.startr2, 1.5f, 0.7f, 1f);
+        DialogSystem.dialogSystem.startDialog(InGameTexts.startr1 + "\n" + InGameTexts.startr2, 1.5f, 0.5f, 1f);
         setItemStatus(PAPER,ItemType.TAKEABLE);
         setItemStatus(SPRAY_BOTTLE,ItemType.STATIC);
         setItemStatus(RED_BOTTLE,ItemType.STATIC);
