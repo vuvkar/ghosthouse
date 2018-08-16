@@ -1,7 +1,4 @@
 package com.rockbite.inetrnship.ghosthouse.data;
-
-import javafx.scene.layout.Pane;
-
 import javax.xml.transform.sax.SAXTransformerFactory;
 import java.awt.print.Paper;
 import java.util.Set;

@@ -6,21 +6,28 @@ filter: Nearest,Nearest
 repeat: xy
 Heihei1
   rotate: false
-  xy: 1859, 174
+  xy: 7087, 598
   size: 256, 256
   orig: 256, 256
   offset: 0, 0
   index: -1
+Silica2
+  rotate: false
+  xy: 3424, 296
+  size: 386, 324
+  orig: 386, 324
+  offset: 0, 0
+  index: -1
 album
   rotate: false
-  xy: 3424, 149
+  xy: 1203, 62
   size: 97, 100
   orig: 97, 100
   offset: 0, 0
   index: -1
 anti-bug2
   rotate: false
-  xy: 1437, 69
+  xy: 6993, 372
   size: 45, 93
   orig: 45, 93
   offset: 0, 0
@@ -34,7 +41,7 @@ backsidewall2
   index: -1
 bear
   rotate: false
-  xy: 1318, 48
+  xy: 5300, 270
   size: 117, 114
   orig: 117, 114
   offset: 0, 0
@@ -48,14 +55,14 @@ bed2
   index: -1
 bigbox
   rotate: false
-  xy: 1574, 202
+  xy: 6416, 105
   size: 283, 228
   orig: 283, 228
   offset: 0, 0
   index: -1
 bodyback
   rotate: false
-  xy: 2117, 137
+  xy: 7305, 1239
   size: 203, 293
   orig: 203, 293
   offset: 0, 0
@@ -69,7 +76,7 @@ bodyfront
   index: -1
 books
   rotate: false
-  xy: 1169, 51
+  xy: 1002, 51
   size: 147, 111
   orig: 147, 111
   offset: 0, 0
@@ -83,28 +90,28 @@ bottleonthefloor2
   index: -1
 bottlered1room1
   rotate: false
-  xy: 5813, 322
+  xy: 5419, 323
   size: 31, 61
   orig: 31, 61
   offset: 0, 0
   index: -1
 bottles
   rotate: false
-  xy: 1487, 143
+  xy: 2836, 277
   size: 83, 153
   orig: 83, 153
   offset: 0, 0
   index: -1
 bottlesred3room1
   rotate: false
-  xy: 8070, 1883
+  xy: 6993, 467
   size: 88, 163
   orig: 88, 163
   offset: 0, 0
   index: -1
 bottlesredroom1
   rotate: false
-  xy: 8070, 1718
+  xy: 7083, 433
   size: 88, 163
   orig: 88, 163
   offset: 0, 0
@@ -118,7 +125,7 @@ boxtower
   index: -1
 bunny
   rotate: false
-  xy: 7087, 770
+  xy: 1980, 219
   size: 168, 211
   orig: 168, 211
   offset: 0, 0
@@ -167,42 +174,42 @@ clock
   index: -1
 diary
   rotate: false
-  xy: 2322, 140
+  xy: 7510, 1244
   size: 70, 85
   orig: 70, 85
   offset: 0, 0
   index: -1
 docs
   rotate: false
-  xy: 2322, 227
+  xy: 7068, 1184
   size: 235, 203
   orig: 235, 203
   offset: 0, 0
   index: -1
 document
   rotate: false
-  xy: 1002, 36
+  xy: 7323, 883
   size: 165, 126
   orig: 165, 126
   offset: 0, 0
   index: -1
 dokumentyporvannye
   rotate: false
-  xy: 7087, 594
+  xy: 2323, 256
   size: 171, 174
   orig: 171, 174
   offset: 0, 0
   index: -1
 doorcode
   rotate: false
-  xy: 2476, 165
+  xy: 7242, 430
   size: 42, 60
   orig: 42, 60
   offset: 0, 0
   index: -1
 dress
   rotate: false
-  xy: 2774, 244
+  xy: 7725, 1346
   size: 130, 186
   orig: 130, 186
   offset: 0, 0
@@ -223,7 +230,7 @@ eye
   index: -1
 fishhook
   rotate: false
-  xy: 7809, 1531
+  xy: 6177, 115
   size: 237, 515
   orig: 237, 515
   offset: 0, 0
@@ -251,28 +258,28 @@ garpunbezstrel
   index: -1
 handback
   rotate: false
-  xy: 3995, 451
+  xy: 1151, 2
   size: 50, 160
   orig: 50, 160
   offset: 0, 0
   index: -1
 handfront
   rotate: false
-  xy: 3995, 304
+  xy: 7470, 736
   size: 38, 145
   orig: 38, 145
   offset: 0, 0
   index: -1
 head
   rotate: false
-  xy: 3424, 251
+  xy: 5855, 261
   size: 320, 369
   orig: 320, 369
   offset: 0, 0
   index: -1
 key_part1
   rotate: false
-  xy: 6668, 402
+  xy: 6701, 131
   size: 286, 228
   orig: 286, 228
   offset: 0, 0
@@ -286,35 +293,35 @@ key_part2
   index: -1
 lamp
   rotate: false
-  xy: 2559, 229
+  xy: 7510, 1331
   size: 213, 201
   orig: 213, 201
   offset: 0, 0
   index: -1
 lampa2
   rotate: false
-  xy: 5042, 244
+  xy: 2659, 290
   size: 175, 140
   orig: 175, 140
   offset: 0, 0
   index: -1
 lampoff
   rotate: false
-  xy: 7068, 1186
+  xy: 1574, 229
   size: 213, 201
   orig: 213, 201
   offset: 0, 0
   index: -1
 left_foot
   rotate: false
-  xy: 4953, 873
+  xy: 7809, 1560
   size: 95, 52
   orig: 95, 52
   offset: 0, 0
   index: -1
 left_leg
   rotate: false
-  xy: 7257, 806
+  xy: 3986, 26
   size: 67, 175
   orig: 67, 175
   offset: 0, 0
@@ -333,9 +340,16 @@ letter2
   orig: 104, 56
   offset: 0, 0
   index: -1
+listik2
+  rotate: false
+  xy: 7323, 1011
+  size: 173, 226
+  orig: 173, 226
+  offset: 0, 0
+  index: -1
 mkratpoqr
   rotate: false
-  xy: 3622, 127
+  xy: 1487, 174
   size: 80, 122
   orig: 80, 122
   offset: 0, 0
@@ -349,7 +363,7 @@ newspaper
   index: -1
 nightstand2
   rotate: false
-  xy: 6150, 335
+  xy: 6416, 335
   size: 280, 295
   orig: 280, 295
   offset: 0, 0
@@ -363,14 +377,14 @@ normal
   index: -1
 opshiKey
   rotate: false
-  xy: 2394, 160
+  xy: 4953, 860
   size: 80, 65
   orig: 80, 65
   offset: 0, 0
   index: -1
 pants2
   rotate: false
-  xy: 6956, 421
+  xy: 7345, 672
   size: 123, 209
   orig: 123, 209
   offset: 0, 0
@@ -382,9 +396,16 @@ pillows2
   orig: 449, 116
   offset: 0, 0
   index: -1
+pills2
+  rotate: false
+  xy: 3424, 159
+  size: 386, 135
+  orig: 386, 135
+  offset: 0, 0
+  index: -1
 portrait2
   rotate: false
-  xy: 6432, 304
+  xy: 7087, 856
   size: 234, 326
   orig: 234, 326
   offset: 0, 0
@@ -405,7 +426,7 @@ porvannoekreslo
   index: -1
 posters2
   rotate: false
-  xy: 5855, 361
+  xy: 6698, 361
   size: 293, 269
   orig: 293, 269
   offset: 0, 0
@@ -468,28 +489,28 @@ puzzle8
   index: -1
 ramka
   rotate: false
-  xy: 7087, 983
+  xy: 1789, 229
   size: 189, 201
   orig: 189, 201
   offset: 0, 0
   index: -1
 redbluebottle2
   rotate: false
-  xy: 5687, 247
+  xy: 5174, 248
   size: 124, 136
   orig: 124, 136
   offset: 0, 0
   index: -1
 right_food
   rotate: false
-  xy: 6668, 344
+  xy: 7345, 614
   size: 95, 56
   orig: 95, 56
   offset: 0, 0
   index: -1
 right_leg_
   rotate: false
-  xy: 7260, 630
+  xy: 7173, 422
   size: 67, 174
   orig: 67, 174
   offset: 0, 0
@@ -522,6 +543,13 @@ room1Wall
   orig: 1570, 868
   offset: 0, 0
   index: -1
+sekator2
+  rotate: false
+  xy: 7809, 1614
+  size: 355, 432
+  orig: 355, 432
+  offset: 0, 0
+  index: -1
 sky
   rotate: false
   xy: 1582, 432
@@ -531,49 +559,49 @@ sky
   index: -1
 smallbox
   rotate: false
-  xy: 5392, 199
+  xy: 2496, 246
   size: 161, 184
   orig: 161, 184
   offset: 0, 0
   index: -1
 tail1
   rotate: false
-  xy: 5219, 202
+  xy: 2150, 248
   size: 171, 182
   orig: 171, 182
   offset: 0, 0
   index: -1
 tail2
   rotate: false
-  xy: 3523, 145
+  xy: 7242, 492
   size: 97, 104
   orig: 97, 104
   offset: 0, 0
   index: -1
 tail3
   rotate: false
-  xy: 551, 3
+  xy: 2659, 247
   size: 62, 41
   orig: 62, 41
   offset: 0, 0
   index: -1
 turner
   rotate: false
-  xy: 8048, 1687
+  xy: 8166, 1687
   size: 20, 359
   orig: 20, 359
   offset: 0, 0
   index: -1
 vase2
   rotate: false
-  xy: 7081, 393
+  xy: 3812, 2
   size: 172, 199
   orig: 172, 199
   offset: 0, 0
   index: -1
 vodka2
   rotate: false
-  xy: 5555, 241
+  xy: 5042, 242
   size: 130, 142
   orig: 130, 142
   offset: 0, 0
@@ -587,7 +615,7 @@ wall
   index: -1
 wardrobe
   rotate: false
-  xy: 3746, 203
+  xy: 3812, 203
   size: 247, 408
   orig: 247, 408
   offset: 0, 0
