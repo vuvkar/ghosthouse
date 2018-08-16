@@ -16,6 +16,10 @@ import com.rockbite.inetrnship.ghosthouse.DialogSystem;
 import com.rockbite.inetrnship.ghosthouse.MainGame;
 import com.rockbite.inetrnship.ghosthouse.MainUI;
 import com.rockbite.inetrnship.ghosthouse.MiniGames.MiniGame;
+import com.rockbite.inetrnship.ghosthouse.data.InGameTexts;
+
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class Lock extends MiniGame {
     public static Array<Integer> combination = new Array<Integer>();
@@ -26,6 +30,7 @@ public class Lock extends MiniGame {
     public static Label code;
     public static boolean KEY = false;
     public static boolean isDoorOpen = false;
+    public boolean canWin = false;
     public static LockActor light1;
     public static LockActor light2;
 
@@ -69,7 +74,7 @@ public class Lock extends MiniGame {
                     for (int i = 0; i < close.getStage().getActors().size; i++) {
                         close.getStage().getActors().get(i).setVisible(false);
                     }
-                    end();
+                    end(false);
                 }
             });
         stage.addActor(close);
@@ -86,9 +91,44 @@ public class Lock extends MiniGame {
         int a = 9;
         for (int i=0; i<3; i++) {
             for (int j=3; j>0; j--) {
-                LockActor btn = new LockActor(new Texture("MiniGame/lockBtn_"+a+"_normal.png"),105*j+width+background.getWidth()/2f-265,105*i+height+background.getHeight()/2f-190,"button", a);
+                final LockActor btn = new LockActor(new Texture("MiniGame/lockBtn_"+a+"_normal.png"),105*j+width+background.getWidth()/2f-265,105*i+height+background.getHeight()/2f-190,"button", a);
                 a--;
                 stage.addActor(btn);
+                btn.addListener(new ClickListener() {
+                    @Override
+                    public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+                        btn.actor.setTexture(new Texture("MiniGame/lockBtn_"+btn.value+"_pressed.png"));
+                        return true;
+                    }
+
+                    @Override
+                    public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
+                        btn.actor.setTexture(new Texture("MiniGame/lockBtn_"+btn.value+"_normal.png"));
+                        if(!Lock.isDoorOpen) {
+                            if (Lock.combination.size >= 4) {
+                                Lock.combination.removeRange(0, 3);
+                                Lock.code.setText("");
+                            }
+
+                            Lock.combination.add(btn.value);
+                            Lock.code.setText(Lock.code.getText() +"" + btn.value + "   ");
+                            System.out.println(Lock.combination);
+
+                            if (Lock.combination.size >= 4 && Lock.combination.equals(Lock.correctCombination) && canWin) {
+                                Lock.isDoorOpen = true;
+                                Lock.light1.setVisible(false);
+                                Lock.light2.setVisible(true);
+                                Timer timer = new Timer();
+                                timer.schedule(new TimerTask() {
+                                    @Override
+                                    public void run() {
+                                        end(true);
+                                    }
+                                }, 1000);
+                            }
+                        }
+                    }
+                });
             }
         }
 
@@ -101,7 +141,7 @@ public class Lock extends MiniGame {
     @Override
     public void load() {
         if(!KEY)
-            DialogSystem.dialogSystem.startDialog("You don't have enough info yet,\nlet's leave this for later.", 5, 0.6f, 0);
+            DialogSystem.dialogSystem.startDialog(InGameTexts.code, 5f, 0.6f, 0);
     }
 
     @Override

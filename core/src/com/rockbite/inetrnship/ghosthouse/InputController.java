@@ -59,35 +59,37 @@ public class InputController implements InputProcessor {
 
     // TODO: Liana's Megashit
     public void moveCharacter() {
+        Vector3 moveTarget = new Vector3(targetPosition.x, targetPosition.y, targetPosition.z);
+
         AnimationComponent animationComponent = ghostHouse.mainGame.ghost.getComponent(AnimationComponent.class);
         PositionComponent positionComponent = ghostHouse.mainGame.ghost.getComponent(PositionComponent.class);
 
-        //targetPosition.set(ClickPos);
-        if (targetPosition.x >= ghostHouse.assetLoader.getRooms().get(CameraSystem.target).origin.x + ghostHouse.assetLoader.getRooms().get(CameraSystem.target).width - ghostHouse.mainGame.ghost.getComponent(AnimationComponent.class).size.x / 2) {
-            targetPosition.x = ghostHouse.assetLoader.getRooms().get(CameraSystem.target).origin.x + ghostHouse.assetLoader.getRooms().get(CameraSystem.target).width - ghostHouse.mainGame.ghost.getComponent(AnimationComponent.class).size.x / 2;
+        //moveTarget.set(ClickPos);
+        if (moveTarget.x >= ghostHouse.assetLoader.getRooms().get(CameraSystem.target).origin.x + ghostHouse.assetLoader.getRooms().get(CameraSystem.target).width - ghostHouse.mainGame.ghost.getComponent(AnimationComponent.class).size.x / 2) {
+            moveTarget.x = ghostHouse.assetLoader.getRooms().get(CameraSystem.target).origin.x + ghostHouse.assetLoader.getRooms().get(CameraSystem.target).width - ghostHouse.mainGame.ghost.getComponent(AnimationComponent.class).size.x / 2;
         }
-        if (targetPosition.y <= ghostHouse.assetLoader.getRooms().get(CameraSystem.target).origin.y) {
-            targetPosition.y = ghostHouse.assetLoader.getRooms().get(CameraSystem.target).origin.y;
+        if (moveTarget.y <= ghostHouse.assetLoader.getRooms().get(CameraSystem.target).origin.y) {
+            moveTarget.y = ghostHouse.assetLoader.getRooms().get(CameraSystem.target).origin.y;
         }
-        if (targetPosition.x <= ghostHouse.assetLoader.getRooms().get(CameraSystem.target).origin.x) {
-            targetPosition.x = ghostHouse.assetLoader.getRooms().get(CameraSystem.target).origin.x;
+        if (moveTarget.x <= ghostHouse.assetLoader.getRooms().get(CameraSystem.target).origin.x) {
+            moveTarget.x = ghostHouse.assetLoader.getRooms().get(CameraSystem.target).origin.x;
         }
-        if (targetPosition.y >= ghostHouse.assetLoader.getRooms().get(CameraSystem.target).origin.y + ghostHouse.assetLoader.getRooms().get(CameraSystem.target).height-ghostHouse.mainGame.ghost.getComponent(AnimationComponent.class).size.y) {
-            targetPosition.y = ghostHouse.assetLoader.getRooms().get(CameraSystem.target).origin.y + ghostHouse.assetLoader.getRooms().get(CameraSystem.target).height - ghostHouse.mainGame.ghost.getComponent(AnimationComponent.class).size.y;
+        if (moveTarget.y >= ghostHouse.assetLoader.getRooms().get(CameraSystem.target).origin.y + ghostHouse.assetLoader.getRooms().get(CameraSystem.target).height-ghostHouse.mainGame.ghost.getComponent(AnimationComponent.class).size.y) {
+            moveTarget.y = ghostHouse.assetLoader.getRooms().get(CameraSystem.target).origin.y + ghostHouse.assetLoader.getRooms().get(CameraSystem.target).height - ghostHouse.mainGame.ghost.getComponent(AnimationComponent.class).size.y;
         }
-        if (ghostHouse.mainGame.ghost.getComponent(PositionComponent.class).getX() == targetPosition.x &&
-                ghostHouse.mainGame.ghost.getComponent(PositionComponent.class).getY() == targetPosition.y) {
+        if (ghostHouse.mainGame.ghost.getComponent(PositionComponent.class).getX() == moveTarget.x &&
+                ghostHouse.mainGame.ghost.getComponent(PositionComponent.class).getY() == moveTarget.y) {
             t = 0;
             isMoving = false;
             animationComponent.setState(AnimationComponent.xaxand, true);
             System.out.println(ghostHouse.mainGame.ghost.getComponent(PositionComponent.class).getY());
-                    ghostHouse.mainGame.getBuilding().getCurrentRoom().itemWasClicked((int)indexAndMax[1]);
-                indexAndMax[0] = 0;
-                indexAndMax[1] = 0;
+            ghostHouse.mainGame.getBuilding().getCurrentRoom().itemWasClicked((int)indexAndMax[1]);
+            indexAndMax[0] = 0;
+            indexAndMax[1] = 0;
 
         } else {
             if(!isMoving) {
-                if(positionComponent.getX() > targetPosition.x) {
+                if(positionComponent.getX() > moveTarget.x) {
                     animationComponent.flip(AnimationComponent.LEFT);
                 }
                 else {
@@ -97,8 +99,8 @@ public class InputController implements InputProcessor {
                 animationComponent.setState(AnimationComponent.moveGhost, true);
             }
             isMoving = true;
-            dist.set(targetPosition.x - prevPosition.x,
-                    targetPosition.y - prevPosition.y);
+            dist.set(moveTarget.x - prevPosition.x,
+                    moveTarget.y - prevPosition.y);
             if (t < T) {
                 ghostHouse.mainGame.ghost.getComponent(PositionComponent.class).setXY(prevPosition.x + dist.x * t / T,
                         prevPosition.y + dist.y * movementGhost.apply(t / T));
@@ -127,23 +129,23 @@ public class InputController implements InputProcessor {
 
     @Override
     public boolean keyDown(int keycode) {
-        if (keycode == Input.Keys.NUM_0)
-            ghostHouse.mainUI.deleteItem(0);
-        // ghostHouse.mainUI.removeItem(0);
-
-        if (keycode == Input.Keys.NUM_1) {
-            //  ghostHouse.mainUI.deleteItem(1);
-            //ghostHouse.mainGame.miniGame = new Puzzle();
-            ghostHouse.mainGame.miniGameOn = true;
-
-        }
-        if (keycode == Input.Keys.NUM_2) {
-            //ghostHouse.mainGame.miniGame = new KillBugs();
-            ghostHouse.mainGame.miniGameOn = true;
-        }
-        if (keycode == Input.Keys.NUM_3) {
-            ghostHouse.mainUI.removeItem(47);
-        }
+//        if (keycode == Input.Keys.NUM_0)
+//            ghostHouse.mainUI.deleteItem(0);
+//        // ghostHouse.mainUI.removeItem(0);
+//
+//        if (keycode == Input.Keys.NUM_1) {
+//            //  ghostHouse.mainUI.deleteItem(1);
+//            //ghostHouse.mainGame.miniGame = new Puzzle();
+//            ghostHouse.mainGame.miniGameOn = true;
+//
+//        }
+//        if (keycode == Input.Keys.NUM_2) {
+//            //ghostHouse.mainGame.miniGame = new KillBugs();
+//            ghostHouse.mainGame.miniGameOn = true;
+//        }
+//        if (keycode == Input.Keys.NUM_3) {
+//            ghostHouse.mainUI.removeItem(47);
+//        }
 
         return true;
     }
@@ -187,7 +189,7 @@ public class InputController implements InputProcessor {
                             ghostHouse.mainGame.ghost.getComponent(PositionComponent.class).getY());
                     takeItem = true;
 
-                    moveCharacter();
+                      moveCharacter();
                 }
             }
 
@@ -206,7 +208,7 @@ public class InputController implements InputProcessor {
 
     public void addToInventory(int i) {
         tx = ghostHouse.mainGame.getBuilding().getCurrentRoom().getItemById(i).getComponent(TextureComponent.class);
-        ghostHouse.mainUI.addItem(new InventoryItem(i, tx));
+        ghostHouse.mainUI.addItem(new InventoryItem( i, tx));
     }
 
     public void removeFromInventory(int i){

@@ -2,8 +2,7 @@ package com.rockbite.inetrnship.ghosthouse.data;
 
 public class InGameTexts
 {
-    public static String start1 = "What the?...";
-    public static String start2 = "I need to get out of here";
+    public static String start1 = "What the?...I need to get out of here.";
     public static String checkdoor = "Let's check the door";
     public static String doorcode1 = "Looks like we don't have enough information here";
     public static String doorcode2 = "let's leave this for later";
@@ -11,18 +10,26 @@ public class InGameTexts
     public static String piecebegins2 = "I can find out the way to escape";
     public static String coderandom = "Nah, we'll need the code";
     public static String napo2 = "No way, the other part is missing";
-    public static String fullkey = "Bingo,now we have the whole key";
+    public static String fullkey = "Bingo, now we can have the whole key";
     public static String glass = "Oh, that was sharp";
 //    public static String papers =
-    public static String album = "I knew it";
-    public static String fishhook = "Now we have a tearing tool";
+    public static String album = "Close enough";
+    public static String fishhook = "With this I can tear the whole world";
     public static String lampoff = "I see something hidden there";
     public static String keycommode = "Soon we'll have it";
-    public static String notinteritem1 = "Nah";
-    public static String notinteritem2 = "Not this time";
     public static String rightcode = "Finally";
-    public static String keyaz = "now it's ready to use";
+    public static String keyaz = "Now it's ready to use";
     public static String couch = "We'll need something sharp";
+    public static String clock = "Need to break it";
+    public static String ward = "Key is required";
+    public static String papers = "We can't cut it yet";
+    public static String box = "Ok, this was easy";
+    public static String newswall = "Can't tear this yet";
+    public static String newsgot = "Yeii, We got this";
+    public static String couchdrag = "That was smart";
+    public static String pagvel = "Maybe the photo piece that I have can help us.";
+    public static String pagvel2 = "Let's explore the room!";
+    public static String code = "We don't have the code, let's leave this for later";
     // static room2
     public static String startr1 = "Yei, the door is open here";
     public static String startr2 = "Let's go";

@@ -9,9 +9,8 @@ import com.badlogic.gdx.math.Bresenham2;
 import com.badlogic.gdx.math.Vector2;
 import com.rockbite.inetrnship.ghosthouse.AssetLoader;
 
-import com.rockbite.inetrnship.ghosthouse.DialogSystem;
-import com.rockbite.inetrnship.ghosthouse.DialogSystem;
 
+import com.rockbite.inetrnship.ghosthouse.DialogSystem;
 import com.rockbite.inetrnship.ghosthouse.MainGame;
 import com.rockbite.inetrnship.ghosthouse.MainUI;
 import com.rockbite.inetrnship.ghosthouse.MiniGames.Lock.Lock;
@@ -38,6 +37,7 @@ public class Room1 extends Room {
     final int PUZZLE = 27;
     final int SWITCH = 22;
     final int DOOR = 13;
+    final int PASSWORD = 28;
 
     Sound bearSound;
     Sound gun;
@@ -55,6 +55,7 @@ public class Room1 extends Room {
     Sound himaralbom;
 
     int puzzle_count = 1;
+    boolean canOpenDoor = false;
 
     public  Room1() {
         bearSound = Gdx.audio.newSound(Gdx.files.internal("sounds/tz.mp3"));
@@ -75,26 +76,10 @@ public class Room1 extends Room {
 
     @Override
     public void roomStarted() {
-        DialogSystem.dialogSystem.startDialog(InGameTexts.start1 + "\n" + InGameTexts.start2 + "\n" + InGameTexts.checkdoor, 3f, 0.5f, 0.5f);
+        DialogSystem.dialogSystem.startDialog(InGameTexts.start1 + "\n" + InGameTexts.checkdoor, 3.5f, 0.5f, 1f);
         moveGhostTo(DOOR);
         addToInventory(PUZZLE);
-        setItemStatus(BEAR,ItemType.NONTAKEABLE);
-        setItemStatus(KEYPART1,ItemType.TAKEABLE);
-        setItemStatus(WEAPON,ItemType.NONTAKEABLE);
-        setItemStatus(KEYPART2,ItemType.TAKEABLE);
-        setItemStatus(WHOLEKEY,ItemType.TAKEABLE);
-        setItemStatus(BOTTLES,ItemType.TAKEABLE);
-        setItemStatus(ARM_CHAIR,ItemType.NONTAKEABLE);
-        setItemStatus(LAMP,ItemType.NONTAKEABLE);
-        setItemStatus(BOX,ItemType.NONTAKEABLE);
-        setItemStatus(SCISSORS,ItemType.TAKEABLE);
-        setItemStatus(NEWSPAPER,ItemType.NONTAKEABLE);
-        setItemStatus(ALBUM,ItemType.NONTAKEABLE);
-        setItemStatus(FISHHOOK,ItemType.TAKEABLE);
-        setItemStatus(NEWSPAPER_ON_THE_WALL,ItemType.NONTAKEABLE);
-        setItemStatus(WARDROB,ItemType.NONTAKEABLE);
-        setItemStatus(CLOCK,ItemType.NONTAKEABLE);
-        setItemStatus(SWITCH,ItemType.NONTAKEABLE);
+
         setItemStatus(DOOR,ItemType.NONTAKEABLE);
     }
     @Override
@@ -106,31 +91,54 @@ public class Room1 extends Room {
                // miniGame.start();
                 switch (getItemStatus(BEAR)) {
                     case STATIC:
-                        bearSound.play();
+                        bearSound.play(Room.soundVolume);
                         break;
                     case TAKEABLE:
                         break;
                     case NONTAKEABLE:
+                        key.play(Room.soundVolume);
                         setItemStatus(BEAR,ItemType.STATIC);
                         addToInventory(KEYPART1);
-                        key.play();
-                        DialogSystem.dialogSystem.startDialog(InGameTexts.napo2, 1.5f, 0.7f, 0f);
+                        key.play(Room.soundVolume);
+                        DialogSystem.dialogSystem.startDialog(InGameTexts.napo2, 1.5f, 0.5f, 0f);
+                        if(getItemStatus(CLOCK) == ItemType.STATIC) {
+                            DialogSystem.dialogSystem.startDialog(InGameTexts.fullkey,  1.5f, 0.5f, 0f);
+                        }
+                        else {
+                            DialogSystem.dialogSystem.startDialog(InGameTexts.napo2, 2f, 0.5f, 0f);
+                        }                        break;
+                }
+                break;
+            case CLOCK:
+                switch (getItemStatus(CLOCK)) {
+                    case STATIC:
+                        break;
+                    case TAKEABLE:
+                        break;
+                    case NONTAKEABLE:
+                        DialogSystem.dialogSystem.startDialog(InGameTexts.clock, 1.5f, 0.5f, 0f);
                         break;
                 }
                 break;
             case WEAPON:
                 switch (getItemStatus(WEAPON)){
                     case STATIC:
-                        gun.play();
+                        gun.play(Room.soundVolume);
                         break;
                     case TAKEABLE:
                         break;
                     case NONTAKEABLE:
                         changeTexture(WEAPON, "garpunbezstrel");
                         changeTexture(CLOCK,"chasyslomannye");
+                        setItemStatus(CLOCK,ItemType.STATIC);
                         setItemStatus(WEAPON,ItemType.STATIC);
-                        key.play();
-                        DialogSystem.dialogSystem.startDialog(InGameTexts.fullkey, 1.5f, 0.7f, 0f);
+                        key.play(Room.soundVolume);
+                        if(getItemStatus(BEAR) == ItemType.STATIC) {
+                            DialogSystem.dialogSystem.startDialog(InGameTexts.fullkey, 2f, 0.5f, 0f);
+                        }
+                        else {
+                            DialogSystem.dialogSystem.startDialog(InGameTexts.napo2, 2f, 0.5f, 0f);
+                        }
                         addToInventory(KEYPART2);
                         break;
                 }
@@ -144,8 +152,7 @@ public class Room1 extends Room {
                         addToInventory(BOTTLES);
                         changeTexture(BOTTLES,"bottlesredroom1");
                         setItemStatus(BOTTLES,ItemType.STATIC);
-                        glass.play();
-                        DialogSystem.dialogSystem.startDialog(InGameTexts.glass, 1.5f, 0.7f, 0f);
+                        glass.play(Room.soundVolume);
 
                         break;
                     case NONTAKEABLE:
@@ -169,7 +176,7 @@ public class Room1 extends Room {
                         break;
                     case TAKEABLE:
                         setItemStatus(SCISSORS,ItemType.STATIC);
-                        scissors.play();
+                        scissors.play(Room.soundVolume);
                         addToInventory(SCISSORS);
                         changeTexture(SCISSORS,"");
                         break;
@@ -186,9 +193,9 @@ public class Room1 extends Room {
                         break;
                     case NONTAKEABLE:
                         puzzle_count++;
-                        box.play();
+                        box.play(Room.soundVolume);
+                        DialogSystem.dialogSystem.startDialog(InGameTexts.box, 1.5f, 0.7f, 0f);
                         setItemStatus(BOX,ItemType.STATIC);
-                        //addToInventory(PUZZLEPIECE3);
                         break;
                 }
                 break;
@@ -199,7 +206,7 @@ public class Room1 extends Room {
                     case TAKEABLE:
                         break;
                     case NONTAKEABLE:
-                        lightoff.play();
+                        lightoff.play(Room.soundVolume);
                         changeTexture(LAMP,"lampoff");
                         setItemStatus(LAMP,ItemType.TAKEABLE);
                         setItemStatus(SWITCH,ItemType.STATIC);
@@ -217,8 +224,6 @@ public class Room1 extends Room {
                         break;
                 }
                 break;
-//            case WIRE:
-
             case NEWSPAPER:
                 switch (getItemStatus(NEWSPAPER)){
                     case STATIC:
@@ -226,7 +231,7 @@ public class Room1 extends Room {
                     case TAKEABLE:
                         break;
                     case NONTAKEABLE:
-
+                        DialogSystem.dialogSystem.startDialog(InGameTexts.papers, 1.5f, 0.7f, 0f);
                         break;
                 }
                 break;
@@ -239,7 +244,8 @@ public class Room1 extends Room {
                     case NONTAKEABLE:
                         setItemStatus(ALBUM,ItemType.STATIC);
                         puzzle_count++;
-                        himaralbom.play();
+                        himaralbom.play(Room.soundVolume);
+                        DialogSystem.dialogSystem.startDialog(InGameTexts.album, 1.5f, 0.7f, 0f);
                         break;
                 }
                 break;
@@ -248,7 +254,8 @@ public class Room1 extends Room {
                     case STATIC:
                         break;
                     case TAKEABLE:
-                        fish.play ();
+                        fish.play(Room.soundVolume);
+                        DialogSystem.dialogSystem.startDialog(InGameTexts.fishhook, 2f, 0.7f, 0f);
 
                         addToInventory(FISHHOOK);
                         setItemStatus(FISHHOOK, ItemType.STATIC);
@@ -265,6 +272,18 @@ public class Room1 extends Room {
                     case TAKEABLE:
                         break;
                     case NONTAKEABLE:
+                        DialogSystem.dialogSystem.startDialog(InGameTexts.newswall, 1.5f, 0.5f, 0f);
+                        break;
+                }
+                break;
+            case WARDROB:
+                switch (getItemStatus(WARDROB)) {
+                    case STATIC:
+                        break;
+                    case TAKEABLE:
+                        break;
+                    case NONTAKEABLE:
+                        DialogSystem.dialogSystem.startDialog(InGameTexts.ward, 1.5f, 0.5f, 0f);
                         break;
                 }
                 break;
@@ -275,8 +294,30 @@ public class Room1 extends Room {
                     case TAKEABLE:
                         break;
                     case NONTAKEABLE:
+                        setItemStatus(BEAR,ItemType.NONTAKEABLE);
+                        setItemStatus(KEYPART1,ItemType.TAKEABLE);
+                        setItemStatus(WEAPON,ItemType.NONTAKEABLE);
+                        setItemStatus(KEYPART2,ItemType.TAKEABLE);
+                        setItemStatus(WHOLEKEY,ItemType.TAKEABLE);
+                        setItemStatus(BOTTLES,ItemType.TAKEABLE);
+                        setItemStatus(ARM_CHAIR,ItemType.NONTAKEABLE);
+                        setItemStatus(LAMP,ItemType.NONTAKEABLE);
+                        setItemStatus(BOX,ItemType.NONTAKEABLE);
+                        setItemStatus(SCISSORS,ItemType.TAKEABLE);
+                        setItemStatus(NEWSPAPER,ItemType.NONTAKEABLE);
+                        setItemStatus(ALBUM,ItemType.NONTAKEABLE);
+                        setItemStatus(FISHHOOK,ItemType.TAKEABLE);
+                        setItemStatus(NEWSPAPER_ON_THE_WALL,ItemType.NONTAKEABLE);
+                        setItemStatus(WARDROB,ItemType.NONTAKEABLE);
+                        setItemStatus(CLOCK,ItemType.NONTAKEABLE);
+                        setItemStatus(SWITCH,ItemType.NONTAKEABLE);
                         this.miniGame = new Lock();
                         miniGame.mainGame = mainGame;
+                        Lock miniGame = new Lock();
+                        if(canOpenDoor) {
+                            miniGame.canWin = true;
+                        }
+                        this.miniGame = miniGame;
                         openMiniGame();
                         break;
                 }
@@ -290,18 +331,39 @@ public class Room1 extends Room {
     }
 
     @Override
-    public void miniGameWasClosed() {
-        DialogSystem.dialogSystem.startDialog("pagvel em aziz", 1.0f, 1.7f, 0);
+    public void miniGameWasClosed(boolean hasWon) {
+            DialogSystem.dialogSystem.startDialog(InGameTexts.pagvel + "\n" + InGameTexts.pagvel2, 5f, 0.5f, 0f);
+        if(miniGame instanceof Puzzle) {
+            if(hasWon) {
+                canOpenDoor = true;
+                removeFromInventory(PUZZLE);
+                addToInventory(PASSWORD);
+            }
+        }
+        if(miniGame instanceof  Lock) {
+            if(hasWon) {
+                leaveRoom();
+            }
+        }
+    }
+
+    @Override
+    public void itemWasClickedOnInventory(int itemID) {
+        if(itemID == PUZZLE && puzzle_count == 8) {
+            this.miniGame = new Puzzle();
+            miniGame.start();
+        }
     }
 
     @Override
     public void itemWasDragged(int fromInventory, int toRoomItem) {
-        if (fromInventory==15 && toRoomItem ==19){
+        if (fromInventory==FISHHOOK && toRoomItem ==NEWSPAPER_ON_THE_WALL){
             //peace 5
             removeFromInventory(FISHHOOK);
             setItemStatus(NEWSPAPER_ON_THE_WALL,ItemType.STATIC);
             changeTexture(NEWSPAPER_ON_THE_WALL,"porvannayagazeta");
-            news.play();
+            news.play(Room.soundVolume);
+            DialogSystem.dialogSystem.startDialog(InGameTexts.newsgot, 1.5f, 0.5f, 0f);
 
             puzzle_count++;
 
@@ -311,7 +373,7 @@ public class Room1 extends Room {
             removeFromInventory(SCISSORS);
             setItemStatus(NEWSPAPER,ItemType.STATIC);
             changeTexture(NEWSPAPER,"dokumentyporvannye");
-            newspaper.play();
+            newspaper.play(Room.soundVolume);
 
 
             puzzle_count++;
@@ -322,13 +384,14 @@ public class Room1 extends Room {
             setItemStatus(ARM_CHAIR,ItemType.STATIC);
             changeTexture(ARM_CHAIR,"porvannoekreslo");
             puzzle_count++;
-            couch.play();
+            DialogSystem.dialogSystem.startDialog(InGameTexts.couchdrag, 1.5f, 0.5f, 0f);
+            couch.play(Room.soundVolume);
 
         } else if (fromInventory==WHOLEKEY && toRoomItem==WARDROB){
             removeFromInventory(WHOLEKEY);
             setItemStatus(WARDROB,ItemType.STATIC);
             puzzle_count++;
-            shelf.play();
+            shelf.play(Room.soundVolume);
         }
         removeFromInventory(PUZZLE);
         changeTexture(PUZZLE,("puzzle"+Integer.toString(puzzle_count)));
@@ -338,25 +401,12 @@ public class Room1 extends Room {
     }
 
     public void itemWasMoved(int fromInventory, int toInventoryItem) {
-        if (fromInventory == 15 && toInventoryItem == 19){
-            //peace 5
-
-        }
-
-        else if (fromInventory==24 && toInventoryItem==25){
+        if ((fromInventory==KEYPART1 && toInventoryItem==KEYPART2) || (fromInventory==KEYPART2 && toInventoryItem==KEYPART1)){
             removeFromInventory(fromInventory);
             removeFromInventory(toInventoryItem);
             addToInventory(WHOLEKEY);
-            DialogSystem.dialogSystem.startDialog(InGameTexts.keyaz, 1.5f, 0.7f, 0f);
-            wholekey.play();
-        }
-        else if (fromInventory==25 && toInventoryItem==24){
-            removeFromInventory(fromInventory);
-            removeFromInventory(toInventoryItem);
-            addToInventory(WHOLEKEY);
-            DialogSystem.dialogSystem.startDialog(InGameTexts.keyaz, 1.5f, 0.7f, 0f);
-            wholekey.play();
-
+            wholekey.play(Room.soundVolume);
+            DialogSystem.dialogSystem.startDialog(InGameTexts.keyaz, 2f, 0.5f, 0f);
         }
     }
 

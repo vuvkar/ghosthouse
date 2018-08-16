@@ -8,6 +8,8 @@ import com.rockbite.inetrnship.ghosthouse.MiniGames.MiniGame;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Timer;
+import java.util.TimerTask;
 
 
 public class Puzzle extends MiniGame {
@@ -72,6 +74,14 @@ public class Puzzle extends MiniGame {
         }
 
         winningBoard = new int[][]{{7, 4, 1}, {8, 5, 2}, {0, 6, 3}};
+
+        Timer timer = new Timer();
+        timer.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                end(true);
+            }
+        }, 1000);
     }
 
     @Override
@@ -85,8 +95,7 @@ public class Puzzle extends MiniGame {
         if (board[0][0] == winningBoard[0][0] && board[1][0] == winningBoard[1][0] && board[2][0] == winningBoard[2][0] &&
                 board[0][1] == winningBoard[0][1] && board[1][1] == winningBoard[1][1] && board[2][1] == winningBoard[2][1] &&
                 board[0][2] == winningBoard[0][2] && board[1][2] == winningBoard[1][2] && board[2][2] == winningBoard[2][2]) {
-            System.out.println("WIN!!!");
-            end();
+            end(true);
         }
 
         stage.act(Gdx.graphics.getDeltaTime());
