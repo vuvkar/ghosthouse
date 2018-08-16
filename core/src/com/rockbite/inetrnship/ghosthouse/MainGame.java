@@ -11,6 +11,7 @@ import com.rockbite.inetrnship.ghosthouse.MiniGames.MiniGame;
 import com.rockbite.inetrnship.ghosthouse.data.GhostBuilding;
 import com.rockbite.inetrnship.ghosthouse.data.GhostMesh;
 import com.rockbite.inetrnship.ghosthouse.data.Room;
+import com.rockbite.inetrnship.ghosthouse.data.Room1;
 import com.rockbite.inetrnship.ghosthouse.ecs.components.*;
 import com.rockbite.inetrnship.ghosthouse.ecs.systems.CameraSystem;
 import com.rockbite.inetrnship.ghosthouse.ecs.systems.RenderSystem;
@@ -34,6 +35,7 @@ public class MainGame {
 
     private GhostBuilding building;
     public GhostMesh meshok;
+
 
     public void act(float delta) {
         engine.update(delta);
@@ -89,7 +91,7 @@ public class MainGame {
         multiplexer.addProcessor(ghostHouse.mainUI);
         multiplexer.addProcessor(inputController);
         Gdx.input.setInputProcessor(multiplexer);
-
+        //System.out.println(ghost.getComponent(PositionComponent.class).getX());
 
         engine.addEntity(ghost);
     }
@@ -122,6 +124,8 @@ public class MainGame {
         if(miniGameOn) {
             building.getCurrentRoom().miniGame.render();
         }
+
+        DialogSystem.dialogSystem.render();
 
         // DO postprocessing of FBO and render it to screen
         // TODO: final render

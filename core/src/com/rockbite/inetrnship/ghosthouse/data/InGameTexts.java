@@ -9,9 +9,8 @@ public class InGameTexts
     public static String piecebegins1 = "If only I can find the other pieces";
     public static String piecebegins2 = "I can find out the way to escape";
     public static String coderandom = "Nah, we'll need the code";
-    public static String napo1 = "Yeiii";
     public static String napo2 = "No way, the other part is missing";
-    public static String fullkey = "Bingo";
+    public static String fullkey = "Bingo,now we have the whole key";
     public static String glass = "Oh, that was sharp";
 //    public static String papers =
     public static String album = "I knew it";
@@ -21,6 +20,8 @@ public class InGameTexts
     public static String notinteritem1 = "Nah";
     public static String notinteritem2 = "Not this time";
     public static String rightcode = "Finally";
+    public static String keyaz = "now it's ready to use";
+    public static String couch = "Some more";
     // static room2
     public static String startr1 = "Yei, the door is open here";
     public static String startr2 = "Let's go";
