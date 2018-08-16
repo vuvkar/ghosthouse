@@ -41,7 +41,7 @@ public class HelperClass {
         in.getVertices(verts);
         for (int i = 0; i < verts.length; i += in.getVertexSize() / 4) {
             verts[i + UVs.offset / 4] = region.getU() + (region.packedWidth / AssetLoader.ATLAS_WIDTH) * verts[i + UVs.offset / 4];
-            verts[i + UVs.offset / 4 + 1] = region.getV() + (region.packedWidth / AssetLoader.ATLAS_WIDTH) * verts[i + UVs.offset / 4 + 1];
+            verts[i + UVs.offset / 4 + 1] = region.getV() + (region.packedHeight / AssetLoader.ATLAS_HEIGHT) * verts[i + UVs.offset / 4 + 1];
         }
         in.setVertices(verts);
     }

@@ -116,17 +116,12 @@ public class MainGame {
         // first render sky
         // TODO: render sky
 
-        // then render building walls
-        // TODO: render building
-
+        // then render building walls and items
         meshok.render(cameraSystem.cam);
 
         if(miniGameOn) {
             building.getCurrentRoom().miniGame.render();
         }
-
-        // then render decorations/characters and item s
-        // TODO: render the rest
 
         // DO postprocessing of FBO and render it to screen
         // TODO: final render
