@@ -33,6 +33,8 @@ public class Room2 extends Room {
         setItemStatus(JEANS,ItemType.STATIC);
         setItemStatus(WARDROBE,ItemType.STATIC);
         setItemStatus(EUCALYPTUS,ItemType.STATIC);
+        setItemStatus(PILLOW,ItemType.NONTAKEABLE);
+
     }
 
     @Override
@@ -150,9 +152,10 @@ public class Room2 extends Room {
                     case STATIC:
                         break;
                     case TAKEABLE:
-                        addToInventory(PILLS);
+
                         break;
                     case NONTAKEABLE:
+                        addToInventory(PILLS);
                         break;
                 }
                 break;
