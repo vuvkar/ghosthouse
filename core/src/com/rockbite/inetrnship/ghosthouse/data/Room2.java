@@ -20,6 +20,7 @@ public class Room2 extends Room {
     Sound vodka;
     Sound spray1;
 
+    boolean foundpaper=false;
    static final int PAPER = 7;
    static final int SPRAY_BOTTLE = 1;
    static final int RED_BOTTLE = 15;
@@ -90,6 +91,7 @@ public class Room2 extends Room {
                         setItemStatus(PILLOW, ItemType.NONTAKEABLE);
                         changeTexture(PAPER, "");
                         setItemStatus(PAPER, ItemType.STATIC);
+
                         break;
                     case NONTAKEABLE:
                         break;
@@ -125,6 +127,7 @@ public class Room2 extends Room {
             case SPRAY_BOTTLE:
                 switch (getItemStatus(SPRAY_BOTTLE)) {
                     case STATIC:
+                        if(foundpaper)
                         DialogSystem.dialogSystem.startDialog(InGameTexts.recipe, 1.5f, 0.5f, 0f);
                         break;
                     case TAKEABLE:

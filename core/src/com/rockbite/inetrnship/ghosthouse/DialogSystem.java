@@ -20,7 +20,7 @@ public class DialogSystem {
     private float time = 0;
     private float delay = 0;
     private float duration = 0;
-    public boolean isDialogOn = false;
+    public static boolean isDialogOn = false;
     InputProcessor zibil;
     private boolean startCountdown = false;
 
