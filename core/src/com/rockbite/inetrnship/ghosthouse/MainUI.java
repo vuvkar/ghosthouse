@@ -31,8 +31,7 @@ public class MainUI extends Stage {
     public static float BAR_HEIGHT = 0;
 
     public TextureAtlas atlas;
-    float scale = Gdx.graphics.getWidth() / 1920f;
-    float distscale = Gdx.graphics.getWidth() / 800f;
+
     public boolean gameison = true;
 
     float scalex = Gdx.graphics.getWidth() / 1920f;
@@ -53,7 +52,8 @@ public class MainUI extends Stage {
     PositionComponent pos = new PositionComponent(0, 0, 0);
     SizeComponent size = new SizeComponent(0, 0);
     Vector2 step = new Vector2(60 * Gdx.graphics.getWidth() / 800, 66 * Gdx.graphics.getWidth() / 800);
-   public Image BOOM;
+    public Image BOOM;
+
     public MainUI(GhostHouse ghostHouse) {
         assetLoader = ghostHouse.assetLoader;
         this.ghostHouse = ghostHouse;
@@ -63,8 +63,7 @@ public class MainUI extends Stage {
 
     @Override
     public void act() {
-       inventory.setDebug(true, true);
-        slots.setDebug(true, true);
+
     }
 
     @Override
@@ -75,12 +74,7 @@ public class MainUI extends Stage {
     public void setUI() {
         Label.LabelStyle label1Style = new Label.LabelStyle();
 
-        BitmapFont font;
-        font = new BitmapFont(Gdx.files.internal("shit.fnt"));
-        label1Style.font = font;
-        label1Style.fontColor = Color.CYAN;
-        text = new Label("Room " + (CameraSystem.target + 1), label1Style);
-        text.setFontScale(0.7f);
+
         Table bar = new Table();
         Table up = new Table();
         Table right = new Table();
@@ -112,9 +106,9 @@ public class MainUI extends Stage {
         Image Left = new Image(atlas.findRegion("left"));
         Image settingsMenuImage = new Image(atlas.findRegion("SettingsMenu"));
         Image text = new Image(atlas.findRegion("Room" + 1));
-       BOOM=new Image(atlas.findRegion("boom"));
+        BOOM = new Image(atlas.findRegion("boom"));
         BOOM.setScale(scalex, scaley);
-        BOOM.setPosition(Gdx.graphics.getWidth()/10f, Gdx.graphics.getHeight()/10f);
+        BOOM.setPosition(Gdx.graphics.getWidth() / 10f, Gdx.graphics.getHeight() / 10f);
         NinePatch spatch = new NinePatch(atlas.createPatch("black"));
         spatch.setMiddleWidth(Gdx.graphics.getWidth() - spatch.getTotalWidth() + spatch.getMiddleWidth());
         spatch.setMiddleHeight(Gdx.graphics.getHeight() - spatch.getTotalHeight() + spatch.getMiddleHeight());
@@ -173,7 +167,7 @@ public class MainUI extends Stage {
         Text.getChildren().get(0).setScale(scalex, scaley);
 
 
-        right.add(hint).width(hint.getPrefWidth() * scalex).height(hint.getPrefHeight() * scaley).padTop(distscaley*5).padRight(distscalex * 14);
+        right.add(hint).width(hint.getPrefWidth() * scalex).height(hint.getPrefHeight() * scaley).padTop(distscaley * 5).padRight(distscalex * 14);
         right.top().right();
 
         stop.add(StopB).width(StopB.getPrefWidth() * scalex).height(StopB.getPrefHeight() * scaley).padLeft(distscalex * 14).padBottom(distscaley * 7);
@@ -345,12 +339,11 @@ public class MainUI extends Stage {
         inventoryItem.placeInInventory = numberItem;
         if (AssetLoader.getRegion(inventoryItem.texture.texture).packedWidth >= AssetLoader.getRegion(inventoryItem.texture.texture).packedHeight) {
 
-           inventoryItem.size.set(40*distscalex,40 / (float) AssetLoader.getRegion(inventoryItem.texture.texture).packedWidth * distscalex* AssetLoader.getRegion(inventoryItem.texture.texture).packedHeight);
+            inventoryItem.size.set(40 * distscalex, 40 / (float) AssetLoader.getRegion(inventoryItem.texture.texture).packedWidth * distscalex * AssetLoader.getRegion(inventoryItem.texture.texture).packedHeight);
 
 
-        }
-else{
-            inventoryItem.size.set(45 / (float) AssetLoader.getRegion(inventoryItem.texture.texture).packedHeight * distscaley*AssetLoader.getRegion(inventoryItem.texture.texture).packedWidth,45 *distscalex);
+        } else {
+            inventoryItem.size.set(45 / (float) AssetLoader.getRegion(inventoryItem.texture.texture).packedHeight * distscaley * AssetLoader.getRegion(inventoryItem.texture.texture).packedWidth, 45 * distscalex);
 
         }
         inventory.addActor(inventoryItem);
@@ -364,8 +357,7 @@ else{
             inventory.getChildren().get(numberItem - 1).setScale(40 / (float) AssetLoader.getRegion(inventoryItem.texture.texture).packedWidth * distscalex);
 
             inventory.getChildren().get(numberItem - 1).setPosition(slots.getChildren().get(numberItem - 1).getX() + slots.getChildren().get(numberItem - 1).getWidth() * scalex / 2f - 20 * distscalex, 5.5f);
-        }
-        else if (AssetLoader.getRegion(inventoryItem.texture.texture).packedWidth <= AssetLoader.getRegion(inventoryItem.texture.texture).packedHeight) {
+        } else if (AssetLoader.getRegion(inventoryItem.texture.texture).packedWidth <= AssetLoader.getRegion(inventoryItem.texture.texture).packedHeight) {
             inventory.getChildren().get(numberItem - 1).setScale(45 / (float) AssetLoader.getRegion(inventoryItem.texture.texture).packedHeight * distscaley);
             inventory.getChildren().get(numberItem - 1).setPosition(slots.getChildren().get(numberItem - 1).getX() + slots.getChildren().get(numberItem - 1).getWidth() * scalex / 2f - (45 / 2f) * AssetLoader.getRegion(inventoryItem.texture.texture).packedWidth / AssetLoader.getRegion(inventoryItem.texture.texture).packedHeight * distscaley, 5.5f);
 
@@ -385,12 +377,12 @@ else{
                 return true;
             }
 
-            public void touchDragged (InputEvent event, float x, float y, int pointer) {
+            public void touchDragged(InputEvent event, float x, float y, int pointer) {
                 isDragged = true;
             }
 
-            public void touchUp (InputEvent event, float x, float y, int pointer, int button) {
-                if(!isDragged) {
+            public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
+                if (!isDragged) {
                     InventoryItem item = (InventoryItem) event.getListenerActor();
                     ghostHouse.mainGame.getBuilding().getCurrentRoom().itemWasClickedOnInventory(item.ID);
                 }
@@ -398,66 +390,65 @@ else{
         });
 
 
-
         inventory.getChildren().get(numberItem - 1).addListener(new ActorGestureListener() {
 
-        public void pan(InputEvent event, float x, float y, float deltaX, float deltaY) {
-            Vector2 coords = new Vector2(Gdx.input.getX(), Gdx.input.getY());
+            public void pan(InputEvent event, float x, float y, float deltaX, float deltaY) {
+                Vector2 coords = new Vector2(Gdx.input.getX(), Gdx.input.getY());
 
-            event.getListenerActor().getStage().screenToStageCoordinates(/*in/out*/coords);
+                event.getListenerActor().getStage().screenToStageCoordinates(/*in/out*/coords);
 
-            event.getListenerActor().setPosition(coords.x - 20 - inventory.getX(), coords.y - 20 * event.getListenerActor().getHeight() / event.getListenerActor().getWidth());
-        }
+                event.getListenerActor().setPosition(coords.x - 20 - inventory.getX(), coords.y - 20 * event.getListenerActor().getHeight() / event.getListenerActor().getWidth());
+            }
 
             public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
                 Vector2 currentPos = new Vector2(event.getListenerActor().getX(), event.getListenerActor().getY());
-                System.out.println("CURRENTPOS"+currentPos);
+                System.out.println("CURRENTPOS" + currentPos);
                 InventoryItem inventoryItemThis;
                 inventoryItemThis = (InventoryItem) event.getListenerActor();
                 int j = inventoryItemThis.placeInInventory;
-                InventoryItem Initem=new InventoryItem();
-                if (isInside(new Vector2(bar.getX(), bar.getY()), new Vector2(Gdx.graphics.getWidth(), 100), new Vector2(currentPos.x , currentPos.y))) {
+                InventoryItem Initem = new InventoryItem();
+                if (isInside(new Vector2(bar.getX(), bar.getY()), new Vector2(Gdx.graphics.getWidth(), 100), new Vector2(currentPos.x, currentPos.y))) {
                     for (int i = 0; i < inventory.getChildren().size; i++) {
-                        Initem=(InventoryItem) inventory.getChildren().get(i);
-                        System.out.println(inventory.getChildren().get(i).getX()+"   "+inventory.getChildren().get(i).getY()+" vortex? "+new Vector2(currentPos.x , currentPos.y ) );
+                        Initem = (InventoryItem) inventory.getChildren().get(i);
+                        System.out.println(inventory.getChildren().get(i).getX() + "   " + inventory.getChildren().get(i).getY() + " vortex? " + new Vector2(currentPos.x, currentPos.y));
                         if (i != j && isInside(new Vector2(slots.getChildren().get(i).getX(), slots.getChildren().get(i).getY()),
-                                new Vector2(130*scalex, 139*scaley), new Vector2(currentPos.x, currentPos.y ))) {
+                                new Vector2(130 * scalex, 139 * scaley), new Vector2(currentPos.x, currentPos.y))) {
                             InventoryItem inventoryItemThat;
                             inventoryItemThat = (InventoryItem) inventory.getChildren().get(i);
                             if (event.getListenerActor().getX() != prevPos.x || event.getListenerActor().getY() != prevPos.y) {
 
-                            event.getListenerActor().setPosition(prevPos.x, prevPos.y);
-                        }
-                        itemToInventoryItem(inventoryItemThis.ID, inventoryItemThat.ID);
-                        break;
-                    }
-                }
-            } else {
-                if (ghostHouse.mainGame.inputController.isIntersected()) {
-                    int ind = 0;
-                    targetPosition.set(ghostHouse.mainGame.inputController.targetPosition);
-                    for (int i = 0; i < ghostHouse.assetLoader.getRooms().get(ghostHouse.mainGame.cameraSystem.target).items.size; i++) {
-                        pos = ghostHouse.assetLoader.getRooms().get(ghostHouse.mainGame.cameraSystem.target).items.get(i).getComponent(PositionComponent.class);
-                        size = ghostHouse.assetLoader.getRooms().get(ghostHouse.mainGame.cameraSystem.target).items.get(i).getComponent(SizeComponent.class);
-
-                        if (ghostHouse.mainGame.inputController.isInside(new Vector3(pos.getX(), pos.getY(), pos.getZ()), new Vector2(size.width, size.height), targetPosition)) {
-                            if (event.getListenerActor().getX() != prevPos.x || event.getListenerActor().getY() != prevPos.y) {
-
                                 event.getListenerActor().setPosition(prevPos.x, prevPos.y);
-                                ind = ghostHouse.assetLoader.rooms.get(ghostHouse.mainGame.cameraSystem.target).items.get(i).getComponent(ItemIdComponent.class).getItemID();
                             }
-                            itemToRoomItem(inventoryItemThis.ID, ind);
+                            itemToInventoryItem(inventoryItemThis.ID, inventoryItemThat.ID);
                             break;
                         }
                     }
+                } else {
+                    if (ghostHouse.mainGame.inputController.isIntersected()) {
+                        int ind = 0;
+                        targetPosition.set(ghostHouse.mainGame.inputController.targetPosition);
+                        for (int i = 0; i < ghostHouse.assetLoader.getRooms().get(ghostHouse.mainGame.cameraSystem.target).items.size; i++) {
+                            pos = ghostHouse.assetLoader.getRooms().get(ghostHouse.mainGame.cameraSystem.target).items.get(i).getComponent(PositionComponent.class);
+                            size = ghostHouse.assetLoader.getRooms().get(ghostHouse.mainGame.cameraSystem.target).items.get(i).getComponent(SizeComponent.class);
+
+                            if (ghostHouse.mainGame.inputController.isInside(new Vector3(pos.getX(), pos.getY(), pos.getZ()), new Vector2(size.width, size.height), targetPosition)) {
+                                if (event.getListenerActor().getX() != prevPos.x || event.getListenerActor().getY() != prevPos.y) {
+
+                                    event.getListenerActor().setPosition(prevPos.x, prevPos.y);
+                                    ind = ghostHouse.assetLoader.rooms.get(ghostHouse.mainGame.cameraSystem.target).items.get(i).getComponent(ItemIdComponent.class).getItemID();
+                                }
+                                itemToRoomItem(inventoryItemThis.ID, ind);
+                                break;
+                            }
+                        }
+                    }
+                }
+                if (event.getListenerActor().getX() != prevPos.x || event.getListenerActor().getY() != prevPos.y) {
+                    event.getListenerActor().setPosition(prevPos.x, prevPos.y);
                 }
             }
-            if (event.getListenerActor().getX() != prevPos.x || event.getListenerActor().getY() != prevPos.y) {
-                event.getListenerActor().setPosition(prevPos.x, prevPos.y);
-            }
-        }
-    });
-}
+        });
+    }
 
 
     public void removeItem(int ID) {
@@ -467,7 +458,7 @@ else{
             if (inventoryItem.ID == ID) {
                 // Vector2 emptyPlace = new Vector2(inventory.getChildren().get(i).getX(), inventory.getChildren().get(i).getY());
                 Vector2 emptyPlace = new Vector2(0, 0);
-               // System.out.println("This is the emptyplace " + emptyPlace);
+                // System.out.println("This is the emptyplace " + emptyPlace);
                 Vector2 temp = new Vector2(0, 0);
                 inventory.removeActor(inventory.getChildren().get(i));
                 numberItem--;
@@ -475,7 +466,7 @@ else{
                 for (; i < numberItem; i++) {
                     emptyPlace.set(slots.getChildren().get(i).getX() + slots.getChildren().get(i).getWidth() * scalex / 2f, inventory.getChildren().get(i).getY());
                     temp.set(slots.getChildren().get(i).getX() + slots.getChildren().get(i).getWidth() * scalex / 2f, inventory.getChildren().get(i).getY());
-                   // System.out.println("This is the next emptyplace " + temp);
+                    // System.out.println("This is the next emptyplace " + temp);
                     if (inventory.getChildren().get(i).getWidth() >= inventory.getChildren().get(i).getHeight())
                         inventory.getChildren().get(i).setPosition(emptyPlace.x - 40 * distscalex / 2f, emptyPlace.y);
                     else if (inventory.getChildren().get(i).getWidth() < inventory.getChildren().get(i).getHeight())
