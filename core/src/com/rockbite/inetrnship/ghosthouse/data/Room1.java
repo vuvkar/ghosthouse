@@ -345,14 +345,16 @@ public class Room1 extends Room {
         }
         if(miniGame instanceof  Lock) {
             if(hasWon) {
+                DialogSystem.dialogSystem.startDialog(InGameTexts.rightcode, 2f, 0.5f, 0f);
+                drnak.play(Room.soundVolume);
                 Timer timer = new Timer();
                 timer.schedule(new TimerTask() {
                     @Override
                     public void run() {
-                        DialogSystem.dialogSystem.startDialog(InGameTexts.rightcode, 2f, 0.5f, 0f);
-                        drnak.play(Room.soundVolume);
-                        leaveRoom();                    }
-                }, 2000);
+                        removeFromInventory(PUZZLE);
+                        leaveRoom();
+                    }
+                }, 1000);
 
             }
             else {
