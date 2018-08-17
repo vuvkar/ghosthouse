@@ -447,7 +447,7 @@ public class MainUI extends Stage {
             if (inventoryItem.ID == ID) {
                 // Vector2 emptyPlace = new Vector2(inventory.getChildren().get(i).getX(), inventory.getChildren().get(i).getY());
                 Vector2 emptyPlace = new Vector2(0, 0);
-                System.out.println("This is the emptyplace " + emptyPlace);
+               // System.out.println("This is the emptyplace " + emptyPlace);
                 Vector2 temp = new Vector2(0, 0);
                 inventory.removeActor(inventory.getChildren().get(i));
                 numberItem--;
@@ -455,7 +455,7 @@ public class MainUI extends Stage {
                 for (; i < numberItem; i++) {
                     emptyPlace.set(slots.getChildren().get(i).getX() + slots.getChildren().get(i).getWidth() * scalex / 2f, inventory.getChildren().get(i).getY());
                     temp.set(slots.getChildren().get(i).getX() + slots.getChildren().get(i).getWidth() * scalex / 2f, inventory.getChildren().get(i).getY());
-                    System.out.println("This is the next emptyplace " + temp);
+                   // System.out.println("This is the next emptyplace " + temp);
                     if (inventory.getChildren().get(i).getWidth() >= inventory.getChildren().get(i).getHeight())
                         inventory.getChildren().get(i).setPosition(emptyPlace.x - 40 * distscalex / 2f, emptyPlace.y);
                     else if (inventory.getChildren().get(i).getWidth() < inventory.getChildren().get(i).getHeight())

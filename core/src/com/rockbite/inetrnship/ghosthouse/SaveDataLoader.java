@@ -30,7 +30,7 @@ public class SaveDataLoader {
         System.out.println("get");
         final Request request = new Request.Builder()
                 .url(URI)
-                .header("user", hashcode)
+                .header("hashcode", hashcode)
                 .get()
                 .build();
         client.newCall(request).enqueue(new Callback() {

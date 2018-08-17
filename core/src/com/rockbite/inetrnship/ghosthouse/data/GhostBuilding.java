@@ -23,7 +23,7 @@ public class GhostBuilding {
 
     static public final float WALL_HEIGHT = 1.4f;
     static public final float BUILDING_DEPTH = 4f;
-    static public final float FACE_WALL_CELL_SIZE = 2.0f;
+    static public final float FACE_WALL_CELL_SIZE = 3.0f;
     static public final float SKY_OFFSET = 13f;
 
     private float buildingWidth;

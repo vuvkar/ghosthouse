@@ -37,13 +37,13 @@ public class AssetLoader extends AssetManager {
 
     public AssetLoader() {
 //       TODO: WARNING: DO NOT ATTEMPT TO DELETEEE!!!!!!!! Thanks :)
-        TexturePacker.Settings settings = new TexturePacker.Settings();
-        settings.maxHeight = 8192;
-        settings.maxWidth = 8192;
-        settings.wrapX = Texture.TextureWrap.Repeat;
-        settings.wrapY = Texture.TextureWrap.Repeat;
-        TexturePacker.process(settings,"textures",
-                "packed", "game");
+//        TexturePacker.Settings settings = new TexturePacker.Settings();
+//        settings.maxHeight = 8192;
+//        settings.maxWidth = 8192;
+//        settings.wrapX = Texture.TextureWrap.Repeat;
+//        settings.wrapY = Texture.TextureWrap.Repeat;
+//        TexturePacker.process(settings,"textures",
+//                "packed", "game");
         atlas = new TextureAtlas(Gdx.files.internal ("packed/game.atlas"));
 //        empty = new Texture(Gdx.files.internal("textures/album1.png"));
 //        ATLAS_HEIGHT = atlas.getTextures().first().getHeight();
@@ -96,8 +96,7 @@ public class AssetLoader extends AssetManager {
 
         for(Entity entity: room4.items) {
             PositionComponent pos = entity.getComponent(PositionComponent.class);
-            pos.setY(pos.getY() - 2 * room4.height);
-            pos.setX(pos.getX() + room4.width);
+            pos.setY(pos.getY() -  room4.height);
         }
 
 
