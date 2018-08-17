@@ -785,8 +785,8 @@
         0
       ],
       "texture": "tapormas1",
-      "width": 1.56,
-      "height": 1.28,
+      "width": 0.56,
+      "height": 0.28,
       "id": 35
     },
     {
@@ -807,8 +807,8 @@
         0
       ],
       "texture": "tapormas2",
-      "width": 2.25,
-      "height": 1.55,
+      "width": 1.25,
+      "height": 0.55,
       "id": 36
     },
     {
@@ -829,8 +829,8 @@
         0
       ],
       "texture": "glue3",
-      "width": 3.65,
-      "height": 3.55,
+      "width": 1.65,
+      "height": 1.55,
       "id": 37
     },
     {
@@ -851,8 +851,8 @@
         0
       ],
       "texture": "gluedtapor",
-      "width": 7.10,
-      "height": 6.33,
+      "width": 2.10,
+      "height": 1.33,
       "id": 38
     },
     {
@@ -873,8 +873,8 @@
         0
       ],
       "texture": "tapor3",
-      "width": 4.07,
-      "height": 3.05,
+      "width": 2.07,
+      "height": 1.05,
       "id": 39
     }
   ]

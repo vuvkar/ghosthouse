@@ -94,7 +94,7 @@ public class MainGame {
         ghost.getComponent(PositionComponent.class).setXYZ(ghostPosition);
         multiplexer.addProcessor(ghostHouse.mainUI);
         multiplexer.addProcessor(inputController);
-        Gdx.input.setInputProcessor(multiplexer);
+        //Gdx.input.setInputProcessor(multiplexer);
 
 
         engine.addEntity(ghost);

@@ -2,9 +2,7 @@ package com.rockbite.inetrnship.ghosthouse;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Preferences;
-import com.badlogic.gdx.utils.Json;
 import okhttp3.*;
-import okio.BufferedSink;
 import org.json.simple.JSONObject;
 
 import java.io.IOException;
@@ -29,7 +27,7 @@ public class SaveDataLoader {
 
     // GET method for getting user data from db
     private void get() {
-
+        System.out.println("get");
         final Request request = new Request.Builder()
                 .url(URI)
                 .header("user", hashcode)
@@ -49,6 +47,7 @@ public class SaveDataLoader {
 
     // FIXME: ADD FUNCTIONALITY FOR POST METHOD
     private void post(int roomID) {
+        System.out.println("put");
         JSONObject obj = new JSONObject();
         try {
             obj.put("hashcode", hashcode);

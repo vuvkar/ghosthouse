@@ -6,7 +6,6 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.utils.Array;
 import com.rockbite.inetrnship.ghosthouse.MainGame;
-import com.rockbite.inetrnship.ghosthouse.MainUI;
 import com.rockbite.inetrnship.ghosthouse.MiniGames.MiniGame;
 import com.rockbite.inetrnship.ghosthouse.ecs.components.*;
 
@@ -122,7 +121,6 @@ public abstract class Room implements Comparable<Room> {
         for (Entity item : items) {
             if (itemIdComponentm.get(item).getItemID() == itemID) {
                itemTypeComponent.get(item).setType(type);
-
             }
         }
     }
