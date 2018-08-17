@@ -77,7 +77,7 @@ public class Room2 extends Room
                         }, 7000);
                     }
                 }, 4000);
-            } m
+            }
         }, 1000);
         setItemStatus(PAPER, ItemType.TAKEABLE);
 

@@ -34,11 +34,11 @@ public class DialogSystem {
         label1Style.font = font;
         label1Style.fontColor = new Color(202/255f, 240/255f, 1,1);
 
-        dialogBox = new LockActor(new Texture(Gdx.files.internal("MiniGame/dialog.png")), Gdx.graphics.getWidth()/2f-300, Gdx.graphics.getHeight() - 140f, "bar", 0);
+        dialogBox = new LockActor(new Texture(Gdx.files.internal("MiniGame/dialog.png")), Gdx.graphics.getWidth()/2f-300, Gdx.graphics.getHeight() - 210f, "bar", 0);
         stage.addActor(dialogBox);
         dialogBox.setVisible(false);
         dialogText = new Label("some text",label1Style);
-        dialogText.setPosition(dialogBox.getX()+20, Gdx.graphics.getWidth()/2f-30);
+        dialogText.setPosition(dialogBox.getX()+20, dialogBox.getY() + 15);
         dialogText.setFontScale(0.8f);
         dialogText.setVisible(false);
     }
@@ -76,13 +76,13 @@ public class DialogSystem {
 
     public void setDialogOn(boolean dialogOn) {
 
-//        if(dialogOn) {
-//            zibil = Gdx.input.getInputProcessor();
-//            Gdx.input.setInputProcessor(stage);
-//        }
-//        else {
-//            Gdx.input.setInputProcessor(zibil);
-//        }
+        if(dialogOn) {
+            zibil = Gdx.input.getInputProcessor();
+            Gdx.input.setInputProcessor(stage);
+        }
+        else {
+            Gdx.input.setInputProcessor(zibil);
+        }
 
         isDialogOn = dialogOn;
     }

@@ -116,7 +116,7 @@ public class Puzzle extends MiniGame {
             actor.setVisible(false);
         }
         code.setVisible(true);
-        DialogSystem.dialogSystem.startDialog(InGameTexts.codetr, 2f, 0.5f, 0f);
+        DialogSystem.dialogSystem.startDialog(InGameTexts.codetr, 1f, 0.5f, 0f);
         Timer timer = new Timer();
         timer.schedule(new TimerTask() {
             @Override
