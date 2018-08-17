@@ -6,63 +6,63 @@ filter: Nearest,Nearest
 repeat: none
 Blue
   rotate: false
-  xy: 170, 642
+  xy: 1028, 421
   size: 129, 136
   orig: 129, 136
   offset: 0, 0
   index: -1
 Green
   rotate: false
-  xy: 317, 783
+  xy: 149, 5
   size: 129, 136
   orig: 129, 136
   offset: 0, 0
   index: -1
 Play
   rotate: false
-  xy: 2, 292
+  xy: 1196, 630
   size: 129, 136
   orig: 129, 136
   offset: 0, 0
   index: -1
 Room1
   rotate: false
-  xy: 579, 819
+  xy: 1463, 875
   size: 141, 32
   orig: 141, 32
   offset: 0, 0
   index: -1
 Room2
   rotate: false
-  xy: 579, 853
+  xy: 1624, 930
   size: 152, 32
   orig: 152, 32
   offset: 0, 0
   index: -1
 Room3
   rotate: false
-  xy: 734, 887
+  xy: 280, 109
   size: 150, 32
   orig: 150, 32
   offset: 0, 0
   index: -1
 Room4
   rotate: false
-  xy: 579, 887
+  xy: 644, 174
   size: 153, 32
   orig: 153, 32
   offset: 0, 0
   index: -1
 SettingsMenu
   rotate: false
-  xy: 2, 921
+  xy: 2, 964
   size: 1920, 1080
   orig: 1920, 1080
   offset: 0, 0
   index: -1
 black
   rotate: false
-  xy: 2001, 1967
+  xy: 1159, 523
   size: 34, 34
   split: 12, 14, 12, 14
   pad: 0, 0, 0, 0
@@ -71,21 +71,28 @@ black
   index: -1
 black
   rotate: false
-  xy: 138, 549
+  xy: 2001, 2024
   size: 20, 20
   orig: 20, 20
   offset: 0, 0
   index: -1
+boom
+  rotate: false
+  xy: 2, 208
+  size: 1024, 754
+  orig: 1024, 754
+  offset: 0, 0
+  index: -1
 buttonofmenu
   rotate: false
-  xy: 2, 746
+  xy: 1028, 734
   size: 166, 173
   orig: 166, 173
   offset: 0, 0
   index: -1
 downbar
   rotate: false
-  xy: 2, 2
+  xy: 280, 9
   size: 56, 41
   split: 26, 26, 27, 10
   pad: 0, 0, 0, 0
@@ -94,70 +101,77 @@ downbar
   index: -1
 exidbutton
   rotate: false
-  xy: 2, 202
+  xy: 1028, 331
   size: 81, 88
   orig: 81, 88
   offset: 0, 0
   index: -1
 ghost
   rotate: false
-  xy: 1924, 1816
+  xy: 1924, 1859
   size: 50, 73
   orig: 50, 73
   offset: 0, 0
   index: -1
 ghostor
   rotate: false
-  xy: 1924, 1891
+  xy: 1924, 1934
   size: 75, 110
   orig: 75, 110
   offset: 0, 0
   index: -1
 left
   rotate: false
-  xy: 170, 585
+  xy: 1196, 573
   size: 69, 55
   orig: 69, 55
   offset: 0, 0
   index: -1
 musi_minus
   rotate: false
-  xy: 733, 857
+  xy: 644, 144
   size: 56, 28
   orig: 56, 28
   offset: 0, 0
   index: -1
+musicline
+  rotate: false
+  xy: 2, 143
+  size: 640, 63
+  orig: 640, 63
+  offset: 0, 0
+  index: -1
 musicplus
   rotate: false
-  xy: 2, 45
+  xy: 1267, 580
   size: 53, 48
   orig: 53, 48
   offset: 0, 0
   index: -1
 pink
   rotate: false
-  xy: 448, 783
+  xy: 1332, 771
   size: 129, 136
   orig: 129, 136
   offset: 0, 0
   index: -1
 repeat
   rotate: false
-  xy: 2, 571
+  xy: 1028, 559
   size: 166, 173
   orig: 166, 173
   offset: 0, 0
   index: -1
 right
   rotate: false
-  xy: 2, 145
+  xy: 280, 52
   size: 68, 55
   orig: 68, 55
   offset: 0, 0
   index: -1
 room_name_slot
   rotate: false
-  xy: 241, 586
+  xy: 1463, 819
   size: 54, 54
   split: 25, 25, 25, 25
   pad: 0, 0, 0, 0
@@ -166,28 +180,35 @@ room_name_slot
   index: -1
 slot1
   rotate: false
-  xy: 2, 430
+  xy: 1196, 768
   size: 134, 139
   orig: 134, 139
   offset: 0, 0
   index: -1
 slot2
   rotate: false
-  xy: 170, 780
+  xy: 2, 2
   size: 145, 139
   orig: 145, 139
   offset: 0, 0
   index: -1
+soundline
+  rotate: false
+  xy: 1028, 909
+  size: 594, 53
+  orig: 594, 53
+  offset: 0, 0
+  index: -1
 soundminus
   rotate: false
-  xy: 886, 892
+  xy: 799, 179
   size: 52, 27
   orig: 52, 27
   offset: 0, 0
   index: -1
 soundplus
   rotate: false
-  xy: 2, 95
+  xy: 1028, 281
   size: 54, 48
   orig: 54, 48
   offset: 0, 0

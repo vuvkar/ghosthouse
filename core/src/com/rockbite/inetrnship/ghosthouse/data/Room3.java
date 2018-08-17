@@ -40,7 +40,7 @@ public class Room3 extends Room {
         wholekey = Gdx.audio.newSound(Gdx.files.internal("sounds/sparkle.mp3"));
 
         DialogSystem.dialogSystem.startDialog(InGameTexts.room3, 1.5f, 0.5f, 0f);
-        addToInventory(Room2.SPRAY_BOTTLE);
+
         moveGhostTo(DOOR_LEFT);
     }
 

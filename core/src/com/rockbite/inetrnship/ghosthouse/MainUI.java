@@ -53,7 +53,7 @@ public class MainUI extends Stage {
     PositionComponent pos = new PositionComponent(0, 0, 0);
     SizeComponent size = new SizeComponent(0, 0);
     Vector2 step = new Vector2(60 * Gdx.graphics.getWidth() / 800, 66 * Gdx.graphics.getWidth() / 800);
-
+   public static Image BOOM;
     public MainUI(GhostHouse ghostHouse) {
         assetLoader = ghostHouse.assetLoader;
         this.ghostHouse = ghostHouse;
@@ -112,6 +112,9 @@ public class MainUI extends Stage {
         Image Left = new Image(atlas.findRegion("left"));
         Image settingsMenuImage = new Image(atlas.findRegion("SettingsMenu"));
         Image text = new Image(atlas.findRegion("Room" + 1));
+       BOOM=new Image(atlas.findRegion("boom"));
+        BOOM.setScale(scalex, scaley);
+        BOOM.setPosition(Gdx.graphics.getWidth()/2f, Gdx.graphics.getHeight()/2f);
         NinePatch spatch = new NinePatch(atlas.createPatch("black"));
         spatch.setMiddleWidth(Gdx.graphics.getWidth() - spatch.getTotalWidth() + spatch.getMiddleWidth());
         spatch.setMiddleHeight(Gdx.graphics.getHeight() - spatch.getTotalHeight() + spatch.getMiddleHeight());

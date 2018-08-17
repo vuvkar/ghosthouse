@@ -2,10 +2,11 @@ package com.rockbite.inetrnship.ghosthouse.data;
 
 import com.badlogic.gdx.graphics.glutils.ShaderProgram;
 import com.rockbite.inetrnship.ghosthouse.DialogSystem;
+import com.rockbite.inetrnship.ghosthouse.MainUI;
 
 public class Room4 extends Room {
     final int PLITA = 10;
-    public ShaderProgram shaderProgram;
+
     @Override
     public void roomStarted() {
         //tipadialog
@@ -24,7 +25,14 @@ public class Room4 extends Room {
                     case TAKEABLE:
                         break;
                     case NONTAKEABLE:
-                        shaderProgram.setUniformf("u_lightColor",255,0,0);
+
+                      //  GhostMesh.lightColor.set(255, 0,0);
+                        MainUI.BOOM.setVisible(false);
+                        mainGame.ghostHouse.mainUI.addActor(MainUI.BOOM);
+                        MainUI.BOOM.setVisible(true);
+                        for(int i=0; i<1000; i++){
+                            MainUI.BOOM.setScale(1+i*0.0f);
+                        }
                 }
         }
     }
