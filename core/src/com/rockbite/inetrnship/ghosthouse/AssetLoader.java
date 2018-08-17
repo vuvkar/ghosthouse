@@ -6,7 +6,6 @@ import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.tools.texturepacker.TexturePacker;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Json;
 import com.rockbite.inetrnship.ghosthouse.data.*;
@@ -51,6 +50,7 @@ public class AssetLoader extends AssetManager {
         loadGameData();
         SaveDataLoader saveLoad = new SaveDataLoader();
         saveLoad.save(room);
+//        room = saveLoad.load();
 
 
 //        TexturePacker.Settings settings = new TexturePacker.Settings();
