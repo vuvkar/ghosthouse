@@ -56,8 +56,10 @@ public class InGameTexts {
     public static String doortp1 = "Let's see how can I get out now";
     public static String tapor1 = "If only I can find something to fix";
     public static String tapor2 = "Hope the other part is here";
-    public static String kle = "I guess this will work ";
+    public static String kle = "Good for combining things ";
     public static String tapormer = "ready? this will require a lot of strength";
     public static String kletapor = "yeii";
+    public static String room4 = "Ew, It smells weird here";
+    public static String room41 = "Let's see what's going on here";
 }
 

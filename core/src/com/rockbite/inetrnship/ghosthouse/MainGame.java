@@ -29,6 +29,7 @@ public class MainGame {
     private SaveDataLoader saveDataLoader;
     private Music music;
 
+public boolean boom=false;
     public static boolean miniGameOn = false;
     private Array<Room> rooms;
     public static InputMultiplexer multiplexer = new InputMultiplexer();

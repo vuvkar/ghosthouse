@@ -27,9 +27,6 @@ public class Room3 extends Room {
     Sound wholekey;
 
 
-
-
-
     @Override
     public void roomStarted() {
         tapor1 = Gdx.audio.newSound (Gdx.files.internal("sounds/tapor.mp3"));

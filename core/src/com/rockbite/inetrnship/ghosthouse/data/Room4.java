@@ -1,18 +1,23 @@
 package com.rockbite.inetrnship.ghosthouse.data;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.glutils.ShaderProgram;
 import com.rockbite.inetrnship.ghosthouse.DialogSystem;
 import com.rockbite.inetrnship.ghosthouse.MainUI;
 
 public class Room4 extends Room {
     final int PLITA = 10;
+    Sound explosion;
+    public ShaderProgram shaderProgram;
 
     @Override
     public void roomStarted() {
+        explosion = Gdx.audio.newSound (Gdx.files.internal("sounds/explosion.mp3"));
         //tipadialog
         moveGhostTo(2);
         setItemStatus(PLITA,ItemType.NONTAKEABLE);
-        DialogSystem.dialogSystem.startDialog(InGameTexts.startr1 + "\n" + InGameTexts.startr2, 3f, 0.5f, 0.3f);
+        DialogSystem.dialogSystem.startDialog(InGameTexts.room4 + "\n" + InGameTexts.room41, 3f, 0.5f, 0.3f);
     }
 
     @Override
@@ -25,13 +30,14 @@ public class Room4 extends Room {
                     case TAKEABLE:
                         break;
                     case NONTAKEABLE:
-
+                        explosion.play(Room.soundVolume);
                       //  GhostMesh.lightColor.set(255, 0,0);
-                        MainUI.BOOM.setVisible(false);
-                        mainGame.ghostHouse.mainUI.addActor(MainUI.BOOM);
-                        MainUI.BOOM.setVisible(true);
-                        for(int i=0; i<1000; i++){
-                            MainUI.BOOM.setScale(1+i*0.0f);
+
+                        mainGame.ghostHouse.mainUI.addActor(mainGame.ghostHouse.mainUI.BOOM);
+                        mainGame.boom=true;
+                        for(int i=0; i<mainGame.ghostHouse.mainUI.getActors().size-1;i++){
+                            mainGame.ghostHouse.mainUI.getActors().get(i).setVisible(false);
+
                         }
                 }
         }
