@@ -2,18 +2,12 @@ package com.rockbite.inetrnship.ghosthouse.data;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Sound;
-import com.badlogic.gdx.utils.Array;
 import com.rockbite.inetrnship.ghosthouse.DialogSystem;
 
-import javax.xml.transform.sax.SAXTransformerFactory;
-import java.awt.print.Paper;
-import java.util.Set;
 import java.util.Timer;
 import java.util.TimerTask;
 
-public class Room2 extends Room
-{
-
+public class Room2 extends Room {
     Sound recipesound;
     Sound spray;
     Sound waterbottle;
@@ -40,7 +34,7 @@ public class Room2 extends Room
     final int LEAF = 20;
     final int DOOR = 4;
 
-   int sprayPercent = 0;
+    int sprayPercent = 0;
 
     {
         recipesound = Gdx.audio.newSound(Gdx.files.internal("sounds/news.mp3"));
@@ -56,8 +50,7 @@ public class Room2 extends Room
 
 
     @Override
-    public void roomStarted()
-    {
+    public void roomStarted() {
         moveGhostTo(PILLOW);
         Timer timer = new Timer();
         timer.schedule(new TimerTask() {
@@ -84,14 +77,11 @@ public class Room2 extends Room
     }
 
     @Override
-    public void itemWasClicked(int itemID)
-    {
+    public void itemWasClicked(int itemID) {
         System.out.println(itemID);
-        switch (itemID)
-        {
+        switch (itemID) {
             case PAPER:
-                switch (getItemStatus(PAPER))
-                {
+                switch (getItemStatus(PAPER)) {
                     case STATIC:
                         break;
                     case TAKEABLE:
@@ -114,8 +104,7 @@ public class Room2 extends Room
                 }
                 break;
             case SPRAY_BOTTLE:
-                switch (getItemStatus(SPRAY_BOTTLE))
-                {
+                switch (getItemStatus(SPRAY_BOTTLE)) {
                     case STATIC:
                         DialogSystem.dialogSystem.startDialog(InGameTexts.recipe, 1.5f, 0.5f, 0f);
                         break;
@@ -131,8 +120,7 @@ public class Room2 extends Room
                 }
                 break;
             case RED_BOTTLE:
-                switch (getItemStatus(RED_BOTTLE))
-                {
+                switch (getItemStatus(RED_BOTTLE)) {
                     case STATIC:
                         DialogSystem.dialogSystem.startDialog(InGameTexts.recipe, 1.5f, 0.5f, 0f);
 
@@ -149,8 +137,7 @@ public class Room2 extends Room
                 }
                 break;
             case DRUG_BOTTLE:
-                switch (getItemStatus(DRUG_BOTTLE))
-                {
+                switch (getItemStatus(DRUG_BOTTLE)) {
                     case STATIC:
                         DialogSystem.dialogSystem.startDialog(InGameTexts.recipe, 1.5f, 0.5f, 0f);
 
@@ -166,8 +153,7 @@ public class Room2 extends Room
                 }
                 break;
             case YELLOW_BOTTLE:
-                switch (getItemStatus(YELLOW_BOTTLE))
-                {
+                switch (getItemStatus(YELLOW_BOTTLE)) {
                     case STATIC:
                         DialogSystem.dialogSystem.startDialog(InGameTexts.recipe, 1.5f, 0.5f, 0f);
 
@@ -183,8 +169,7 @@ public class Room2 extends Room
                 }
                 break;
             case JEANS:
-                switch (getItemStatus(JEANS))
-                {
+                switch (getItemStatus(JEANS)) {
                     case STATIC:
                         DialogSystem.dialogSystem.startDialog(InGameTexts.recipe, 1.5f, 0.5f, 0f);
 
@@ -200,8 +185,7 @@ public class Room2 extends Room
                 }
                 break;
             case WARDROBE:
-                switch (getItemStatus(WARDROBE))
-                {
+                switch (getItemStatus(WARDROBE)) {
                     case STATIC:
                         DialogSystem.dialogSystem.startDialog(InGameTexts.recipe, 1.5f, 0.5f, 0f);
 
@@ -217,8 +201,7 @@ public class Room2 extends Room
                 }
                 break;
             case EUCALYPTUS:
-                switch (getItemStatus(EUCALYPTUS))
-                {
+                switch (getItemStatus(EUCALYPTUS)) {
                     case STATIC:
                         DialogSystem.dialogSystem.startDialog(InGameTexts.recipe, 1.5f, 0.5f, 0f);
 
@@ -231,8 +214,7 @@ public class Room2 extends Room
                 }
                 break;
             case PILLOW:
-                switch (getItemStatus(PILLOW))
-                {
+                switch (getItemStatus(PILLOW)) {
                     case STATIC:
                         DialogSystem.dialogSystem.startDialog(InGameTexts.recipe, 1.5f, 0.5f, 0f);
 
@@ -251,8 +233,7 @@ public class Room2 extends Room
     }
 
     @Override
-    public void itemWasDragged(int fromInventory, int toRoomItem)
-    {
+    public void itemWasDragged(int fromInventory, int toRoomItem) {
         if (fromInventory == SEKATOR && toRoomItem == EUCALYPTUS)
             sekator.play(Room.soundVolume);
         {
@@ -263,16 +244,12 @@ public class Room2 extends Room
     }
 
     @Override
-    public void itemWasMoved(int fromInventory, int toInventory)
-    {
-        if (toInventory == SPRAY_BOTTLE)
-        {
-            if (fromInventory == RED_BOTTLE || fromInventory == DRUG_BOTTLE || fromInventory == YELLOW_BOTTLE || fromInventory == SILICA || fromInventory == LEAF || fromInventory == PILLS)
-            {
+    public void itemWasMoved(int fromInventory, int toInventory) {
+        if (toInventory == SPRAY_BOTTLE) {
+            if (fromInventory == RED_BOTTLE || fromInventory == DRUG_BOTTLE || fromInventory == YELLOW_BOTTLE || fromInventory == SILICA || fromInventory == LEAF || fromInventory == PILLS) {
                 sprayPercent++;
                 removeFromInventory(fromInventory);
-                if(sprayPercent == 6)
-                {
+                if (sprayPercent == 6) {
                     spray1.play(Room.soundVolume);
                     DialogSystem.dialogSystem.startDialog(InGameTexts.spraydone, 1.5f, 0.5f, 0f);
                 }
@@ -281,14 +258,12 @@ public class Room2 extends Room
     }
 
     @Override
-    public void miniGameWasClosed(boolean hasWon)
-    {
+    public void miniGameWasClosed(boolean hasWon) {
 
     }
 
     @Override
-    public void itemWasClickedOnInventory(int itemID)
-    {
+    public void itemWasClickedOnInventory(int itemID) {
 
     }
 }
