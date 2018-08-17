@@ -4,7 +4,9 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.scenes.scene2d.*;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
+import com.rockbite.inetrnship.ghosthouse.DialogSystem;
 import com.rockbite.inetrnship.ghosthouse.MiniGames.MiniGame;
+import com.rockbite.inetrnship.ghosthouse.data.InGameTexts;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -114,6 +116,7 @@ public class Puzzle extends MiniGame {
             actor.setVisible(false);
         }
         code.setVisible(true);
+        DialogSystem.dialogSystem.startDialog(InGameTexts.codetr, 2f, 0.5f, 0f);
         Timer timer = new Timer();
         timer.schedule(new TimerTask() {
             @Override

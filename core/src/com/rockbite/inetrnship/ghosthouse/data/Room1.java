@@ -53,6 +53,7 @@ public class Room1 extends Room {
     Sound box;
     Sound lightoff;
     Sound himaralbom;
+    Sound drnak;
 
     int puzzle_count = 1;
     boolean canOpenDoor = false;
@@ -72,6 +73,7 @@ public class Room1 extends Room {
         box = Gdx.audio.newSound(Gdx.files.internal("sounds/box.mp3"));
         lightoff = Gdx.audio.newSound(Gdx.files.internal("sounds/lightoff.mp3"));
         himaralbom = Gdx.audio.newSound(Gdx.files.internal("sounds/album.mp3"));
+        drnak = Gdx.audio.newSound(Gdx.files.internal("sounds/bacvec.mp3"));
     }
 
     @Override
@@ -340,6 +342,8 @@ public class Room1 extends Room {
         }
         if(miniGame instanceof  Lock) {
             if(hasWon) {
+                DialogSystem.dialogSystem.startDialog(InGameTexts.rightcode, 2f, 0.5f, 0f);
+                drnak.play(Room.soundVolume);
                 leaveRoom();
             }
             else {

@@ -8,7 +8,6 @@ public class InGameTexts
     public static String doorcode2 = "let's leave this for later";
     public static String piecebegins1 = "If only I can find the other pieces";
     public static String piecebegins2 = "I can find out the way to escape";
-    public static String coderandom = "Nah, we'll need the code";
     public static String napo2 = "No way, the other part is missing";
     public static String fullkey = "Bingo, now we can have the whole key";
     public static String glass = "Oh, that was sharp";
@@ -30,11 +29,11 @@ public class InGameTexts
     public static String pagvel = "Maybe the photo piece that I have can help us.";
     public static String pagvel2 = "Let's explore the room!";
     public static String code = "We don't have the code, let's leave this for later";
+    public static String codetr = "Perfect, now we can open the door";
     // static room2
     public static String startr1 = "Yei, the door is open here!";
     public static String startr2 = "Let's go!";
-    public static String bug1 = "AAAAAAAAAAAA";
-    public static String bug2 = "My biggest feaaar";
+    public static String bug1 = "AAAAA...My biggest fear";
     public static String bug3 = "I need to find a way to kill them, otherwise I'm stuck here";
     public static String paper1 = "Anti-Bug remedy? hmm...let's see...";
     public static String paper2 = "we'll need to mix couple of ingredients into a spray bottle";
@@ -48,5 +47,5 @@ public class InGameTexts
     public static String drugbotttles = "Drugs always serve well as a poison";
     public static String sekator = "This will help for the most important ingredient";
     public static String recipe = "I don't know the recipe";
-    public static String spraydone = "Now I can move forward fearlessly";
+    public static String spraydone = "Now I can get out of here fearlessly";
 }
