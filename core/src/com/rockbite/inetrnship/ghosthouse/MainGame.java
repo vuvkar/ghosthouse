@@ -116,6 +116,7 @@ public boolean boom=false;
 
     public  void  startGame() {
         building.getCurrentRoom().roomStarted();
+        music.setVolume(0.5f);
         music.setLooping(true);
         music.play();
        // Timer timer = new Timer();
