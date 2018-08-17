@@ -339,18 +339,13 @@ public class Room1 extends Room {
                 removeFromInventory(PUZZLE);
                 addToInventory(PASSWORD);
             }
-        }
-        if(miniGame instanceof  Lock) {
-            if(hasWon) {
-                DialogSystem.dialogSystem.startDialog(InGameTexts.rightcode, 2f, 0.5f, 0f);
-                drnak.play(Room.soundVolume);
+
                 leaveRoom();
             }
             else {
                 DialogSystem.dialogSystem.startDialog(InGameTexts.pagvel + "\n" + InGameTexts.pagvel2, 5f, 0.5f, 0f);
             }
         }
-    }
 
     @Override
     public void itemWasClickedOnInventory(int itemID) {
