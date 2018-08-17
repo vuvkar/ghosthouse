@@ -29,7 +29,7 @@ public class MainGame {
     private AssetLoader assetLoader;
     public InputController inputController;
     private SaveDataLoader saveDataLoader;
-
+public boolean boom=false;
     public static boolean miniGameOn = false;
     private Array<Room> rooms;
     public static InputMultiplexer multiplexer = new InputMultiplexer();

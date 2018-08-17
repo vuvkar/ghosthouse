@@ -27,12 +27,9 @@ public class Room4 extends Room {
                     case NONTAKEABLE:
 
                       //  GhostMesh.lightColor.set(255, 0,0);
-                        MainUI.BOOM.setVisible(false);
-                        mainGame.ghostHouse.mainUI.addActor(MainUI.BOOM);
-                        MainUI.BOOM.setVisible(true);
-                        for(int i=0; i<1000; i++){
-                            MainUI.BOOM.setScale(1+i*0.0f);
-                        }
+
+                        mainGame.ghostHouse.mainUI.addActor(mainGame.ghostHouse.mainUI.BOOM);
+                        mainGame.boom=true;
                 }
         }
     }

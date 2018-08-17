@@ -2,12 +2,13 @@ package com.rockbite.inetrnship.ghosthouse;
 
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
+import com.rockbite.inetrnship.ghosthouse.data.GhostMesh;
 
 public class GhostHouse extends ApplicationAdapter {
 
     SaveDataLoader saveData;
     AssetLoader assetLoader;
-
+int j=0;
     static boolean isLoaded = true;
 
     public MainUI mainUI;
@@ -33,7 +34,12 @@ public class GhostHouse extends ApplicationAdapter {
             }
 
             mainUI.act();
-
+if(mainGame.boom){
+   // mainUI.BOOM.setScale(0.5f+j*0.01f);
+    GhostMesh.lightColor.set(j, 0,0);
+    mainUI.BOOM.scaleBy(0.01f);
+    j++;
+}
             mainGame.render();
             mainUI.draw();
 
