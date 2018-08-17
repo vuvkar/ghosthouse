@@ -45,7 +45,7 @@ public class AssetLoader extends AssetManager {
 //        TexturePacker.process(settings,"textures",
 //                "packed", "game");
         atlas = new TextureAtlas(Gdx.files.internal ("packed/game.atlas"));
-//        empty = new Texture(Gdx.files.internal("textures/album1.png"));
+        empty = new Texture(Gdx.files.internal("textures/album1.png"));
 //        ATLAS_HEIGHT = atlas.getTextures().first().getHeight();
 //        ATLAS_WIDTH = atlas.getTextures().first().getWidth();
         loadGameData();

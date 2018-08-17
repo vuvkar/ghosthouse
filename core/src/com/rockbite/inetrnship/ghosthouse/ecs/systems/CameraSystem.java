@@ -53,6 +53,7 @@ public class CameraSystem extends EntitySystem {
         cam = new PerspectiveCamera(87, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
         cam.position.set(rooms.get(0).origin.x + rooms.get(0).width / 2f, rooms.get(0).origin.y + rooms.get(0).height / 2f, (float) dist(angle(Gdx.graphics.getWidth(), Gdx.graphics.getHeight(), 67), rooms.get(0).width + rooms.get(0).width / 5f) + 3);
 
+        cameraComponent = new CameraComponent();
         camController = new CameraInputController(cam);
         Gdx.input.setInputProcessor(camController);
         stage.getViewport().setCamera(cam);

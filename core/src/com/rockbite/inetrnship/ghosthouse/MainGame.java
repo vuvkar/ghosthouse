@@ -94,10 +94,17 @@ public class MainGame {
         ghost.getComponent(PositionComponent.class).setXYZ(ghostPosition);
         multiplexer.addProcessor(ghostHouse.mainUI);
         multiplexer.addProcessor(inputController);
-        //Gdx.input.setInputProcessor(multiplexer);
+        Gdx.input.setInputProcessor(multiplexer);
 
 
         engine.addEntity(ghost);
+
+    }
+
+    public void moveToRoom(int count) {
+        for(int i = 0; i < count; i++) {
+            getBuilding().getCurrentRoom().leaveRoom();
+        }
     }
 
     public void leavedRoom() {
@@ -109,6 +116,14 @@ public class MainGame {
 
     public  void  startGame() {
         building.getCurrentRoom().roomStarted();
+        Timer timer = new Timer();
+        timer.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                moveToRoom(1);
+            }
+        }, 1000);
+
     }
 
     public void render() {

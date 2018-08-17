@@ -1,5 +1,7 @@
 package com.rockbite.inetrnship.ghosthouse.data;
 
+import com.rockbite.inetrnship.ghosthouse.MiniGames.KillTheBugs.KillBugs;
+
 public class Room3 extends Room {
 
     final int POLKA = 25;
@@ -11,11 +13,12 @@ public class Room3 extends Room {
     final int TAPOR = 39;
     final int DOOR = 10;
     final int DOOR_LEFT = 11;
+    final int BUG = 40;
 
     @Override
     public void roomStarted() {
-        //DIALOG FOR BED MINI GAME
         moveGhostTo(DOOR_LEFT);
+        setItemStatus(BUG, ItemType.NONTAKEABLE);
     }
 
     @Override
@@ -44,6 +47,17 @@ public class Room3 extends Room {
                         addToInventory(TAPOR_PART2);
                         break;
                     case NONTAKEABLE:
+                        break;
+                }
+            case BUG:
+                switch (getItemStatus(BUG)) {
+                    case STATIC:
+                        break;
+                    case TAKEABLE:
+                        break;
+                    case NONTAKEABLE:
+                        miniGame = new KillBugs();
+                        openMiniGame();
                         break;
                 }
         }
