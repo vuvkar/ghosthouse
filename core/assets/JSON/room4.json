@@ -1,5 +1,5 @@
 {
-  "class": "com.rockbite.inetrnship.ghosthouse.data.Room1",
+  "class": "com.rockbite.inetrnship.ghosthouse.data.Room4",
   "id": 0,
   "height": 10.0,
   "width": 17.0,
@@ -19,7 +19,6 @@
   ],
   "class": "com.badlogic.gdx.utils.Array",
   "objects": [
-    [
       {
         "class": "com.rockbite.inetrnship.ghosthouse.data.GameObject",
         "position": [
@@ -372,6 +371,5 @@
         "height": 4.4666667,
         "id": 16
       }
-    ]
   ]
 }

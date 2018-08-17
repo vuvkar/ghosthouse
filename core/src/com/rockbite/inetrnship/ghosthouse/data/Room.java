@@ -52,7 +52,7 @@ public abstract class Room implements Comparable<Room> {
                 item.add(new TextureComponent(object2.texture));
 
                 item.add(new PositionComponent(this.origin.x + object2.position[0],
-                        this.origin.y + object2.position[1] - this.height, object2.position[2]));
+                        this.origin.y + object2.position[1], object2.position[2]));
                 item.add(new RoomObjectComponent(this.id));
                 item.add(new ItemIdComponent(object2.id));
                 item.add(new ItemTypeComponent(ItemType.STATIC));

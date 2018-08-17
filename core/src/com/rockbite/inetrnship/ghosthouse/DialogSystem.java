@@ -76,13 +76,13 @@ public class DialogSystem {
 
     public void setDialogOn(boolean dialogOn) {
 
-        if(dialogOn) {
-            zibil = Gdx.input.getInputProcessor();
-            Gdx.input.setInputProcessor(stage);
-        }
-        else {
-            Gdx.input.setInputProcessor(zibil);
-        }
+//        if(dialogOn) {
+//            zibil = Gdx.input.getInputProcessor();
+//            Gdx.input.setInputProcessor(stage);
+//        }
+//        else {
+//            Gdx.input.setInputProcessor(zibil);
+//        }
 
         isDialogOn = dialogOn;
     }

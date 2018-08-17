@@ -1,5 +1,6 @@
 package com.rockbite.inetrnship.ghosthouse;
 
+import com.badlogic.ashley.core.Entity;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.Texture;
@@ -9,6 +10,7 @@ import com.badlogic.gdx.tools.texturepacker.TexturePacker;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Json;
 import com.rockbite.inetrnship.ghosthouse.data.*;
+import com.rockbite.inetrnship.ghosthouse.ecs.components.PositionComponent;
 import com.rockbite.inetrnship.ghosthouse.util.RoomParser;
 
 import java.io.BufferedReader;
@@ -33,13 +35,13 @@ public class AssetLoader extends AssetManager {
 
     public AssetLoader() {
 //       TODO: WARNING: DO NOT ATTEMPT TO DELETEEE!!!!!!!! Thanks :)
-        TexturePacker.Settings settings = new TexturePacker.Settings();
-        settings.maxHeight = 8192;
-        settings.maxWidth = 8192;
-        settings.wrapX = Texture.TextureWrap.Repeat;
-        settings.wrapY = Texture.TextureWrap.Repeat;
-        TexturePacker.process(settings,"textures",
-                "packed", "game");
+//        TexturePacker.Settings settings = new TexturePacker.Settings();
+//        settings.maxHeight = 8192;
+//        settings.maxWidth = 8192;
+//        settings.wrapX = Texture.TextureWrap.Repeat;
+//        settings.wrapY = Texture.TextureWrap.Repeat;
+//        TexturePacker.process(settings,"textures",
+//                "packed", "game");
         atlas = new TextureAtlas(Gdx.files.internal ("packed/game.atlas"));
 //        ATLAS_HEIGHT = atlas.getTextures().first().getHeight();
 //        ATLAS_WIDTH = atlas.getTextures().first().getWidth();
@@ -68,13 +70,39 @@ public class AssetLoader extends AssetManager {
         Room1 room1 = json.fromJson(Room1.class, Gdx.files.internal("JSON/room1.json"));
         Room2 room2 = json.fromJson(Room2.class, Gdx.files.internal("JSON/room2.json"));
         Room3 room3 = json.fromJson(Room3.class, Gdx.files.internal("JSON/room3.json"));
-        Room1 room4 = json.fromJson(Room1.class, Gdx.files.internal("JSON/room4.json"));
+        Room4 room4 = json.fromJson(Room4.class, Gdx.files.internal("JSON/room4.json"));
         Array<Room> newRooms = new Array<Room>();
         newRooms.add(room1, room2, room3, room4);
         for(Room room: newRooms) {
             room.loadEntities();
         }
+        for(Entity entity: room1.items) {
+            PositionComponent pos = entity.getComponent(PositionComponent.class);
+            pos.setY(pos.getY() - room1.height);
+        }
+
+        for(Entity entity: room2.items) {
+            PositionComponent pos = entity.getComponent(PositionComponent.class);
+            pos.setY(pos.getY() - room2.height);
+        }
+
+        for(Entity entity: room3.items) {
+            PositionComponent pos = entity.getComponent(PositionComponent.class);
+            pos.setY(pos.getY() - room3.height);
+        }
+
+        for(Entity entity: room4.items) {
+            PositionComponent pos = entity.getComponent(PositionComponent.class);
+            pos.setY(pos.getY() - 2 * room4.height);
+            pos.setX(pos.getX() + room4.width);
+        }
+
+
         rooms = newRooms;
+    }
+
+    private void configureRoomItemPosition() {
+
     }
 
     public static TextureAtlas.AtlasRegion getRegion(String name) {

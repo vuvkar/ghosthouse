@@ -252,6 +252,7 @@ public class Room2 extends Room {
                 if (sprayPercent == 6) {
                     spray1.play(Room.soundVolume);
                     DialogSystem.dialogSystem.startDialog(InGameTexts.spraydone, 1.5f, 0.5f, 0f);
+                    leaveRoom();
                 }
             }
         }

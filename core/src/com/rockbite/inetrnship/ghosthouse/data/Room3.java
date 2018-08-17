@@ -10,10 +10,12 @@ public class Room3 extends Room {
     final int GLUED_TAPOR = 38;
     final int TAPOR = 39;
     final int DOOR = 10;
+    final int DOOR_LEFT = 11;
 
     @Override
     public void roomStarted() {
         //DIALOG FOR BED MINI GAME
+        moveGhostTo(DOOR_LEFT);
     }
 
     @Override

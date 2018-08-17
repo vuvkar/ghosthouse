@@ -17,7 +17,7 @@
     200,
     200
   ],
-  "class": "com.rockbite.inetrnship.ghosthouse.data.GameObject",
+  "class": "com.badlogic.gdx.utils.Array",
   "objects": [
     {
       "class": "com.rockbite.inetrnship.ghosthouse.data.GameObject",
