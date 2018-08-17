@@ -4,6 +4,7 @@ import com.badlogic.ashley.core.Engine;
 import com.badlogic.ashley.core.Entity;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputMultiplexer;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.utils.Array;
@@ -16,9 +17,6 @@ import com.rockbite.inetrnship.ghosthouse.ecs.systems.CameraSystem;
 import com.rockbite.inetrnship.ghosthouse.ecs.systems.RenderSystem;
 import com.rockbite.inetrnship.ghosthouse.util.HelperClass;
 
-import java.util.Timer;
-import java.util.TimerTask;
-
 
 public class MainGame {
     public Entity ghost = HelperClass.createGhost(new Vector3(0, 0, 0));
@@ -29,6 +27,8 @@ public class MainGame {
     private AssetLoader assetLoader;
     public InputController inputController;
     private SaveDataLoader saveDataLoader;
+    private Music music;
+
 public boolean boom=false;
     public static boolean miniGameOn = false;
     private Array<Room> rooms;
@@ -49,7 +49,7 @@ public boolean boom=false;
     }
 
     public MainGame(GhostHouse ghostHouse) {
-
+        music = Gdx.audio.newMusic(Gdx.files.internal("sounds/backgroundmusic.mp3"));
         saveDataLoader = new SaveDataLoader();
 
         this.ghostHouse = ghostHouse;
@@ -116,13 +116,15 @@ public boolean boom=false;
 
     public  void  startGame() {
         building.getCurrentRoom().roomStarted();
-        Timer timer = new Timer();
-        timer.schedule(new TimerTask() {
-            @Override
-            public void run() {
-                moveToRoom(3);
-            }
-        }, 1000);
+        music.setLooping(true);
+        music.play();
+       // Timer timer = new Timer();
+//        timer.schedule(new TimerTask() {
+//            @Override
+//            public void run() {
+//                moveToRoom(3);
+//            }
+//        }, 1000);
 
     }
 
