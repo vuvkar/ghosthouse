@@ -272,11 +272,12 @@ public class Room2 extends Room {
                     spray1.play(Room.soundVolume);
                     DialogSystem.dialogSystem.startDialog(InGameTexts.spraydone, 1.5f, 0.5f, 0f);
                     Timer timer = new Timer();
+                    leaveRoom();
                     timer.schedule(new TimerTask() {
                         @Override
                         public void run() {
 
-                            leaveRoom();
+
                         }
                     }, 2000);
 

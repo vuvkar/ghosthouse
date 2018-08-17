@@ -9,6 +9,7 @@ public class Room4 extends Room {
     @Override
     public void roomStarted() {
         //tipadialog
+        moveGhostTo(2);
         setItemStatus(PLITA,ItemType.NONTAKEABLE);
         DialogSystem.dialogSystem.startDialog(InGameTexts.startr1 + "\n" + InGameTexts.startr2, 3f, 0.5f, 0.3f);
     }
