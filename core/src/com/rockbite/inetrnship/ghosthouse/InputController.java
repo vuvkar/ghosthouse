@@ -63,7 +63,19 @@ public class InputController implements InputProcessor {
 
         AnimationComponent animationComponent = ghostHouse.mainGame.ghost.getComponent(AnimationComponent.class);
         PositionComponent positionComponent = ghostHouse.mainGame.ghost.getComponent(PositionComponent.class);
+        if(!isMoving) {
+            if(positionComponent.getX() > moveTarget.x) {
+                flip(AnimationComponent.LEFT, animationComponent, positionComponent);
 
+
+            }
+            else {
+                animationComponent.flip(AnimationComponent.RIGHT);
+                flip(AnimationComponent.RIGHT, animationComponent, positionComponent);
+            }
+
+            animationComponent.setState(AnimationComponent.moveGhost, true);
+        }
         //moveTarget.set(ClickPos);
         if (moveTarget.x >= ghostHouse.assetLoader.getRooms().get(CameraSystem.target).origin.x + ghostHouse.assetLoader.getRooms().get(CameraSystem.target).width - ghostHouse.mainGame.ghost.getComponent(AnimationComponent.class).size.x / 2) {
             moveTarget.x = ghostHouse.assetLoader.getRooms().get(CameraSystem.target).origin.x + ghostHouse.assetLoader.getRooms().get(CameraSystem.target).width - ghostHouse.mainGame.ghost.getComponent(AnimationComponent.class).size.x / 2;
@@ -71,8 +83,8 @@ public class InputController implements InputProcessor {
         if (moveTarget.y <= ghostHouse.assetLoader.getRooms().get(CameraSystem.target).origin.y) {
             moveTarget.y = ghostHouse.assetLoader.getRooms().get(CameraSystem.target).origin.y;
         }
-        if (moveTarget.x <= ghostHouse.assetLoader.getRooms().get(CameraSystem.target).origin.x) {
-            moveTarget.x = ghostHouse.assetLoader.getRooms().get(CameraSystem.target).origin.x;
+        if (moveTarget.x <= ghostHouse.assetLoader.getRooms().get(CameraSystem.target).origin.x+ghostHouse.mainGame.ghost.getComponent(AnimationComponent.class).size.x/2) {
+            moveTarget.x = ghostHouse.assetLoader.getRooms().get(CameraSystem.target).origin.x+ghostHouse.mainGame.ghost.getComponent(AnimationComponent.class).size.x/2;
         }
         if (moveTarget.y >= ghostHouse.assetLoader.getRooms().get(CameraSystem.target).origin.y + ghostHouse.assetLoader.getRooms().get(CameraSystem.target).height-ghostHouse.mainGame.ghost.getComponent(AnimationComponent.class).size.y) {
             moveTarget.y = ghostHouse.assetLoader.getRooms().get(CameraSystem.target).origin.y + ghostHouse.assetLoader.getRooms().get(CameraSystem.target).height - ghostHouse.mainGame.ghost.getComponent(AnimationComponent.class).size.y;
@@ -88,16 +100,7 @@ public class InputController implements InputProcessor {
             indexAndMax[1] = 0;
 
         } else {
-            if(!isMoving) {
-                if(positionComponent.getX() > moveTarget.x) {
-                    animationComponent.flip(AnimationComponent.LEFT);
-                }
-                else {
-                    animationComponent.flip(AnimationComponent.RIGHT);
-                }
 
-                animationComponent.setState(AnimationComponent.moveGhost, true);
-            }
             isMoving = true;
             dist.set(moveTarget.x - prevPosition.x,
                     moveTarget.y - prevPosition.y);
@@ -115,6 +118,8 @@ public class InputController implements InputProcessor {
             }
         }
     }
+
+
 
 
 
@@ -139,17 +144,25 @@ public class InputController implements InputProcessor {
 //            ghostHouse.mainGame.miniGameOn = true;
 //
 //        }
-//        if (keycode == Input.Keys.NUM_2) {
-//            //ghostHouse.mainGame.miniGame = new KillBugs();
-//            ghostHouse.mainGame.miniGameOn = true;
-//        }
-//        if (keycode == Input.Keys.NUM_3) {
-//            ghostHouse.mainUI.removeItem(47);
-//        }
+
 
         return true;
     }
 
+    public void flip(boolean dir, AnimationComponent animationComponent, PositionComponent positionComponent){
+        if(dir==AnimationComponent.RIGHT && AnimationComponent.DIR==AnimationComponent.LEFT) {
+
+            animationComponent.flip(AnimationComponent.RIGHT);
+            positionComponent.setX(positionComponent.getX() + animationComponent.size.x/2f);
+            AnimationComponent.DIR=AnimationComponent.RIGHT;
+        }
+        else if(dir!=AnimationComponent.RIGHT && AnimationComponent.DIR==AnimationComponent.RIGHT){
+            animationComponent.flip(AnimationComponent.LEFT);
+            positionComponent.setX(positionComponent.getX() - animationComponent.size.x/2f);
+            AnimationComponent.DIR=AnimationComponent.LEFT;
+        }
+
+    }
     @Override
     public boolean keyUp(int keycode) {
         return false;
@@ -163,6 +176,9 @@ public class InputController implements InputProcessor {
     @Override
     public boolean touchDown(int screenX, int screenY, int pointer, int button) {
         //If intersects the objects' mesh
+        if(isMoving){
+            return true;
+        }
         ClickPos.set(Gdx.input.getX(), Gdx.input.getY(), 0);
         if(ghostHouse.mainUI.gameison) {
             if (isIntersected()) {

@@ -2,7 +2,9 @@ package com.rockbite.inetrnship.ghosthouse.data;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Sound;
+import com.badlogic.gdx.math.Vector3;
 import com.rockbite.inetrnship.ghosthouse.DialogSystem;
+import com.rockbite.inetrnship.ghosthouse.GhostHouse;
 
 import java.util.Timer;
 import java.util.TimerTask;
@@ -51,28 +53,18 @@ public class Room2 extends Room {
 
     @Override
     public void roomStarted() {
+
         moveGhostTo(PILLOW);
         Timer timer = new Timer();
         timer.schedule(new TimerTask() {
             @Override
             public void run() {
                 DialogSystem.dialogSystem.startDialog(InGameTexts.startr1 + "\n" + InGameTexts.startr2, 3f, 0.5f, 0.3f);
-                Timer create = new Timer();
-                create.schedule(new TimerTask() {
-                    public void run() {
-                        changeTexture(4, "door2withbug");
-                        DialogSystem.dialogSystem.startDialog(InGameTexts.bug1 + "\n" + InGameTexts.bug3, 3f, 0.5f, 0.2f);
-                        Timer create2 = new Timer();
-                        create2.schedule(new TimerTask() {
-                            public void run() {
-                                changeTexture(4, "door2");
-                            }
-                        }, 7000);
-                    }
-                }, 4000);
+
+
             }
         }, 1000);
-        setItemStatus(PAPER, ItemType.TAKEABLE);
+
 
     }
 
@@ -100,6 +92,33 @@ public class Room2 extends Room {
                         setItemStatus(PAPER, ItemType.STATIC);
                         break;
                     case NONTAKEABLE:
+                        break;
+                }
+                break;
+            case DOOR:
+                switch (getItemStatus(DOOR)) {
+                    case STATIC:
+                        System.out.println("VAXXXX");
+                                Timer create = new Timer();
+                                create.schedule(new TimerTask() {
+                                    public void run() {
+                                        changeTexture(4, "door2withbug");
+                                        DialogSystem.dialogSystem.startDialog(InGameTexts.bug1 + "\n" + InGameTexts.bug3, 3f, 0.5f, 0.2f);
+                                        Timer create2 = new Timer();
+                                        create2.schedule(new TimerTask() {
+                                            public void run() {
+                                                changeTexture(4, "door2");
+                                            }
+                                        }, 4000);
+                                    }
+                                }, 100);
+                        moveGhostTo(PILLOW);
+                        setItemStatus(PAPER, ItemType.TAKEABLE);
+                        break;
+                    case TAKEABLE:
+                        break;
+                    case NONTAKEABLE:
+
                         break;
                 }
                 break;
@@ -234,9 +253,9 @@ public class Room2 extends Room {
 
     @Override
     public void itemWasDragged(int fromInventory, int toRoomItem) {
-        if (fromInventory == SEKATOR && toRoomItem == EUCALYPTUS)
+        if (fromInventory == SEKATOR && toRoomItem == EUCALYPTUS){
+
             sekator.play(Room.soundVolume);
-        {
             addToInventory(LEAF);
             setItemStatus(EUCALYPTUS, ItemType.TAKEABLE);
             removeFromInventory(SEKATOR);
@@ -252,7 +271,15 @@ public class Room2 extends Room {
                 if (sprayPercent == 6) {
                     spray1.play(Room.soundVolume);
                     DialogSystem.dialogSystem.startDialog(InGameTexts.spraydone, 1.5f, 0.5f, 0f);
-                    leaveRoom();
+                    Timer timer = new Timer();
+                    timer.schedule(new TimerTask() {
+                        @Override
+                        public void run() {
+
+                            leaveRoom();
+                        }
+                    }, 2000);
+
                 }
             }
         }

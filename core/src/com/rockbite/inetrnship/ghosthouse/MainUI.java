@@ -64,6 +64,7 @@ public class MainUI extends Stage {
     @Override
     public void act() {
         //inventory.setDebug(true, true);
+        slots.setDebug(true, true);
     }
 
     @Override
@@ -169,7 +170,7 @@ public class MainUI extends Stage {
         Text.getChildren().get(0).setScale(scalex, scaley);
 
 
-        right.add(hint).width(hint.getPrefWidth() * scalex).height(hint.getPrefHeight() * scaley).padTop(5).padRight(distscalex * 14);
+        right.add(hint).width(hint.getPrefWidth() * scalex).height(hint.getPrefHeight() * scaley).padTop(distscaley*5).padRight(distscalex * 14);
         right.top().right();
 
         stop.add(StopB).width(StopB.getPrefWidth() * scalex).height(StopB.getPrefHeight() * scaley).padLeft(distscalex * 14).padBottom(distscaley * 7);
@@ -349,7 +350,7 @@ public class MainUI extends Stage {
         if (AssetLoader.getRegion(inventoryItem.texture.texture).packedWidth >= AssetLoader.getRegion(inventoryItem.texture.texture).packedHeight) {
             inventory.getChildren().get(numberItem - 1).setScale(40 / (float) AssetLoader.getRegion(inventoryItem.texture.texture).packedWidth * distscalex);
 
-            inventory.getChildren().get(numberItem - 1).setPosition(slots.getChildren().get(numberItem - 1).getX() + slots.getChildren().get(numberItem - 1).getWidth() * scalex / 2f - 20 * distscalex, 4.5f);
+            inventory.getChildren().get(numberItem - 1).setPosition(slots.getChildren().get(numberItem - 1).getX() + slots.getChildren().get(numberItem - 1).getWidth() * scalex / 2f - 20 * distscalex, 5.5f);
         }
         if (AssetLoader.getRegion(inventoryItem.texture.texture).packedWidth <= AssetLoader.getRegion(inventoryItem.texture.texture).packedHeight) {
             inventory.getChildren().get(numberItem - 1).setScale(45 / (float) AssetLoader.getRegion(inventoryItem.texture.texture).packedHeight * distscaley);
