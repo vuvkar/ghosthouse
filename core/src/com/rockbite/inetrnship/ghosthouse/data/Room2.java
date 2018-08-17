@@ -63,11 +63,13 @@ public class Room2 extends Room
         timer.schedule(new TimerTask() {
             @Override
             public void run() {
-                DialogSystem.dialogSystem.startDialog(InGameTexts.startr1 + "\n" + InGameTexts.startr2, 3f, 0.5f, 0.2f);
+                DialogSystem.dialogSystem.startDialog(InGameTexts.startr1 + "\n" + InGameTexts.startr2, 3f, 0.5f, 0.3 f);
                 Timer create = new Timer();
                 create.schedule(new TimerTask() {
                     public void run() {
                         changeTexture(4, "door2withbug");
+                        DialogSystem.dialogSystem.startDialog(InGameTexts.bug1 + "\n" + InGameTexts.bug3, 3f, 0.5f, 0.2f);
+
                     }
                 }, 4000);
             }
