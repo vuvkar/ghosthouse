@@ -26,13 +26,10 @@ public class Puzzle extends MiniGame {
     }
 
     public void create() {
-        stage = new Stage(new ScreenViewport());
-
         // create environment
         PuzzleActor fog = new PuzzleActor(new Texture(Gdx.files.internal("MiniGame/fog.png")), 0, 0, 0, 0, "fog");
         stage.addActor(fog);
         stage.setKeyboardFocus(fog);
-
 
         Texture background = new Texture(Gdx.files.internal("MiniGame/background2.png"));
         float width = Gdx.graphics.getWidth() / 2 - background.getWidth() / 2;

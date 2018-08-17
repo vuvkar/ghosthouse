@@ -120,7 +120,7 @@ public class MainGame {
         timer.schedule(new TimerTask() {
             @Override
             public void run() {
-                moveToRoom(1);
+                moveToRoom(2);
             }
         }, 1000);
 

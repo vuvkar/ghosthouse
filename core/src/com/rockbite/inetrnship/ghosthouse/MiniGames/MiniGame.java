@@ -8,7 +8,7 @@ import com.rockbite.inetrnship.ghosthouse.MainUI;
 import com.rockbite.inetrnship.ghosthouse.MiniGames.Puzzle.Puzzle;
 
 public abstract class MiniGame {
-    public Stage stage;
+    public Stage stage = new Stage();
     public MainGame mainGame;
     public abstract  void create();
     public abstract  void load();
