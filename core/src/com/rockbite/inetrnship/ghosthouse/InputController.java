@@ -134,16 +134,6 @@ public class InputController implements InputProcessor {
 
     @Override
     public boolean keyDown(int keycode) {
-//        if (keycode == Input.Keys.NUM_0)
-//            ghostHouse.mainUI.deleteItem(0);
-//        // ghostHouse.mainUI.removeItem(0);
-//
-//        if (keycode == Input.Keys.NUM_1) {
-//            //  ghostHouse.mainUI.deleteItem(1);
-//            //ghostHouse.mainGame.miniGame = new Puzzle();
-//            ghostHouse.mainGame.miniGameOn = true;
-//
-//        }
 
 
         return true;
@@ -247,9 +237,7 @@ public class InputController implements InputProcessor {
 
     @Override
     public boolean mouseMoved(int screenX, int screenY) {
-//        if(Gdx.input.isKeyPressed(Input.Keys.B)){
-//            ghostHouse.mainUI.deleteItem(5);
-//        }
+
         return false;
     }
 

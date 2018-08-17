@@ -72,7 +72,7 @@ public class MainUI extends Stage {
     }
 
     public void setUI() {
-        Label.LabelStyle label1Style = new Label.LabelStyle();
+
 
 
         Table bar = new Table();
@@ -146,9 +146,16 @@ public class MainUI extends Stage {
         patch.setMiddleHeight(176 - patch.getTotalHeight() + patch.getMiddleHeight());
 
         Image Patch = new Image(patch);
+Patch.addListener(new ClickListener() {
 
+            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+
+                return true;
+            }
+        });
         bar.add(Patch).padRight(distscalex * 2).padLeft(distscalex * 2).padBottom(distscaley * 1).width(Patch.getPrefWidth() * scalex).height(Patch.getPrefHeight() * scaley);
         bar.bottom();
+
 
         BAR_HEIGHT = bar.getChildren().first().getHeight();
 
@@ -188,7 +195,7 @@ public class MainUI extends Stage {
         play.add(PlayB).width(PlayB.getPrefWidth() * scalex).height(PlayB.getPrefHeight() * scaley).padLeft(distscalex * 14).padBottom(distscaley * 7);
         play.bottom().left();
         play.setVisible(false);
-//        play.setTouchable(Touchable.disabled);
+
         play.getChildren().get(0).addListener(new ClickListener() {
 
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
@@ -318,22 +325,7 @@ public class MainUI extends Stage {
         Gdx.input.setInputProcessor(this);
     }
 
-    public void deleteItem(int i) {
-        if (numberItem > i) {
-            Vector2 emptyPlace = new Vector2(inventory.getChildren().get(i).getX(), inventory.getChildren().get(i).getY());
-            Vector2 temp = new Vector2(0, 0);
-            inventory.removeActor(inventory.getChildren().get(i));
-            numberItem--;
-            for (; i < numberItem; i++) {
-                temp.set(inventory.getChildren().get(i).getX(), inventory.getChildren().get(i).getY());
-                inventory.getChildren().get(i).setPosition(emptyPlace.x, emptyPlace.y);
-                if (i < rangeShowing.x || i > rangeShowing.y)
-                    inventory.getChildren().get(i).setVisible(false);
 
-                emptyPlace.set(temp.x, temp.y);
-            }
-        }
-    }
 
     public void addItem(final InventoryItem inventoryItem) {
         inventoryItem.placeInInventory = numberItem;
