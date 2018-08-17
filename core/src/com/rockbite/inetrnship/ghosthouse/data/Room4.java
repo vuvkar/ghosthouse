@@ -1,16 +1,20 @@
 package com.rockbite.inetrnship.ghosthouse.data;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.glutils.ShaderProgram;
 import com.rockbite.inetrnship.ghosthouse.DialogSystem;
 
 public class Room4 extends Room {
     final int PLITA = 10;
+    Sound explosion;
     public ShaderProgram shaderProgram;
     @Override
     public void roomStarted() {
+        explosion = Gdx.audio.newSound (Gdx.files.internal("sounds/explosion.mp3"));
         //tipadialog
         setItemStatus(PLITA,ItemType.NONTAKEABLE);
-        DialogSystem.dialogSystem.startDialog(InGameTexts.startr1 + "\n" + InGameTexts.startr2, 3f, 0.5f, 0.3f);
+        DialogSystem.dialogSystem.startDialog(InGameTexts.room4 + "\n" + InGameTexts.room41, 3f, 0.5f, 0.3f);
     }
 
     @Override
@@ -23,6 +27,7 @@ public class Room4 extends Room {
                     case TAKEABLE:
                         break;
                     case NONTAKEABLE:
+                        explosion.play(Room.soundVolume);
                         shaderProgram.setUniformf("u_lightColor",255,0,0);
                 }
         }
