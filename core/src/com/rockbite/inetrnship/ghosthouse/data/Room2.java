@@ -63,7 +63,7 @@ public class Room2 extends Room
         timer.schedule(new TimerTask() {
             @Override
             public void run() {
-                DialogSystem.dialogSystem.startDialog(InGameTexts.startr1 + "\n" + InGameTexts.startr2, 3f, 0.5f, 0.3f);
+                DialogSystem.dialogSystem.startDialog(InGameTexts.startr1 + "\n" + InGameTexts.startr2, 3f, 0.5f, 0.3 f);
                 Timer create = new Timer();
                 create.schedule(new TimerTask() {
                     public void run() {
