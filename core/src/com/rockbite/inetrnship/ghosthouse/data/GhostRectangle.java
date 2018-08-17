@@ -1,23 +1,24 @@
 package com.rockbite.inetrnship.ghosthouse.data;
 
 import com.badlogic.gdx.math.Vector3;
-import com.rockbite.inetrnship.ghosthouse.AssetLoader;
+
 
 public class GhostRectangle implements Comparable<GhostRectangle> {
 
     private Vector3 normal;
-   // private RectangleType type;
+
     private float width;
     private float height;
     private float x;
     private float y;
     private float z;
-    private String texture;
-    private String normalMap;
     private float uOrigin;
     private float vOrigin;
     private float uWidth;
     private float vHeight;
+
+    private String texture;
+    private String normalMap;
 
     public float getuOrigin() {
         return uOrigin;
@@ -69,7 +70,6 @@ public class GhostRectangle implements Comparable<GhostRectangle> {
 
     public GhostRectangle(GhostRectangle other) {
         this.normal = other.normal;
-       // this.type = other.type;
         this.width = other.width;
         this.height = other.height;
         this.x = other.x;
@@ -80,16 +80,16 @@ public class GhostRectangle implements Comparable<GhostRectangle> {
         this.uWidth = other.uWidth;
         this.vHeight = other.vHeight;
         this.texture = other.texture;
-        this.normalMap=other.normalMap;
+        this.normalMap = other.normalMap;
     }
 
     public void setNormal(Vector3 normal) {
         this.normal = normal;
     }
 
-   // public void setType(RectangleType type) {
-     //   this.type = type;
-  //  }
+    // public void setType(RectangleType type) {
+    //   this.type = type;
+    //  }
 
     public void setWidth(float width) {
         this.width = width;
@@ -113,12 +113,11 @@ public class GhostRectangle implements Comparable<GhostRectangle> {
 
 
     public GhostRectangle() {
-      //  this.type = type;
         this.uOrigin = 0;
         this.vOrigin = 0;
         this.uWidth = 1f;
         this.vHeight = 1f;
-        this.normalMap="normal";
+        this.normalMap = "normal";
     }
 
     public Vector3 getNormal() {

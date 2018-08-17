@@ -51,19 +51,16 @@ public class Room2 extends Room {
 
     @Override
     public void roomStarted() {
-
         moveGhostTo(PILLOW);
+
         Timer timer = new Timer();
+
         timer.schedule(new TimerTask() {
             @Override
             public void run() {
                 DialogSystem.dialogSystem.startDialog(InGameTexts.startr1 + "\n" + InGameTexts.startr2, 3f, 0.5f, 0.3f);
-
-
             }
         }, 1000);
-
-
     }
 
     @Override
@@ -93,23 +90,23 @@ public class Room2 extends Room {
                         break;
                 }
                 break;
+
             case DOOR:
                 switch (getItemStatus(DOOR)) {
                     case STATIC:
-                        System.out.println("VAXXXX");
-                                Timer create = new Timer();
-                                create.schedule(new TimerTask() {
+                        Timer create = new Timer();
+                        create.schedule(new TimerTask() {
+                            public void run() {
+                                changeTexture(4, "door2withbug");
+                                DialogSystem.dialogSystem.startDialog(InGameTexts.bug1 + "\n" + InGameTexts.bug3, 3f, 0.5f, 0.2f);
+                                Timer create2 = new Timer();
+                                create2.schedule(new TimerTask() {
                                     public void run() {
-                                        changeTexture(4, "door2withbug");
-                                        DialogSystem.dialogSystem.startDialog(InGameTexts.bug1 + "\n" + InGameTexts.bug3, 3f, 0.5f, 0.2f);
-                                        Timer create2 = new Timer();
-                                        create2.schedule(new TimerTask() {
-                                            public void run() {
-                                                changeTexture(4, "door2");
-                                            }
-                                        }, 4000);
+                                        changeTexture(4, "door2");
                                     }
-                                }, 100);
+                                }, 4000);
+                            }
+                        }, 100);
 
                         setItemStatus(PAPER, ItemType.TAKEABLE);
                         break;
@@ -120,6 +117,7 @@ public class Room2 extends Room {
                         break;
                 }
                 break;
+
             case SPRAY_BOTTLE:
                 switch (getItemStatus(SPRAY_BOTTLE)) {
                     case STATIC:
@@ -136,6 +134,7 @@ public class Room2 extends Room {
                         break;
                 }
                 break;
+
             case RED_BOTTLE:
                 switch (getItemStatus(RED_BOTTLE)) {
                     case STATIC:
@@ -153,6 +152,7 @@ public class Room2 extends Room {
                         break;
                 }
                 break;
+
             case DRUG_BOTTLE:
                 switch (getItemStatus(DRUG_BOTTLE)) {
                     case STATIC:
@@ -169,6 +169,7 @@ public class Room2 extends Room {
                         break;
                 }
                 break;
+
             case YELLOW_BOTTLE:
                 switch (getItemStatus(YELLOW_BOTTLE)) {
                     case STATIC:
@@ -185,6 +186,7 @@ public class Room2 extends Room {
                         break;
                 }
                 break;
+
             case JEANS:
                 switch (getItemStatus(JEANS)) {
                     case STATIC:
@@ -201,6 +203,7 @@ public class Room2 extends Room {
                         break;
                 }
                 break;
+
             case WARDROBE:
                 switch (getItemStatus(WARDROBE)) {
                     case STATIC:
@@ -217,6 +220,7 @@ public class Room2 extends Room {
                         break;
                 }
                 break;
+
             case EUCALYPTUS:
                 switch (getItemStatus(EUCALYPTUS)) {
                     case STATIC:
@@ -230,6 +234,7 @@ public class Room2 extends Room {
                         break;
                 }
                 break;
+
             case PILLOW:
                 switch (getItemStatus(PILLOW)) {
                     case STATIC:
@@ -251,8 +256,7 @@ public class Room2 extends Room {
 
     @Override
     public void itemWasDragged(int fromInventory, int toRoomItem) {
-        if (fromInventory == SEKATOR && toRoomItem == EUCALYPTUS){
-
+        if (fromInventory == SEKATOR && toRoomItem == EUCALYPTUS) {
             sekator.play(Room.soundVolume);
             addToInventory(LEAF);
             setItemStatus(EUCALYPTUS, ItemType.TAKEABLE);

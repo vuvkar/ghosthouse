@@ -34,10 +34,10 @@ public class Room3 extends Room {
                         setItemStatus(POLKA, ItemType.STATIC);
                         addToInventory(TAPOR_PART1);
                         if (getItemStatus(TUMBCHKA) == ItemType.STATIC) {
-                            //TR
                         }
                         break;
                 }
+
             case TUMBCHKA:
                 switch (getItemStatus(TUMBCHKA)) {
                     case STATIC:
@@ -49,6 +49,7 @@ public class Room3 extends Room {
                     case NONTAKEABLE:
                         break;
                 }
+
             case BUG:
                 switch (getItemStatus(BUG)) {
                     case STATIC:
@@ -61,7 +62,6 @@ public class Room3 extends Room {
                         break;
                 }
         }
-
     }
 
     @Override
@@ -89,11 +89,16 @@ public class Room3 extends Room {
 
     @Override
     public void miniGameWasClosed(boolean hasWon) {
-
+        if (miniGame instanceof KillBugs) {
+            if (hasWon) {
+                removeFromInventory(0); // 0 spray index
+            } else {
+                //FIXME LILI: stex gri tox hacha vor noric porci xaxa ed miniqaqy
+            }
+        }
     }
 
     @Override
     public void itemWasClickedOnInventory(int itemID) {
-
     }
 }

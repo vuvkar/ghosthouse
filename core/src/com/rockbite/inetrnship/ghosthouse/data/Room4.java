@@ -1,5 +1,6 @@
 package com.rockbite.inetrnship.ghosthouse.data;
 
+
 public class Room4 extends Room {
     @Override
     public void roomStarted() {

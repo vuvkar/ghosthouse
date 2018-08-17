@@ -67,7 +67,6 @@ public class GhostBuilding {
             newOrigin.add(moveZeroX, moveZeroY);
 
             room.origin = newOrigin;
-
             room.height = room.height + WALL_HEIGHT * MathUtils.sinDeg(225f);
             room.width = room.width + WALL_HEIGHT * MathUtils.cosDeg(225f);
         }
@@ -200,9 +199,11 @@ public class GhostBuilding {
         for (Room room : rooms) {
             //top
             GhostRectangle top = new GhostRectangle();
+
             top.setTexture(room.ceilingTexture);
             top.setWidth(room.width);
             top.setHeight(BUILDING_DEPTH);
+
             Vector3 topNormal = new Vector3(0, -1, 0);
             top.setNormal(topNormal);
 
@@ -212,33 +213,42 @@ public class GhostBuilding {
 
             //bottom
             GhostRectangle bottom = new GhostRectangle();
+
             bottom.setTexture(room.floorTexture);
             bottom.setWidth(room.width);
             bottom.setHeight(BUILDING_DEPTH);
+
             Vector3 bottomNormal = new Vector3(0, 1, 0);
             bottom.setNormal(bottomNormal);
+
             bottom.setX(room.origin.x);
             bottom.setY(room.origin.y);
             result.add(bottom);
 
             //left
             GhostRectangle left = new GhostRectangle();
+
             left.setTexture(room.sideWallTexture);
             left.setWidth(BUILDING_DEPTH);
             left.setHeight(room.height);
+
             Vector3 leftNormal = new Vector3(1, 0, 0);
             left.setNormal(leftNormal);
+
             left.setX(room.origin.x);
             left.setY(room.origin.y);
             result.add(left);
 
             //right
             GhostRectangle right = new GhostRectangle();
+
             right.setTexture(room.sideWallTexture);
             right.setWidth(BUILDING_DEPTH);
             right.setHeight(room.height);
+
             Vector3 rightNormal = new Vector3(-1, 0, 0);
             right.setNormal(rightNormal);
+
             right.setX(room.origin.x + room.width);
             right.setY(room.origin.y);
             result.add(right);
@@ -262,12 +272,14 @@ public class GhostBuilding {
                     GhostLine fragment = new GhostLine(current.getY(), current.getX(),
                             room.origin.x - current.getX());
                     lines.add(fragment);
+
                     current.setX(room.origin.x + room.width);
                     current.setLength(current.getLength() - fragment.getLength());
                     current.setLength(current.getLength() - room.width);
                 }
             }
         }
+
         return lines;
     }
 
@@ -281,8 +293,8 @@ public class GhostBuilding {
             GhostLine current = lines.get(i);
 
             GhostRectangle rect = new GhostRectangle();
-            rect.setTexture("wall");
 
+            rect.setTexture("wall");
             rect.setNormal(new Vector3(0f, 0f, 1f));
             rect.setWidth(current.getLength());
             rect.setHeight(currentLevel - current.getY());
@@ -298,11 +310,13 @@ public class GhostBuilding {
                 }
             }
         }
+
         return result;
     }
 
     GhostRectangle createSky() {
         GhostRectangle sky = new GhostRectangle();
+
         sky.setTexture("sky");
         sky.setNormal(new Vector3(0f, 0f, 1f));
         sky.setZ(-1f);
@@ -310,6 +324,7 @@ public class GhostBuilding {
         sky.setY(buildingOrigin.y - SKY_OFFSET);
         sky.setWidth(buildingWidth + 2 * SKY_OFFSET);
         sky.setHeight(buildingHeight + 2 * SKY_OFFSET);
+
         return sky;
     }
 
@@ -339,9 +354,12 @@ public class GhostBuilding {
         Array<GhostRectangle> sliced = new Array<GhostRectangle>();
         for (int i = 0; i < rects.size; i++) {
             GhostRectangle rect = rects.get(i);
+
             int column = MathUtils.floor((rect.getX() - gridOrigin.x) / cellSize);
+
             if (rect.getWidth() > cellSize) {
                 GhostRectangle slicedRect = new GhostRectangle(rect);
+
                 slicedRect.setWidth((column + 1) * cellSize - rect.getX());
                 slicedRect.setuOrigin((slicedRect.getX() - column * cellSize) / cellSize);
                 slicedRect.setuWidht(1 - slicedRect.getuOrigin());
@@ -355,6 +373,7 @@ public class GhostBuilding {
                 sliced.add(rect);
             }
         }
+
         return sliced;
     }
 
@@ -374,13 +393,11 @@ public class GhostBuilding {
                 i--;
             } else {
                 rect.setvOrigin(((row + 1) * cellSize - (rect.getY() + rect.getHeight())) / cellSize);
-                if (rect.getvOrigin() < 0) {
-                    System.out.println("hello malmuao");
-                }
                 rect.setvHeight(rect.getHeight() / cellSize);
                 sliced.add(rect);
             }
         }
+
         return sliced;
     }
 }
