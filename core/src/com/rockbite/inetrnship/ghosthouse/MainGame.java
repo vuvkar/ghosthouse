@@ -116,13 +116,13 @@ public class MainGame {
 
     public  void  startGame() {
         building.getCurrentRoom().roomStarted();
-        Timer timer = new Timer();
-        timer.schedule(new TimerTask() {
-            @Override
-            public void run() {
-                moveToRoom(1);
-            }
-        }, 1000);
+//        Timer timer = new Timer();
+//        timer.schedule(new TimerTask() {
+//            @Override
+//            public void run() {
+//                moveToRoom(1);
+//            }
+//        }, 1000);
 
     }
 
@@ -146,7 +146,7 @@ public class MainGame {
             building.getCurrentRoom().miniGame.render();
         }
 
-        DialogSystem.dialogSystem.render();
+//        DialogSystem.dialogSystem.render();
 
         // DO postprocessing of FBO and render it to screen
         // TODO: final render
