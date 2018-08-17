@@ -27,7 +27,7 @@ public class MainGame {
     private AssetLoader assetLoader;
     public InputController inputController;
     private SaveDataLoader saveDataLoader;
-    private Music music;
+    public static Music music;
 
 public boolean boom=false;
     public static boolean miniGameOn = false;
@@ -119,13 +119,10 @@ public boolean boom=false;
         music.setVolume(0.5f);
         music.setLooping(true);
         music.play();
-       // Timer timer = new Timer();
-//        timer.schedule(new TimerTask() {
-//            @Override
-//            public void run() {
-//                moveToRoom(3);
-//            }
-//        }, 1000);
+
+
+        //moveToRoom(3);
+
 
     }
 

@@ -168,6 +168,8 @@ public class SettingsMusic {
                 if(musicGhostInd>0) {
                     musicGhostInd--;
                     mghost.setX(musicPos[musicGhostInd]);
+
+                    MainGame.music.setVolume((musicPos[musicGhostInd]-musicPos[0])/(musicPos[10]-musicPos[0]));
                 }
                 return true;
             }
@@ -181,6 +183,8 @@ public class SettingsMusic {
                 if(musicGhostInd<10) {
                     musicGhostInd++;
                     mghost.setX(musicPos[musicGhostInd]);
+
+                    MainGame.music.setVolume((musicPos[musicGhostInd]-musicPos[0])/(musicPos[10]-musicPos[0]));
                 }
                 return true;
             }

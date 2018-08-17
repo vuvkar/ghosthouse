@@ -96,7 +96,7 @@ public class Room1 extends Room {
                         setItemStatus(BEAR, ItemType.STATIC);
                         addToInventory(KEYPART1);
                         key.play(Room.soundVolume);
-                        DialogSystem.dialogSystem.startDialog(InGameTexts.napo2, 1.5f, 0.5f, 0f);
+
                         if (getItemStatus(CLOCK) == ItemType.STATIC) {
                             DialogSystem.dialogSystem.startDialog(InGameTexts.fullkey, 1.5f, 0.5f, 0f);
                         } else {
