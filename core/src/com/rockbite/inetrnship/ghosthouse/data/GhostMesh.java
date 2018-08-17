@@ -2,12 +2,19 @@ package com.rockbite.inetrnship.ghosthouse.data;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetManager;
+import com.badlogic.gdx.assets.loaders.resolvers.InternalFileHandleResolver;
 import com.badlogic.gdx.graphics.*;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g3d.Model;
+import com.badlogic.gdx.graphics.g3d.Renderable;
+import com.badlogic.gdx.graphics.g3d.particles.ParticleEffect;
+import com.badlogic.gdx.graphics.g3d.particles.ParticleEffectLoader;
+import com.badlogic.gdx.graphics.g3d.particles.ParticleSystem;
+import com.badlogic.gdx.graphics.g3d.particles.batches.BillboardParticleBatch;
 import com.badlogic.gdx.graphics.glutils.ShaderProgram;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.utils.Array;
+import com.badlogic.gdx.utils.FlushablePool;
 import com.esotericsoftware.spine.Slot;
 import com.esotericsoftware.spine.attachments.Attachment;
 import com.esotericsoftware.spine.attachments.MeshAttachment;
@@ -58,6 +65,19 @@ public class GhostMesh {
 
     public ShaderProgram shaderProgram;
 
+
+
+    public AssetManager particleAssets;
+    private ParticleEffect currentEffects;
+    private ParticleSystem particleSystem;
+    private FlushablePool<Renderable> pool;
+    private Array<Renderable> renderables;
+    private float[] tmpVertices;
+    private OrthographicCamera cam;
+    private float[] particleVertices;
+    private short[] particleIndices;
+
+
     boolean isCalculated = false;
 
     public GhostMesh(Array<GhostRectangle> rectangles, AssetLoader loader) {
@@ -95,6 +115,39 @@ public class GhostMesh {
         building.setIndices(buildingIndices);
 
         shaderProgram = new ShaderProgram(Gdx.files.internal("shaders/buildingShader.vert"), Gdx.files.internal("shaders/buildingShader.frag"));
+
+
+        cam = new OrthographicCamera(18.0f, 18.0f);
+//        tmpVertices = new float[32768];
+        particleIndices = new short[49146];
+        renderables = new Array<Renderable>();
+        pool = new FlushablePool<Renderable>() {
+            @Override
+            protected Renderable newObject() {
+                return new Renderable();
+            }
+        };
+
+        particleAssets = new AssetManager();
+
+        particleSystem = ParticleSystem.get();
+        BillboardParticleBatch pointSpriteBatch = new BillboardParticleBatch();
+        pointSpriteBatch.setCamera(cam);  //!!!!!
+        particleSystem = ParticleSystem.get();
+
+        particleSystem.add(pointSpriteBatch);
+        ParticleEffectLoader.ParticleEffectLoadParameter loadParam = new ParticleEffectLoader.ParticleEffectLoadParameter(particleSystem.getBatches());
+        ParticleEffectLoader particleLoader = new ParticleEffectLoader(new InternalFileHandleResolver());
+        particleAssets.setLoader(ParticleEffect.class, particleLoader );
+        particleAssets.load("snow.pfx", ParticleEffect.class, loadParam);
+        particleAssets.finishLoading();
+
+        currentEffects=particleAssets.get("snow.pfx",ParticleEffect.class).copy();
+        currentEffects.init();
+        currentEffects.start();
+        particleSystem.add(currentEffects);
+        currentEffects.scale(3f,1.6f,1);
+
     }
 
     public void renderAnimations(Array<Slot> animations) {
@@ -288,6 +341,47 @@ public class GhostMesh {
                 addModel(model);
             }
         }
+    }
+
+    public void renderParticles() {
+
+//        batch.begin(cam);
+
+        particleSystem.update();
+        particleSystem.begin();
+        particleSystem.draw();
+        particleSystem.end();
+        renderables.clear();
+        particleSystem.getRenderables(renderables, pool);
+        HelperClass.remapUVs(renderables.first().meshPart.mesh, AssetLoader.getRegion("rain"));
+
+//        batch.render(particleSystem);
+//        batch.end();
+
+        particleVertices = new float[32768];
+        tmpVertices = new float[32768];
+        renderables.first().meshPart.mesh.getVertices(tmpVertices);
+        renderables.first().meshPart.mesh.getIndices(particleIndices);
+
+        int a = 0;
+        for (int i=0; i<tmpVertices.length; i++) {
+            if(i%9!=8) {
+                particleVertices[a] = tmpVertices[i];
+                if(i%9==0)
+                    particleVertices[a] += 20;  // x
+                if(i%9==1)
+                    particleVertices[a] += 25;  // y
+                if(i%9==2)
+                    particleVertices[a] -= 5;  // z
+                if(i%9==5 || i%9==6)
+                    particleVertices[a] = 0;    // normal x,y
+                if(i%9==7)
+                    particleVertices[a] = 1;    // normal z
+                a++;
+            }
+        }
+
+
     }
 
     private void doneLoading() {

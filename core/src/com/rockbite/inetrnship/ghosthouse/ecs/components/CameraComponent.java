@@ -3,6 +3,7 @@ package com.rockbite.inetrnship.ghosthouse.ecs.components;
 import com.badlogic.ashley.core.Component;
 import com.badlogic.gdx.math.Vector3;
 
+
 public class CameraComponent implements Component {
 
     public Vector3 bottomLeft; //Lower-Left aka the midpoint of the room

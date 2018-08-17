@@ -9,6 +9,7 @@ import com.rockbite.inetrnship.ghosthouse.data.GhostMesh;
 import com.rockbite.inetrnship.ghosthouse.data.GhostRectangle;
 import com.rockbite.inetrnship.ghosthouse.ecs.components.*;
 
+
 public class RenderSystem extends EntitySystem {
 
     public GhostMesh mesh;
@@ -73,6 +74,7 @@ public class RenderSystem extends EntitySystem {
         }
         mesh.renderItems(items);
         mesh.renderAnimations(animations);
-      //  mesh.renderModels(models);
+//        mesh.renderParticles();
+        //  mesh.renderModels(models);
     }
 }

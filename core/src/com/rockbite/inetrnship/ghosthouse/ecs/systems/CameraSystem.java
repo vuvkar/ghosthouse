@@ -12,7 +12,6 @@ import com.badlogic.gdx.graphics.PerspectiveCamera;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g3d.utils.CameraInputController;
 import com.badlogic.gdx.math.Interpolation;
-import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
@@ -22,6 +21,7 @@ import com.rockbite.inetrnship.ghosthouse.MainUI;
 import com.rockbite.inetrnship.ghosthouse.data.GhostMesh;
 import com.rockbite.inetrnship.ghosthouse.data.Room;
 import com.rockbite.inetrnship.ghosthouse.ecs.components.CameraComponent;
+
 
 public class CameraSystem extends EntitySystem {
     private ImmutableArray<Entity> entities;
@@ -61,19 +61,16 @@ public class CameraSystem extends EntitySystem {
     }
 
     public void moveToNextRoom() {
-        for(int i = 0; i < rooms.size; i++) {
-            if(rooms.get(i).id == sequence.size) {
+        for (int i = 0; i < rooms.size; i++) {
+            if (rooms.get(i).id == sequence.size) {
                 target = i;
                 sequence.add(i);
                 break;
             }
         }
-     // MainUI.Text.setText("Room " + (sequence.size ) + "");
+        // MainUI.Text.setText("Room " + (sequence.size ) + "");
         changeRoomNum(sequence.size);
         leaveRoom();
-
-
-
     }
 
     public void update(float deltaTime) {
@@ -85,24 +82,22 @@ public class CameraSystem extends EntitySystem {
     }
 
     public void inputHandle() {
-
         if (Gdx.input.isKeyJustPressed(Input.Keys.ENTER)) {
             leaveRoom();
         }
-
     }
 
     public void leaveRoom() {
-            if (target == rooms.size)
-                target = 0;
-            t = 0;
-            isPressed = true;
-            cameraComponent.targetVec = (move(target, rooms));
+        if (target == rooms.size)
+            target = 0;
+        t = 0;
+        isPressed = true;
+        cameraComponent.targetVec = (move(target, rooms));
 
-            cameraComponent.bottomLeft.set(cam.position);
-            dist.set(cameraComponent.targetVec.x - cameraComponent.bottomLeft.x,
-                    cameraComponent.targetVec.y - cameraComponent.bottomLeft.y,
-                    cameraComponent.targetVec.z - cameraComponent.bottomLeft.z);
+        cameraComponent.bottomLeft.set(cam.position);
+        dist.set(cameraComponent.targetVec.x - cameraComponent.bottomLeft.x,
+                cameraComponent.targetVec.y - cameraComponent.bottomLeft.y,
+                cameraComponent.targetVec.z - cameraComponent.bottomLeft.z);
     }
 
     public void interpolHandle() {
@@ -148,15 +143,15 @@ public class CameraSystem extends EntitySystem {
     public static double dist(double alpha, double size) {
         double y = size / 2;
         double r = y / (Math.sin((alpha / 180) * Math.PI / 2));
+
         return Math.sqrt(r * r - y * y);
     }
 
-    public void changeRoomNum(int i){
-        if(i<5){
+    public void changeRoomNum(int i) {
+        if (i < 5) {
             MainUI.Text.removeActor(MainUI.Text.getChildren().get(0));
-            MainUI.Text.addActor(new Image(atlas.findRegion("Room"+i)));
+            MainUI.Text.addActor(new Image(atlas.findRegion("Room" + i)));
             MainUI.Text.getChildren().get(0).setScale(scalex, scaley);
-
         }
     }
 }
