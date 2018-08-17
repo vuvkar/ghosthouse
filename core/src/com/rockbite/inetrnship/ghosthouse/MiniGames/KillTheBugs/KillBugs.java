@@ -4,11 +4,16 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.rockbite.inetrnship.ghosthouse.MiniGames.MiniGame;
+
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class KillBugs extends MiniGame {
     private int numOfBugs = 10 ;
@@ -42,6 +47,8 @@ public class KillBugs extends MiniGame {
     }
 
     public void start() {
+        super.start();
+
         bugImage = new Texture(Gdx.files.internal("MiniGame/bug_1_1.png"));
 
         font = new BitmapFont(Gdx.files.internal("MiniGame/font.fnt"));
@@ -49,11 +56,19 @@ public class KillBugs extends MiniGame {
         label1Style.font = font;
         label1Style.fontColor = Color.WHITE;
 
+        gameStarted = false;
+        gameOver = false;
+        timer = 0;
+        killedBugs = 0;
+        bugsCreated = false;
+        win = false;
+        restart = false;
+
+
         create();
     }
 
     public void create() {
-
         // create environment
         BugsActor fog = new BugsActor(new Texture(Gdx.files.internal("MiniGame/fog.png")), 0,0, "fog", 1);
         stage.addActor(fog);
@@ -102,26 +117,47 @@ public class KillBugs extends MiniGame {
             bg.setVisible(true);
 
             //close button
-            closeBtn = new BugsActor(new Texture("MiniGame/bugsBtnExit.png"), width+msg.getWidth()-125, height+msg.getHeight()-105, "close", 1);
+            closeBtn = new BugsActor(new Texture("MiniGame/bugsBtnExit.png"), width+msg.getWidth()-125, height+msg.getHeight()-105, "close",
+                    1);
+            closeBtn.addListener(new ClickListener() {
+                @Override
+                public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+                    return true;
+                }
+
+                @Override
+                public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
+                    for (int i = 0; i <stage.getActors().size; i++) {
+                        stage.getActors().get(i).setVisible(false);
+                    }
+                    end(false);
+                }
+            });
             stage.addActor(closeBtn);
 
         }
 
         //win
         if(killedBugs>=numOfBugs && !gameOver && !win) {
-            System.out.println("YOU WIN!!!");
             BugsActor youwin = new BugsActor(new Texture(Gdx.files.internal("MiniGame/bugsScreenWin.png")), width-55, height, "win", 1);
             stage.addActor(youwin);
             win = true;
+            closeBtn.setVisible(false);
             bg.setVisible(false);
-            closeBtn.toFront();
+            Timer timer = new Timer();
+            timer.schedule(new TimerTask() {
+                @Override
+                public void run() {
+                    end(true);
+                }
+            }, 1000);
         }
 
         if(gameOver && tmp1) {
             System.out.println("GAME OVER!!!");
             youlost = new BugsActor(new Texture(Gdx.files.internal("MiniGame/bugsScreenGameOver.png")), width-55, height, "die", 1);
             stage.addActor(youlost);
-            closeBtn.toFront();
+                closeBtn.toFront();
             restartBtn = new BugsActor(new Texture(Gdx.files.internal("MiniGame/bugsBtnRestart.png")), width+80, height + 110, "gameover", 1);
             stage.addActor(restartBtn);
             bg.setVisible(false);

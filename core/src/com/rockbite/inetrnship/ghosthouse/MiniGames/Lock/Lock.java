@@ -40,7 +40,6 @@ public class Lock extends MiniGame {
 
     @Override
     public void create() {
-        stage = new Stage(new ScreenViewport());
         correctCombination.add(2);
         correctCombination.add(7);
         correctCombination.add(5);

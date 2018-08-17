@@ -20,21 +20,21 @@ public class Room2 extends Room {
     Sound vodka;
     Sound spray1;
 
-    final int PAPER = 7;
-    final int SPRAY_BOTTLE = 1;
-    final int RED_BOTTLE = 15;
-    final int DRUG_BOTTLE = 5;
-    final int YELLOW_BOTTLE = 3;
-    final int RIGHT_PILLOW = 10;
-    final int JEANS = 9;
-    final int WARDROBE = 16;
-    final int EUCALYPTUS = 14;
-    final int PILLOW = 10;
-    final int PILLS = 17;
-    final int SEKATOR = 18;
-    final int SILICA = 19;
-    final int LEAF = 20;
-    final int DOOR = 4;
+   static final int PAPER = 7;
+   static final int SPRAY_BOTTLE = 1;
+   static final int RED_BOTTLE = 15;
+   static final int DRUG_BOTTLE = 5;
+   static final int YELLOW_BOTTLE = 3;
+   static final int RIGHT_PILLOW = 10;
+   static final int JEANS = 9;
+   static final int WARDROBE = 16;
+   static final int EUCALYPTUS = 14;
+   static final int PILLOW = 10;
+   static final int PILLS = 17;
+   static final int SEKATOR = 18;
+   static final int SILICA = 19;
+   static final int LEAF = 20;
+   static final int DOOR = 4;
 
     int sprayPercent = 0;
 
@@ -271,7 +271,15 @@ public class Room2 extends Room {
                 if (sprayPercent == 6) {
                     spray1.play(Room.soundVolume);
                     DialogSystem.dialogSystem.startDialog(InGameTexts.spraydone, 1.5f, 0.5f, 0f);
-                    leaveRoom();
+                    Timer timer = new Timer();
+                    timer.schedule(new TimerTask() {
+                        @Override
+                        public void run() {
+
+                            leaveRoom();
+                        }
+                    }, 2000);
+
                 }
             }
         }
