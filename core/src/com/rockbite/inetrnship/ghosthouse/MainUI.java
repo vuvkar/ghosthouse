@@ -398,13 +398,13 @@ else{
 
         inventory.getChildren().get(numberItem - 1).addListener(new ActorGestureListener() {
 
-            public void pan(InputEvent event, float x, float y, float deltaX, float deltaY) {
-                Vector2 coords = new Vector2(Gdx.input.getX(), Gdx.input.getY());
+        public void pan(InputEvent event, float x, float y, float deltaX, float deltaY) {
+            Vector2 coords = new Vector2(Gdx.input.getX(), Gdx.input.getY());
 
-                event.getListenerActor().getStage().screenToStageCoordinates(/*in/out*/coords);
+            event.getListenerActor().getStage().screenToStageCoordinates(/*in/out*/coords);
 
-                event.getListenerActor().setPosition(coords.x - 20 - inventory.getX(), coords.y - 20 * event.getListenerActor().getHeight() / event.getListenerActor().getWidth());
-            }
+            event.getListenerActor().setPosition(coords.x - 20 - inventory.getX(), coords.y - 20 * event.getListenerActor().getHeight() / event.getListenerActor().getWidth());
+        }
 
             public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
                 Vector2 currentPos = new Vector2(event.getListenerActor().getX(), event.getListenerActor().getY());
@@ -423,38 +423,38 @@ else{
                             inventoryItemThat = (InventoryItem) inventory.getChildren().get(i);
                             if (event.getListenerActor().getX() != prevPos.x || event.getListenerActor().getY() != prevPos.y) {
 
+                            event.getListenerActor().setPosition(prevPos.x, prevPos.y);
+                        }
+                        itemToInventoryItem(inventoryItemThis.ID, inventoryItemThat.ID);
+                        break;
+                    }
+                }
+            } else {
+                if (ghostHouse.mainGame.inputController.isIntersected()) {
+                    int ind = 0;
+                    targetPosition.set(ghostHouse.mainGame.inputController.targetPosition);
+                    for (int i = 0; i < ghostHouse.assetLoader.getRooms().get(ghostHouse.mainGame.cameraSystem.target).items.size; i++) {
+                        pos = ghostHouse.assetLoader.getRooms().get(ghostHouse.mainGame.cameraSystem.target).items.get(i).getComponent(PositionComponent.class);
+                        size = ghostHouse.assetLoader.getRooms().get(ghostHouse.mainGame.cameraSystem.target).items.get(i).getComponent(SizeComponent.class);
+
+                        if (ghostHouse.mainGame.inputController.isInside(new Vector3(pos.getX(), pos.getY(), pos.getZ()), new Vector2(size.width, size.height), targetPosition)) {
+                            if (event.getListenerActor().getX() != prevPos.x || event.getListenerActor().getY() != prevPos.y) {
+
                                 event.getListenerActor().setPosition(prevPos.x, prevPos.y);
+                                ind = ghostHouse.assetLoader.rooms.get(ghostHouse.mainGame.cameraSystem.target).items.get(i).getComponent(ItemIdComponent.class).getItemID();
                             }
-                            itemToInventoryItem(inventoryItemThis.ID, inventoryItemThat.ID);
+                            itemToRoomItem(inventoryItemThis.ID, ind);
                             break;
                         }
                     }
-                } else {
-                    if (ghostHouse.mainGame.inputController.isIntersected()) {
-                        int ind = 0;
-                        targetPosition.set(ghostHouse.mainGame.inputController.targetPosition);
-                        for (int i = 0; i < ghostHouse.assetLoader.getRooms().get(ghostHouse.mainGame.cameraSystem.target).items.size; i++) {
-                            pos = ghostHouse.assetLoader.getRooms().get(ghostHouse.mainGame.cameraSystem.target).items.get(i).getComponent(PositionComponent.class);
-                            size = ghostHouse.assetLoader.getRooms().get(ghostHouse.mainGame.cameraSystem.target).items.get(i).getComponent(SizeComponent.class);
-
-                            if (ghostHouse.mainGame.inputController.isInside(new Vector3(pos.getX(), pos.getY(), pos.getZ()), new Vector2(size.width, size.height), targetPosition)) {
-                                if (event.getListenerActor().getX() != prevPos.x || event.getListenerActor().getY() != prevPos.y) {
-
-                                    event.getListenerActor().setPosition(prevPos.x, prevPos.y);
-                                    ind = ghostHouse.assetLoader.rooms.get(ghostHouse.mainGame.cameraSystem.target).items.get(i).getComponent(ItemIdComponent.class).getItemID();
-                                }
-                                itemToRoomItem(inventoryItemThis.ID, ind);
-                                break;
-                            }
-                        }
-                    }
-                }
-                if (event.getListenerActor().getX() != prevPos.x || event.getListenerActor().getY() != prevPos.y) {
-                    event.getListenerActor().setPosition(prevPos.x, prevPos.y);
                 }
             }
-        });
-    }
+            if (event.getListenerActor().getX() != prevPos.x || event.getListenerActor().getY() != prevPos.y) {
+                event.getListenerActor().setPosition(prevPos.x, prevPos.y);
+            }
+        }
+    });
+}
 
 
     public void removeItem(int ID) {

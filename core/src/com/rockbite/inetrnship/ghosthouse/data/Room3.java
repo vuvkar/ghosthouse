@@ -40,8 +40,8 @@ public class Room3 extends Room {
         wholekey = Gdx.audio.newSound(Gdx.files.internal("sounds/sparkle.mp3"));
 
         DialogSystem.dialogSystem.startDialog(InGameTexts.room3, 1.5f, 0.5f, 0f);
+        addToInventory(Room2.SPRAY_BOTTLE);
         moveGhostTo(DOOR_LEFT);
-        setItemStatus(BUG, ItemType.NONTAKEABLE);
     }
 
     @Override
@@ -57,7 +57,7 @@ public class Room3 extends Room {
                         tapor1.play(Room.soundVolume);
                         if (getItemStatus(TAPOR_PART2) == ItemType.STATIC)
                         {
-                            DialogSystem.dialogSystem.startDialog(InGameTexts.tapor1, 1.5f, 0.5f, 0f);
+                            DialogSystem.dialogSystem.startDialog(InGameTexts.tapor2, 1.5f, 0.5f, 0f);
                         } else {
                             DialogSystem.dialogSystem.startDialog(InGameTexts.tapor1, 2f, 0.5f, 0f);
                         }
@@ -95,8 +95,6 @@ public class Room3 extends Room {
                     case TAKEABLE:
                         break;
                     case NONTAKEABLE:
-                        miniGame = new KillBugs();
-                        openMiniGame();
                         break;
                 }
                 break;
@@ -126,6 +124,10 @@ public class Room3 extends Room {
             changeTexture(DOOR, "");
             leaveRoom();
         }
+        if(fromInventory == Room2.SPRAY_BOTTLE && toRoomItem == 3) {
+            miniGame = new KillBugs();
+            openMiniGame();
+        }
     }
 
     @Override
@@ -149,8 +151,8 @@ public class Room3 extends Room {
     public void miniGameWasClosed(boolean hasWon) {
         if(hasWon) {
             changeTexture(BUG, "");
-            DialogSystem.dialogSystem.startDialog(InGameTexts.aftermingame, 1.5f, 0.5f, 0f);
-            //removeFromInventory(Room2.SPRAY_BOTTLE);
+            removeFromInventory(Room2.SPRAY_BOTTLE);
+            DialogSystem.dialogSystem.startDialog(InGameTexts.aftermingame, 3.0f, 0.5f, 0f);
             setItemStatus(TUMBCHKA, ItemType.TAKEABLE);
             setItemStatus(VEREVI_POLKA, ItemType.TAKEABLE);
             setItemStatus(MAGI_POLKA, ItemType.TAKEABLE);

@@ -61,8 +61,7 @@ public class Room2 extends Room {
             @Override
             public void run() {
                 DialogSystem.dialogSystem.startDialog(InGameTexts.startr1 + "\n" + InGameTexts.startr2, 3f, 0.5f, 0.3f);
-
-
+                removeFromInventory(Room1.PASSWORD);
             }
         }, 1000);
 
