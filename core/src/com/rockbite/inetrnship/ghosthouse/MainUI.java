@@ -170,7 +170,7 @@ public class MainUI extends Stage {
         Text.getChildren().get(0).setScale(scalex, scaley);
 
 
-        right.add(hint).width(hint.getPrefWidth() * scalex).height(hint.getPrefHeight() * scaley).padTop(5).padRight(distscalex * 14);
+        right.add(hint).width(hint.getPrefWidth() * scalex).height(hint.getPrefHeight() * scaley).padTop(distscaley*5).padRight(distscalex * 14);
         right.top().right();
 
         stop.add(StopB).width(StopB.getPrefWidth() * scalex).height(StopB.getPrefHeight() * scaley).padLeft(distscalex * 14).padBottom(distscaley * 7);

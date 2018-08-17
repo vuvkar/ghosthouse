@@ -349,7 +349,7 @@ public class Room1 extends Room {
                         removeFromInventory(PUZZLE);
                         leaveRoom();
                     }
-                }, 1000);
+                }, 2000);
 
             } else {
                 DialogSystem.dialogSystem.startDialog(InGameTexts.pagvel + "\n" + InGameTexts.pagvel2, 5f, 0.5f, 0f);

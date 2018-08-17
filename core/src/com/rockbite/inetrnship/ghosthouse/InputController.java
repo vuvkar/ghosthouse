@@ -119,6 +119,8 @@ public class InputController implements InputProcessor {
 
 
 
+
+
     public static boolean isInside(Vector3 origin, Vector2 size, Vector3 point) {
 
         if ((origin.x < point.x && point.x < origin.x + size.x) && (origin.y < point.y && point.y < origin.y + size.y))
@@ -163,6 +165,9 @@ public class InputController implements InputProcessor {
     @Override
     public boolean touchDown(int screenX, int screenY, int pointer, int button) {
         //If intersects the objects' mesh
+        if(isMoving){
+            return true;
+        }
         ClickPos.set(Gdx.input.getX(), Gdx.input.getY(), 0);
         if(ghostHouse.mainUI.gameison) {
             if (isIntersected()) {

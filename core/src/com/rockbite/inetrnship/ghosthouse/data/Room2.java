@@ -2,7 +2,9 @@ package com.rockbite.inetrnship.ghosthouse.data;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Sound;
+import com.badlogic.gdx.math.Vector3;
 import com.rockbite.inetrnship.ghosthouse.DialogSystem;
+import com.rockbite.inetrnship.ghosthouse.GhostHouse;
 
 import java.util.Timer;
 import java.util.TimerTask;
@@ -110,7 +112,7 @@ public class Room2 extends Room {
                                         }, 4000);
                                     }
                                 }, 100);
-
+                        moveGhostTo(PILLOW);
                         setItemStatus(PAPER, ItemType.TAKEABLE);
                         break;
                     case TAKEABLE:

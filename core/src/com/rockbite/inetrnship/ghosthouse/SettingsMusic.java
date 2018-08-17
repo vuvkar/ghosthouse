@@ -36,9 +36,9 @@ public class SettingsMusic {
     float distscalex=Gdx.graphics.getWidth()/800f;
     float distscaley=Gdx.graphics.getHeight()/450f;
     float soundPos[]=new float[11];
-    int soundGhostInd=6;
+    static int soundGhostInd=6;
     float musicPos[]=new float[11];
-    int musicGhostInd=5;
+    static int musicGhostInd=5;
     public SettingsMusic(){
 
 
@@ -124,71 +124,41 @@ public class SettingsMusic {
 
         sghost.setWidth(sghost.getPrefWidth()*scalex);
         sghost.setHeight(sghost.getPrefHeight()*scaley);
-        sghost.setPosition(soundPos[0]+(soundPos[10]-soundPos[0])*Room.soundVolume,204*distscaley );
-        sghost.addListener(new ActorGestureListener() {
+        sghost.setPosition(soundPos[soundGhostInd],204*distscaley );
 
-            public void pan(InputEvent event, float x, float y, float deltaX, float deltaY) {
-
-                Vector2 coords = new Vector2(Gdx.input.getX(), Gdx.input.getY());
-
-                event.getListenerActor().getStage().screenToStageCoordinates(/*in/out*/coords);
-
-
-                if(event.getListenerActor().getX()>soundPos[0] && event.getListenerActor().getX()<soundPos[10] ){
-                    event.getListenerActor().setPosition( event.getListenerActor().getX()+Gdx.input.getDeltaX(),event.getListenerActor().getY() );
-                }
-
-                    //event.getListenerActor().setPosition(coords.x-event.getListenerActor().getWidth()/2 , event.getListenerActor().getY());
-                Room.soundVolume=(event.getListenerActor().getX()-soundPos[0])/(soundPos[10]-soundPos[0]);
-            }
-
-
-        });
         sghost.setTouchable(Touchable.enabled);
-//        soundMinus.getChildren().get(0).addListener(new ClickListener() {
-//
-//            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-//
-//               if(soundGhostInd>0) {
-//                   soundGhostInd--;
-//                   sghost.setX(soundPos[soundGhostInd]);
-//               }
-//                return true;
-//            }
-//        });
+        soundMinus.getChildren().get(0).addListener(new ClickListener() {
+
+            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+
+               if(soundGhostInd>0) {
+                   soundGhostInd--;
+                   sghost.setX(soundPos[soundGhostInd]);
+                   Room.soundVolume=(soundPos[soundGhostInd]-soundPos[0])/(soundPos[10]-soundPos[0]);
+               }
+                return true;
+            }
+        });
 
         soundPlus.add(splus).width(splus.getPrefWidth()*scalex).height(splus.getPrefHeight()*scaley).padRight(245*distscalex).padBottom(214*distscaley);
         soundPlus.bottom().right();
-//        soundPlus.getChildren().get(0).addListener(new ClickListener() {
-//
-//            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-//
-//                if(soundGhostInd<10) {
-//                    soundGhostInd++;
-//                    sghost.setX(soundPos[soundGhostInd]);
-//                }
-//                return true;
-//            }
-//        });
+        soundPlus.getChildren().get(0).addListener(new ClickListener() {
+
+            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+
+                if(soundGhostInd<10) {
+                    soundGhostInd++;
+                    sghost.setX(soundPos[soundGhostInd]);
+                    Room.soundVolume=(soundPos[soundGhostInd]-soundPos[0])/(soundPos[10]-soundPos[0]);
+                }
+                return true;
+            }
+        });
 
         mghost.setWidth(mghost.getPrefWidth()*scalex);
         mghost.setHeight(mghost.getPrefHeight()*scaley);
         mghost.setPosition(musicPos[musicGhostInd],268*distscaley );
-        mghost.addListener(new ActorGestureListener() {
 
-            public void pan(InputEvent event, float x, float y, float deltaX, float deltaY) {
-
-                Vector2 coords = new Vector2(Gdx.input.getX(), Gdx.input.getY());
-
-                event.getListenerActor().getStage().screenToStageCoordinates(/*in/out*/coords);
-
-
-                if(coords.x-event.getListenerActor().getWidth()/2>=musicPos[0] && coords.x-event.getListenerActor().getWidth()/2<=musicPos[10] )
-                    event.getListenerActor().setPosition(coords.x-event.getListenerActor().getWidth()/2 , event.getListenerActor().getY());
-            }
-
-
-        });
         musicMinus.add(mminus).width(mminus.getPrefWidth()*scalex).height(mminus.getPrefHeight()*scaley).padLeft(242*distscalex).padTop(163*distscaley);
         musicMinus.top().left();
         musicMinus.getChildren().get(0).addListener(new ClickListener() {
