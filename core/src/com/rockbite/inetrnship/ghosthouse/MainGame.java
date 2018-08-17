@@ -139,5 +139,7 @@ public class MainGame {
     }
 
     public void dispose() {
+        meshok.dispose();
+        assetLoader.dispose();
     }
 }

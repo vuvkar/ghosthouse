@@ -61,6 +61,8 @@ public class GhostMesh {
 
     public ShaderProgram shaderProgram;
 
+    boolean isCalculated = false;
+
     public GhostMesh(Array<GhostRectangle> rectangles, AssetLoader loader) {
 
         this.loader = loader;
@@ -110,20 +112,22 @@ public class GhostMesh {
         int animationVC = 0;
         int animationIC = 0;
 
-        for (Slot slot : animations) {
-            Attachment attachment = slot.getAttachment();
-            if (attachment instanceof RegionAttachment) {
-                animationIC += 6;
-                animationVC += ((RegionAttachment) attachment).getWorldVertices().length / 5 * ATTRIBUTE_COUNT;
+        if(!isCalculated) {
+            for (Slot slot : animations) {
+                Attachment attachment = slot.getAttachment();
+                if (attachment instanceof RegionAttachment) {
+                    animationIC += 6;
+                    animationVC += ((RegionAttachment) attachment).getWorldVertices().length / 5 * ATTRIBUTE_COUNT;
+                } else if (attachment instanceof MeshAttachment) {
+                    animationIC += ((MeshAttachment) attachment).getTriangles().length;
+                    animationVC += ((MeshAttachment) attachment).getWorldVertices().length / 5 * ATTRIBUTE_COUNT;
+                }
             }
-            else if (attachment instanceof MeshAttachment) {
-                animationIC += ((MeshAttachment) attachment).getTriangles().length;
-                animationVC += ((MeshAttachment) attachment).getWorldVertices().length / 5 * ATTRIBUTE_COUNT;
-            }
-        }
 
-        animationVertices = new float[animationVC];
-        animationIndices = new short[animationIC];
+            animationVertices = new float[animationVC];
+            animationIndices = new short[animationIC];
+            isCalculated = true;
+        }
 
         for (Slot slot : animations) {
             float[] vertex = new float[0];
@@ -328,6 +332,11 @@ public class GhostMesh {
         building.render(shaderProgram, GL20.GL_TRIANGLES);
         shaderProgram.end();
 
+    }
+
+    public void dispose() {
+        building.dispose();
+        shaderProgram.dispose();
     }
 
     public void drawRectangle(GhostRectangle rectangle, float[] vertices, IntWrapper vertexIndex, short[] indices, IntWrapper indIndex, int offset) {

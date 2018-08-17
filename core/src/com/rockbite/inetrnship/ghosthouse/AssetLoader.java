@@ -23,6 +23,8 @@ public class AssetLoader extends AssetManager {
     public static Array<Room> rooms;
     public static TextureAtlas atlas;
 
+    static Texture empty;
+
     public static float ATLAS_HEIGHT;
     public static float ATLAS_WIDTH;
 
@@ -43,6 +45,7 @@ public class AssetLoader extends AssetManager {
 //        TexturePacker.process(settings,"textures",
 //                "packed", "game");
         atlas = new TextureAtlas(Gdx.files.internal ("packed/game.atlas"));
+        empty = new Texture(Gdx.files.internal("textures/album1.png"));
 //        ATLAS_HEIGHT = atlas.getTextures().first().getHeight();
 //        ATLAS_WIDTH = atlas.getTextures().first().getWidth();
         loadGameData();
@@ -107,7 +110,7 @@ public class AssetLoader extends AssetManager {
 
     public static TextureAtlas.AtlasRegion getRegion(String name) {
         if(name == "") {
-            return  new TextureAtlas.AtlasRegion(new Texture(Gdx.files.internal("textures/album1.png")), 0, 0, 0, 0);
+            return  new TextureAtlas.AtlasRegion(empty, 0, 0, 0, 0);
         }
         return atlas.findRegion(name);
     }

@@ -483,6 +483,9 @@ public class MainUI extends Stage {
 
     }
 
+    public void dispose() {
+    }
+
 
     public static boolean isInside(Vector2 origin, Vector2 size, Vector2 point) {
 
