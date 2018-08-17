@@ -54,10 +54,10 @@ public class AssetLoader extends AssetManager {
 //        room = saveLoad.load();
 
 
-        TexturePacker.Settings settings = new TexturePacker.Settings();
-     settings.maxHeight = 4096;
-     settings.maxWidth = 4096;
-        TexturePacker.process(settings,"Uipics", "Uipacked", "UI");
+//        TexturePacker.Settings settings = new TexturePacker.Settings();
+//     settings.maxHeight = 4096;
+//     settings.maxWidth = 4096;
+//        TexturePacker.process(settings,"Uipics", "Uipacked", "UI");
 
 //                TexturePacker.Settings settings = new TexturePacker.Settings();
 //     settings.maxHeight = 4096;
