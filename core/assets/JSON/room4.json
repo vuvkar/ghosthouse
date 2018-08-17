@@ -1,17 +1,17 @@
 {
   "class": "com.rockbite.inetrnship.ghosthouse.data.Room4",
-  "id": 0,
+  "id": 3,
   "height": 10.0,
   "width": 17.0,
   "class": "com.badlogic.gdx.utils.Vector2",
   "origin": {
-    "x": 0.0,
-    "y": 10.0
+    "x": 17.0,
+    "y": 0.0
   },
-  "wallTexture": "wall1",
-  "ceilingTexture": "ceiling1",
-  "floorTexture": "floor1",
-  "sideWallTexture": "sidewall1",
+  "wallTexture": "wall4",
+  "ceilingTexture": "ceiling4",
+  "floorTexture": "floor4",
+  "sideWallTexture": "sidewall4",
   "light": [
     200,
     200,
