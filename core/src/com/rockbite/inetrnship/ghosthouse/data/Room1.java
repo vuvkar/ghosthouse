@@ -188,6 +188,9 @@ public class Room1 extends Room {
                         break;
                     case NONTAKEABLE:
                         puzzle_count++;
+                        removeFromInventory(PUZZLE);
+                        changeTexture(PUZZLE, ("puzzle" + Integer.toString(puzzle_count)));
+                        addToInventory(PUZZLE);
                         box.play(Room.soundVolume);
                         DialogSystem.dialogSystem.startDialog(InGameTexts.box, 1.5f, 0.7f, 0f);
                         setItemStatus(BOX, ItemType.STATIC);
@@ -214,6 +217,9 @@ public class Room1 extends Room {
                     case TAKEABLE:
                         setItemStatus(LAMP, ItemType.STATIC);
                         puzzle_count++;
+                        removeFromInventory(PUZZLE);
+                        changeTexture(PUZZLE, ("puzzle" + Integer.toString(puzzle_count)));
+                        addToInventory(PUZZLE);
                         break;
                     case NONTAKEABLE:
                         break;
@@ -239,6 +245,9 @@ public class Room1 extends Room {
                     case NONTAKEABLE:
                         setItemStatus(ALBUM, ItemType.STATIC);
                         puzzle_count++;
+                        removeFromInventory(PUZZLE);
+                        changeTexture(PUZZLE, ("puzzle" + Integer.toString(puzzle_count)));
+                        addToInventory(PUZZLE);
                         himaralbom.play(Room.soundVolume);
                         DialogSystem.dialogSystem.startDialog(InGameTexts.album, 1.5f, 0.7f, 0f);
                         break;
@@ -317,11 +326,7 @@ public class Room1 extends Room {
                 break;
         }
         System.out.println(puzzle_count);
-        if (!canOpenDoor) {
-            removeFromInventory(PUZZLE);
-            changeTexture(PUZZLE, ("puzzle" + Integer.toString(puzzle_count)));
-            addToInventory(PUZZLE);
-        }
+
     }
 
     @Override
@@ -371,10 +376,13 @@ public class Room1 extends Room {
             DialogSystem.dialogSystem.startDialog(InGameTexts.newsgot, 1.5f, 0.5f, 0f);
 
             puzzle_count++;
-
+            removeFromInventory(PUZZLE);
+            changeTexture(PUZZLE, ("puzzle" + Integer.toString(puzzle_count)));
+            addToInventory(PUZZLE);
 
         } else if (fromInventory == SCISSORS && toRoomItem == NEWSPAPER) {
             // peace 2
+            System.out.println("INVENTORY PCHACAV");
             removeFromInventory(SCISSORS);
             setItemStatus(NEWSPAPER, ItemType.STATIC);
             changeTexture(NEWSPAPER, "dokumentyporvannye");
@@ -382,26 +390,33 @@ public class Room1 extends Room {
 
 
             puzzle_count++;
-
+            removeFromInventory(PUZZLE);
+            changeTexture(PUZZLE, ("puzzle" + Integer.toString(puzzle_count)));
+            addToInventory(PUZZLE);
         } else if (fromInventory == BOTTLES && toRoomItem == ARM_CHAIR) {
             //peace 1
             removeFromInventory(BOTTLES);
             setItemStatus(ARM_CHAIR, ItemType.STATIC);
             changeTexture(ARM_CHAIR, "porvannoekreslo");
             puzzle_count++;
+            removeFromInventory(PUZZLE);
+            changeTexture(PUZZLE, ("puzzle" + Integer.toString(puzzle_count)));
+            addToInventory(PUZZLE);
             DialogSystem.dialogSystem.startDialog(InGameTexts.couchdrag, 1.5f, 0.5f, 0f);
             couch.play(Room.soundVolume);
 
         } else if (fromInventory == WHOLEKEY && toRoomItem == WARDROB) {
+
             removeFromInventory(WHOLEKEY);
             setItemStatus(WARDROB, ItemType.STATIC);
             puzzle_count++;
-            shelf.play(Room.soundVolume);
-        }
-        if (!canOpenDoor) {
             removeFromInventory(PUZZLE);
             changeTexture(PUZZLE, ("puzzle" + Integer.toString(puzzle_count)));
             addToInventory(PUZZLE);
+            shelf.play(Room.soundVolume);
+        }
+        if (!canOpenDoor) {
+
         }
 
 

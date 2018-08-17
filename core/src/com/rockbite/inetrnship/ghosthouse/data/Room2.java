@@ -234,9 +234,9 @@ public class Room2 extends Room {
 
     @Override
     public void itemWasDragged(int fromInventory, int toRoomItem) {
-        if (fromInventory == SEKATOR && toRoomItem == EUCALYPTUS)
+        if (fromInventory == SEKATOR && toRoomItem == EUCALYPTUS){
+
             sekator.play(Room.soundVolume);
-        {
             addToInventory(LEAF);
             setItemStatus(EUCALYPTUS, ItemType.TAKEABLE);
             removeFromInventory(SEKATOR);

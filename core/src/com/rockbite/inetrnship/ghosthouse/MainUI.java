@@ -349,7 +349,7 @@ public class MainUI extends Stage {
         if (AssetLoader.getRegion(inventoryItem.texture.texture).packedWidth >= AssetLoader.getRegion(inventoryItem.texture.texture).packedHeight) {
             inventory.getChildren().get(numberItem - 1).setScale(40 / (float) AssetLoader.getRegion(inventoryItem.texture.texture).packedWidth * distscalex);
 
-            inventory.getChildren().get(numberItem - 1).setPosition(slots.getChildren().get(numberItem - 1).getX() + slots.getChildren().get(numberItem - 1).getWidth() * scalex / 2f - 20 * distscalex, 4.5f);
+            inventory.getChildren().get(numberItem - 1).setPosition(slots.getChildren().get(numberItem - 1).getX() + slots.getChildren().get(numberItem - 1).getWidth() * scalex / 2f - 20 * distscalex, 5.5f);
         }
         if (AssetLoader.getRegion(inventoryItem.texture.texture).packedWidth <= AssetLoader.getRegion(inventoryItem.texture.texture).packedHeight) {
             inventory.getChildren().get(numberItem - 1).setScale(45 / (float) AssetLoader.getRegion(inventoryItem.texture.texture).packedHeight * distscaley);
