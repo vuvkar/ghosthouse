@@ -17,6 +17,9 @@ import com.rockbite.inetrnship.ghosthouse.MiniGames.Lock.Lock;
 import com.rockbite.inetrnship.ghosthouse.MiniGames.Puzzle.Puzzle;
 import com.rockbite.inetrnship.ghosthouse.ecs.components.TextureComponent;
 
+import java.util.Timer;
+import java.util.TimerTask;
+
 public class Room1 extends Room {
     final int BEAR = 7;
     final int KEYPART1 = 24;
@@ -260,8 +263,8 @@ public class Room1 extends Room {
                         DialogSystem.dialogSystem.startDialog(InGameTexts.fishhook, 2f, 0.7f, 0f);
 
                         addToInventory(FISHHOOK);
-                        setItemStatus(FISHHOOK, ItemType.STATIC);
                         changeTexture(FISHHOOK,"");
+                        setItemStatus(FISHHOOK, ItemType.STATIC);
                         break;
                     case NONTAKEABLE:
                         break;
@@ -339,13 +342,26 @@ public class Room1 extends Room {
                 removeFromInventory(PUZZLE);
                 addToInventory(PASSWORD);
             }
+        }
+        if(miniGame instanceof  Lock) {
+            if(hasWon) {
+                DialogSystem.dialogSystem.startDialog(InGameTexts.rightcode, 2f, 0.5f, 0f);
+                drnak.play(Room.soundVolume);
+                Timer timer = new Timer();
+                timer.schedule(new TimerTask() {
+                    @Override
+                    public void run() {
+                        removeFromInventory(PUZZLE);
+                        leaveRoom();
+                    }
+                }, 1000);
 
-                leaveRoom();
             }
             else {
                 DialogSystem.dialogSystem.startDialog(InGameTexts.pagvel + "\n" + InGameTexts.pagvel2, 5f, 0.5f, 0f);
             }
         }
+    }
 
     @Override
     public void itemWasClickedOnInventory(int itemID) {

@@ -82,7 +82,7 @@ public class AssetLoader extends AssetManager {
 
     public static TextureAtlas.AtlasRegion getRegion(String name) {
         if(name == "") {
-            return  new TextureAtlas.AtlasRegion(new Texture(Gdx.files.internal("textures/album.png")), 0, 0, 0, 0);
+            return  new TextureAtlas.AtlasRegion(new Texture(Gdx.files.internal("textures/album1.png")), 0, 0, 0, 0);
         }
         return atlas.findRegion(name);
     }
