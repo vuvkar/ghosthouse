@@ -35,6 +35,10 @@ public class Room4 extends Room {
 
                         mainGame.ghostHouse.mainUI.addActor(mainGame.ghostHouse.mainUI.BOOM);
                         mainGame.boom=true;
+                        for(int i=0; i<mainGame.ghostHouse.mainUI.getActors().size-1;i++){
+                            mainGame.ghostHouse.mainUI.getActors().get(i).setVisible(false);
+
+                        }
                 }
         }
     }
