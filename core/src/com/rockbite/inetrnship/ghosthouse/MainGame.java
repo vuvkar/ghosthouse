@@ -146,7 +146,7 @@ public class MainGame {
             building.getCurrentRoom().miniGame.render();
         }
 
-        DialogSystem.dialogSystem.render();
+//        DialogSystem.dialogSystem.render();
 
         // DO postprocessing of FBO and render it to screen
         // TODO: final render

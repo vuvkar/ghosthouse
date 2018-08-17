@@ -1,35 +1,36 @@
 package com.rockbite.inetrnship.ghosthouse.data;
 
-public class InGameTexts
-{
-    public static String start1 = "What the?...I need to get out of here.";
-    public static String checkdoor = "Let's check the door";
-    public static String doorcode1 = "Looks like we don't have enough information here";
-    public static String doorcode2 = "let's leave this for later";
-    public static String piecebegins1 = "If only I can find the other pieces";
-    public static String piecebegins2 = "I can find out the way to escape";
-    public static String napo2 = "No way, the other part is missing";
-    public static String fullkey = "Bingo, now we can have the whole key";
-    public static String glass = "Oh, that was sharp";
-//    public static String papers =
-    public static String album = "Close enough";
-    public static String fishhook = "With this I can tear the whole world";
-    public static String lampoff = "I see something hidden there";
-    public static String keycommode = "Soon we'll have it";
-    public static String rightcode = "Finally";
-    public static String keyaz = "Now it's ready to use";
-    public static String couch = "We'll need something sharp";
-    public static String clock = "Need to break it";
-    public static String ward = "Key is required";
-    public static String papers = "We can't cut it yet";
-    public static String box = "Ok, this was easy";
-    public static String newswall = "Can't tear this yet";
-    public static String newsgot = "Yeii, We got this";
-    public static String couchdrag = "That was smart";
-    public static String pagvel = "Maybe the photo piece that I have can help us.";
-    public static String pagvel2 = "Let's explore the room!";
-    public static String code = "We don't have the code, let's leave this for later";
-    public static String codetr = "Perfect, now we can open the door";
+
+public class InGameTexts {
+    public static String start1         = "What the?...I need to get out of here.";
+    public static String checkdoor      = "Let's check the door";
+    public static String doorcode1      = "Looks like we don't have enough information here";
+    public static String doorcode2      = "let's leave this for later";
+    public static String piecebegins1   = "If only I can find the other pieces";
+    public static String piecebegins2   = "I can find out the way to escape";
+    public static String napo2          = "No way, the other part is missing";
+    public static String fullkey        = "Bingo, now we can have the whole key";
+    public static String glass          = "Oh, that was sharp";
+    //    public static String papers =
+    public static String album          = "Close enough";
+    public static String fishhook       = "With this I can tear the whole world";
+    public static String lampoff        = "I see something hidden there";
+    public static String keycommode     = "Soon we'll have it";
+    public static String rightcode      = "Finally";
+    public static String keyaz          = "Now it's ready to use";
+    public static String couch          = "We'll need something sharp";
+    public static String clock          = "Need to break it";
+    public static String ward           = "Key is required";
+    public static String papers         = "We can't cut it yet";
+    public static String box            = "Ok, this was easy";
+    public static String newswall       = "Can't tear this yet";
+    public static String newsgot        = "Yeii, We got this";
+    public static String couchdrag      = "That was smart";
+    public static String pagvel         = "Maybe the photo piece that I have can help us.";
+    public static String pagvel2        = "Let's explore the room!";
+    public static String code           = "We don't have the code, let's leave this for later";
+    public static String codetr         = "Perfect, now we can open the door";
+
     // static room2
     public static String startr1 = "Yei, the door is open here!";
     public static String startr2 = "Let's go!";

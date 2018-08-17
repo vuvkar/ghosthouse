@@ -1,5 +1,6 @@
 package com.rockbite.inetrnship.ghosthouse.data;
 
+
 public class GhostLine implements Comparable<GhostLine> {
     private float y;
     private float x;

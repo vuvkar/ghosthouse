@@ -12,20 +12,21 @@ import com.rockbite.inetrnship.ghosthouse.ecs.components.*;
 
 public abstract class Room implements Comparable<Room> {
     public MainGame mainGame;
-    public static float soundVolume=0.8f;
+    public MiniGame miniGame;
+
     public int id;
+
     public Vector2 origin;
+
+    public static float soundVolume = 0.8f;
     public float width;
     public float height;
+    public float[] light;
 
     public String floorTexture;
     public String sideWallTexture;
     public String wallTexture;
     public String ceilingTexture;
-
-    public MiniGame miniGame;
-
-    public float[] light;
 
     ComponentMapper<ItemTypeComponent> itemTypeComponent = ComponentMapper.getFor(ItemTypeComponent.class);
     ComponentMapper<ItemIdComponent> itemIdComponentm = ComponentMapper.getFor(ItemIdComponent.class);
@@ -35,7 +36,7 @@ public abstract class Room implements Comparable<Room> {
     public Array<Entity> items;
     public Array<Entity> models;
 
-
+    // Loads rooms' items
     public void loadEntities() {
         items = new Array<Entity>();
         models = new Array<Entity>();
@@ -47,9 +48,10 @@ public abstract class Room implements Comparable<Room> {
         for (Object object : objects) {
             if ((GameObject) object != null) {
                 GameObject object2 = (GameObject) object;
-                Entity item = new Entity();
-                item.add(new TextureComponent(object2.texture));
 
+                Entity item = new Entity();
+
+                item.add(new TextureComponent(object2.texture));
                 item.add(new PositionComponent(this.origin.x + object2.position[0],
                         this.origin.y + object2.position[1], object2.position[2]));
                 item.add(new RoomObjectComponent(this.id));
@@ -59,11 +61,13 @@ public abstract class Room implements Comparable<Room> {
                 item.add(new RotationComponent(object2.rotation[0], object2.rotation[1], object2.rotation[2]));
                 item.add(new SizeComponent(object2.width, object2.height));
                 item.add(new NormalMapComponent(object2.normalMap));
+
                 items.add(item);
             }
         }
 
         Entity item = new Entity();
+
         item.add(new ModelComponent("HeiHei.obj"));
         item.add(new PositionComponent(this.origin.x + 5,
                 this.origin.y + 5 - this.height, 2));
@@ -73,6 +77,7 @@ public abstract class Room implements Comparable<Room> {
         item.add(new ScaleComponent(1.0f, 1.0f, 1.0f));
         item.add(new RotationComponent(0f, 0f, 0f));
         item.add(new SizeComponent(1, 1));
+
         models.add(item);
 
         //FIXME: fix this shit
@@ -107,7 +112,7 @@ public abstract class Room implements Comparable<Room> {
 
     abstract public void itemWasMoved(int fromInventory, int toInventory);
 
-    abstract  public void miniGameWasClosed(boolean hasWon);
+    abstract public void miniGameWasClosed(boolean hasWon);
 
     abstract public void itemWasClickedOnInventory(int itemID);
 
@@ -115,12 +120,11 @@ public abstract class Room implements Comparable<Room> {
         mainGame.leavedRoom();
     }
 
-
     public void setItemStatus(int itemID, ItemType type) {
 
         for (Entity item : items) {
             if (itemIdComponentm.get(item).getItemID() == itemID) {
-               itemTypeComponent.get(item).setType(type);
+                itemTypeComponent.get(item).setType(type);
             }
         }
     }
@@ -128,47 +132,46 @@ public abstract class Room implements Comparable<Room> {
     public void moveGhostTo(int itemID) {
         Entity item = getItemById(itemID);
         PositionComponent positionComponent = item.getComponent(PositionComponent.class);
-       PositionComponent ghostPosition =  mainGame.ghost.getComponent(PositionComponent.class);
-       mainGame.inputController.targetPosition = new Vector3(positionComponent.getX(), positionComponent.getY(), ghostPosition.getZ());
-       mainGame.inputController.moveCharacter();
-
+        PositionComponent ghostPosition = mainGame.ghost.getComponent(PositionComponent.class);
+        mainGame.inputController.targetPosition = new Vector3(positionComponent.getX(), positionComponent.getY(), ghostPosition.getZ());
+        mainGame.inputController.moveCharacter();
     }
 
     public void openMiniGame() {
         miniGame.mainGame = this.mainGame;
         this.miniGame.start();
-
     }
 
     public ItemType getItemStatus(int itemID) {
         for (Entity item : items) {
             if (itemIdComponentm.get(item).getItemID() == itemID) {
-
                 return itemTypeComponent.get(item).getType();
             }
         }
+
         return null;
     }
 
     public void changeTexture(int itemID, String textureName) {
         Entity item = getItemById(itemID);
+
         TextureComponent comp = item.getComponent(TextureComponent.class);
+
         comp.setTexture(textureName);
     }
 
     public void addToInventory(int itemID) {
-
         mainGame.inputController.addToInventory(itemID);
     }
 
     public void removeFromInventory(int itemID) {
-      mainGame.inputController.removeFromInventory(itemID);
+        mainGame.inputController.removeFromInventory(itemID);
     }
 
-   public  Entity getItemById(int itemID) {
+    public Entity getItemById(int itemID) {
         int count = items.size;
-        for(int i = 0; i < count; i++) {
-            if(items != null) {
+        for (int i = 0; i < count; i++) {
+            if (items != null) {
                 if (itemIdComponentm.has(items.get(i))) {
                     ItemIdComponent comp = itemIdComponentm.get(items.get(i));
                     if (comp.getItemID() == itemID) {
