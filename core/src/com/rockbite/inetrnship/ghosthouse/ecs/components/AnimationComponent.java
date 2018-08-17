@@ -14,7 +14,7 @@ public class AnimationComponent implements Component {
 
     public final static boolean LEFT = false;
     public final static boolean RIGHT = true;
-
+    public static boolean DIR=true;
 
     public TextureAtlas atlas;
     public Skeleton skeleton;
@@ -43,6 +43,8 @@ public class AnimationComponent implements Component {
 
     public void flip(boolean direction) {
        skeleton.setFlip(direction, false);
+
+
     }
 
     public void setSpeed(float speed) {
