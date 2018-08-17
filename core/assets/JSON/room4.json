@@ -3,9 +3,11 @@
   "id": 0,
   "height": 10.0,
   "width": 17.0,
-
   "class": "com.badlogic.gdx.utils.Vector2",
-  "origin": {"x": 0.0, "y": 10.0},
+  "origin": {
+    "x": 0.0,
+    "y": 10.0
+  },
   "wallTexture": "wall1",
   "ceilingTexture": "ceiling1",
   "floorTexture": "floor1",
@@ -15,9 +17,361 @@
     200,
     200
   ],
-
   "class": "com.badlogic.gdx.utils.Array",
-  "objects":[
-
+  "objects": [
+    [
+      {
+        "class": "com.rockbite.inetrnship.ghosthouse.data.GameObject",
+        "position": [
+          2.9326193,
+          11.004425,
+          2.99
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "texture": "chair4",
+        "width": 2.3166666,
+        "height": 1.525,
+        "id": 1
+      },
+      {
+        "class": "com.rockbite.inetrnship.ghosthouse.data.GameObject",
+        "position": [
+          5.214285,
+          11.375862,
+          2.0737503
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "texture": "fridge4",
+        "width": 2.575,
+        "height": 5.616667,
+        "id": 2
+      },
+      {
+        "class": "com.rockbite.inetrnship.ghosthouse.data.GameObject",
+        "position": [
+          10.439284,
+          13.542845,
+          2.3900006
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "texture": "kafel4",
+        "width": 4.775,
+        "height": 2.1083333,
+        "id": 3
+      },
+      {
+        "class": "com.rockbite.inetrnship.ghosthouse.data.GameObject",
+        "position": [
+          3.0857093,
+          13.857143,
+          2.99
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "texture": "kasrtulka4",
+        "width": 1.1416667,
+        "height": 0.78333336,
+        "id": 4
+      },
+      {
+        "class": "com.rockbite.inetrnship.ghosthouse.data.GameObject",
+        "position": [
+          16.225,
+          15.828578,
+          2.99
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "texture": "kryuchok4",
+        "width": 0.175,
+        "height": 0.14166667,
+        "id": 5
+      },
+      {
+        "class": "com.rockbite.inetrnship.ghosthouse.data.GameObject",
+        "position": [
+          8.775472,
+          18.973808,
+          2.1900008
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "texture": "lustra4",
+        "width": 1.1083333,
+        "height": 0.98333335,
+        "id": 6
+      },
+      {
+        "class": "com.rockbite.inetrnship.ghosthouse.data.GameObject",
+        "position": [
+          12.971428,
+          11.475852,
+          2.5081246
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "texture": "moyka4",
+        "width": 2.5,
+        "height": 3.4333334,
+        "id": 7
+      },
+      {
+        "class": "com.rockbite.inetrnship.ghosthouse.data.GameObject",
+        "position": [
+          6.432618,
+          15.085727,
+          2.7949994
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "texture": "note4",
+        "width": 0.46666667,
+        "height": 0.59166664,
+        "id": 8
+      },
+      {
+        "class": "com.rockbite.inetrnship.ghosthouse.data.GameObject",
+        "position": [
+          14.594051,
+          18.014278,
+          1.681875
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "texture": "oboi4",
+        "width": 0.89166665,
+        "height": 0.825,
+        "id": 9
+      },
+      {
+        "class": "com.rockbite.inetrnship.ghosthouse.data.GameObject",
+        "position": [
+          10.632624,
+          11.704425,
+          2.8687491
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "texture": "plita4",
+        "width": 2.3583333,
+        "height": 3.3333333,
+        "id": 10
+      },
+      {
+        "class": "com.rockbite.inetrnship.ghosthouse.data.GameObject",
+        "position": [
+          12.832619,
+          15.614288,
+          2.6556244
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "texture": "polka4",
+        "width": 2.4083333,
+        "height": 1.2666667,
+        "id": 11
+      },
+      {
+        "class": "com.rockbite.inetrnship.ghosthouse.data.GameObject",
+        "position": [
+          7.500001,
+          11.547281,
+          2.6424997
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "texture": "shkaf4",
+        "width": 3.4666667,
+        "height": 5.6583333,
+        "id": 12
+      },
+      {
+        "class": "com.rockbite.inetrnship.ghosthouse.data.GameObject",
+        "position": [
+          15.966667,
+          14.314288,
+          2.8293746
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "texture": "srbich4",
+        "width": 0.43333334,
+        "height": 1.6833333,
+        "id": 13
+      },
+      {
+        "class": "com.rockbite.inetrnship.ghosthouse.data.GameObject",
+        "position": [
+          1.0611882,
+          11.018709,
+          1.6900008
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "texture": "table4",
+        "width": 4.1666665,
+        "height": 2.9416666,
+        "id": 14
+      },
+      {
+        "class": "com.rockbite.inetrnship.ghosthouse.data.GameObject",
+        "position": [
+          10.861188,
+          15.090133,
+          2.5900004
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "texture": "vityajka4",
+        "width": 2.1583333,
+        "height": 2.4666667,
+        "id": 15
+      },
+      {
+        "class": "com.rockbite.inetrnship.ghosthouse.data.GameObject",
+        "position": [
+          2.0326166,
+          13.604757,
+          1.6900008
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "texture": "window4",
+        "width": 3.6416667,
+        "height": 4.4666667,
+        "id": 16
+      }
+    ]
   ]
 }
