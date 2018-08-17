@@ -64,6 +64,7 @@ public class MainUI extends Stage {
     @Override
     public void act() {
         //inventory.setDebug(true, true);
+        slots.setDebug(true, true);
     }
 
     @Override

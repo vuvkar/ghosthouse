@@ -51,28 +51,18 @@ public class Room2 extends Room {
 
     @Override
     public void roomStarted() {
+
         moveGhostTo(PILLOW);
         Timer timer = new Timer();
         timer.schedule(new TimerTask() {
             @Override
             public void run() {
                 DialogSystem.dialogSystem.startDialog(InGameTexts.startr1 + "\n" + InGameTexts.startr2, 3f, 0.5f, 0.3f);
-                Timer create = new Timer();
-                create.schedule(new TimerTask() {
-                    public void run() {
-                        changeTexture(4, "door2withbug");
-                        DialogSystem.dialogSystem.startDialog(InGameTexts.bug1 + "\n" + InGameTexts.bug3, 3f, 0.5f, 0.2f);
-                        Timer create2 = new Timer();
-                        create2.schedule(new TimerTask() {
-                            public void run() {
-                                changeTexture(4, "door2");
-                            }
-                        }, 7000);
-                    }
-                }, 4000);
+
+
             }
         }, 1000);
-        setItemStatus(PAPER, ItemType.TAKEABLE);
+
 
     }
 
@@ -100,6 +90,33 @@ public class Room2 extends Room {
                         setItemStatus(PAPER, ItemType.STATIC);
                         break;
                     case NONTAKEABLE:
+                        break;
+                }
+                break;
+            case DOOR:
+                switch (getItemStatus(DOOR)) {
+                    case STATIC:
+                        System.out.println("VAXXXX");
+                                Timer create = new Timer();
+                                create.schedule(new TimerTask() {
+                                    public void run() {
+                                        changeTexture(4, "door2withbug");
+                                        DialogSystem.dialogSystem.startDialog(InGameTexts.bug1 + "\n" + InGameTexts.bug3, 3f, 0.5f, 0.2f);
+                                        Timer create2 = new Timer();
+                                        create2.schedule(new TimerTask() {
+                                            public void run() {
+                                                changeTexture(4, "door2");
+                                            }
+                                        }, 4000);
+                                    }
+                                }, 100);
+
+                        setItemStatus(PAPER, ItemType.TAKEABLE);
+                        break;
+                    case TAKEABLE:
+                        break;
+                    case NONTAKEABLE:
+
                         break;
                 }
                 break;
