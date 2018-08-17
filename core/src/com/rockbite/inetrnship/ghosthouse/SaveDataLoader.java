@@ -11,7 +11,7 @@ public class SaveDataLoader {
     OkHttpClient client = new OkHttpClient();
     Preferences prefs = Gdx.app.getPreferences("data");
 
-    static String URI = "http://10.10.29.126:8080/api/foo";
+    static String URI = "http://10.10.29.126:4000/api/foo";
 
     // variables for prefs
     private String hashcode;
@@ -29,7 +29,7 @@ public class SaveDataLoader {
     private void get() {
         System.out.println("get");
         final Request request = new Request.Builder()
-                .url(URI)
+                .url(URI + "/" + hashcode)
                 .get()
                 .build();
         client.newCall(request).enqueue(new Callback() {
@@ -40,7 +40,7 @@ public class SaveDataLoader {
 
             @Override
             public void onResponse(Call call, Response response) throws IOException {
-                System.out.println();
+                System.out.println(response.body().toString());
                 GhostHouse.isLoaded = true;
             }
         });
@@ -52,7 +52,7 @@ public class SaveDataLoader {
         JSONObject obj = new JSONObject();
         try {
             obj.put("hashcode", hashcode);
-            obj.put("room_id", roomID);
+            obj.put("room", roomID);
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
