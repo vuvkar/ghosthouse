@@ -116,13 +116,13 @@ public class MainGame {
 
     public  void  startGame() {
         building.getCurrentRoom().roomStarted();
-        Timer timer = new Timer();
-        timer.schedule(new TimerTask() {
-            @Override
-            public void run() {
-                moveToRoom(3);
-            }
-        }, 1000);
+//        Timer timer = new Timer();
+//        timer.schedule(new TimerTask() {
+//            @Override
+//            public void run() {
+//                moveToRoom(3);
+//            }
+//        }, 1000);
 
     }
 

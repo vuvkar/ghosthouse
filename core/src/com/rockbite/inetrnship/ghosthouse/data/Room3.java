@@ -40,7 +40,6 @@ public class Room3 extends Room {
         wholekey = Gdx.audio.newSound(Gdx.files.internal("sounds/sparkle.mp3"));
 
         DialogSystem.dialogSystem.startDialog(InGameTexts.room3, 1.5f, 0.5f, 0f);
-
         moveGhostTo(DOOR_LEFT);
     }
 
@@ -121,7 +120,7 @@ public class Room3 extends Room {
         if (fromInventory == TAPOR && toRoomItem == DOOR) {
             removeFromInventory(TAPOR);
             jardel.play(Room.soundVolume);
-            changeTexture(DOOR, "");
+            changeTexture(DOOR, "doorCracked");
             leaveRoom();
         }
         if(fromInventory == Room2.SPRAY_BOTTLE && toRoomItem == 3) {
