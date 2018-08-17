@@ -80,14 +80,6 @@ public class Puzzle extends MiniGame {
         }
 
         winningBoard = new int[][]{{7, 4, 1}, {8, 5, 2}, {0, 6, 3}};
-
-        Timer timer = new Timer();
-        timer.schedule(new TimerTask() {
-            @Override
-            public void run() {
-                win();
-            }
-        }, 1000);
     }
 
     @Override

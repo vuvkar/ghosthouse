@@ -51,10 +51,10 @@ public class Room3 extends Room {
                         setItemStatus(MAGI_POLKA, ItemType.STATIC);
                         addToInventory(TAPOR_PART1);
                         tapor1.play(Room.soundVolume);
-                        if (getItemStatus(TAPOR_PART2) == ItemType.STATIC)
+                        if (getItemStatus(TAPOR_PART2) == ItemType.TAKEABLE)
                         {
                             DialogSystem.dialogSystem.startDialog(InGameTexts.tapor2, 1.5f, 0.5f, 0f);
-                        } else {
+                        } else if (getItemStatus(TAPOR_PART2) == ItemType.STATIC){
                             DialogSystem.dialogSystem.startDialog(InGameTexts.tapor1, 2f, 0.5f, 0f);
                         }
                         setItemStatus(TAPOR_PART1, ItemType.STATIC);
@@ -72,9 +72,9 @@ public class Room3 extends Room {
                         addToInventory(TAPOR_PART2);
                         tapor2.play(Room.soundVolume);
                         DialogSystem.dialogSystem.startDialog(InGameTexts.tapor1, 1.5f, 0.5f, 0f);
-                        if (getItemStatus(TAPOR_PART1) == ItemType.STATIC) {
+                        if (getItemStatus(TAPOR_PART1) == ItemType.TAKEABLE) {
                             DialogSystem.dialogSystem.startDialog(InGameTexts.tapor2, 1.5f, 0.5f, 0f);
-                        } else {
+                        } else if (getItemStatus(TAPOR_PART1) == ItemType.STATIC) {
                             DialogSystem.dialogSystem.startDialog(InGameTexts.tapor1, 2f, 0.5f, 0f);
                         }
                         setItemStatus(TAPOR_PART2, ItemType.STATIC);
@@ -130,6 +130,7 @@ public class Room3 extends Room {
     public void itemWasMoved(int fromInventory, int toInventoryItem) {
         if ((fromInventory == TAPOR_PART1 && toInventoryItem == GLUE) || (fromInventory == GLUE && toInventoryItem == TAPOR_PART1)) {
             kle.play(Room.soundVolume);
+            DialogSystem.dialogSystem.startDialog(InGameTexts.kletapor, 2.0f, 0.5f, 0f);
             removeFromInventory(fromInventory);
             removeFromInventory(toInventoryItem);
             addToInventory(GLUED_TAPOR);
@@ -139,6 +140,7 @@ public class Room3 extends Room {
             removeFromInventory(fromInventory);
             wholekey.play(Room.soundVolume);
             removeFromInventory(toInventoryItem);
+            DialogSystem.dialogSystem.startDialog(InGameTexts.tapormer, 2.0f, 0.5f, 0f);
             addToInventory(TAPOR);
         }
     }

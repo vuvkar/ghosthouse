@@ -32,6 +32,9 @@ public class Room1 extends Room {
    static final int DOOR = 13;
    static final int PASSWORD = 28;
 
+   boolean added = false;
+   boolean fixed = true;
+
     Sound bearSound;
     Sound gun;
     Sound glass;
@@ -298,23 +301,27 @@ public class Room1 extends Room {
                     case TAKEABLE:
                         break;
                     case NONTAKEABLE:
-                        setItemStatus(BEAR, ItemType.NONTAKEABLE);
-                        setItemStatus(KEYPART1, ItemType.TAKEABLE);
-                        setItemStatus(WEAPON, ItemType.NONTAKEABLE);
-                        setItemStatus(KEYPART2, ItemType.TAKEABLE);
-                        setItemStatus(WHOLEKEY, ItemType.TAKEABLE);
-                        setItemStatus(BOTTLES, ItemType.TAKEABLE);
-                        setItemStatus(ARM_CHAIR, ItemType.NONTAKEABLE);
-                        setItemStatus(LAMP, ItemType.NONTAKEABLE);
-                        setItemStatus(BOX, ItemType.NONTAKEABLE);
-                        setItemStatus(SCISSORS, ItemType.TAKEABLE);
-                        setItemStatus(NEWSPAPER, ItemType.NONTAKEABLE);
-                        setItemStatus(ALBUM, ItemType.NONTAKEABLE);
-                        setItemStatus(FISHHOOK, ItemType.TAKEABLE);
-                        setItemStatus(NEWSPAPER_ON_THE_WALL, ItemType.NONTAKEABLE);
-                        setItemStatus(WARDROB, ItemType.NONTAKEABLE);
-                        setItemStatus(CLOCK, ItemType.NONTAKEABLE);
-                        setItemStatus(SWITCH, ItemType.NONTAKEABLE);
+                        if(fixed)
+                        {
+                            setItemStatus(BEAR, ItemType.NONTAKEABLE);
+                            setItemStatus(KEYPART1, ItemType.TAKEABLE);
+                            setItemStatus(WEAPON, ItemType.NONTAKEABLE);
+                            setItemStatus(KEYPART2, ItemType.TAKEABLE);
+                            setItemStatus(WHOLEKEY, ItemType.TAKEABLE);
+                            setItemStatus(BOTTLES, ItemType.TAKEABLE);
+                            setItemStatus(ARM_CHAIR, ItemType.NONTAKEABLE);
+                            setItemStatus(LAMP, ItemType.NONTAKEABLE);
+                            setItemStatus(BOX, ItemType.NONTAKEABLE);
+                            setItemStatus(SCISSORS, ItemType.TAKEABLE);
+                            setItemStatus(NEWSPAPER, ItemType.NONTAKEABLE);
+                            setItemStatus(ALBUM, ItemType.NONTAKEABLE);
+                            setItemStatus(FISHHOOK, ItemType.TAKEABLE);
+                            setItemStatus(NEWSPAPER_ON_THE_WALL, ItemType.NONTAKEABLE);
+                            setItemStatus(WARDROB, ItemType.NONTAKEABLE);
+                            setItemStatus(CLOCK, ItemType.NONTAKEABLE);
+                            setItemStatus(SWITCH, ItemType.NONTAKEABLE);
+                            fixed = false;
+                        }
                         Lock miniGame = new Lock();
                         if (canOpenDoor) {
                             miniGame.canWin = true;
@@ -335,7 +342,11 @@ public class Room1 extends Room {
             if (hasWon) {
                 canOpenDoor = true;
                 removeFromInventory(PUZZLE);
-                addToInventory(PASSWORD);
+                if(!added)
+                {
+                 added = true;
+                    addToInventory(PASSWORD);
+                }
             }
         }
         if (miniGame instanceof Lock) {
@@ -359,10 +370,10 @@ public class Room1 extends Room {
 
     @Override
     public void itemWasClickedOnInventory(int itemID) {
-        //  if(itemID == PUZZLE && puzzle_count == 8) {
+          if(itemID == PUZZLE && puzzle_count == 8) {
         this.miniGame = new Puzzle();
         openMiniGame();
-        //  }
+          }
     }
 
     @Override

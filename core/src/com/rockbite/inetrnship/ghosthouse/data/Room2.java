@@ -60,7 +60,7 @@ public class Room2 extends Room {
         timer.schedule(new TimerTask() {
             @Override
             public void run() {
-                DialogSystem.dialogSystem.startDialog(InGameTexts.startr1 + "\n" + InGameTexts.startr2, 3f, 0.5f, 0.3f);
+                DialogSystem.dialogSystem.startDialog(InGameTexts.startr1 + "\n" + InGameTexts.startr2, 5f, 0.5f, 0.3f);
                 removeFromInventory(Room1.PASSWORD);
             }
         }, 1000);
@@ -78,7 +78,7 @@ public class Room2 extends Room {
                         break;
                     case TAKEABLE:
                         recipesound.play(Room.soundVolume);
-                        DialogSystem.dialogSystem.startDialog(InGameTexts.paper1 + "\n" + InGameTexts.paper2, 3f, 0.5f, 0f);
+                        DialogSystem.dialogSystem.startDialog(InGameTexts.paper1 + "\n" + InGameTexts.paper2, 5f, 0.5f, 0f);
                         setItemStatus(SPRAY_BOTTLE, ItemType.TAKEABLE);
                         setItemStatus(RED_BOTTLE, ItemType.TAKEABLE);
                         setItemStatus(DRUG_BOTTLE, ItemType.TAKEABLE);
@@ -104,7 +104,7 @@ public class Room2 extends Room {
                                 create.schedule(new TimerTask() {
                                     public void run() {
                                         changeTexture(4, "door2withbug");
-                                        DialogSystem.dialogSystem.startDialog(InGameTexts.bug1 + "\n" + InGameTexts.bug3, 3f, 0.5f, 0.2f);
+                                        DialogSystem.dialogSystem.startDialog(InGameTexts.bug1 + "\n" + InGameTexts.bug3, 5f, 0.5f, 0.2f);
                                         Timer create2 = new Timer();
                                         create2.schedule(new TimerTask() {
                                             public void run() {
@@ -127,14 +127,14 @@ public class Room2 extends Room {
                 switch (getItemStatus(SPRAY_BOTTLE)) {
                     case STATIC:
                         if(foundpaper)
-                        DialogSystem.dialogSystem.startDialog(InGameTexts.recipe, 1.5f, 0.5f, 0f);
+                        DialogSystem.dialogSystem.startDialog(InGameTexts.recipe, 2.0f, 0.5f, 0f);
                         break;
                     case TAKEABLE:
                         spray.play(Room.soundVolume);
                         addToInventory(SPRAY_BOTTLE);
                         changeTexture(SPRAY_BOTTLE, "");
                         setItemStatus(SPRAY_BOTTLE, ItemType.NONTAKEABLE);
-                        DialogSystem.dialogSystem.startDialog(InGameTexts.spray, 1.5f, 0.5f, 0f);
+                        DialogSystem.dialogSystem.startDialog(InGameTexts.spray, 2.0f, 0.5f, 0f);
                         break;
                     case NONTAKEABLE:
                         break;
@@ -143,7 +143,7 @@ public class Room2 extends Room {
             case RED_BOTTLE:
                 switch (getItemStatus(RED_BOTTLE)) {
                     case STATIC:
-                        DialogSystem.dialogSystem.startDialog(InGameTexts.recipe, 1.5f, 0.5f, 0f);
+                        DialogSystem.dialogSystem.startDialog(InGameTexts.recipe, 2.0f, 0.5f, 0f);
 
                         break;
                     case TAKEABLE:
@@ -160,7 +160,7 @@ public class Room2 extends Room {
             case DRUG_BOTTLE:
                 switch (getItemStatus(DRUG_BOTTLE)) {
                     case STATIC:
-                        DialogSystem.dialogSystem.startDialog(InGameTexts.recipe, 1.5f, 0.5f, 0f);
+                        DialogSystem.dialogSystem.startDialog(InGameTexts.recipe, 2.0f, 0.5f, 0f);
 
                         break;
                     case TAKEABLE:
@@ -176,7 +176,7 @@ public class Room2 extends Room {
             case YELLOW_BOTTLE:
                 switch (getItemStatus(YELLOW_BOTTLE)) {
                     case STATIC:
-                        DialogSystem.dialogSystem.startDialog(InGameTexts.recipe, 1.5f, 0.5f, 0f);
+                        DialogSystem.dialogSystem.startDialog(InGameTexts.recipe, 2.0f, 0.5f, 0f);
 
                         break;
                     case TAKEABLE:
