@@ -11,26 +11,26 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 public class Room1 extends Room {
-    final int BEAR = 7;
-    final int KEYPART1 = 24;
-    final int WEAPON = 16;
-    final int KEYPART2 = 25;
-    final int WHOLEKEY = 26;
-    final int BOTTLES = 5;
-    final int ARM_CHAIR = 8;
-    final int LAMP = 17;
-    final int BOX = 6;
-    final int SCISSORS = 18;
-    final int NEWSPAPER = 12;
-    final int ALBUM = 1;
-    final int FISHHOOK = 15;
-    final int NEWSPAPER_ON_THE_WALL = 19;
-    final int WARDROB = 23;
-    final int CLOCK = 9;
-    final int PUZZLE = 27;
-    final int SWITCH = 22;
-    final int DOOR = 13;
-    final int PASSWORD = 28;
+   static final int BEAR = 7;
+   static final int KEYPART1 = 24;
+   static final int WEAPON = 16;
+   static final int KEYPART2 = 25;
+   static final int WHOLEKEY = 26;
+   static final int BOTTLES = 5;
+   static final int ARM_CHAIR = 8;
+   static final int LAMP = 17;
+   static final int BOX = 6;
+   static final int SCISSORS = 18;
+   static final int NEWSPAPER = 12;
+   static final int ALBUM = 1;
+   static final int FISHHOOK = 15;
+   static final int NEWSPAPER_ON_THE_WALL = 19;
+   static final int WARDROB = 23;
+   static final int CLOCK = 9;
+   static final int PUZZLE = 27;
+   static final int SWITCH = 22;
+   static final int DOOR = 13;
+   static final int PASSWORD = 28;
 
     Sound bearSound;
     Sound gun;
@@ -349,7 +349,7 @@ public class Room1 extends Room {
                         removeFromInventory(PUZZLE);
                         leaveRoom();
                     }
-                }, 2000);
+                }, 1000);
 
             } else {
                 DialogSystem.dialogSystem.startDialog(InGameTexts.pagvel + "\n" + InGameTexts.pagvel2, 5f, 0.5f, 0f);

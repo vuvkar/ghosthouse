@@ -20,7 +20,7 @@ public class DialogSystem {
     private float time = 0;
     private float delay = 0;
     private float duration = 0;
-    public boolean isDialogOn = false;
+    public static boolean isDialogOn = false;
     InputProcessor zibil;
     private boolean startCountdown = false;
 
@@ -34,7 +34,7 @@ public class DialogSystem {
         label1Style.font = font;
         label1Style.fontColor = new Color(202/255f, 240/255f, 1,1);
 
-        dialogBox = new LockActor(new Texture(Gdx.files.internal("MiniGame/dialog.png")), Gdx.graphics.getWidth()/2f-300, Gdx.graphics.getHeight() - 210f, "bar", 0);
+        dialogBox = new LockActor(new Texture(Gdx.files.internal("MiniGame/dialog.png")), Gdx.graphics.getWidth()/2f-300, Gdx.graphics.getHeight() - 240f, "bar", 0);
         stage.addActor(dialogBox);
         dialogBox.setVisible(false);
         dialogText = new Label("some text",label1Style);

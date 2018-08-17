@@ -29,7 +29,7 @@ public class MainGame {
     private AssetLoader assetLoader;
     public InputController inputController;
     private SaveDataLoader saveDataLoader;
-
+public boolean boom=false;
     public static boolean miniGameOn = false;
     private Array<Room> rooms;
     public static InputMultiplexer multiplexer = new InputMultiplexer();
@@ -120,7 +120,7 @@ public class MainGame {
 //        timer.schedule(new TimerTask() {
 //            @Override
 //            public void run() {
-//                moveToRoom(1);
+//                moveToRoom(3);
 //            }
 //        }, 1000);
 
@@ -146,7 +146,7 @@ public class MainGame {
             building.getCurrentRoom().miniGame.render();
         }
 
-//        DialogSystem.dialogSystem.render();
+     DialogSystem.dialogSystem.render();
 
         // DO postprocessing of FBO and render it to screen
         // TODO: final render

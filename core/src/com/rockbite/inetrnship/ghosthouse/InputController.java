@@ -176,9 +176,13 @@ public class InputController implements InputProcessor {
     @Override
     public boolean touchDown(int screenX, int screenY, int pointer, int button) {
         //If intersects the objects' mesh
+        if(DialogSystem.isDialogOn){
+            return true;
+        }
         if(isMoving){
             return true;
         }
+
         ClickPos.set(Gdx.input.getX(), Gdx.input.getY(), 0);
         if(ghostHouse.mainUI.gameison) {
             if (isIntersected()) {
